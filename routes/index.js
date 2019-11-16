@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const facultiesRouters = require('../microservice/faculties/routers')
+const lessonsRouters = require('../microservice/lessons/routers')
+const papersRouters = require('../microservice/papers/routers')
+const usersRouters = require('../microservice/users/routers')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+module.exports = (app) => {
+  app.use('/', usersRouters.userRouter);
+  app.use('/', usersRouters.teacherRouter);
+  app.use('/', usersRouters.studentRouter);
 
-module.exports = router;
+  app.use('/', facultiesRouters.facultyRouter);
+  app.use('/', facultiesRouters.departmentRouter);
+  app.use('/', facultiesRouters.groupRouter);
+  app.use('/', facultiesRouters.specialityRouter);
+
+}

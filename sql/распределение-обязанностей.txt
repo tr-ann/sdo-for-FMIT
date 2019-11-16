@@ -1,0 +1,40 @@
+1. факультеты/группы (sas'sha)
+	- faculty
+	- info-faculty
+	- department
+	- speciality
+	- study_mode
+	- group
+	- subgroup
+2. пользователи (преподаватели/студенты)
+	- role
+	- user
+	- user_role
+	- phone
+	- user_info
+	//////
+	- academic_rank 
+	- academic_degree
+	- position
+ 	- teacher
+	- curator
+	//////
+	- student
+	- student_vs_subgroup
+3. занятия
+	- room_type
+	- lesson_type
+	- building
+	- discipline
+	- lesson_number
+	- lecture_room
+	- lesson
+4. практики/дипломки/защитки_курсовых
+	- resource
+	- status
+	- request
+	- term_paper
+	- graduation_paper
+	- organization
+	- practice_type
+	- practice
