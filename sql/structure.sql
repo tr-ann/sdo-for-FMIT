@@ -108,6 +108,7 @@ DROP TABLE IF EXISTS "department";
 CREATE TABLE "department" (
     "id"                    SERIAL      PRIMARY KEY,
     "name"                  VARCHAR(100)NOT NULL UNIQUE,
+    "faculty_id"            INT NOT NULL,
     "owner_id"              INT         ,
     "phone"                 VARCHAR(30) ,
     "room_id"               INT         
@@ -116,8 +117,9 @@ CREATE TABLE "department" (
 /* Таблица "телефон" */
 DROP TABLE IF EXISTS "phone";
 CREATE TABLE "phone" (
+    "id"                    SERIAL PRIMARY KEY
     "user_id"               INT         ,
-    "phone"                 VARCHAR(30) PRIMARY KEY
+    "phone"                 VARCHAR(30)
 );
 
 /* Таблица "ресурс" */
@@ -237,7 +239,6 @@ CREATE TABLE "student" (
     "full_name"             VARCHAR(300) NOT NULL,
     "short_name"            VARCHAR(100) NOT NULL,
     "group_id"              INT         ,
-    "subgroup_id"              INT         ,
     "record_book"           VARCHAR(30)  NOT NULL,
 );
 
@@ -313,7 +314,7 @@ CREATE TABLE "graduation_paper" (
     "topic"                 VARCHAR(50) NOT NULL,
     "name"                  VARCHAR(90) NOT NULL,
     "description"           TEXT        ,
-    "source_id"             INT         
+    "resource_id"             INT         
 );
 
 /* Таблица "организация" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -342,6 +343,6 @@ CREATE TABLE "practice" (
     "description"           TEXT        ,
     "start_date"            DATE        NOT NULL,
     "end_date"              DATE        NOT NULL,
-    "source_id"             INT         ,
-    "type_id"               INT         
+    "resource_id"             INT         ,
+    "type_id"               INT         ,
 );

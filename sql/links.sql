@@ -7,6 +7,7 @@ ALTER TABLE lecture_room
 ALTER TABLE department
     ADD CONSTRAINT FK_department_to_user FOREIGN KEY(owner_id) REFERENCES user(id),
         ADD CONSTRAINT FK_department_to_lecture_room FOREIGN KEY(room_id) REFERENCES lecture_room(id);
+			ADD CONSTRAINT FK_department_to_faculty FOREIGN KEY(faculty_id) REFERENCES faculty(id);
 	
 /* таблица пользователь */
 ALTER TABLE user_role
@@ -20,7 +21,7 @@ ALTER TABLE phone
 /* таблица информация о пользователе */
 ALTER TABLE user_info
     ADD CONSTRAINT FK_user_info_to_user FOREIGN KEY(user_id) REFERENCES user(id),
-        ADD CONSTRAINT FK_user_info_to_source FOREIGN KEY(photo_id) REFERENCES source(id);
+        ADD CONSTRAINT FK_user_info_to_resource FOREIGN KEY(photo_id) REFERENCES resource(id);
 
 /* таблица преподаватель */
 ALTER TABLE teacher
