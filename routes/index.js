@@ -4,13 +4,13 @@ const papersRouters = require('../microservice/papers/routers')
 const usersRouters = require('../microservice/users/routers')
 
 module.exports = (app) => {
-  app.use('/', usersRouters.userRouter);
-  app.use('/', usersRouters.teacherRouter);
-  app.use('/', usersRouters.studentRouter);
+  app.use('/users', usersRouters.userRouter);
+  app.use('/teachers', usersRouters.teacherRouter);
+  app.use('/students', usersRouters.studentRouter);
 
-  app.use('/', facultiesRouters.facultyRouter);
-  app.use('/', facultiesRouters.departmentRouter);
-  app.use('/', facultiesRouters.groupRouter);
-  app.use('/', facultiesRouters.specialityRouter);
+  app.use('/faculties', facultiesRouters.facultyRouter);
+  app.use('/departments', facultiesRouters.departmentRouter);
+  app.use('/groups', facultiesRouters.groupRouter);
+  app.use('/specialities', facultiesRouters.specialityRouter);
 
 }
