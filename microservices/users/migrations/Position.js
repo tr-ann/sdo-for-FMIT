@@ -1,23 +1,19 @@
 module.exports = {
     up: (queryInterface, sequelize) => {
-        return queryInterface.createTable('user', {
+        return queryInterface.createTable('position', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: sequelize.INTEGER,
             },
-            login: {
+            name: {
                 allowNull: false,
-                type: sequelize.STRING(100),
-            },
-            password: {
-                allowNull: false,
-                type: sequelize.STRING(100),
+                type: sequelize.STRING,
             },
         });
     },
     down: (queryInterface, sequelize) => {
-        return queryInterface.dropTable('user');
+        return queryInterface.dropTable('position');
     }
 };

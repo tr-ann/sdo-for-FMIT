@@ -23,6 +23,15 @@ module.exports = (sequelize, DataTypes) => {
             type: sequelize.STRING,
         },
     }, {});
-    UserInfo.associate = function (models) { };
+    UserInfo.associate = function (models) {
+        UserInfo.belongsTo(models.User, {
+            foreignKey: 'user_id',
+            as: 'user',
+        });
+        UserInfo.belongsTo(models.Resource, {
+            foreignKey: 'resource_id',
+            as: 'resource',
+        })
+    };
     return UserInfo;
 }

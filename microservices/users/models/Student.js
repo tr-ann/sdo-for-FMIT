@@ -20,6 +20,15 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {});
     Student.associate = function (models) {
+        Student.belongsTo(models.User, {
+            foreignKey: 'user_id',
+            as: 'user',
+        });
+        Student.belongsTo(models.Group, {
+            foreignKey: 'group_id',
+            as: 'group',
+        });
+
         Student.hasMany(models.GraduationPaper, {
             foreignKey: 'student_id',
             as: 'graduationPapers',

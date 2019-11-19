@@ -16,6 +16,27 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {});
     Teacher.associate = function (models) {
+        Teacher.belongsTo(models.User, {
+            foreignKey: 'user_id',
+            as: 'user',
+        });
+        Teacher.belongsTo(models.Department, {
+            foreignKey: 'department_id',
+            as: 'department',
+        });
+        Teacher.belongsTo(models.Position, {
+            foreignKey: 'position_id',
+            as: 'position',
+        });
+        Teacher.belongsTo(models.AcademicRank, {
+            foreignKey: 'academic_rank_id',
+            as: 'academicRank',
+        });
+        Teacher.belongsTo(models.AcademicDegree, {
+            foreignKey: 'academic_degree_id',
+            as: 'academicDegree',
+        })
+
         Teacher.hasMany(models.GraduationPaper, {
             foreignKey: 'teacher_id',
             as: 'graduationPapers',
@@ -28,10 +49,14 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'teacher_id',
             as: 'requests',
         });
+        Teacher.hasMany(models.Lesson, {
+            foreignKey: 'teacher_id',
+            as: 'lessons',
+        });
         Teacher.belongsToMany(models.Group, {
             through: Curator,
             foreignKey: 'teacher_id',
-            as: 'teachers',
+            as: 'groups',                   //метод для получения всех групп этого препода или всех преподов для какой-то группы
         })
     };
     return Teacher;

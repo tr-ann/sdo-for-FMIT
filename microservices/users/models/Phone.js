@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
             type: sequelize.STRING(30),
         },
     }, {});
-    Phone.associate = function (models) { }
+    Phone.associate = function (models) {
+        Phone.belongsTo(models.User, {
+            foreignKey: 'user_id',
+            as: 'user'                // этот метод вернет все телефоны юзера или одного юзера для данного телефона?
+        })
+    }
     return Phone;
 }

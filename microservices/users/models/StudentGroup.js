@@ -7,6 +7,6 @@ module.exports = (sequelize, DataTypes) => {
             type: sequelize.INTEGER,
         },
     }, {});
-    Student_vs_Group.associate = function (models) { };
+    Student_vs_Group.associate = function (models) {};
     return Student_vs_Group;
 };
