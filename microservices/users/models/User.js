@@ -4,24 +4,31 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: Sequelize.INTEGER,
+            type: sequelize.INTEGER,
         },
         login: {
             allowNull: false,
-            type: Sequelize.STRING(100),
+            type: sequelize.STRING(100),
         },
         password: {
             allowNull: false,
-            type: Sequelize.STRING(200),
+            type: sequelize.STRING(100),
         },
     }, {});
     User.associate = function(models) {
       // associations can be defined here
-      /*User.hasMany(models.Comment,{
-        foreignKey: 'userId',
-        as: 'comments'
-      });*/
-  
+        User.belongsToMany(models.Role, {
+            through: User_Role,
+            foreignKey: 'user_id',
+            as: 'users',        // maybe 'roles'
+        });
+        User.hasMany(models.Phone, {
+            foreignKey: 'user_id',
+            as: 'phones',
+        });
+        User.hasOne(models.UserInfo, { foreingKey: 'user_id' });
+        User.hasOne(models.Student, { foreingKey: 'user_id', onDelete: 'restrict' });
+        User.hasOne(models.Teacher, { foreingKey: 'user_id', onDelete: 'restrict' });
     };
     return User;
 };
