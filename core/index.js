@@ -1,4 +1,5 @@
-const ResponseFormat = require('./ResponseFormat');
-module.exports = {
-    ResponseFormat
+import ResponseFormat from './ResponseFormat'
+
+export default {
+    ResponseFormat,
 }

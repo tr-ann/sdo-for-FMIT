@@ -1,6 +1,6 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('lecture_room', {
+        return queryInterface.createTable('LectureRoom', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -11,31 +11,31 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.STRING(10),
             },
-            type_id: {
-                allowNull: false,
+            typeId: {
+                allowNull: true,
                 type: Sequelize.INTEGER,
                 references: {
-                  model: 'lesson_type',
+                  model: 'LessonType',
                   Key: 'id',
-                  as: 'type_id'
+                  as: 'typeId'
                 },
             },
-            building_id: {
-                allowNull: false,
+            buildingId: {
+                allowNull: true,
                 type: Sequelize.INTEGER,
                 references: {
-                  model: 'building',
+                  model: 'Building',
                   Key: 'id',
-                  as: 'building_id'
+                  as: 'buildingId'
                 },
             },
-            seats_count: {
+            seatsCount: {
                 allowNull: false,
                 type: Sequelize.INTEGER,
             },
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('lecture_room');
+        return queryInterface.dropTable('LectureRoom');
     }
 };

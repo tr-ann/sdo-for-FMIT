@@ -1,24 +1,36 @@
-module.exports = (sequelize, DataTypes) => {
-    var LectureRoom = sequelize.define('lecture_room', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: sequelize.INTEGER,
-        },
+export default (sequelize, DataTypes) => {
+
+    const LectureRoom = sequelize.define('lecture_room', {
         number: {
             allowNull: false,
-            type: sequelize.STRING(10),
+            type: Sequelize.STRING(10),
         },
         seats_count: {
             allowNull: false,
-            type: sequelize.INTEGER,
+            type: Sequelize.INTEGER,
         },
-    }, {});
+    }, {
+        underscored: true,
+        name: {
+            singular: 'LectureRoom',
+            plural: 'LectureRooms',
+        },
+    })
+
     LectureRoom.associate = function(models) {
-        LectureRoom.belongsTo(models.RoomType, {foreignKey: 'type_id', as: 'roomType'})
-        LectureRoom.belongsTo(models.Building, {foreignKey: 'building_id', as: 'building'})
-        LectureRoom.hasMany(models.Lesson, {foreignKey: 'room_id', as: 'lessons'})
-    };
+        LectureRoom.belongsTo(models.room_type, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+        LectureRoom.belongsTo(models.building, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+        LectureRoom.hasMany(models.lesson, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+    }
+
     return LectureRoom;
 };

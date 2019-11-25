@@ -1,6 +1,6 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('lesson_number', {
+        return queryInterface.createTable('LessonNumber', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -11,25 +11,25 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.INTEGER,
             },
-            start_time1: {
+            startTime1: {
                 allowNull: false,
                 type: Sequelize.TIME,
             },
-            end_time1: {
+            endTime1: {
                 allowNull: false,
                 type: Sequelize.TIME,
             },
-            start_time2: {
+            startTime2: {
                 allowNull: false,
                 type: Sequelize.TIME,
             },
-            end_time2: {
+            endTime2: {
                 allowNull: false,
                 type: Sequelize.TIME,
             },
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('lesson_number');
+        return queryInterface.dropTable('LessonNumber');
     }
 };
