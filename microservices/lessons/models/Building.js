@@ -1,18 +1,24 @@
-module.exports = (sequelize, DataTypes) => {
-    var Building = sequelize.define('building', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: sequelize.INTEGER,
-        },
+export default (sequelize, DataTypes) => {
+
+    const Building = sequelize.define('building', {
         name: {
             allowNull: false,
-            type: sequelize.STRING(200),
+            type: Sequelize.STRING(200),
         },
-    }, {});
+    }, {
+        underscored: true,
+        name: {
+            singular: 'Building',
+            plural: 'Buildings',
+        },
+    })
+    
     Building.associate = function(models) {
-        Building.hasMany(models.LectureRoom, {foreignKey: 'building_id', as: 'lectureRooms'})
-    };
+        Building.hasMany(models.lecture_room, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+    }
+
     return Building;
 };

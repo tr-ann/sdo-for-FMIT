@@ -1,18 +1,24 @@
-module.exports = (sequelize, DataTypes) => {
-    var RoomType = sequelize.define('room_type', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: sequelize.INTEGER,
-        },
+export default (sequelize, DataTypes) => {
+
+    const RoomType = sequelize.define('room_type', {
         name: {
             allowNull: false,
-            type: sequelize.STRING(100),
+            type: Sequelize.STRING(100),
         },
-    }, {});
+    }, {
+        underscored: true,
+        name: {
+            singular: 'RoomType',
+            plural: 'RoomTypes',
+        },
+    })
+
     RoomType.associate = function(models) {
-        RoomType.hasMany(models.LectureRoom, {foreignKey: 'type_id', as: 'lectureRooms'})
-    };
+        RoomType.hasMany(models.lecture_room, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+    }
+
     return RoomType;
 };

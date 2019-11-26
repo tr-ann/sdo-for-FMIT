@@ -1,18 +1,24 @@
-module.exports = (sequelize, DataTypes) => {
-    var LessonType = sequelize.define('lesson_type', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: sequelize.INTEGER,
-        },
+export default (sequelize, DataTypes) => {
+
+    const LessonType = sequelize.define('lesson_type', {
         name: {
             allowNull: false,
-            type: sequelize.STRING(100),
+            type: Sequelize.STRING(100),
         },
-    }, {});
+    }, {
+        underscored: true,
+        name: {
+            singular: 'LessonType',
+            plural: 'LessonTypes',
+        },
+    })
+
     LessonType.associate = function(models) {
-        LessonType.hasMany(models.Lesson, {foreignKey: 'type_id', as: 'lessons'})
-    };
+        LessonType.hasMany(models.lesson, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+    }
+
     return LessonType;
 };

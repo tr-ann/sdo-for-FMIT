@@ -1,22 +1,31 @@
-module.exports = (sequelize, DataTypes) => {
-    var Discipline = sequelize.define('discipline', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: sequelize.INTEGER,
-        },
+import Sequelize from 'sequelize'
+
+export default (sequelize, DataTypes) => {
+
+    const Discipline = sequelize.define('discipline', {
         name: {
             allowNull: false,
-            type: sequelize.STRING(100),
+            type: Sequelize.STRING(100),
         },
         short_name: {
             allowNull: false,
-            type: sequelize.STRING(20),
+            type: Sequelize.STRING(20),
         },
-    }, {});
+    }, {
+        underscored: true,
+        name: {
+            singular: 'Discipline',
+            plural: 'Disciplines',
+        },
+    })
+
     Discipline.associate = function(models) {
-        Discipline.hasMany(models.Lesson, {foreignKey: 'discipline_id', as: 'lessons'})
-    };
+        let l = new Sequelize.
+        Discipline.hasMany(models.lesson, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+    }
+
     return Discipline;
 };

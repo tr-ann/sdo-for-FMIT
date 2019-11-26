@@ -1,34 +1,40 @@
-module.exports = (sequelize, DataTypes) => {
-    var LessonNumber = sequelize.define('lesson_number', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: sequelize.INTEGER,
-        },
+export default (sequelize, DataTypes) => {
+    
+    const LessonNumber = sequelize.define('lesson_number', {
         number: {
             allowNull: false,
-            type: sequelize.INTEGER,
+            type: Sequelize.INTEGER,
         },
-        start_time1: {
+        start_time_1: {
             allowNull: false,
-            type: sequelize.TIME,
+            type: Sequelize.TIME,
         },
-        end_time1: {
+        end_time_1: {
             allowNull: false,
-            type: sequelize.TIME,
+            type: Sequelize.TIME,
         },
-        start_time2: {
+        start_time_2: {
             allowNull: false,
-            type: sequelize.TIME,
+            type: Sequelize.TIME,
         },
-        end_time2: {
+        end_time_2: {
             allowNull: false,
-            type: sequelize.TIME,
+            type: Sequelize.TIME,
         },
-    }, {});
+    }, {
+        underscored: true,
+        name: {
+            singular: 'LessonNumber',
+            plural: 'LessonNumbers',
+        },
+    })
+
     LessonNumber.associate = function(models) {
-        LessonNumber.hasMany(models.Lesson, {foreignKey: 'lesson_number_id', as: 'lessons'})
-    };
+        LessonNumber.hasMany(models.lesson, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+    }
+
     return LessonNumber;
 };

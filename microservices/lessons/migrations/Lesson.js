@@ -1,90 +1,82 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('lesson', {
+        return queryInterface.createTable('Lesson', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            /*
-            Не уверен, как организовать возможность,
-            где либо подгруппа NULL, либо группа NULL
-            */
-            group_id: {
+            groupId: {
                 allowNull: true,
                 type: Sequelize.INTEGER,
                 references: {
-                  model: 'group',
+                  model: 'Group',
                   Key: 'id',
-                  as: 'group_id'
+                  as: 'groupId'
                 },
             },
-            subgroup_id: {
-                allowNull: false,
-                type: Sequelize.INTEGER,
-                references: {
-                  model: 'subgroup',
-                  Key: 'id',
-                  as: 'subgroup_id'
-                },
-            },
-            teacher_id: {
+            subgroupId: {
                 allowNull: true,
                 type: Sequelize.INTEGER,
                 references: {
-                  model: 'teacher',
+                  model: 'Subgroup',
                   Key: 'id',
-                  as: 'teacher_id'
+                  as: 'subgroupId'
                 },
             },
-            type_id: {
-                allowNull: false,
-                type: Sequelize.INTEGER,
-                references: {
-                  model: 'lesson_type',
-                  Key: 'id',
-                  as: 'type_id'
-                },
-            },
-            /*
-            Не уверен, может ли быть обущен номер аудитории (может даже у спорт. зала есть)
-            Также есть, например, небольшие помещения для уборщиц :)
-            */
-            room_id: {
+            teacherId: {
                 allowNull: true,
                 type: Sequelize.INTEGER,
                 references: {
-                  model: 'lecture_room',
+                  model: 'Teacher',
                   Key: 'id',
-                  as: 'room_id'
+                  as: 'teacherId'
                 },
             },
-            discipline_id: {
-                allowNull: false,
+            typeId: {
+                allowNull: true,
                 type: Sequelize.INTEGER,
                 references: {
-                  model: 'discipline',
+                  model: 'LessonType',
                   Key: 'id',
-                  as: 'discipline_id'
+                  as: 'typeId'
                 },
             },
-            lesson_number_id: {
-                allowNull: false,
+            roomId: {
+                allowNull: true,
                 type: Sequelize.INTEGER,
                 references: {
-                  model: 'lesson_number',
+                  model: 'LectureRoom',
                   Key: 'id',
-                  as: 'lesson_number_id'
+                  as: 'roomId'
                 },
             },
-            week_day: {
+            disciplineId: {
+                allowNull: true,
+                type: Sequelize.INTEGER,
+                references: {
+                  model: 'Discipline',
+                  Key: 'id',
+                  as: 'disciplineId'
+                },
+            },
+            lessonNumberId: {
+                allowNull: true,
+                type: Sequelize.INTEGER,
+                references: {
+                  model: 'LessonNumber',
+                  Key: 'id',
+                  as: 'lessonNumberId'
+                },
+            },
+            weekDay: {
                 allowNull: false,
                 type: Sequelize.INTEGER,
             },
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('lesson');
+        return queryInterface.dropTable('Lesson');
     }
 };
