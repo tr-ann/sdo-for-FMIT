@@ -1,11 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
     var Student = sequelize.define('student', {
-        id: {
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-            type: sequelize.INTEGER,
-        },
         fullName: {
             allowNull: false,
             type: sequelize.STRING(100),
@@ -18,38 +12,40 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: sequelize.STRING(30),
         }
-    }, {});
+    }, {
+        underscope: true,
+        timestamp: true, // надо??
+        name: {
+            simple: 'student',
+            plural: 'students',
+        }
+    });
     Student.associate = function (models) {
         Student.belongsTo(models.User, {
-            foreignKey: 'user_id',
-            as: 'user',
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         });
         Student.belongsTo(models.Group, {
-            foreignKey: 'group_id',
-            as: 'group',
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         });
 
         Student.hasMany(models.GraduationPaper, {
-            foreignKey: 'student_id',
-            as: 'graduationPapers',
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         });
         Student.hasMany(models.TermPaper, {
-            foreignKey: 'student_id',
-            as: 'termPapers',
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         });
         Student.hasMany(models.Request, {
-            foreignKey: 'student_id',
-            as: 'requests',
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         });
         Student.hasMany(models.Practice, {
-            foreignKey: 'student_id',
-            as: 'practices',
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         });
-        Student.belongsToMany(models.Subgroup, {
-            through: Student_vs_Subgroup,
-            foreignKey: 'student_id',
-            as: 'students',
-        })
     };
     return Student;
 }

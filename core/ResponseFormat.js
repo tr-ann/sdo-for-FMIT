@@ -17,4 +17,4 @@ const ResponseFormat = {
     }
 }
 
-module.exports = ResponseFormat
+export default ResponseFormat

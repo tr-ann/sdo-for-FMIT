@@ -1,0 +1,10 @@
+{
+    "dev": {
+      "host": "localhost",
+      "driver": "mysql",
+      "user": "root",
+      "password": "root",
+      "database": "migrate-test",
+      "multipleStatements": true
+    }, "sql-file": true
+  }

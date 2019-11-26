@@ -1,33 +1,33 @@
 module.exports = {
     up: (queryInterface, sequelize) => {
-        return queryInterface.createTable('curator', {
+        return queryInterface.createTable('Curator', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: sequelize.INTEGER,
             },
-            teacher_id: {
+            teacherId: {
                 allowNull: false,
                 type: sequelize.INTEGER,
                 references: {
                     model: 'teacher',
-                    key: id,
+                    key: 'id',
                     as: 'teacherId',
                 },
             },
-            group_id: {
+            groupId: {
                 allowNull: false,
                 type: sequelize.INTEGER,
                 references: {
                     model: 'group',
-                    key: id,
+                    key: 'id',
                     as: 'groupId',
                 },
             },
         })
     },
     down: (queryInterface, sequelize) => {
-        return queryInterface.dropTable('curator');
+        return queryInterface.dropTable('Curator');
     }
 }

@@ -1,12 +1,21 @@
 module.exports = (sequelize, DataTypes) => {
-    var User_Role = sequelize.define('user_role', {
-        id: {
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-            type: sequelize.INTEGER,
-        },
-    }, {});
-    User_Role.associate = function (models) { };
-    return User_Role;
+    var UserRole = sequelize.define('user_role', {}, {
+        underscope: true,
+        timestamp: true, // надо??
+        name: {
+            simple: 'userRole',
+            plural: 'userRoles',
+        }
+    });
+    UserRole.associate = function (models) {
+        UserRole.belongsTo(models.User, {
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
+        });
+        UserRole.belongsTo(models.Role, {
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
+        });
+    };
+    return UserRole;
 };

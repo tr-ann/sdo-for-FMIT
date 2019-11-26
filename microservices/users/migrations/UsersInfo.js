@@ -1,6 +1,6 @@
 module.exports = {
     up: (queryInterface, sequelize) => {
-        return queryInterface.createTable('user_info', {
+        return queryInterface.createTable('UserInfo', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -23,18 +23,18 @@ module.exports = {
                 allowNull: true, // ????
                 type: sequelize.STRING,
             },
-            photo_id: {
+            photoId: {
                 allowNull: false,
                 type: sequelize.INTEGER,
                 references: {
                     model: 'resource',
-                    key: id,
+                    key: 'id',
                     as: 'photoId',
                 }
             }
         })
     },
     down: (queryInterface, sequelize) => {
-        return queryInterface.dropTable('user_info');
+        return queryInterface.dropTable('UserInfo');
     }
 }

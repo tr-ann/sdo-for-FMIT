@@ -1,11 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
     var UserInfo = sequelize.define('user_info', {
-        id: {
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-            type: sequelize.INTEGER,
-        },
         description: {
             allowNull: false,
             type: sequelize.TEXT,
@@ -22,15 +16,22 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: sequelize.STRING,
         },
-    }, {});
+    }, {
+        underscope: true,
+        timestamp: true, // надо??
+        name: {
+            simple: 'userInfo',
+            plural: 'usersInfo',
+        }
+    });
     UserInfo.associate = function (models) {
-        UserInfo.belongsTo(models.User, {
-            foreignKey: 'user_id',
-            as: 'user',
+        UserInfo.belongsTo(models.user, {
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         });
         UserInfo.belongsTo(models.Resource, {
-            foreignKey: 'resource_id',
-            as: 'resource',
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         })
     };
     return UserInfo;

@@ -1,6 +1,6 @@
 module.exports = {
     up: (queryInterface, sequelize) => {
-        return queryInterface.createTable('student', {
+        return queryInterface.createTable('Student', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -16,22 +16,22 @@ module.exports = {
                 allowNull: false,
                 type: sequelize.STRING,
             },
-            group_id: {
+            groupId: {
                 allowNull: false,
                 type: sequelize.INTEGER,
                 references: {
                     model: 'group',
-                    key: id,
+                    key: 'id',
                     as: 'groupId',
                 },
             },
-            record_book: {
+            recordBook: {
                 allowNull: false,
                 type: sequelize.STRING(30),
             }
         })
     },
     down: (queryInterface, sequelize) => {
-        return queryInterface.dropTable('student');
+        return queryInterface.dropTable('Student');
     }
 }

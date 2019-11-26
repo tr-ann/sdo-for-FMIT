@@ -1,6 +1,6 @@
 module.exports = {
     up: (queryInterface, sequelize) => {
-        return queryInterface.createTable('teacher', {
+        return queryInterface.createTable('Teacher', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -16,12 +16,12 @@ module.exports = {
                 allowNull: false,
                 type: sequelize.STRING,
             },
-            department_id: {
+            departmentId: {
                 allowNull: false,
                 type: sequelize.INTEGER,
                 references: {
                     model: 'department',
-                    key: id,
+                    key: 'id',
                     as: 'departmentId',
                 },
             },
@@ -30,31 +30,31 @@ module.exports = {
                 type: sequelize.INTEGER,
                 references: {
                     model: 'position',
-                    key: id,
+                    key: 'id',
                     as: 'positionId',
                 },
             },
-            academic_rank_id: {
+            academicRankId: {
                 allowNull: false,
                 type: sequelize.INTEGER,
                 references: {
-                    model: 'academic_rank',
-                    key: id,
+                    model: 'academicRank',
+                    key: 'id',
                     as: 'academicRankId',
                 },
             },
-            academic_degree_id: {
+            academicDegreeId: {
                 allowNull: false,
                 type: sequelize.INTEGER,
                 references: {
-                    model: 'academic_degree',
-                    key: id,
+                    model: 'academicDegree',
+                    key: 'id',
                     as: 'academicDegreeId',
                 },
             },
         })
     },
     down: (queryInterface, sequelize) => {
-        return queryInterface.dropTable('teacher');
+        return queryInterface.dropTable('Teacher');
     }
 }

@@ -343,6 +343,6 @@ CREATE TABLE "practice" (
     "description"           TEXT        ,
     "start_date"            DATE        NOT NULL,
     "end_date"              DATE        NOT NULL,
-    "resource_id"             INT         ,
+    "resource_id"             INT       ,
     "type_id"               INT         ,
 );

@@ -1,20 +1,21 @@
 module.exports = (sequelize, DataTypes) => {
     var AcademicDegree = sequelize.define('academic_degree', {
-        id: {
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-            type: sequelize.INTEGER,
-        },
         name: {
             allowNull: false,
             type: sequelize.STRING(100),
         },
-    }, {});
+    }, {
+        underscope: true,
+        timestamp: true, // надо??
+        name: {
+            simple: 'academicDegree',
+            plural: 'academicDegrees',
+        }
+    });
     AcademicDegree.associate = function (models) {
         AcademicDegree.hasMany(models.Teacher, {
-            foreignKey: 'academic_degree_id',
-            as: 'teachers',
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         });
     };
     return AcademicDegree;
