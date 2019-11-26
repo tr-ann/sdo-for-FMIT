@@ -1,5 +1,17 @@
-const lessonRouter = require('./lessons')
+import buildingsRouter from './buildingsRouter'
+import disciplinesRouter from './disciplinesRouter'
+import lectureRoomsRouter from './lectureRoomsRouter'
+import lessonNumbersRouter from './lessonNumbersRouter'
+import lessonTypesRouter from './lessonTypesRouter'
+import lessonsRouter from './lessonsRouter'
+import roomTypesRouter from './roomTypesRouter'
 
-module.exports = {
-    lessonRouter: lessonRouter,
+export default {
+    buildingsRouter,
+    disciplinesRouter,
+    lectureRoomsRouter,
+    lessonNumbersRouter,
+    lessonTypesRouter,
+    lessonsRouter,
+    roomTypesRouter,
 }

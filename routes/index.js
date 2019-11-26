@@ -1,12 +1,15 @@
-import { facultyRouter, departmentRouter, groupRouter, specialityRouter } from '../microservice/faculties/routers'
-import lessonsRouters from '../microservice/lessons/routers'
-import papersRouters from '../microservice/papers/routers'
+const facultiesRouters = require('../microservices/faculties/routers')
+import lessonsRouters from '../microservices/lessons/routers'
+import papersRouters from '../microservices/papers/routers'
+const usersRouters = require('../microservices/users/routers')
+
 import { userRouter, teacherRouter, studentRouter } from '../microservices/users/routers'
 
 import { isValidUser } from '../middleware/validation/userValidation'
 import { isAuthenticated, passport } from '../loaders/passport'
 
 export default (app) => {
+
     router.get('/login', isAuthenticated)
 
     router.post('/login', isValidUser, 
@@ -23,9 +26,13 @@ export default (app) => {
 
     app.use('/teachers', teacherRouter);
     app.use('/students', studentRouter);
+    app.use('/teachers', usersRouters.teacherRouter);
 
-    app.use('/faculties', facultyRouter);
-    app.use('/departments', departmentRouter);
-    app.use('/groups', groupRouter);
-    app.use('/specialities', specialityRouter);
+    app.use('/buildings', lessonsRouters.buildingsRouter);
+    app.use('/disciplines', lessonsRouters.disciplinesRouter);
+    app.use('/lectureRooms', lessonsRouters.lectureRoomsRouter);
+    app.use('/lessonNumbers', lessonsRouters.lessonNumbersRouter);
+    app.use('/lessonTypes', lessonsRouters.lessonTypesRouter);
+    app.use('/lessons', lessonsRouters.lessonsRouter);
+    app.use('/roomTypes', lessonsRouters.roomTypesRouter);
 }

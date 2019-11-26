@@ -1,11 +1,21 @@
 {
     "dev": {
+<<<<<<< HEAD
       "host": "localhost",
       "driver": "mysql",
       "user": "root",
       "password": "root",
       "database": "migrate-test",
       "multipleStatements": true
+=======
+        "username": "root",
+        "password": "root",
+        "operatorsAliases": false,
+        "database": "test",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "timestamps": false
+>>>>>>> master
     },
     "test": {
         "username": "root",
@@ -25,4 +35,8 @@
         "dialect": "mysql",
         "timestamps": false
     }
+<<<<<<< HEAD
 }
+=======
+  }
+>>>>>>> master
