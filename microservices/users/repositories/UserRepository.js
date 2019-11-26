@@ -21,8 +21,7 @@ export default class User {
         }
         return await oldUser.update(object)
     }
-    
- //как лучше метод назвать destroy / delete
+   
     async delete(user) {
         await user.destroy()
     }
