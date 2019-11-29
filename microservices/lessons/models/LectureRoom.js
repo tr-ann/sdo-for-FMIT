@@ -1,33 +1,43 @@
+import { Model } from "sequelize/types";
+
 export default (sequelize, DataTypes) => {
 
-    const LectureRoom = sequelize.define('lecture_room', {
+    class LectureRoom extends Model {}
+
+    LectureRoom.init({
         number: {
             allowNull: false,
-            type: Sequelize.STRING(10),
+            type: DataTypes.STRING(10),
         },
         seats_count: {
             allowNull: false,
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
         },
     }, {
-        underscored: true,
         name: {
-            singular: 'LectureRoom',
-            plural: 'LectureRooms',
+            singular: 'lectureRoom',
+            plural: 'lectureRooms',
         },
+        sequelize,
+        underscored: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: "deleted_date",
+        paranoid: true,
+        modelName: 'lecture_room',
     })
 
     LectureRoom.associate = function(models) {
         LectureRoom.belongsTo(models.room_type, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         LectureRoom.belongsTo(models.building, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         LectureRoom.hasMany(models.lesson, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     }

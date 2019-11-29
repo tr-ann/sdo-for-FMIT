@@ -1,28 +1,35 @@
-import Sequelize from 'sequelize'
+import { Model } from "sequelize/types";
 
 export default (sequelize, DataTypes) => {
 
-    const Discipline = sequelize.define('discipline', {
+    class Discipline extends Model {}
+
+    Discipline.init({
         name: {
             allowNull: false,
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
         },
         short_name: {
             allowNull: false,
-            type: Sequelize.STRING(20),
+            type: DataTypes.STRING(20),
         },
     }, {
-        underscored: true,
         name: {
-            singular: 'Discipline',
-            plural: 'Disciplines',
+            singular: 'discipline',
+            plural: 'disciplines',
         },
+        sequelize,
+        underscored: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: "deleted_date",
+        paranoid: true,
+        modelName: 'discipline',
     })
 
     Discipline.associate = function(models) {
-        let l = new Sequelize.
         Discipline.hasMany(models.lesson, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     }

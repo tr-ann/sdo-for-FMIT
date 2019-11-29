@@ -1,45 +1,55 @@
+import { Model } from "sequelize/types";
+
 export default (sequelize, DataTypes) => {
 
-    const Lesson = sequelize.define('lesson', {
+    class Lesson extends Model {}
+
+    Lesson.init({
         week_day: {
             allowNull: false,
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
         },
     }, {
-        underscored: true,
         name: {
-            singular: 'Lesson',
-            plural: 'Lessons',
+            singular: 'lesson',
+            plural: 'lessons',
         },
+        sequelize,
+        underscored: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: "deleted_date",
+        paranoid: true,
+        modelName: 'lesson',
     })
 
     Lesson.associate = function(models) {
         Lesson.belongsTo(models.group, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Lesson.belongsTo(models.subgroup, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Lesson.belongsTo(models.teacher, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Lesson.belongsTo(models.lesson_type, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Lesson.belongsTo(models.lecture_room, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Lesson.belongsTo(models.discipline, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Lesson.belongsTo(models.lesson_number, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     }

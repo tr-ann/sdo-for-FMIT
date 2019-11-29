@@ -1,17 +1,17 @@
-import buildingsRouter from './buildingsRouter'
-import disciplinesRouter from './disciplinesRouter'
-import lectureRoomsRouter from './lectureRoomsRouter'
-import lessonNumbersRouter from './lessonNumbersRouter'
-import lessonTypesRouter from './lessonTypesRouter'
-import lessonsRouter from './lessonsRouter'
-import roomTypesRouter from './roomTypesRouter'
+import buildingRouter from './buildingRouter'
+import disciplineRouter from './disciplineRouter'
+import lectureRoomRouter from './lectureRoomRouter'
+import lessonNumberRouter from './lessonNumberRouter'
+import lessonTypeRouter from './lessonTypeRouter'
+import lessonRouter from './lessonRouter'
+import roomTypeRouter from './roomTypeRouter'
 
 export default {
-    buildingsRouter,
-    disciplinesRouter,
-    lectureRoomsRouter,
-    lessonNumbersRouter,
-    lessonTypesRouter,
-    lessonsRouter,
-    roomTypesRouter,
+    buildingRouter,
+    disciplineRouter,
+    lectureRoomRouter,
+    lessonNumberRouter,
+    lessonTypeRouter,
+    lessonRouter,
+    roomTypeRouter,
 }

@@ -1,37 +1,47 @@
+import { Model } from "sequelize/types";
+
 export default (sequelize, DataTypes) => {
-    
-    const LessonNumber = sequelize.define('lesson_number', {
+
+    class LessonNumber extends Model {}
+
+    LessonNumber.init({
         number: {
             allowNull: false,
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
         },
         start_time_1: {
             allowNull: false,
-            type: Sequelize.TIME,
+            type: DataTypes.TIME,
         },
         end_time_1: {
             allowNull: false,
-            type: Sequelize.TIME,
+            type: DataTypes.TIME,
         },
         start_time_2: {
             allowNull: false,
-            type: Sequelize.TIME,
+            type: DataTypes.TIME,
         },
         end_time_2: {
             allowNull: false,
-            type: Sequelize.TIME,
+            type: DataTypes.TIME,
         },
     }, {
-        underscored: true,
         name: {
-            singular: 'LessonNumber',
-            plural: 'LessonNumbers',
+            singular: 'lessonNumber',
+            plural: 'lessonNumbers',
         },
+        sequelize,
+        underscored: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: "deleted_date",
+        paranoid: true,
+        modelName: 'lesson_number',
     })
 
     LessonNumber.associate = function(models) {
         LessonNumber.hasMany(models.lesson, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     }

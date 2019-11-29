@@ -3,19 +3,19 @@ import NotFound from '../../../core/errors/4xx/notFound'
 
 export default class RoomTypeService {
 
-    _repository = new RoomTypeRepository()
+    _roomTypeRepository = new RoomTypeRepository()
 
     async create(roomType) {
-        return await this._repository.create(roomType)
+        return await this._roomTypeRepository.create(roomType)
     }
 
     async readAll() {
-        return await this._repository.readAll()
+        return await this._roomTypeRepository.readAll()
     }
 
     async readById(id) {
 
-        let roomType = await this._repository.readById(id)
+        let roomType = await this._roomTypeRepository.readById(id)
 
         if (!roomType) {
             throw new NotFound('Room type not found')
@@ -26,23 +26,23 @@ export default class RoomTypeService {
 
     async update(id, roomType) {
 
-        let roomType = await this._repository.readById(id)
+        let roomType = await this._roomTypeRepository.readById(id)
         
         if (!roomType) {
             throw new NotFound('Room type not found')
         }
 
-        return await this._repository.update(roomType)
+        return await this._roomTypeRepository.update(roomType)
     }
 
     async destroy(id) {
 
-        let roomType = await this._repository.readById(id)
+        let roomType = await this._roomTypeRepository.readById(id)
         
         if (!roomType) {
             throw new NotFound('Room type not found')
         }
         
-        return await this._repository.destroy(id)
+        return await this._roomTypeRepository.destroy(id)
     }
 }

@@ -1,21 +1,31 @@
+import { Model } from "sequelize/types";
+
 export default (sequelize, DataTypes) => {
 
-    const RoomType = sequelize.define('room_type', {
+    class RoomType extends Model {}
+
+    RoomType.init({
         name: {
             allowNull: false,
             type: Sequelize.STRING(100),
         },
     }, {
-        underscored: true,
         name: {
-            singular: 'RoomType',
-            plural: 'RoomTypes',
+            singular: 'roomType',
+            plural: 'roomTypes',
         },
+        sequelize,
+        underscored: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: "deleted_date",
+        paranoid: true,
+        modelName: 'room_type',
     })
 
     RoomType.associate = function(models) {
         RoomType.hasMany(models.lecture_room, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     }

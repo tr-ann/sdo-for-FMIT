@@ -1,21 +1,31 @@
+import { Model } from "sequelize/types";
+
 export default (sequelize, DataTypes) => {
 
-    const LessonType = sequelize.define('lesson_type', {
+    class LessonType extends Model {}
+
+    LessonType.init({
         name: {
             allowNull: false,
             type: Sequelize.STRING(100),
         },
     }, {
-        underscored: true,
         name: {
-            singular: 'LessonType',
-            plural: 'LessonTypes',
+            singular: 'lessonType',
+            plural: 'lessonTypes',
         },
+        sequelize,
+        underscored: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: "deleted_date",
+        paranoid: true,
+        modelName: 'lesson_type',
     })
 
     LessonType.associate = function(models) {
         LessonType.hasMany(models.lesson, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     }

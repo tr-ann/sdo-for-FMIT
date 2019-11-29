@@ -1,21 +1,31 @@
+import { Model } from "sequelize/types";
+
 export default (sequelize, DataTypes) => {
 
-    const Building = sequelize.define('building', {
+    class Building extends Model {}
+
+    Building.init({
         name: {
             allowNull: false,
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
         },
     }, {
-        underscored: true,
         name: {
-            singular: 'Building',
-            plural: 'Buildings',
+            singular: 'building',
+            plural: 'buildings',
         },
+        sequelize,
+        underscored: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: "deleted_date",
+        paranoid: true,
+        modelName: 'building',
     })
     
     Building.associate = function(models) {
         Building.hasMany(models.lecture_room, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     }

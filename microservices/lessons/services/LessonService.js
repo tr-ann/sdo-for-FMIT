@@ -3,19 +3,19 @@ import NotFound from '../../../core/errors/4xx/notFound'
 
 export default class LessonService {
 
-    _repository = new LessonRepository()
+    _lessonRepository = new LessonRepository()
 
     async create(lesson) {
-        return await this._repository.create(lesson)
+        return await this._lessonRepository.create(lesson)
     }
 
     async readAll() {
-        return await this._repository.readAll()
+        return await this._lessonRepository.readAll()
     }
 
     async readById(id) {
 
-        let lesson = await this._repository.readById(id)
+        let lesson = await this._lessonRepository.readById(id)
 
         if (!lesson) {
             throw new NotFound('Lesson not found')
@@ -26,23 +26,23 @@ export default class LessonService {
 
     async update(id, lesson) {
 
-        let lesson = await this._repository.readById(id)
+        let lesson = await this._lessonRepository.readById(id)
         
         if (!lesson) {
             throw new NotFound('Lesson not found')
         }
 
-        return await this._repository.update(lesson)
+        return await this._lessonRepository.update(lesson)
     }
 
     async destroy(id) {
 
-        let lesson = await this._repository.readById(id)
+        let lesson = await this._lessonRepository.readById(id)
         
         if (!lesson) {
             throw new NotFound('Lesson not found')
         }
         
-        return await this._repository.destroy(id)
+        return await this._lessonRepository.destroy(id)
     }
 }
