@@ -1,20 +1,32 @@
-module.exports = (sequelize, DataTypes) => {
-    var Phone = sequelize.define('phone', {
-        id: {
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-            type: sequelize.INTEGER,
-        },
+import { Model } from 'sequelize/types'
+
+export default (sequelize, DataTypes) => {
+    class Phone extends Model {}
+
+    Phone.init({
         phone: {
             allowNull: false,
-            type: sequelize.STRING(30),
+            type: DataTypes.STRING(30),
         },
-    }, {});
+    }, {
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'phone',
+
+        name: {
+            simple: 'phone',
+            plural: 'phones',
+        }
+    })
+    
     Phone.associate = function (models) {
         Phone.belongsTo(models.User, {
-            foreignKey: 'user_id',
-            as: 'user'                // этот метод вернет все телефоны юзера или одного юзера для данного телефона?
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         })
     }
     return Phone;

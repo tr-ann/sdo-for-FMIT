@@ -1,37 +1,50 @@
-module.exports = (sequelize, DataTypes) => {
-    var UserInfo = sequelize.define('user_info', {
-        id: {
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-            type: sequelize.INTEGER,
-        },
+import { Model } from 'sequelize/types'
+
+export default (sequelize, DataTypes) => {
+    class UserInfo extends Model {}
+
+    UserInfo.init({
         description: {
-            allowNull: false,
-            type: sequelize.TEXT,
+            allowNull: true,
+            type: DataTypes.TEXT,
         },
         birthday: {
-            allowNull: false,
-            type: sequelize.TIMESTAMP,
+            allowNull: true,
+            type: DataTypes.TIMESTAMP,
         },
         city: {
-            allowNull: false,
-            type: sequelize.STRING,
+            allowNull: true,
+            type: DataTypes.STRING(255),
         },
         address: {
-            allowNull: false,
-            type: sequelize.STRING,
+            allowNull: true,
+            type: DataTypes.STRING(255),
         },
-    }, {});
+    }, {
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'user_info',
+        freezeTableName: 'users_info',
+        name: {
+            simple: 'userInfo',
+            plural: 'usersInfo',
+        }
+    });
+
     UserInfo.associate = function (models) {
-        UserInfo.belongsTo(models.User, {
-            foreignKey: 'user_id',
-            as: 'user',
+        UserInfo.belongsTo(models.user, {
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         });
         UserInfo.belongsTo(models.Resource, {
-            foreignKey: 'resource_id',
-            as: 'resource',
+            onDelete: 'restrict',
+            onUpdate: 'cascade',
         })
     };
+
     return UserInfo;
 }
