@@ -3,7 +3,7 @@
         "username": "root",
         "password": "root",
         "operatorsAliases": false,
-        "database": "test",
+        "database": "sdo_db",
         "host": "127.0.0.1",
         "dialect": "mysql",
         "timestamps": false
@@ -26,4 +26,4 @@
         "dialect": "mysql",
         "timestamps": false
     }
-  }
+}

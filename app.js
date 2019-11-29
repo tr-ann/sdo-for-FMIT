@@ -3,6 +3,7 @@ const express = require('express');
 //var path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+var passport = require('./middleware/passport/init').default
 const app = express();
 
 // view engine setup
@@ -12,11 +13,17 @@ const app = express();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
-import routes from './routes'
-routes(app)
+app.use(cookieParser)
+app.use(express.bodyParser());
+app.use(express.session({ secret: 'SECRET' }));
+
+// Passport:
+app.use(passport.initialize())
+app.use(passport.session())
+
+require('./routes')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
