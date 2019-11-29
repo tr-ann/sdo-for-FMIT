@@ -1,23 +1,21 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
     var StudyMode = sequelize.define('study_mode', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: Sequelize.INTEGER,
-        },
         name: {
             allowNull: false,
             type: Sequelize.STRING(45),
         },
-    }, {});
+    }, {
+        underscored: true,
+        name: {
+            singular: 'StudyMode',
+            plural: 'StudyModes',
+        },
+    });
     StudyMode.associate = function(models) {
-        // associations can be defined here
-        /*StudyMode.hasMany(models.Comment,{
-          foreignKey: 'userId',
-          as: 'comments'
-        });*/
-
+        StudyMode.hasMany(models.group, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
     };
     return StudyMode;
 };

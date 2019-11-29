@@ -1,11 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
     var Group = sequelize.define('group', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: Sequelize.INTEGER,
-        },
         number: {
             allowNull: false,
             type: Sequelize.STRING(4),
@@ -22,14 +16,42 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             type: Sequelize.SMALLINT,
         },
-    }, {});
+    }, {
+        underscored: true,
+        name: {
+            singular: 'Group',
+            plural: 'Groups',
+        },
+    });
     Group.associate = function(models) {
-        // associations can be defined here
-        /*Group.hasMany(models.Comment,{
-          foreignKey: 'userId',
-          as: 'comments'
-        });*/
-
+        Group.belongsTo(models.specialty, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+        Group.belongsTo(models.study_mode, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+        Group.belongsTo(models.faculty, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+        Group.hasMany(models.curator, {//////????
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+        Group.hasMany(models.student, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+        Group.hasMany(models.subgroup, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
+        Group.hasMany(models.lessons, {
+            onUpdate: 'cascade',
+            onDelete: 'restrict',
+        })
     };
     return Group;
 };
