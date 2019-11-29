@@ -1,9 +1,9 @@
 const facultiesRouters = require('../microservices/faculties/routers')
 import lessonsRouters from '../microservices/lessons/routers'
 import papersRouters from '../microservices/papers/routers'
-const usersRouters = require('../microservices/users/routers')
+const usersRouters = require('../microservices/students/routers')
 
-import { userRouter, teacherRouter, studentRouter } from '../microservices/users/routers'
+import { userRouter, teacherRouter, studentRouter } from '../microservices/students/routers'
 
 import { isValidUser } from '../middleware/validation/userValidation'
 import { isAuthenticated, passport } from '../loaders/passport'

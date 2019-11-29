@@ -53,7 +53,7 @@ export default class UserController {
     
     async update(req, res) {
         try {
-            let user = await userService.update({
+            let user = await userService.update(req.params.id, {
                 login: req.body.username,
                 password: req.body.password,
             })

@@ -1,17 +1,28 @@
-module.exports = (sequelize, DataTypes) => {
-    var Phone = sequelize.define('phone', {
+import { Model } from 'sequelize/types'
+
+export default (sequelize, DataTypes) => {
+    class Phone extends Model {}
+
+    Phone.init({
         phone: {
             allowNull: false,
-            type: sequelize.STRING(30),
+            type: DataTypes.STRING(30),
         },
     }, {
+        sequelize,
         underscope: true,
-        timestamp: true, // надо??
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'phone',
+
         name: {
             simple: 'phone',
             plural: 'phones',
         }
-    });
+    })
+    
     Phone.associate = function (models) {
         Phone.belongsTo(models.User, {
             onDelete: 'restrict',

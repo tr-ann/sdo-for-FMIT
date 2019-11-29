@@ -10,19 +10,15 @@ export default class User {
         return await db.user.findByPk(id)
     }
 
-    async create(object) {
-        return await db.user.create(object)
+    async create(user) {
+        return await db.user.create(user)
     }
 
-    async update(object) {
-        let oldUser = await db.user.findByPk(object.id)
-        if (!oldUser) {
-            throw new NotFound(`${objectName} not found`)
-        }
-        return await oldUser.update(object)
+    async update(id, user) {
+        return await db.user.update(user, {where: {id: id}})
     }
    
-    async delete(user) {
-        await user.destroy()
+    async destroy(id) {
+        return await db.user.destroy({where: {id: id}})
     }
 }

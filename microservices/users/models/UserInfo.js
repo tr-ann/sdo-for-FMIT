@@ -1,29 +1,40 @@
-module.exports = (sequelize, DataTypes) => {
-    var UserInfo = sequelize.define('user_info', {
+import { Model } from 'sequelize/types'
+
+export default (sequelize, DataTypes) => {
+    class UserInfo extends Model {}
+
+    UserInfo.init({
         description: {
-            allowNull: false,
-            type: sequelize.TEXT,
+            allowNull: true,
+            type: DataTypes.TEXT,
         },
         birthday: {
-            allowNull: false,
-            type: sequelize.TIMESTAMP,
+            allowNull: true,
+            type: DataTypes.TIMESTAMP,
         },
         city: {
-            allowNull: false,
-            type: sequelize.STRING,
+            allowNull: true,
+            type: DataTypes.STRING(255),
         },
         address: {
-            allowNull: false,
-            type: sequelize.STRING,
+            allowNull: true,
+            type: DataTypes.STRING(255),
         },
     }, {
+        sequelize,
         underscope: true,
-        timestamp: true, // надо??
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'user_info',
+        freezeTableName: 'users_info',
         name: {
             simple: 'userInfo',
             plural: 'usersInfo',
         }
     });
+
     UserInfo.associate = function (models) {
         UserInfo.belongsTo(models.user, {
             onDelete: 'restrict',
@@ -34,5 +45,6 @@ module.exports = (sequelize, DataTypes) => {
             onUpdate: 'cascade',
         })
     };
+
     return UserInfo;
 }

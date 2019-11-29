@@ -1,21 +1,21 @@
 import UserRepository from '../repositories/UserRepository'
-import { hash } from 'bcrypt'
+import UserInfoRepository from '../repositories/UserInfoRepository'
 
 export default class UserService {
 
-    _repository = new UserRepository()
+    _userRepository = new UserRepository()
+    _userInfoRepository = new UserInfoRepository()
 
     async list() {
-        return await this._repository.readAll()
+        return await this._userRepository.readAll()
     }
 
     async create(user) {
-        user.password = await hash(user.password)
-        return await this._repository.create(user)
+        return await this._userRepository.create(user)
     }
 
     async findById(id) {
-        let user = await this._repository.readById(id)
+        let user = await this._userRepository.readById(id)
         if (!user) {
             throw new NotFound(`${objectName} not found`)
         }
@@ -23,14 +23,10 @@ export default class UserService {
     }
 
     async update(user) {
-        return await this._repository.update(user)
+        return await this._userRepository.update(user)
     }
 
     async destroy(id) {
-        let user = await this._repository.readById(id)
-        if (!user) {
-            throw new NotFound(`${objectName} not found`)
-        }
-        await this._repository.delete(user)
+        await this._userRepository.destroy(id)
     }
 };

@@ -1,23 +1,37 @@
-module.exports = (sequelize, DataTypes) => {
-    var User = sequelize.define('user', {
+import { Model } from 'sequelize/types'
+import db from './'
+import Hash from '../../../core/hash'
+
+export default (sequelize, DataTypes) => {
+    class User extends Model {}
+
+    User.init({
         login: {
             allowNull: false,
-            type: sequelize.STRING(100),
+            type: DataTypes.STRING(100),
         },
         password: {
             allowNull: false,
-            type: sequelize.STRING(100),
+            type: DataTypes.STRING(100),
         },
     }, {
+        sequelize,
         underscope: true,
-        timestamp: true, // надо??
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'user',
+
+        // freezeTableName: 'users', 
+
         name: {
             simple: 'user',
             plural: 'users',
         }
     });
+
     User.associate = function(models) {
-      // associations can be defined here
         User.hasMany(models.Phone, {
             onDelete: 'restrict',
             onUpdate: 'cascade',
@@ -35,5 +49,18 @@ module.exports = (sequelize, DataTypes) => {
             onUpdate: 'cascade',
         });
     };
+
+    User.prototype.validPassword = async function (password) {
+        return await Hash.compare(password, this.password);
+    };
+    
+    User.beforeCreate(
+        async (user, options) => user.password = await Hash.get(user.password)
+    );
+
+    User.afterCreate(
+        async (user, options) => await db.user_info.create({ user_id: user.id })
+    )
+
     return User;
 };
