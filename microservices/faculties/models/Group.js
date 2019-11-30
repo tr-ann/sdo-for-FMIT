@@ -3,7 +3,7 @@ import { Model } from 'sequelize'
 export default (sequelize, DataTypes) => {
     class Group extends Model {}
 
-    var Group = sequelize.define('group', {
+    Group.init({
         number: {
             allowNull: false,
             type: DataTypes.STRING(4),

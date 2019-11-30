@@ -3,7 +3,7 @@ import { Model } from 'sequelize'
 export default (sequelize, DataTypes) => {
     class Faculty extends Model {}
 
-    var Faculty = sequelize.define('faculty', {
+    Faculty.init({
         name: {
             allowNull: false,
             type: DataTypes.STRING(100),

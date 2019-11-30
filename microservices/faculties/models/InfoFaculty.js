@@ -3,7 +3,7 @@ import { Model } from 'sequelize'
 export default (sequelize, DataTypes) => {
     class InfoFaculty extends Model {}
 
-    var InfoFaculty = sequelize.define('info_faculty', {
+    InfoFaculty.init({
         description: {
             allowNull: true,
             type: DataTypes.TEXT,

@@ -3,7 +3,7 @@ import { Model } from 'sequelize'
 export default (sequelize, DataTypes) => {
     class Subgroup extends Model {}
 
-    var Subgroup = sequelize.define('subgroup', {
+    Subgroup.init({
         name: {
             allowNull: false,
             type: DataTypes.STRING(20),

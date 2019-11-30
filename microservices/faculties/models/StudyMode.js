@@ -3,7 +3,7 @@ import { Model } from 'sequelize'
 export default (sequelize, DataTypes) => {
     class StudyMode extends Model {}
 
-    var StudyMode = sequelize.define('study_mode', {
+    StudyMode.init({
         name: {
             allowNull: false,
             type: DataTypes.STRING(45),

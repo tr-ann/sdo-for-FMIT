@@ -3,7 +3,7 @@ import { Model } from 'sequelize'
 export default (sequelize, DataTypes) => {
     class Specialty extends Model {}
 
-    var Specialty = sequelize.define('specialty', {
+    Specialty.init({
         code: {
             allowNull: false,
             type: DataTypes.STRING(20),
