@@ -6,19 +6,19 @@ export default (sequelize, DataTypes) => {
     var Group = sequelize.define('group', {
         number: {
             allowNull: false,
-            type: Sequelize.STRING(4),
+            type: DataTypes.STRING(4),
         },
         faculty_id: {
             allowNull: true,
-            type: Sequelize.SMALLINT,
+            type: DataTypes.SMALLINT,
         },
         specialty_id: {
             allowNull: true,
-            type: Sequelize.SMALLINT,
+            type: DataTypes.SMALLINT,
         },
         study_mode_id: {
             allowNull: true,
-            type: Sequelize.SMALLINT,
+            type: DataTypes.SMALLINT,
         },
     }, {
         sequelize,

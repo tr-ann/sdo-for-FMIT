@@ -6,11 +6,11 @@ export default (sequelize, DataTypes) => {
     var Subgroup = sequelize.define('subgroup', {
         name: {
             allowNull: false,
-            type: Sequelize.STRING(20),
+            type: DataTypes.STRING(20),
         },
         group_id: {
             allowNull: true,
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
         },
     }, {
         sequelize,
