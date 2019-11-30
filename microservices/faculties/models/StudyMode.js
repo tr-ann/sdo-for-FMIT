@@ -15,7 +15,7 @@ export default (sequelize, DataTypes) => {
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
-        modelName: 'studyMode',
+        modelName: 'study_mode',
 
         name: {
             singular: 'studyMode',
