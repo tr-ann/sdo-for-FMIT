@@ -1,4 +1,4 @@
-import { Model } from 'sequelize/types'
+import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
     class UserInfo extends Model {}
@@ -12,10 +12,10 @@ export default (sequelize, DataTypes) => {
             allowNull: true,
             type: DataTypes.TEXT,
         },
-        birthday: {
+        /*birthday: {
             allowNull: true,
             type: DataTypes.TIMESTAMP,
-        },
+        },*/
         city: {
             allowNull: true,
             type: DataTypes.STRING(255),
@@ -44,7 +44,7 @@ export default (sequelize, DataTypes) => {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         });
-        UserInfo.belongsTo(models.Resource, {
+        UserInfo.belongsTo(models.resource, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })

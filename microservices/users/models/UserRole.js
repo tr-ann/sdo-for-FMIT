@@ -1,4 +1,4 @@
-import { Model } from 'sequelize/types'
+import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
     class UserRole extends Model {}
@@ -19,11 +19,11 @@ export default (sequelize, DataTypes) => {
     })
 
     UserRole.associate = function (models) {
-        UserRole.belongsTo(models.User, {
+        UserRole.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        UserRole.belongsTo(models.Role, {
+        UserRole.belongsTo(models.role, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })

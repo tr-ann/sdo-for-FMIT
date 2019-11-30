@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize'
-configs = require('./database.json')
+const configs = require('./database.json')
 const env       = process.env.NODE_ENV || 'dev'
 const config    = configs[env]
 

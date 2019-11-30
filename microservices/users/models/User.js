@@ -1,4 +1,4 @@
-import { Model } from 'sequelize/types'
+import { Model } from 'sequelize'
 import db from './'
 import Hash from '../../../core/hash'
 
@@ -32,19 +32,24 @@ export default (sequelize, DataTypes) => {
     });
 
     User.associate = function(models) {
-        User.hasMany(models.Phone, {
+        User.belongsToMany(models.role, {
+            through: models.user_role,
+            onDelete: 'restrict',
+            onUpdate: 'restrict'
+        })        
+        User.hasMany(models.phone, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         });
-        User.hasOne(models.UserInfo, {
+        User.hasOne(models.user_info, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         });
-        User.hasOne(models.Student, { 
+        User.hasOne(models.student, { 
             onDelete: 'restrict',
             onUpdate: 'restrict',
         });
-        User.hasOne(models.Teacher, {
+        User.hasOne(models.teacher, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         });
