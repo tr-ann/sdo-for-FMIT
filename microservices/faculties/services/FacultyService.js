@@ -26,9 +26,9 @@ class FacultyService {
 
     async update(id, faculty) {
 
-        let faculty = await this._repository.readById(id)
+        let nFaculty = await this._repository.readById(id)
         
-        if (!faculty) {
+        if (!nFaculty) {
             throw new NotFound(`Faculty not found`)
         }
 

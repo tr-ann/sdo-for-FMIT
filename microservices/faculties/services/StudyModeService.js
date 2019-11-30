@@ -26,9 +26,9 @@ class StudyModeService {
 
     async update(id, studyMode) {
 
-        let studyMode = await this._repository.readById(id)
+        let nStudyMode = await this._repository.readById(id)
         
-        if (!studyMode) {
+        if (!nStudyMode) {
             throw new NotFound(`StudyMode not found`)
         }
 

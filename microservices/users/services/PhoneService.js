@@ -21,6 +21,10 @@ class PhoneService {
     }
 
     async update(id, phone) {
+        let nPhone = PhoneRepository.readById(id)
+        if(!nPhone) {
+            throw new NotFound(`${objectName} not found`)
+        }
         return await PhoneRepository.update(id, phone)
     }
 

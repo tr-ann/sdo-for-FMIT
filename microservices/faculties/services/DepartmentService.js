@@ -26,9 +26,9 @@ class DepartmentService {
 
     async update(id, department) {
 
-        let department = await this._repository.readById(id)
+        let nDepartment = await this._repository.readById(id)
         
-        if (!department) {
+        if (!nDepartment) {
             throw new NotFound(`Department not found`)
         }
 

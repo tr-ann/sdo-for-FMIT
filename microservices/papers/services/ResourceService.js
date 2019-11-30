@@ -24,9 +24,9 @@ class ResourceService {
 
     async update(id, resource) {
 
-        let oldResource = await ResourceRepository.readById(id)
+        let nResource = await ResourceRepository.readById(id)
         
-        if (!oldResource) {
+        if (!nResource) {
             throw new NotFound('Resource not found')
         }
 

@@ -21,6 +21,10 @@ class PositionService {
     }
 
     async update(id, position) {
+        let nPosition = PositionRepository.readById(id)
+        if(!nPosition) {            
+            throw new NotFound(`${objectName} not found`)
+        }
         return await PositionRepository.update(id, position)
     }
 
