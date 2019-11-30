@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class LectureRoomRepository {
+class LectureRoomRepository {
 
     /**
      * This is a standard method to create an entity in a database
@@ -61,3 +61,5 @@ export default class LectureRoomRepository {
         })
     }
 }
+
+export default new LectureRoomRepository()

@@ -1,21 +1,19 @@
 import LectureRoomRepository from '../repositories/LectureRoomRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class LectureRoomService {
-
-    _lectureRoomRepository = new LectureRoomRepository()
+class LectureRoomService {
 
     async create(lectureRoom) {
-        return await this._lectureRoomRepository.create(lectureRoom)
+        return await LectureRoomRepository.create(lectureRoom)
     }
 
     async readAll() {
-        return await this._lectureRoomRepository.readAll()
+        return await LectureRoomRepository.readAll()
     }
 
     async readById(id) {
 
-        let lectureRoom = await this._lectureRoomRepository.readById(id)
+        let lectureRoom = await LectureRoomRepository.readById(id)
 
         if (!lectureRoom) {
             throw new NotFound('Lecture room not found')
@@ -26,23 +24,25 @@ export default class LectureRoomService {
 
     async update(id, lectureRoom) {
 
-        let lectureRoom = await this._lectureRoomRepository.readById(id)
+        let lectureRoom = await LectureRoomRepository.readById(id)
         
         if (!lectureRoom) {
             throw new NotFound('Lecture room not found')
         }
 
-        return await this._lectureRoomRepository.update(lectureRoom)
+        return await LectureRoomRepository.update(lectureRoom)
     }
 
     async destroy(id) {
 
-        let lectureRoom = await this._lectureRoomRepository.readById(id)
+        let lectureRoom = await LectureRoomRepository.readById(id)
         
         if (!lectureRoom) {
             throw new NotFound('Lecture room not found')
         }
         
-        return await this._lectureRoomRepository.destroy(id)
+        return await LectureRoomRepository.destroy(id)
     }
 }
+
+export default new LectureRoomService()

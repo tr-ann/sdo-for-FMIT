@@ -1,13 +1,10 @@
 import { Router } from 'express'
 import TermPaperController from '../controllers/termPaperController'
 
-const router = Router()
-const termPaperController = new TermPaperController()
+export default router = Router()
 
-router.get('/:id', termPaperController.readById);
-router.post('/:id', termPaperController.update);
-router.delete('/:id', termPaperController.destroy);
-router.get('/', termPaperController.readAll);
-router.post('/', termPaperController.create);
-
-export default router;
+router.get('/:id', TermPaperController.readById)
+router.post('/:id', TermPaperController.update)
+router.delete('/:id', TermPaperController.destroy)
+router.get('/', TermPaperController.readAll)
+router.post('/', TermPaperController.create)

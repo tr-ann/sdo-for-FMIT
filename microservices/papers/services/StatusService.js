@@ -1,21 +1,19 @@
 import StatusRepository from '../repositories/StatusRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class StatusService {
-
-    _statusRepository = new StatusRepository()
+class StatusService {
 
     async create(status) {
-        return await this._statusRepository.create(status)
+        return await StatusRepository.create(status)
     }
 
     async readAll() {
-        return await this._statusRepository.readAll()
+        return await StatusRepository.readAll()
     }
 
     async readById(id) {
 
-        let status = await this._statusRepository.readById(id)
+        let status = await StatusRepository.readById(id)
 
         if (!status) {
             throw new NotFound('Room type not found')
@@ -26,23 +24,25 @@ export default class StatusService {
 
     async update(id, status) {
 
-        let status = await this._statusRepository.readById(id)
+        let status = await StatusRepository.readById(id)
         
         if (!status) {
             throw new NotFound('Room type not found')
         }
 
-        return await this._statusRepository.update(status)
+        return await StatusRepository.update(status)
     }
 
     async destroy(id) {
 
-        let status = await this._statusRepository.readById(id)
+        let status = await StatusRepository.readById(id)
         
         if (!status) {
             throw new NotFound('Room type not found')
         }
         
-        return await this._statusRepository.destroy(id)
+        return await StatusRepository.destroy(id)
     }
 }
+
+export default new StatusService()

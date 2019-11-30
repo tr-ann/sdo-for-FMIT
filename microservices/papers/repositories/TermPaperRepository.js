@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class TermPaperRepository {
+class TermPaperRepository {
 
     /**
      * This is a standard method to create an entity in a database
@@ -63,3 +63,5 @@ export default class TermPaperRepository {
         })
     }
 }
+
+export default new TermPaperRepository()

@@ -1,13 +1,11 @@
 import LessonService from '../services/LessonService'
 import core from '../../../core'
 
-export default class lessonController {
-
-    _lessonService = new LessonService()
+class lessonController {
 
     async create(req, res) {
         try {
-            let lesson = await this._lessonService.create({
+            let lesson = await LessonService.create({
                 group_id:           req.body.group_id,
                 subgroup_id:        req.body.subgroup_id,
                 teacher_id:         req.body.teacher_id,
@@ -31,7 +29,7 @@ export default class lessonController {
 
     async readAll(req, res) {
         try {
-            let lessons = await this._lessonService.readAll()
+            let lessons = await LessonService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 lessons,
@@ -46,7 +44,7 @@ export default class lessonController {
 
     async readById(req, res) {
         try {
-            let lesson = await this._lessonService.readById(req.params.id)
+            let lesson = await LessonService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 lesson,
@@ -61,7 +59,7 @@ export default class lessonController {
 
     async update(req, res) {
         try {
-            let lesson = await this._lessonService.update(req.params.id, {
+            let lesson = await LessonService.update(req.params.id, {
                 group_id:           req.body.group_id,
                 subgroup_id:        req.body.subgroup_id,
                 teacher_id:         req.body.teacher_id,
@@ -85,7 +83,7 @@ export default class lessonController {
 
     async destroy(req, res) {
         try {
-            await this._lessonService.destroy(req.params.id)
+            await LessonService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -98,3 +96,5 @@ export default class lessonController {
         }
     }
 }
+
+export default new lessonController()

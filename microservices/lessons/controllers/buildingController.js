@@ -1,13 +1,11 @@
 import BuildingService from '../services/BuildingService'
 import core from '../../../core'
 
-export default class buildingController {
-
-    _buildingService = new BuildingService()
+class buildingController {
 
     async create(req, res) {
         try {
-            let building = await this._buildingService.create({
+            let building = await BuildingService.create({
                 name: req.body.name,
             })
             
@@ -24,7 +22,7 @@ export default class buildingController {
 
     async readAll(req, res) {
         try {
-            let buildings = await this._buildingService.readAll()
+            let buildings = await BuildingService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 buildings,
@@ -39,7 +37,7 @@ export default class buildingController {
 
     async readById(req, res) {
         try {
-            let building = await this._buildingService.readById(req.params.id)
+            let building = await BuildingService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 building,
@@ -54,7 +52,7 @@ export default class buildingController {
 
     async update(req, res) {
         try {
-            let building = await this._buildingService.update(req.params.id, {
+            let building = await BuildingService.update(req.params.id, {
                 name:   req.body.name,
             })
 
@@ -71,7 +69,7 @@ export default class buildingController {
 
     async destroy(req, res) {
         try {
-            await this._buildingService.destroy(req.params.id)
+            await BuildingService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -84,3 +82,5 @@ export default class buildingController {
         }
     }
 }
+
+export default new buildingController()

@@ -1,13 +1,11 @@
 import LessonNumberService from '../services/LessonNumberService'
 import core from '../../../core'
 
-export default class lessonNumberController {
-
-    _lessonNumberService = new LessonNumberService()
+class lessonNumberController {
 
     async create(req, res) {
         try {
-            let lessonNumber = await this._lessonNumberService.create({
+            let lessonNumber = await LessonNumberService.create({
                 number:         req.body.number,
                 start_time_1:   req.body.start_time_1,
                 end_time_1:     req.body.end_time_1,
@@ -28,7 +26,7 @@ export default class lessonNumberController {
 
     async readAll(req, res) {
         try {
-            let lessonNumbers = await this._lessonNumberService.readAll()
+            let lessonNumbers = await LessonNumberService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 lessonNumbers,
@@ -43,7 +41,7 @@ export default class lessonNumberController {
 
     async readById(req, res) {
         try {
-            let lessonNumber = await this._lessonNumberService.readById(req.params.id)
+            let lessonNumber = await LessonNumberService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 lessonNumber,
@@ -58,7 +56,7 @@ export default class lessonNumberController {
 
     async update(req, res) {
         try {
-            let lessonNumber = await this._lessonNumberService.update(req.params.id, {
+            let lessonNumber = await LessonNumberService.update(req.params.id, {
                 number:         req.body.number,
                 start_time_1:   req.body.start_time_1,
                 end_time_1:     req.body.end_time_1,
@@ -79,7 +77,7 @@ export default class lessonNumberController {
 
     async destroy(req, res) {
         try {
-            await this._lessonNumberService.destroy(req.params.id)
+            await LessonNumberService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -92,3 +90,5 @@ export default class lessonNumberController {
         }
     }
 }
+
+export default new lessonNumberController()

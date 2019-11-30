@@ -1,13 +1,10 @@
 import { Router } from 'express'
 import LessonController from '../controllers/lessonController'
 
-const router = Router()
-const lessonController = new LessonController()
+export default router = Router()
 
-router.get('/:id', lessonController.readById);
-router.post('/:id', lessonController.update);
-router.delete('/:id', lessonController.destroy);
-router.get('/', lessonController.readAll);
-router.post('/', lessonController.create);
-
-export default router;
+router.get('/:id', LessonController.readById)
+router.post('/:id', LessonController.update)
+router.delete('/:id', LessonController.destroy)
+router.get('/', LessonController.readAll)
+router.post('/', LessonController.create)

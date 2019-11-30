@@ -1,13 +1,11 @@
 import PracticeService from '../services/PracticeService'
 import core from '../../../core'
 
-export default class practiceController {
-
-    _practiceService = new PracticeService()
+class practiceController {
 
     async create(req, res) {
         try {
-            let practice = await this._practiceService.create({
+            let practice = await PracticeService.create({
                 student_id:         req.body.student_id,
                 organization_id:    req.body.organization_id,
                 status_id:          req.body.status_id,
@@ -33,7 +31,7 @@ export default class practiceController {
 
     async readAll(req, res) {
         try {
-            let practices = await this._practiceService.readAll()
+            let practices = await PracticeService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 practices,
@@ -48,7 +46,7 @@ export default class practiceController {
 
     async readById(req, res) {
         try {
-            let practice = await this._practiceService.readById(req.params.id)
+            let practice = await PracticeService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 practice,
@@ -63,7 +61,7 @@ export default class practiceController {
 
     async update(req, res) {
         try {
-            let practice = await this._practiceService.update(req.params.id, {
+            let practice = await PracticeService.update(req.params.id, {
                 student_id:         req.body.student_id,
                 organization_id:    req.body.organization_id,
                 status_id:          req.body.status_id,
@@ -89,7 +87,7 @@ export default class practiceController {
 
     async destroy(req, res) {
         try {
-            await this._practiceService.destroy(req.params.id)
+            await PracticeService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -102,3 +100,5 @@ export default class practiceController {
         }
     }
 }
+
+export default new practiceController()

@@ -1,13 +1,11 @@
 import RoomTypeService from '../services/RoomTypeService'
 import core from '../../../core'
 
-export default class roomTypeController {
-
-    _roomTypeService = new RoomTypeService()
+class roomTypeController {
 
     async create(req, res) {
         try {
-            let roomType = await this._roomTypeService.create({
+            let roomType = await RoomTypeService.create({
                 name: req.body.name,
             })
             
@@ -24,7 +22,7 @@ export default class roomTypeController {
 
     async readAll(req, res) {
         try {
-            let roomTypes = await this._roomTypeService.readAll()
+            let roomTypes = await RoomTypeService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 roomTypes,
@@ -39,7 +37,7 @@ export default class roomTypeController {
 
     async readById(req, res) {
         try {
-            let roomType = await this._roomTypeService.readById(req.params.id)
+            let roomType = await RoomTypeService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 roomType,
@@ -54,7 +52,7 @@ export default class roomTypeController {
 
     async update(req, res) {
         try {
-            let roomType = await this._roomTypeService.update(req.params.id, {
+            let roomType = await RoomTypeService.update(req.params.id, {
                 name:   req.body.name,
             })
 
@@ -71,7 +69,7 @@ export default class roomTypeController {
 
     async destroy(req, res) {
         try {
-            await this._roomTypeService.destroy(req.params.id)
+            await RoomTypeService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -84,3 +82,5 @@ export default class roomTypeController {
         }
     }
 }
+
+export default new roomTypeController()

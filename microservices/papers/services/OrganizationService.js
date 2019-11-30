@@ -1,21 +1,19 @@
 import OrganizationRepository from '../repositories/OrganizationRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class OrganizationService {
-
-    _organizationRepository = new OrganizationRepository()
+class OrganizationService {
 
     async create(organization) {
-        return await this._organizationRepository.create(organization)
+        return await OrganizationRepository.create(organization)
     }
 
     async readAll() {
-        return await this._organizationRepository.readAll()
+        return await OrganizationRepository.readAll()
     }
 
     async readById(id) {
 
-        let organization = await this._organizationRepository.readById(id)
+        let organization = await OrganizationRepository.readById(id)
 
         if (!organization) {
             throw new NotFound('Organization not found')
@@ -26,23 +24,25 @@ export default class OrganizationService {
 
     async update(id, organization) {
 
-        let organization = await this._organizationRepository.readById(id)
+        let organization = await OrganizationRepository.readById(id)
         
         if (!organization) {
             throw new NotFound('Organization not found')
         }
 
-        return await this._organizationRepository.update(organization)
+        return await OrganizationRepository.update(organization)
     }
 
     async destroy(id) {
 
-        let organization = await this._organizationRepository.readById(id)
+        let organization = await OrganizationRepository.readById(id)
         
         if (!organization) {
             throw new NotFound('Organization not found')
         }
         
-        return await this._organizationRepository.destroy(id)
+        return await OrganizationRepository.destroy(id)
     }
 }
+
+export default new OrganizationService()

@@ -1,13 +1,11 @@
 import OrganizationService from '../services/OrganizationService'
 import core from '../../../core'
 
-export default class organizationController {
-
-    _organizationService = new OrganizationService()
+class organizationController {
 
     async create(req, res) {
         try {
-            let organization = await this._organizationService.create({
+            let organization = await OrganizationService.create({
                 name: req.body.name,
             })
             
@@ -24,7 +22,7 @@ export default class organizationController {
 
     async readAll(req, res) {
         try {
-            let organizations = await this._organizationService.readAll()
+            let organizations = await OrganizationService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 organizations,
@@ -39,7 +37,7 @@ export default class organizationController {
 
     async readById(req, res) {
         try {
-            let organization = await this._organizationService.readById(req.params.id)
+            let organization = await OrganizationService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 organization,
@@ -54,7 +52,7 @@ export default class organizationController {
 
     async update(req, res) {
         try {
-            let organization = await this._organizationService.update(req.params.id, {
+            let organization = await OrganizationService.update(req.params.id, {
                 name:   req.body.name,
             })
 
@@ -71,7 +69,7 @@ export default class organizationController {
 
     async destroy(req, res) {
         try {
-            await this._organizationService.destroy(req.params.id)
+            await OrganizationService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -84,3 +82,5 @@ export default class organizationController {
         }
     }
 }
+
+export default new organizationController()

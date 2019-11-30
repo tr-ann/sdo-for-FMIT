@@ -1,13 +1,11 @@
 import LessonTypeService from '../services/LessonTypeService'
 import core from '../../../core'
 
-export default class lessonTypeController {
-
-    _lessonTypeService = new LessonTypeService()
+class lessonTypeController {
 
     async create(req, res) {
         try {
-            let lessonType = await this._lessonTypeService.create({
+            let lessonType = await LessonTypeService.create({
                 name: req.body.name,
             })
             
@@ -24,7 +22,7 @@ export default class lessonTypeController {
 
     async readAll(req, res) {
         try {
-            let lessonTypes = await this._lessonTypeService.readAll()
+            let lessonTypes = await LessonTypeService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 lessonTypes,
@@ -39,7 +37,7 @@ export default class lessonTypeController {
 
     async readById(req, res) {
         try {
-            let lessonType = await this._lessonTypeService.readById(req.params.id)
+            let lessonType = await LessonTypeService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 lessonType,
@@ -54,7 +52,7 @@ export default class lessonTypeController {
 
     async update(req, res) {
         try {
-            let lessonType = await this._lessonTypeService.update(req.params.id, {
+            let lessonType = await LessonTypeService.update(req.params.id, {
                 name:   req.body.name,
             })
 
@@ -71,7 +69,7 @@ export default class lessonTypeController {
 
     async destroy(req, res) {
         try {
-            await this._lessonTypeService.destroy(req.params.id)
+            await LessonTypeService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -84,3 +82,5 @@ export default class lessonTypeController {
         }
     }
 }
+
+export default new lessonTypeController()

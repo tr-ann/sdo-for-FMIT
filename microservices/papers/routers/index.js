@@ -1,17 +1,17 @@
-import buildingRouter from './buildingRouter'
-import disciplineRouter from './disciplineRouter'
-import lectureRoomRouter from './lectureRoomRouter'
-import lessonNumberRouter from './lessonNumberRouter'
-import lessonTypeRouter from './lessonTypeRouter'
-import lessonRouter from './lessonRouter'
-import roomTypeRouter from './roomTypeRouter'
+import termPaperRouter from './termPaperRouter'
+import statusRouter from './statusRouter'
+import requestRouter from './requestRouter'
+import practiceTypeRouter from './practiceTypeRouter'
+import practiceRouter from './practiceRouter'
+import organizationRouter from './organizationRouter'
+import graduationPaperRouter from './graduationPaperRouter'
 
 export default {
-    buildingRouter,
-    disciplineRouter,
-    lectureRoomRouter,
-    lessonNumberRouter,
-    lessonTypeRouter,
-    lessonRouter,
-    roomTypeRouter,
+    termPaperRouter,
+    statusRouter,
+    requestRouter,
+    practiceTypeRouter,
+    practiceRouter,
+    organizationRouter,
+    graduationPaperRouter,
 }

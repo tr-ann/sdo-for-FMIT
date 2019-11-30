@@ -1,21 +1,19 @@
 import RequestRepository from '../repositories/RequestRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class RequestService {
-
-    _requestRepository = new RequestRepository()
+class RequestService {
 
     async create(request) {
-        return await this._requestRepository.create(request)
+        return await RequestRepository.create(request)
     }
 
     async readAll() {
-        return await this._requestRepository.readAll()
+        return await RequestRepository.readAll()
     }
 
     async readById(id) {
 
-        let request = await this._requestRepository.readById(id)
+        let request = await RequestRepository.readById(id)
 
         if (!request) {
             throw new NotFound('Request not found')
@@ -26,23 +24,25 @@ export default class RequestService {
 
     async update(id, request) {
 
-        let request = await this._requestRepository.readById(id)
+        let request = await RequestRepository.readById(id)
         
         if (!request) {
             throw new NotFound('Request not found')
         }
 
-        return await this._requestRepository.update(request)
+        return await RequestRepository.update(request)
     }
 
     async destroy(id) {
 
-        let request = await this._requestRepository.readById(id)
+        let request = await RequestRepository.readById(id)
         
         if (!request) {
             throw new NotFound('Request not found')
         }
         
-        return await this._requestRepository.destroy(id)
+        return await RequestRepository.destroy(id)
     }
 }
+
+export default new RequestService()

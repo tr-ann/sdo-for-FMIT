@@ -1,13 +1,11 @@
 import LectureRoomService from '../services/LectureRoomService'
 import core from '../../../core'
 
-export default class lectureRoomController {
-
-    _lectureRoomService = new LectureRoomService()
+class lectureRoomController {
 
     async create(req, res) {
         try {
-            let lectureRoom = await this._lectureRoomService.create({
+            let lectureRoom = await LectureRoomService.create({
                 number:         req.body.number,
                 seats_count:    req.body.seats_count,
                 type_id:        req.body.type_id,
@@ -27,7 +25,7 @@ export default class lectureRoomController {
 
     async readAll(req, res) {
         try {
-            let lectureRooms = await this._lectureRoomService.readAll()
+            let lectureRooms = await LectureRoomService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 lectureRooms,
@@ -42,7 +40,7 @@ export default class lectureRoomController {
 
     async readById(req, res) {
         try {
-            let lectureRoom = await this._lectureRoomService.readById(req.params.id)
+            let lectureRoom = await LectureRoomService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 lectureRoom,
@@ -57,7 +55,7 @@ export default class lectureRoomController {
 
     async update(req, res) {
         try {
-            let lectureRoom = await this._lectureRoomService.update(req.params.id, {
+            let lectureRoom = await LectureRoomService.update(req.params.id, {
                 number:         req.body.number,
                 seats_count:    req.body.seats_count,
                 type_id:        req.body.type_id,
@@ -77,7 +75,7 @@ export default class lectureRoomController {
 
     async destroy(req, res) {
         try {
-            await this._lectureRoomService.destroy(req.params.id)
+            await LectureRoomService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -90,3 +88,5 @@ export default class lectureRoomController {
         }
     }
 }
+
+export default new lectureRoomController()

@@ -1,13 +1,11 @@
 import DisciplineService from '../services/DisciplineService'
 import core from '../../../core'
 
-export default class disciplineController {
-
-    _disciplinesService = new DisciplineService()
+class disciplineController {
 
     async create(req, res) {
         try {
-            let discipline = await this._disciplinesService.create({
+            let discipline = await DisciplineService.create({
                 name:       req.body.name,
                 shotr_name: req.body.shotr_name,
             })
@@ -25,7 +23,7 @@ export default class disciplineController {
 
     async readAll(req, res) {
         try {
-            let disciplines = await this._disciplinesService.readAll()
+            let disciplines = await DisciplineService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 disciplines,
@@ -40,7 +38,7 @@ export default class disciplineController {
 
     async readById(req, res) {
         try {
-            let discipline = await this._disciplinesService.readById(req.params.id)
+            let discipline = await DisciplineService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 discipline,
@@ -55,7 +53,7 @@ export default class disciplineController {
 
     async update(req, res) {
         try {
-            let discipline = await this._disciplinesService.update(req.params.id, {
+            let discipline = await DisciplineService.update(req.params.id, {
                 name:       req.body.name,
                 shotr_name: req.body.shotr_name,
             })
@@ -73,7 +71,7 @@ export default class disciplineController {
 
     async destroy(req, res) {
         try {
-            await this._disciplinesService.destroy(req.params.id)
+            await DisciplineService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -86,3 +84,5 @@ export default class disciplineController {
         }
     }
 }
+
+export default new disciplineController()

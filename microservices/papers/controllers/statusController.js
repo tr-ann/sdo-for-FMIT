@@ -1,13 +1,11 @@
 import StatusService from '../services/StatusService'
 import core from '../../../core'
 
-export default class statusController {
-
-    _statusService = new StatusService()
+class statusController {
 
     async create(req, res) {
         try {
-            let status = await this._statusService.create({
+            let status = await StatusService.create({
                 name:   req.body.name,
             })
             
@@ -24,7 +22,7 @@ export default class statusController {
 
     async readAll(req, res) {
         try {
-            let statuses = await this._statusService.readAll()
+            let statuses = await StatusService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 statuses,
@@ -39,7 +37,7 @@ export default class statusController {
 
     async readById(req, res) {
         try {
-            let status = await this._statusService.readById(req.params.id)
+            let status = await StatusService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 status,
@@ -54,7 +52,7 @@ export default class statusController {
 
     async update(req, res) {
         try {
-            let status = await this._statusService.update(req.params.id, {
+            let status = await StatusService.update(req.params.id, {
                 name:   req.body.name,
             })
 
@@ -71,7 +69,7 @@ export default class statusController {
 
     async destroy(req, res) {
         try {
-            await this._statusService.destroy(req.params.id)
+            await StatusService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -84,3 +82,5 @@ export default class statusController {
         }
     }
 }
+
+export default new statusController()

@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class PracticeTypeRepository {
+class PracticeTypeRepository {
 
     /**
      * This is a standard method to create an entity in a database
@@ -56,3 +56,5 @@ export default class PracticeTypeRepository {
         })
     }
 }
+
+export default new PracticeTypeRepository()

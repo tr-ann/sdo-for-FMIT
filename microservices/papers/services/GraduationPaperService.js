@@ -1,21 +1,19 @@
 import GraduationPaperRepository from '../repositories/GraduationPaperRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class GraduationPaperService {
-
-    _graduationPaperRepository = new GraduationPaperRepository()
+class GraduationPaperService {
 
     async create(graduationPaper) {
-        return await this._graduationPaperRepository.create(graduationPaper)
+        return await GraduationPaperRepository.create(graduationPaper)
     }
 
     async readAll() {
-        return await this._graduationPaperRepository.readAll()
+        return await GraduationPaperRepository.readAll()
     }
 
     async readById(id) {
 
-        let graduationPaper = await this._graduationPaperRepository.readById(id)
+        let graduationPaper = await GraduationPaperRepository.readById(id)
 
         if (!graduationPaper) {
             throw new NotFound('Graduation paper not found')
@@ -26,23 +24,25 @@ export default class GraduationPaperService {
 
     async update(id, graduationPaper) {
 
-        let graduationPaper = await this._graduationPaperRepository.readById(id)
+        let graduationPaper = await GraduationPaperRepository.readById(id)
         
         if (!graduationPaper) {
             throw new NotFound('Graduation paper not found')
         }
 
-        return await this._graduationPaperRepository.update(graduationPaper)
+        return await GraduationPaperRepository.update(graduationPaper)
     }
 
     async destroy(id) {
 
-        let graduationPaper = await this._graduationPaperRepository.readById(id)
+        let graduationPaper = await GraduationPaperRepository.readById(id)
         
         if (!graduationPaper) {
             throw new NotFound('Graduation paper not found')
         }
         
-        return await this._graduationPaperRepository.destroy(id)
+        return await GraduationPaperRepository.destroy(id)
     }
 }
+
+export default new GraduationPaperService()

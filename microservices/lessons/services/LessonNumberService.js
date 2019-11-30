@@ -1,21 +1,19 @@
 import LessonNumberRepository from '../repositories/LessonNumberRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class LessonNumberService {
-
-    _lessonNumberRepository = new LessonNumberRepository()
+class LessonNumberService {
 
     async create(lessonNumber) {
-        return await this._lessonNumberRepository.create(lessonNumber)
+        return await LessonNumberRepository.create(lessonNumber)
     }
 
     async readAll() {
-        return await this._lessonNumberRepository.readAll()
+        return await LessonNumberRepository.readAll()
     }
 
     async readById(id) {
 
-        let lessonNumber = await this._lessonNumberRepository.readById(id)
+        let lessonNumber = await LessonNumberRepository.readById(id)
 
         if (!lessonNumber) {
             throw new NotFound('Lesson number not found')
@@ -26,23 +24,25 @@ export default class LessonNumberService {
 
     async update(id, lessonNumber) {
 
-        let lessonNumber = await this._lessonNumberRepository.readById(id)
+        let lessonNumber = await LessonNumberRepository.readById(id)
         
         if (!lessonNumber) {
             throw new NotFound('Lesson number not found')
         }
 
-        return await this._lessonNumberRepository.update(lessonNumber)
+        return await LessonNumberRepository.update(lessonNumber)
     }
 
     async destroy(id) {
 
-        let lessonNumber = await this._lessonNumberRepository.readById(id)
+        let lessonNumber = await LessonNumberRepository.readById(id)
         
         if (!lessonNumber) {
             throw new NotFound('Lesson number not found')
         }
         
-        return await this._lessonNumberRepository.destroy(id)
+        return await LessonNumberRepository.destroy(id)
     }
 }
+
+export default new LessonNumberService()

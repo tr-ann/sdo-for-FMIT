@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class RequestRepository {
+class RequestRepository {
 
     /**
      * This is a standard method to create an entity in a database
@@ -62,3 +62,5 @@ export default class RequestRepository {
         })
     }
 }
+
+export default new RequestRepository()

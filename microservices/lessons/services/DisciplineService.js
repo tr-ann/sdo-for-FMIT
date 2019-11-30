@@ -1,21 +1,19 @@
 import DisciplineRepository from '../repositories/DisciplineRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class DisciplineService {
-
-    _disciplineRepository = new DisciplineRepository()
+class DisciplineService {
 
     async create(discipline) {
-        return await this._disciplineRepository.create(discipline)
+        return await DisciplineRepository.create(discipline)
     }
 
     async readAll() {
-        return await this._disciplineRepository.readAll()
+        return await DisciplineRepository.readAll()
     }
 
     async readById(id) {
 
-        let discipline = await this._disciplineRepository.readById(id)
+        let discipline = await DisciplineRepository.readById(id)
 
         if (!discipline) {
             throw new NotFound('Discipline not found')
@@ -26,23 +24,25 @@ export default class DisciplineService {
 
     async update(id, discipline) {
 
-        let discipline = await this._disciplineRepository.readById(id)
+        let discipline = await DisciplineRepository.readById(id)
         
         if (!discipline) {
             throw new NotFound('Discipline not found')
         }
 
-        return await this._disciplineRepository.update(discipline)
+        return await DisciplineRepository.update(discipline)
     }
 
     async destroy(id) {
 
-        let discipline = await this._disciplineRepository.readById(id)
+        let discipline = await DisciplineRepository.readById(id)
         
         if (!discipline) {
             throw new NotFound('Discipline not found')
         }
         
-        return await this._disciplineRepository.destroy(id)
+        return await DisciplineRepository.destroy(id)
     }
 }
+
+export default new DisciplineService()

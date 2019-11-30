@@ -1,13 +1,11 @@
 import PracticeTypeService from '../services/PracticeTypeService'
 import core from '../../../core'
 
-export default class practiceTypeController {
-
-    _practiceTypeService = new PracticeTypeService()
+class practiceTypeController {
 
     async create(req, res) {
         try {
-            let practiceType = await this._practiceTypeService.create({
+            let practiceType = await PracticeTypeService.create({
                 name: req.body.name,
             })
             
@@ -24,7 +22,7 @@ export default class practiceTypeController {
 
     async readAll(req, res) {
         try {
-            let practiceTypes = await this._practiceTypeService.readAll()
+            let practiceTypes = await PracticeTypeService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 practiceTypes,
@@ -39,7 +37,7 @@ export default class practiceTypeController {
 
     async readById(req, res) {
         try {
-            let practiceType = await this._practiceTypeService.readById(req.params.id)
+            let practiceType = await PracticeTypeService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 practiceType,
@@ -54,7 +52,7 @@ export default class practiceTypeController {
 
     async update(req, res) {
         try {
-            let practiceType = await this._practiceTypeService.update(req.params.id, {
+            let practiceType = await PracticeTypeService.update(req.params.id, {
                 name:   req.body.name,
             })
 
@@ -71,7 +69,7 @@ export default class practiceTypeController {
 
     async destroy(req, res) {
         try {
-            await this._practiceTypeService.destroy(req.params.id)
+            await PracticeTypeService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -84,3 +82,5 @@ export default class practiceTypeController {
         }
     }
 }
+
+export default new practiceTypeController()

@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class RoomTypeRepository {
+class RoomTypeRepository {
 
     /**
      * This is a standard method to create an entity in a database
@@ -56,3 +56,5 @@ export default class RoomTypeRepository {
         })
     }
 }
+
+export default new RoomTypeRepository()

@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class LessonRepository {
+class LessonRepository {
 
     /**
      * This is a standard method to create an entity in a database
@@ -66,3 +66,5 @@ export default class LessonRepository {
         })
     }
 }
+
+export default new LessonRepository()

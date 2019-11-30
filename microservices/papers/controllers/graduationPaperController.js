@@ -1,13 +1,11 @@
 import GraduationPaperService from '../services/GraduationPaperService'
 import core from '../../../core'
 
-export default class graduationPaperController {
-
-    _graduationPaperService = new GraduationPaperService()
+class graduationPaperController {
 
     async create(req, res) {
         try {
-            let graduationPaper = await this._graduationPaperService.create({
+            let graduationPaper = await GraduationPaperService.create({
                 student_id:     req.body.student_id,
                 teacher_id:     req.body.teacher_id,
                 status_id:      req.body.status_id,
@@ -30,7 +28,7 @@ export default class graduationPaperController {
 
     async readAll(req, res) {
         try {
-            let graduationPapers = await this._graduationPaperService.readAll()
+            let graduationPapers = await GraduationPaperService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 graduationPapers,
@@ -45,7 +43,7 @@ export default class graduationPaperController {
 
     async readById(req, res) {
         try {
-            let graduationPaper = await this._graduationPaperService.readById(req.params.id)
+            let graduationPaper = await GraduationPaperService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 graduationPaper,
@@ -60,7 +58,7 @@ export default class graduationPaperController {
 
     async update(req, res) {
         try {
-            let graduationPaper = await this._graduationPaperService.update(req.params.id, {
+            let graduationPaper = await GraduationPaperService.update(req.params.id, {
                 student_id:     req.body.student_id,
                 teacher_id:     req.body.teacher_id,
                 status_id:      req.body.status_id,
@@ -83,7 +81,7 @@ export default class graduationPaperController {
 
     async destroy(req, res) {
         try {
-            await this._graduationPaperService.destroy(req.params.id)
+            await GraduationPaperService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -96,3 +94,5 @@ export default class graduationPaperController {
         }
     }
 }
+
+export default new graduationPaperController()

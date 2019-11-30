@@ -1,13 +1,11 @@
 import TermPaperService from '../services/TermPaperService'
 import core from '../../../core'
 
-export default class termPaperController {
-
-    _termPaperService = new TermPaperService()
+class termPaperController {
 
     async create(req, res) {
         try {
-            let termPaper = await this._termPaperService.create({
+            let termPaper = await TermPaperService.create({
                 student_id:     req.body.student_id,
                 teacher_id:     req.body.teacher_id,
                 status_id:      req.body.status_id,
@@ -30,7 +28,7 @@ export default class termPaperController {
 
     async readAll(req, res) {
         try {
-            let termPapers = await this._termPaperService.readAll()
+            let termPapers = await TermPaperService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 termPapers,
@@ -45,7 +43,7 @@ export default class termPaperController {
 
     async readById(req, res) {
         try {
-            let termPaper = await this._termPaperService.readById(req.params.id)
+            let termPaper = await TermPaperService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 termPaper,
@@ -60,7 +58,7 @@ export default class termPaperController {
 
     async update(req, res) {
         try {
-            let termPaper = await this._termPaperService.update(req.params.id, {
+            let termPaper = await TermPaperService.update(req.params.id, {
                 student_id:     req.body.student_id,
                 teacher_id:     req.body.teacher_id,
                 status_id:      req.body.status_id,
@@ -83,7 +81,7 @@ export default class termPaperController {
 
     async destroy(req, res) {
         try {
-            await this._termPaperService.destroy(req.params.id)
+            await TermPaperService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
@@ -96,3 +94,5 @@ export default class termPaperController {
         }
     }
 }
+
+export default new termPaperController()
