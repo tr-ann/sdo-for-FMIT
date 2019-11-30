@@ -5,8 +5,8 @@ class InfoFacultyService {
 
     _repository = new InfoFacultyRepository()
 
-    async create(infoInfoFaculty) {
-        return await this._repository.create(infoInfoFaculty)
+    async create(infoFaculty) {
+        return await this._repository.create(infoFaculty)
     }
 
     async readAll() {
@@ -15,20 +15,20 @@ class InfoFacultyService {
 
     async readById(id) {
 
-        let infoInfoFaculty = await this._repository.readById(id)
+        let infoFaculty = await this._repository.readById(id)
 
-        if (!infoInfoFaculty) {
+        if (!infoFaculty) {
             throw new NotFound(`InfoFaculty not found`)
         }
 
-        return infoInfoFaculty
+        return infoFaculty
     }
 
-    async update(id, infoInfoFaculty) {
+    async update(id, infoFaculty) {
 
-        let infoInfoFaculty = await this._repository.readById(id)
+        let nInfoFaculty = await this._repository.readById(id)
         
-        if (!infoInfoFaculty) {
+        if (!nInfoFaculty) {
             throw new NotFound(`InfoFaculty not found`)
         }
 
@@ -37,9 +37,9 @@ class InfoFacultyService {
 
     async destroy(id) {
 
-        let infoInfoFaculty = await this._repository.readById(id)
+        let infoFaculty = await this._repository.readById(id)
         
-        if (!infoInfoFaculty) {
+        if (!infoFaculty) {
             throw new NotFound(`InfoFaculty not found`)
         }
         

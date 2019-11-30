@@ -1,10 +1,10 @@
-const router = require('express').Router()
-const userController = require('../controllers/facultyController')
+import { Router } from 'express'
+import FacultyController from '../controllers/buildingController'
 
-router.get('/:userId', userController.readById);
-router.post('/:userId', userController.update);
-router.delete('/:userId', userController.destroy);
-router.get('/', userController.list);
-router.post('/', userController.create);
+export default router = Router()
 
-module.exports = router;
+router.get('/:id', FacultyController.readById)
+router.post('/:id', FacultyController.update)
+router.delete('/:id', FacultyController.destroy)
+router.get('/', FacultyController.readAll)
+router.post('/', FacultyController.create)

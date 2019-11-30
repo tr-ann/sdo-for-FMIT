@@ -26,9 +26,9 @@ class GroupService {
 
     async update(id, group) {
 
-        let group = await this._repository.readById(id)
+        let nGroup = await this._repository.readById(id)
         
-        if (!group) {
+        if (!nGroup) {
             throw new NotFound(`Group not found`)
         }
 
