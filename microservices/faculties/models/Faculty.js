@@ -6,11 +6,11 @@ export default (sequelize, DataTypes) => {
     var Faculty = sequelize.define('faculty', {
         name: {
             allowNull: false,
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
         },
         short_name: {
             allowNull: false,
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
         },
     }, {
         sequelize,

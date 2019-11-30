@@ -6,15 +6,15 @@ export default (sequelize, DataTypes) => {
     var Specialty = sequelize.define('specialty', {
         code: {
             allowNull: false,
-            type: Sequelize.STRING(20),
+            type: DataTypes.STRING(20),
         },
         name: {
             allowNull: false,
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
         },
         short_name: {
             allowNull: false,
-            type: Sequelize.STRING(60),
+            type: DataTypes.STRING(60),
         },
     }, {
         sequelize,

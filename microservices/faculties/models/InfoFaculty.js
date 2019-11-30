@@ -6,11 +6,11 @@ export default (sequelize, DataTypes) => {
     var InfoFaculty = sequelize.define('info_faculty', {
         description: {
             allowNull: true,
-            type: Sequelize.TEXT,
+            type: DataTypes.TEXT,
         },
         phone_number: {
             allowNull: false,
-            type: Sequelize.STRING(20),
+            type: DataTypes.STRING(20),
         },
     }, {
         sequelize,
