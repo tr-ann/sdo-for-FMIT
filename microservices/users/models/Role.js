@@ -1,4 +1,4 @@
-import { Model } from 'sequelize/types'
+import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
     class Role extends Model {}
@@ -22,7 +22,13 @@ export default (sequelize, DataTypes) => {
         }
     });
 
-    Role.associate = function (models) { };
+    Role.associate = function (models) {
+        Role.belongsToMany(models.user, {
+            through: models.user_role,
+            onDelete: 'restrict',
+            onUpdate: 'restrict',
+        })
+    };
     
     return Role;
 }

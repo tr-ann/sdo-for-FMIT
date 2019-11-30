@@ -1,4 +1,4 @@
-import { Model } from 'sequelize/types'
+import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
     
@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
     })
 
     AcademicDegree.associate = function (models) {
-        AcademicDegree.hasMany(models.Teacher, {
+        AcademicDegree.hasMany(models.teacher, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })

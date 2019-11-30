@@ -1,4 +1,6 @@
-import { Model } from 'sequelize/types'
+import { Model } from 'sequelize'
+
+//var Model = require('sequelize').Model
 
 export default (sequelize, DataTypes) => {
     class Phone extends Model {}
@@ -24,7 +26,7 @@ export default (sequelize, DataTypes) => {
     })
     
     Phone.associate = function (models) {
-        Phone.belongsTo(models.User, {
+        Phone.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })

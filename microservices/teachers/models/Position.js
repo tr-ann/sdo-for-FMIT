@@ -1,4 +1,4 @@
-import { Model } from 'sequelize/types'
+import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
     
@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
     })
     
     Position.associate = function (models) {
-        Position.hasMany(models.Teacher, {
+        Position.hasMany(models.teacher, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })

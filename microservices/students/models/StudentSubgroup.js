@@ -1,21 +1,33 @@
-module.exports = (sequelize, DataTypes) => {
-    var StudentSubgroup = sequelize.define('student_subgroup', {}, {
+import { Model } from 'sequelize'
+
+export default (sequelize, DataTypes) => {
+
+    class StudentSubgroup extends Model {}
+
+    StudentSubgroup.init({}, {
+        sequelize,
         underscope: true,
-        timestamp: true, // надо??
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'student_subgroup',
+        freezeTableName: 'students_subgroups',
         name: {
             simple: 'studentSubgroup',
             plural: 'studentSubgroups',
         }
-    });
-    StudentGroup.associate = function (models) {
-        StudentGroup.belongsTo(models.Student, {
+    })
+    StudentSubgroup.associate = function (models) {
+        StudentSubgroup.belongsTo(models.student, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-        });
-        StudentGroup.belongsTo(models.Subgroup, {
+        })
+        StudentSubgroup.belongsTo(models.subgroup, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-        });
-    };
+        })
+    }
+
     return StudentSubgroup;
 };
