@@ -1,13 +1,22 @@
 import db from '../models'
 
-export default class User {
+class UserRepository {
     
     async readAll() {
         return await db.user.findAll()
     }
 
     async readById(id) {
-        return await db.user.findByPk(id)
+        return await db.user.findByPk(id, {
+            attributes: ['id', 'login'],
+            include: [   /* ?? */
+                { model: db.model_info }
+            ]
+        })
+    }
+
+    async get(options) {
+        return await db.user.findOne({ where: options });
     }
 
     async create(user) {
@@ -22,3 +31,5 @@ export default class User {
         return await db.user.destroy({where: {id: id}})
     }
 }
+
+export default new UserRepository()

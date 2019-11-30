@@ -1,17 +1,17 @@
 import UserRepository from '../repositories/UserRepository'
-import UserInfoRepository from '../repositories/UserInfoRepository'
 
 export default class UserService {
 
     _userRepository = new UserRepository()
-    _userInfoRepository = new UserInfoRepository()
 
     async list() {
         return await this._userRepository.readAll()
     }
 
     async create(user) {
-        return await this._userRepository.create(user)
+        let newUser = await this._userRepository.create(user)
+        delete newUser.password
+        return newUser
     }
 
     async findById(id) {

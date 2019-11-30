@@ -3,6 +3,11 @@ configs = require('./database.json')
 const env       = process.env.NODE_ENV || 'dev'
 const config    = configs[env]
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sequelize = new Sequelize(config.database, config.username, config.password, config)
 
-export default sequelize
+async function connect() {
+    await sequelize.authenticate()
+    await sequelize.sync()
+}
+
+export { sequelize, connect }

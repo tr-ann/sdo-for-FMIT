@@ -1,99 +1,116 @@
+USE `sdo_test`;
+
 /* таблица аудитории */
-ALTER TABLE lecture_room
-    ADD CONSTRAINT FK_lecture_room_to_room_type     FOREIGN KEY(type_id)    REFERENCES room_type(id),
-		ADD CONSTRAINT FK_lecture_room_to_building     FOREIGN KEY(building_id)    REFERENCES building(id);
+ALTER TABLE lecture_rooms
+
+    ADD CONSTRAINT FK_lecture_rooms_to_room_types FOREIGN KEY (type_id)    
+		REFERENCES room_types(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+
+	ADD CONSTRAINT FK_lecture_rooms_to_buildings FOREIGN KEY (building_id) 
+		REFERENCES buildings(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT
+;
 			
+
 /* таблица кафедра */
-ALTER TABLE department
-    ADD CONSTRAINT FK_department_to_user FOREIGN KEY(owner_id) REFERENCES user(id),
-        ADD CONSTRAINT FK_department_to_lecture_room FOREIGN KEY(room_id) REFERENCES lecture_room(id);
-			ADD CONSTRAINT FK_department_to_faculty FOREIGN KEY(faculty_id) REFERENCES faculty(id);
+ALTER TABLE departments
+    ADD CONSTRAINT FK_departments_to_users FOREIGN KEY(owner_id) REFERENCES users(id),
+        ADD CONSTRAINT FK_departments_to_lecture_rooms FOREIGN KEY(room_id) REFERENCES lecture_rooms(id),
+			ADD CONSTRAINT FK_departments_to_faculties FOREIGN KEY(faculty_id) REFERENCES faculties(id);
 	
 /* таблица пользователь */
-ALTER TABLE user_role
-	ADD CONSTRAINT FK_user_role_to_role FOREIGN KEY(role_id) REFERENCES role(id),
-		ADD CONSTRAINT FK_user_role_to_user FOREIGN KEY(user_id) REFERENCES user(id);
+ALTER TABLE users_roles
+	ADD CONSTRAINT FK_users_roles_to_roles FOREIGN KEY(role_id) REFERENCES roles(id),
+		ADD CONSTRAINT FK_users_roles_to_users FOREIGN KEY(user_id) REFERENCES users(id);
     
 /* таблица телефон */
-ALTER TABLE phone
-	ADD CONSTRAINT FK_phone_to_user FOREIGN KEY(user_id) REFERENCES user(id);
+ALTER TABLE phones
+	ADD CONSTRAINT FK_phones_to_users FOREIGN KEY(user_id) REFERENCES users(id);
 	
 /* таблица информация о пользователе */
-ALTER TABLE user_info
-    ADD CONSTRAINT FK_user_info_to_user FOREIGN KEY(user_id) REFERENCES user(id),
-        ADD CONSTRAINT FK_user_info_to_resource FOREIGN KEY(photo_id) REFERENCES resource(id);
+ALTER TABLE users_info
+    ADD CONSTRAINT FK_users_info_to_users FOREIGN KEY(user_id) REFERENCES users(id),
+        ADD CONSTRAINT FK_users_info_to_resources FOREIGN KEY(photo_id) REFERENCES resources(id);
 
 /* таблица преподаватель */
-ALTER TABLE teacher
-    ADD CONSTRAINT FK_teacher_to_user FOREIGN KEY(id) REFERENCES user(id),
-        ADD CONSTRAINT FK_teacher_to_department FOREIGN KEY(department_id) REFERENCES department(id),
-            ADD CONSTRAINT FK_teacher_to_position FOREIGN KEY(position_id) REFERENCES position(id),
-                ADD CONSTRAINT FK_teacher_to_academic_degree FOREIGN KEY(academic_degree_id) REFERENCES academic_degree(id),
-                    ADD CONSTRAINT FK_teacher_to_academic_rank FOREIGN KEY(academic_rank_id) REFERENCES academic_rank(id);
+ALTER TABLE teachers
+    ADD CONSTRAINT FK_teachers_to_users FOREIGN KEY(id) REFERENCES users(id),
+        ADD CONSTRAINT FK_teachers_to_departments FOREIGN KEY(department_id) REFERENCES departments(id),
+            ADD CONSTRAINT FK_teachers_to_positions FOREIGN KEY(position_id) REFERENCES positions(id),
+                ADD CONSTRAINT FK_teachers_to_academic_degrees FOREIGN KEY(academic_degree_id) REFERENCES academic_degrees(id),
+                    ADD CONSTRAINT FK_teachers_to_academic_ranks FOREIGN KEY(academic_rank_id) REFERENCES academic_ranks(id);
 							
 /* таблица информация о факультете */
-ALTER TABLE info_faculty
-	ADD CONSTRAINT FK_info_faculty_to_faculty FOREIGN KEY(id) REFERENCES faculty(id);
+ALTER TABLE info_faculties
+	ADD CONSTRAINT FK_info_faculties_to_faculties FOREIGN KEY(id) REFERENCES faculties(id);
 						
 /* таблица группа */
-ALTER TABLE group
-	ADD CONSTRAINT FK_group_to_faculty FOREIGN KEY(faculty_id) REFERENCES faculty(id),
-	    ADD CONSTRAINT FK_group_to_specialty FOREIGN KEY(specialty_id) REFERENCES specialty(id),
-	        ADD CONSTRAINT FK_group_to_study_mode FOREIGN KEY(study_mode_id) REFERENCES study_mode(id);
+ALTER TABLE `groups`
+	ADD CONSTRAINT FK_groups_to_faculties FOREIGN KEY(faculty_id) REFERENCES faculties(id),
+	    ADD CONSTRAINT FK_groups_to_specialties FOREIGN KEY(specialty_id) REFERENCES specialties(id),
+	        ADD CONSTRAINT FK_groups_to_study_modes FOREIGN KEY(study_mode_id) REFERENCES study_modes(id);
 	
 /* таблица подгруппа */
-ALTER TABLE subgroup
-	ADD CONSTRAINT FK_subgroup_to_group FOREIGN KEY(group_id) REFERENCES group(id);
+ALTER TABLE subgroups
+	ADD CONSTRAINT FK_subgroups_to_groups FOREIGN KEY(groups_id) REFERENCES `groups`(id);
 
 /* таблица подгруппа и студент */
-ALTER TABLE subgroup_vs_student
-	ADD CONSTRAINT FK_subgroup_vs_student_to_subgroup FOREIGN KEY(subgroup_id) REFERENCES subgroup(id),
-        ADD CONSTRAINT FK_subgroup_vs_student_to_student FOREIGN KEY(student_id) REFERENCES student(id);
+ALTER TABLE subgroups_vs_students
+	ADD CONSTRAINT FK_subgroups_students_to_subgroups FOREIGN KEY(subgroup_id) REFERENCES subgroups(id),
+        ADD CONSTRAINT FK_subgroups_vs_students_to_students FOREIGN KEY(student_id) REFERENCES students(id);
 
 /* таблица куратор */
-ALTER TABLE curator
-	ADD CONSTRAINT FK_curator_to_group FOREIGN KEY(group_id) REFERENCES group(id),
-        ADD CONSTRAINT FK_curator_to_teacher FOREIGN KEY(teacher_id) REFERENCES teacher(id);
+ALTER TABLE curators
+	ADD CONSTRAINT FK_curators_to_groups FOREIGN KEY(group_id) REFERENCES `groups`(id),
+        ADD CONSTRAINT FK_curators_to_teachers FOREIGN KEY(teacher_id) REFERENCES teachers(id);
 
 /* таблица занятие */
-ALTER TABLE lesson
-	ADD CONSTRAINT FK_lesson_to_group FOREIGN KEY(group_id) REFERENCES group(id),
-        ADD CONSTRAINT FK_lesson_to_subgroup FOREIGN KEY(subgroup_id) REFERENCES subgroup(id),
-            ADD CONSTRAINT FK_lesson_to_teacher FOREIGN KEY(teacher_id) REFERENCES teacher(id),
-                ADD CONSTRAINT FK_lesson_to_type FOREIGN KEY(type_id) REFERENCES lesson_type(id),
-                    ADD CONSTRAINT FK_lesson_to_lecture_room FOREIGN KEY(room_id) REFERENCES lecture_room(id),
-                        ADD CONSTRAINT FK_lesson_to_discipline FOREIGN KEY(discipline_id) REFERENCES discipline(id),  
-                             ADD CONSTRAINT FK_lesson_to_lesson_number FOREIGN KEY(lesson_number_id) REFERENCES lesson_number(id);
+ALTER TABLE lessons
+	ADD CONSTRAINT FK_lessons_to_groups FOREIGN KEY(group_id) REFERENCES `groups`(id),
+        ADD CONSTRAINT FK_lessons_to_subgroups FOREIGN KEY(subgroup_id) REFERENCES subgroups(id),
+            ADD CONSTRAINT FK_lessons_to_teachers FOREIGN KEY(teacher_id) REFERENCES teachers(id),
+                ADD CONSTRAINT FK_lessons_to_type FOREIGN KEY(type_id) REFERENCES lessons_type(id),
+                    ADD CONSTRAINT FK_lessons_to_lecture_rooms FOREIGN KEY(room_id) REFERENCES lecture_rooms(id),
+                        ADD CONSTRAINT FK_lessons_to_disciplines FOREIGN KEY(discipline_id) REFERENCES disciplines(id),  
+                             ADD CONSTRAINT FK_lessons_to_lesson_numbers FOREIGN KEY(lesson_number_id) REFERENCES lesson_numbers(id);
 
 /* таблица студент */
-ALTER TABLE student
-    ADD CONSTRAINT FK_student_to_user FOREIGN KEY("id") REFERENCES user(id),                            
-        ADD CONSTRAINT FK_student_to_group FOREIGN KEY("group_id") REFERENCES group(id);
+ALTER TABLE students
+    ADD CONSTRAINT FK_students_to_users FOREIGN KEY(id) REFERENCES users(id),                            
+        ADD CONSTRAINT FK_students_to_groups FOREIGN KEY(group_id) REFERENCES `groups`(id);
 
 /* таблица запрос */
-ALTER TABLE request
-	ADD CONSTRAINT FK_request_to_student FOREIGN KEY(student_id) REFERENCES student(id),
-		ADD CONSTRAINT FK_request_to_teacher FOREIGN KEY(teacher_id) REFERENCES teacher(id),
-			ADD CONSTRAINT FK_request_to_status FOREIGN KEY(status_id) REFERENCES status(id);
+ALTER TABLE requests
+	ADD CONSTRAINT FK_requests_to_students FOREIGN KEY(student_id) REFERENCES students(id),
+		ADD CONSTRAINT FK_requests_to_teachers FOREIGN KEY(teacher_id) REFERENCES teachers(id),
+			ADD CONSTRAINT FK_requests_to_statuses FOREIGN KEY(status_id) REFERENCES statuses(id);
 			
 /* таблица курсовая работа */
-ALTER TABLE term_paper
-	ADD CONSTRAINT FK_term_paper_to_student FOREIGN KEY(student_id) REFERENCES student(id),
-		ADD CONSTRAINT FK_term_paper_to_teacher FOREIGN KEY(teacher_id) REFERENCES teacher(id),
-			ADD CONSTRAINT FK_term_paper_to_status FOREIGN KEY(status_id) REFERENCES status(id),
-		        ADD CONSTRAINT FK_term_paper_to_resource FOREIGN KEY(resource_id) REFERENCES resource(id);
+ALTER TABLE term_papers
+	ADD CONSTRAINT FK_term_papers_to_students FOREIGN KEY(student_id) REFERENCES students(id),
+		ADD CONSTRAINT FK_term_papers_to_teachers FOREIGN KEY(teacher_id) REFERENCES teachers(id),
+			ADD CONSTRAINT FK_term_papers_to_statuses FOREIGN KEY(status_id) REFERENCES statuses(id),
+		        ADD CONSTRAINT FK_term_papers_to_resources FOREIGN KEY(resource_id) REFERENCES resources(id);
 			
 /* таблица дипломная работа */
-ALTER TABLE graduation_paper
-	ADD CONSTRAINT FK_graduation_paper_to_student FOREIGN KEY(student_id) REFERENCES student(id),
-		ADD CONSTRAINT FK_graduation_paper_to_teacher FOREIGN KEY(teacher_id) REFERENCES teacher(id),
-			ADD CONSTRAINT FK_graduation_paper_to_status FOREIGN KEY(status_id) REFERENCES status(id),
-		        ADD CONSTRAINT FK_graduation_paper_to_resource FOREIGN KEY(resource_id) REFERENCES resource(id);
+ALTER TABLE graduation_papers
+	ADD CONSTRAINT FK_graduation_papers_to_students FOREIGN KEY(student_id) REFERENCES students(id),
+		ADD CONSTRAINT FK_graduation_papers_to_teachers FOREIGN KEY(teacher_id) REFERENCES teachers(id),
+			ADD CONSTRAINT FK_graduation_papers_to_statuses FOREIGN KEY(status_id) REFERENCES statuses(id),
+		        ADD CONSTRAINT FK_graduation_papers_to_resources FOREIGN KEY(resource_id) REFERENCES resources(id);
 			
 /* таблица практика */
-ALTER TABLE practice
-	ADD CONSTRAINT FK_practice_to_student FOREIGN KEY(student_id) REFERENCES student(id),
-		ADD CONSTRAINT FK_practice_to_organization FOREIGN KEY(organization_id) REFERENCES organization(id),		
-			ADD CONSTRAINT FK_practice_to_status FOREIGN KEY(status_id) REFERENCES status(id),
-		        ADD CONSTRAINT FK_practice_to_resource FOREIGN KEY(resource_id) REFERENCES resource(id),
-                    ADD CONSTRAINT FK_practice_to_practice_type FOREIGN KEY(type_id) REFERENCES practice_type(id);
+ALTER TABLE practices
+	ADD CONSTRAINT FK_practices_to_students FOREIGN KEY(student_id) REFERENCES students(id),
+		ADD CONSTRAINT FK_practices_to_organization FOREIGN KEY(organization_id) REFERENCES organization(id),		
+			ADD CONSTRAINT FK_practices_to_statuses FOREIGN KEY(statuse_id) REFERENCES statuses(id),
+		        ADD CONSTRAINT FK_practices_to_resources FOREIGN KEY(resource_id) REFERENCES resources(id),
+                    ADD CONSTRAINT FK_practices_to_practice_types FOREIGN KEY(type_id) REFERENCES practice_types(id);
+
+/* таблица roles_urls */
+ALTER TABLE roles_urls
+	ADD CONSTRAINT FK_roles_urls_to_roles FOREIGN KEY(role_id) REFERENCES roles(id),
+        ADD CONSTRAINT FK_roles_urls_to_urls FOREIGN KEY(url_id) REFERENCES urls(id);
