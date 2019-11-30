@@ -34,19 +34,19 @@ export default (sequelize, DataTypes) => {
     User.associate = function(models) {
         User.hasMany(models.Phone, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         });
         User.hasOne(models.UserInfo, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         });
         User.hasOne(models.Student, { 
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         });
         User.hasOne(models.Teacher, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         });
     };
 

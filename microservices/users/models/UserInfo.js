@@ -4,6 +4,10 @@ export default (sequelize, DataTypes) => {
     class UserInfo extends Model {}
 
     UserInfo.init({
+        fullName: {
+            allowNull: true,
+            type: DataTypes.STRING(255),
+        },
         description: {
             allowNull: true,
             type: DataTypes.TEXT,
