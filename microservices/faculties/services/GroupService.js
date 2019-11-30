@@ -1,7 +1,7 @@
 import GroupRepository from '../repositories/GroupRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class GroupService {
+class GroupService {
 
     _repository = new GroupRepository()
 
@@ -46,3 +46,5 @@ export default class GroupService {
         return await this._repository.destroy(id)
     }
 }
+
+export default new GroupService()

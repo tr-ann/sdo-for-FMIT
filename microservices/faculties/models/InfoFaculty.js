@@ -1,4 +1,8 @@
+import { Model } from 'sequelize/types'
+
 export default (sequelize, DataTypes) => {
+    class InfoFaculty extends Model {}
+
     var InfoFaculty = sequelize.define('info_faculty', {
         description: {
             allowNull: true,
@@ -9,15 +13,22 @@ export default (sequelize, DataTypes) => {
             type: Sequelize.STRING(20),
         },
     }, {
-        underscored: true,
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'infoFaculty',
+
         name: {
-            singular: 'InfoFaculty',
-            plural: 'InfoFaculties',
+            singular: 'infoFaculty',
+            plural: 'infoFaculties',
         },
     });
     InfoFaculty.associate = function(models) {
         InfoFaculty.belongsTo(models.faculty, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     };

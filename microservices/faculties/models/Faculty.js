@@ -1,4 +1,8 @@
+import { Model } from 'sequelize/types'
+
 export default (sequelize, DataTypes) => {
+    class Faculty extends Model {}
+
     var Faculty = sequelize.define('faculty', {
         name: {
             allowNull: false,
@@ -9,19 +13,26 @@ export default (sequelize, DataTypes) => {
             type: Sequelize.STRING(50),
         },
     }, {
-        underscored: true,
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'faculty',
+
         name: {
-            singular: 'Faculty',
-            plural: 'Faculties',
+            singular: 'faculty',
+            plural: 'faculties',
         },
     });
     Faculty.associate = function(models) {
         Faculty.hasMany(models.gorup, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Faculty.hasOne(models.info_faculty, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     };

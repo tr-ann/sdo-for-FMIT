@@ -1,7 +1,7 @@
 import InfoFacultyRepository from '../repositories/InfoFacultyRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class InfoFacultyService {
+class InfoFacultyService {
 
     _repository = new InfoFacultyRepository()
 
@@ -46,3 +46,5 @@ export default class InfoFacultyService {
         return await this._repository.destroy(id)
     }
 }
+
+export default new InfoFacultyService()

@@ -1,4 +1,8 @@
+import { Model } from 'sequelize/types'
+
 export default (sequelize, DataTypes) => {
+    class Group extends Model {}
+
     var Group = sequelize.define('group', {
         number: {
             allowNull: false,
@@ -17,39 +21,46 @@ export default (sequelize, DataTypes) => {
             type: Sequelize.SMALLINT,
         },
     }, {
-        underscored: true,
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'group',
+
         name: {
-            singular: 'Group',
-            plural: 'Groups',
+            singular: 'group',
+            plural: 'groups',
         },
     });
     Group.associate = function(models) {
         Group.belongsTo(models.specialty, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Group.belongsTo(models.study_mode, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Group.belongsTo(models.faculty, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Group.hasMany(models.curator, {//////????
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Group.hasMany(models.student, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Group.hasMany(models.subgroup, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Group.hasMany(models.lessons, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     };

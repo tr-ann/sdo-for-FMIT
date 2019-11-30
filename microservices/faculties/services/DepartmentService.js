@@ -1,7 +1,7 @@
 import DepartmentRepository from '../repositories/DepartmentRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class DepartmentService {
+class DepartmentService {
 
     _repository = new DepartmentRepository()
 
@@ -46,3 +46,5 @@ export default class DepartmentService {
         return await this._repository.destroy(id)
     }
 }
+
+export default new DepartmentService()

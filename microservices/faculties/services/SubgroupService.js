@@ -1,7 +1,7 @@
 import SubgroupRepository from '../repositories/SubgroupRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class SubgroupService {
+class SubgroupService {
 
     _repository = new SubgroupRepository()
 
@@ -46,3 +46,5 @@ export default class SubgroupService {
         return await this._repository.destroy(id)
     }
 }
+
+export default new SubgroupService()

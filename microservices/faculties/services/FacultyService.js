@@ -1,7 +1,7 @@
 import FacultyRepository from '../repositories/FacultyRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class FacultyService {
+class FacultyService {
 
     _repository = new FacultyRepository()
 
@@ -46,3 +46,5 @@ export default class FacultyService {
         return await this._repository.destroy(id)
     }
 }
+
+export default new FacultyService()

@@ -1,4 +1,8 @@
+import { Model } from 'sequelize/types'
+
 export default (sequelize, DataTypes) => {
+    class Subgroup extends Model {}
+
     var Subgroup = sequelize.define('subgroup', {
         name: {
             allowNull: false,
@@ -9,19 +13,26 @@ export default (sequelize, DataTypes) => {
             type: Sequelize.INTEGER,
         },
     }, {
-        underscored: true,
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'subgroup',
+
         name: {
-            singular: 'Subgroup',
-            plural: 'Subgroups',
+            singular: 'subgroup',
+            plural: 'subgroups',
         },
     });
     Subgroup.associate = function(models) {
         Subgroup.belongsTo(models.group, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Subgroup.hasMany(models.lessons, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     };

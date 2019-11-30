@@ -1,6 +1,9 @@
-export default (sequelize, DataTypes) => {
+import { Model } from 'sequelize/types'
 
-    const Department = sequelize.define('department', {
+export default (sequelize, DataTypes) => {
+    class Department extends Model {}
+
+    Department.init({
         name: {
             allowNull: false,
             type: Sequelize.STRING(100),
@@ -18,29 +21,36 @@ export default (sequelize, DataTypes) => {
             type: Sequelize.INTEGER,
         },
     }, {
-        underscored: true,
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'department',
+
         name: {
-            singular: 'Department',
-            plural: 'Departments',
-        },
+            simple: 'department',
+            plural: 'departments',
+        }
     })
     
     Department.associate = function(models) {
         Department.belongsTo(models.user, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Department.belongsTo(models.faculty, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
         Department.belongsTo(models.lecture_room, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
 
         Department.hasMany(models.teacher, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     }

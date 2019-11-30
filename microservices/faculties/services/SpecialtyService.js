@@ -1,7 +1,7 @@
 import SpecialtyRepository from '../repositories/SpecialtyRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class SpecialtyService {
+class SpecialtyService {
 
     _repository = new SpecialtyRepository()
 
@@ -46,3 +46,5 @@ export default class SpecialtyService {
         return await this._repository.destroy(id)
     }
 }
+
+export default new SpecialtyService()

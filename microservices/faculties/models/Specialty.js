@@ -1,4 +1,8 @@
+import { Model } from 'sequelize/types'
+
 export default (sequelize, DataTypes) => {
+    class Specialty extends Model {}
+
     var Specialty = sequelize.define('specialty', {
         code: {
             allowNull: false,
@@ -13,15 +17,22 @@ export default (sequelize, DataTypes) => {
             type: Sequelize.STRING(60),
         },
     }, {
-        underscored: true,
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'specialty',
+
         name: {
-            singular: 'Specialty',
-            plural: 'Specialties',
+            singular: 'specialty',
+            plural: 'specialties',
         },
     });
     Specialty.associate = function(models) {
         Specialty.hasMany(models.group, {
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
             onDelete: 'restrict',
         })
     };

@@ -1,7 +1,7 @@
 import StudyModeRepository from '../repositories/StudyModeRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class StudyModeService {
+class StudyModeService {
 
     _repository = new StudyModeRepository()
 
@@ -46,3 +46,5 @@ export default class StudyModeService {
         return await this._repository.destroy(id)
     }
 }
+
+export default new StudyModeService()
