@@ -8,7 +8,11 @@ import { passport, isAutenticated } from '../passport'
 
 export default (app) => {
 
-    //app.get('/login', isAuthenticated)
+    app.get('/login', (req, res, next) => {
+        req.isAutenticated()
+            ? res.redirect('/')
+            : next() //render('')
+    })
 
     app.post('/login', 
         passport.authenticate('local', {
