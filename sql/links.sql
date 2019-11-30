@@ -97,3 +97,8 @@ ALTER TABLE practice
 			ADD CONSTRAINT FK_practice_to_status FOREIGN KEY(status_id) REFERENCES status(id),
 		        ADD CONSTRAINT FK_practice_to_resource FOREIGN KEY(resource_id) REFERENCES resource(id),
                     ADD CONSTRAINT FK_practice_to_practice_type FOREIGN KEY(type_id) REFERENCES practice_type(id);
+
+/* таблица roles_urls */
+ALTER TABLE roles_urls
+	ADD CONSTRAINT FK_roles_urls_to_roles FOREIGN KEY(role_id) REFERENCES roles(id),
+        ADD CONSTRAINT FK_roles_urls_to_urls FOREIGN KEY(url_id) REFERENCES urls(id);

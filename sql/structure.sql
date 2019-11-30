@@ -380,3 +380,16 @@ CREATE TABLE "practice" (
     "type_id"               INT         ,
     `deleted_date`          TIMESTAMP
 );
+
+DROP TABLE IF EXISTS "urls";
+CREATE TABLE "urls" (
+    "id"    SERIAL      PRIMARY KEY,
+    "url"   VARCHAR(255)   
+);
+
+DROP TABLE IF EXISTS "roles_urls";
+CREATE TABLE "roles_urls" (
+    "id"        SERIAL      PRIMARY KEY,
+    "url_id"    INT,
+    "role_id"   INT
+);
