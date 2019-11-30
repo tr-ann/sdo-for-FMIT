@@ -1,21 +1,19 @@
 import PositionRepository from '../repositories/PositionRepository'
 
-export default class PositionService {
-
-    _repository = new PositionRepository()
+class PositionService {
 
     /*  ????  */
     async list() {
-        return await this._repository.readAll()
+        return await PositionRepository.readAll()
     }
 
     async create(position) {
-        return await this._repository.create(position)
+        return await PositionRepository.create(position)
     }
 
     /*  ????  */
     async findById(id) {
-        let position = await this._repository.readById(id)
+        let position = await PositionRepository.readById(id)
         if (!position) {
             throw new NotFound(`${objectName} not found`)
         }
@@ -23,10 +21,12 @@ export default class PositionService {
     }
 
     async update(id, position) {
-        return await this._repository.update(id, position)
+        return await PositionRepository.update(id, position)
     }
 
     async destroy(id) {
-        return await this._repository.destroy(id)
+        return await PositionRepository.destroy(id)
     }
-};
+}
+
+export default new PositionService()

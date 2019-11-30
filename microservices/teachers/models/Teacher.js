@@ -29,40 +29,40 @@ export default (sequelize, DataTypes) => {
     Teacher.associate = function (models) {
         Teacher.belongsTo(models.User, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Teacher.belongsTo(models.Department, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Teacher.belongsTo(models.Position, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Teacher.belongsTo(models.AcademicRank, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Teacher.belongsTo(models.AcademicDegree, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
 
         Teacher.hasMany(models.GraduationPaper, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Teacher.hasMany(models.TermPaper, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Teacher.hasMany(models.Request, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Teacher.hasMany(models.Lesson, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
     }
 

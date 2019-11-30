@@ -1,4 +1,4 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
 class UserRepository {
     

@@ -1,21 +1,19 @@
 import PhoneRepository from '../repositories/PhoneRepository'
 
-export default class PhoneService {
-
-    _repository = new PhoneRepository()
+class PhoneService {
 
     /*  ????  */
     async list() {
-        return await this._repository.readAll()
+        return await PhoneRepository.readAll()
     }
 
     async create(phone) {
-        return await this._repository.create(phone)
+        return await PhoneRepository.create(phone)
     }
 
     /*  ????  */
     async findById(id) {
-        let phone = await this._repository.readById(id)
+        let phone = await PhoneRepository.readById(id)
         if (!phone) {
             throw new NotFound(`${objectName} not found`)
         }
@@ -23,10 +21,12 @@ export default class PhoneService {
     }
 
     async update(id, phone) {
-        return await this._repository.update(id, phone)
+        return await PhoneRepository.update(id, phone)
     }
 
     async destroy(id) {
-        await this._repository.destroy(id)
+        await PhoneRepository.destroy(id)
     }
-};
+}
+
+export default new PhoneService()

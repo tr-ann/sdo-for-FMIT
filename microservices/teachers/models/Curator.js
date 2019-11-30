@@ -21,11 +21,11 @@ export default (sequelize, DataTypes) => {
     Curator.associate = function (models) {
         Curator.belongsTo(models.Teacher, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Curator.belongsTo(models.Group, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
     }
     

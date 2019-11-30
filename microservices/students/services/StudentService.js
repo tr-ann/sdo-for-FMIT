@@ -1,20 +1,18 @@
 import StudentRepository from '../repositories/StudentRepository'
 import NotFound from '../../../core/errors/4xx/notFound'
 
-export default class StudentService {
-
-    _repository = new StudentRepository()
+class StudentService {
 
     async list() {
-        return await this._repository.readAll()
+        return await StudentRepository.readAll()
     }
 
     async create(student) {
-        return await this._repository.create(student)
+        return await StudentRepository.create(student)
     }
 
     async findById(id) {
-        let student = await this._repository.readById(id)
+        let student = await StudentRepository.readById(id)
         if (!student) {
             throw new NotFound(`${objectName} not found`)
         }
@@ -22,14 +20,16 @@ export default class StudentService {
     }
 
     async update(id, student) {
-        return await this._repository.update(id, student)
+        return await StudentRepository.update(id, student)
     }
 
     async destroy(id) {
-        let student = await this._repository.readById(id)
+        let student = await StudentRepository.readById(id)
         if (!student) {
             throw new NotFound(`${objectName} not found`)
         }
-        await this._repository.delete(student)
+        await StudentRepository.delete(student)
     }
-};
+}
+
+export default new StudentService()

@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class PositionRepository {
+class PositionRepository {
 
     async create(position) {
         return await db.position.create(position)
@@ -27,3 +27,5 @@ export default class PositionRepository {
         return await db.position.getTeachers({where: {id: id}})
     }
 }
+
+export default new PositionRepository()

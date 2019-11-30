@@ -1,21 +1,19 @@
 import AcademicRankRepository from '../repositories/AcademicRankRepository'
 
-export default class AcademicRankService {
-
-    _repository = new AcademicRankRepository()
+class AcademicRankService {
 
     /*  ????  */
     async list() {
-        return await this._repository.readAll()
+        return await AcademicRankRepository.readAll()
     }
 
     async create(academicRank) {
-        return await this._repository.create(academicRank)
+        return await AcademicRankRepository.create(academicRank)
     }
 
     /*  ????  */
     async findById(id) {
-        let academicRank = await this._repository.readById(id)
+        let academicRank = await AcademicRankRepository.readById(id)
         if (!academicRank) {
             throw new NotFound(`${objectName} not found`)
         }
@@ -23,11 +21,13 @@ export default class AcademicRankService {
     }
 
     async update(id, academicRank) {
-        return await this._repository.update(id, academicRank)
+        return await AcademicRankRepository.update(id, academicRank)
     }
 
     async destroy(id) {
-        return await this._repository.destroy(id)
+        return await AcademicRankRepository.destroy(id)
     }
 
-};
+}
+
+export default new AcademicRankService()

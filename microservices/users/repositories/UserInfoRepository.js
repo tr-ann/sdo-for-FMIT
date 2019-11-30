@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class UserInfoRepository {
+class UserInfoRepository {
 
     /*  ????  */
     async create(userInfo) {
@@ -24,3 +24,5 @@ export default class UserInfoRepository {
         return await db.user_info.destroy({where: {user_id: user_id}})
     }
 }
+
+export default new UserInfoRepository()

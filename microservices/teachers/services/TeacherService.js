@@ -1,19 +1,17 @@
 import TeacherRepository from '../repositories/TeacherRepository'
 
-export default class TeacherService {
-
-    _repository = new TeacherRepository()
+class TeacherService {
 
     async list() {
-        return await this._repository.readAll()
+        return await TeacherRepository.readAll()
     }
 
     async create(teacher) {
-        return await this._repository.create(teacher)
+        return await TeacherRepository.create(teacher)
     }
 
     async findById(id) {
-        let teacher = await this._repository.readById(id)
+        let teacher = await TeacherRepository.readById(id)
         if (!teacher) {
             throw new NotFound(`${objectName} not found`)
         }
@@ -21,18 +19,20 @@ export default class TeacherService {
     }
 
     async update(id, teacher) {
-        return await this._repository.update(id, teacher)
+        return await TeacherRepository.update(id, teacher)
     }
 
     async destroy(id) {
-        return await this._repository.destroy(id)
+        return await TeacherRepository.destroy(id)
     }
 
     async getInfo(id) {
-        let teacher = await this._repository.getInfo(id)
+        let teacher = await TeacherRepository.getInfo(id)
         if (!teacher) {
             throw new NotFound(`${objectName} not found`)
         }
         return teacher
     }
-};
+}
+
+export default new TeacherService()

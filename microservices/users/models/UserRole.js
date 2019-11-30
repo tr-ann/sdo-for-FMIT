@@ -21,11 +21,11 @@ export default (sequelize, DataTypes) => {
     UserRole.associate = function (models) {
         UserRole.belongsTo(models.User, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         UserRole.belongsTo(models.Role, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
     }
     return UserRole;

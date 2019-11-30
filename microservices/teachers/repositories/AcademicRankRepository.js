@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class AcademicRankRepository {
+class AcademicRankRepository {
 
     async create(academicRank) {
         return await db.academic_rank.create(academicRank)
@@ -22,3 +22,5 @@ export default class AcademicRankRepository {
         return await db.academic_rank.destroy({where: {id: id}})
     }
 }
+
+export default new AcademicRankRepository()

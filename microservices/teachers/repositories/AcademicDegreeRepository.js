@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class AcademicDegreeRepository {
+class AcademicDegreeRepository {
 
     async create(academicDegree) {
         return await db.academic_degree.create(academicDegree)
@@ -22,3 +22,5 @@ export default class AcademicDegreeRepository {
         return await db.academic_degree.destroy({where: {id: id}})
     }
 }
+
+export default new AcademicDegreeRepository()
