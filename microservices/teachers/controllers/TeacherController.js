@@ -1,22 +1,24 @@
-import StudentService from '../services/StudentService'
+import TeacherService from '../services/TeacherService'
 
-const ResponseFormat = require('../../../core').ResponseFormat;
+import { ResponseFormat } from '../../../core'
 
-class StudentController {
+class TeacherController {
 
     async create(req, res) {
         try {
-            const student = await StudentService.create({
+            const teacher = await TeacherService.create({
                 full_name:          req.body.full_name,
                 short_name:         req.body.short_name,
-                group_id:           req.body.group_id,
-                record_book:        req.body.record_book,
+                department_id:      req.body.department_id,
+                position_id:        req.body.position_id,
+                academic_degree_id: req.body.academic_degree_id,
+                academic_rank_id:   req.body.academic_rank_id,
             });
             return res.status(201)
                 .json(
                     ResponseFormat.build(
-                        student, 
-                        "Student created successfully", 
+                        teacher, 
+                        "Teacher created successfully", 
                         201, 
                         "success"
                     )
@@ -28,12 +30,12 @@ class StudentController {
 
     async readAll(req, res) {
         try {
-            let students = await StudentService.readAll()
+            let teachers = await TeacherService.readAll()
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        students,
-                        "Students read successfully",
+                        teachers,
+                        "Teachers read successfully",
                         200,
                         "success"
                     )
@@ -45,36 +47,36 @@ class StudentController {
 
     async readById(req, res) {
         try {
-            let student = StudentService.findById(req.params.id)
+            let teacher = TeacherService.findById(req.params.id)
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        student,
-                        "Student read successfully",
+                        teacher,
+                        "Teacher read successfully",
                         200,
                         "success"
                     )
                 )
-    } catch (error) {
+        } catch (error) {
             return res.status(error.status).json(error)
         }
     }
     
     async update(req, res) {
         try {
-            let student = await StudentService.update(
-                req.params.id, {
-                    full_name:          req.body.full_name,
-                    short_name:         req.body.short_name,
-                    group_id:           req.body.group_id,
-                    record_book:        req.body.record_book,
-                }
-            )
+            let teacher = await TeacherService.update(req.params.id, {
+                full_name:          req.body.full_name,
+                short_name:         req.body.short_name,
+                department_id:      req.body.department_id,
+                position_id:        req.body.position_id,
+                academic_degree_id: req.body.academic_degree_id,
+                academic_rank_id:   req.body.academic_rank_id,
+            })
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        usr,
-                        "Student updated successfully",
+                        teacher,
+                        "Teacher updated successfully",
                         200,
                         "success"
                     )
@@ -86,12 +88,12 @@ class StudentController {
     
     async destroy (req, res) {
         try {
-            await StudentService.destroy(req.params.id)
+            await TeacherService.delete(req.params.id)
             return res.status(200)
                 .json(
                     ResponseFormat.build(
                         {},
-                        "Student deleted successfully",
+                        "Teacher deleted successfully",
                         200,
                         "success"
                     )
@@ -101,4 +103,5 @@ class StudentController {
         }
     }
 }
-export default new StudentController()
+
+export default new TeacherController()

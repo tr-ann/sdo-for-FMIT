@@ -4,11 +4,11 @@ export default (sequelize, DataTypes) => {
     class Teacher extends Model {}
     
     Teacher.init({
-        fullName: {
+        full_name: {
             allowNull: false,
             type: DataTypes.STRING(255),
         },
-        shortName: {
+        short_name: {
             allowNull: false,
             type: DataTypes.STRING(255),
         },
