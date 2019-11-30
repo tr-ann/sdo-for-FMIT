@@ -4,6 +4,10 @@ export default (sequelize, DataTypes) => {
     class UserInfo extends Model {}
 
     UserInfo.init({
+        fullName: {
+            allowNull: true,
+            type: DataTypes.STRING(255),
+        },
         description: {
             allowNull: true,
             type: DataTypes.TEXT,
@@ -38,11 +42,11 @@ export default (sequelize, DataTypes) => {
     UserInfo.associate = function (models) {
         UserInfo.belongsTo(models.user, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         });
         UserInfo.belongsTo(models.Resource, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
     };
 

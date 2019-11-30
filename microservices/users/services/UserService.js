@@ -1,21 +1,19 @@
 import UserRepository from '../repositories/UserRepository'
-import UserInfoRepository from '../repositories/UserInfoRepository'
 
-export default class UserService {
-
-    _userRepository = new UserRepository()
-    _userInfoRepository = new UserInfoRepository()
+class UserService {
 
     async list() {
-        return await this._userRepository.readAll()
+        return await UserRepository.readAll()
     }
 
     async create(user) {
-        return await this._userRepository.create(user)
+        let newUser = await UserRepository.create(user)
+        delete newUser.password
+        return newUser
     }
 
     async findById(id) {
-        let user = await this._userRepository.readById(id)
+        let user = await UserRepository.readById(id)
         if (!user) {
             throw new NotFound(`${objectName} not found`)
         }
@@ -23,10 +21,12 @@ export default class UserService {
     }
 
     async update(user) {
-        return await this._userRepository.update(user)
+        return await UserRepository.update(user)
     }
 
     async destroy(id) {
-        await this._userRepository.destroy(id)
+        await UserRepository.destroy(id)
     }
-};
+}
+
+export default new UserService()
