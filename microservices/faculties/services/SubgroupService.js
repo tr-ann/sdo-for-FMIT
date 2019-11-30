@@ -26,9 +26,9 @@ class SubgroupService {
 
     async update(id, subgroup) {
 
-        let subgroup = await this._repository.readById(id)
+        let nSubgroup = await this._repository.readById(id)
         
-        if (!subgroup) {
+        if (!nSubgroup) {
             throw new NotFound(`Subgroup not found`)
         }
 
