@@ -12,10 +12,10 @@ export default (sequelize, DataTypes) => {
             allowNull: true,
             type: DataTypes.TEXT,
         },
-        /*birthday: {
+        birthday: {
             allowNull: true,
-            type: DataTypes.TIMESTAMP,
-        },*/
+            type: DataTypes.DATE,
+        },
         city: {
             allowNull: true,
             type: DataTypes.STRING(255),

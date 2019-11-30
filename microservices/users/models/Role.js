@@ -23,6 +23,11 @@ export default (sequelize, DataTypes) => {
     });
 
     Role.associate = function (models) {
+        Role.belongsToMany(models.url, {
+            through: models.role_url,
+            onDelete: 'restrict',
+            onUpdate: 'restrict',
+        })
         Role.belongsToMany(models.user, {
             through: models.user_role,
             onDelete: 'restrict',
