@@ -19,6 +19,10 @@ class TeacherService {
     }
 
     async update(id, teacher) {
+        let nTeacher = TeacherRepository.readById(id)
+        if(!nTeacher) {            
+            throw new NotFound(`${objectName} not found`)
+        }
         return await TeacherRepository.update(id, teacher)
     }
 

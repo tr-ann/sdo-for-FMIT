@@ -21,6 +21,10 @@ class AcademicRankService {
     }
 
     async update(id, academicRank) {
+        let nAcademicRank = AcademicRankRepository.readById(id)
+        if(!nAcademicRank) {            
+            throw new NotFound(`${objectName} not found`)
+        }
         return await AcademicRankRepository.update(id, academicRank)
     }
 

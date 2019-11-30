@@ -21,6 +21,10 @@ class AcademicDegreeService {
     }
 
     async update(id, academicDegree) {
+        let nAcademicDegree = AcademicDegreeRepository.readById(id)
+        if(!nAcademicDegree) {            
+            throw new NotFound(`${objectName} not found`)
+        }
         return await AcademicDegreeRepository.update(id, academicDegree)
     }
 
