@@ -1,4 +1,4 @@
-import { Model } from 'sequelize/types'
+import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
     class Teacher extends Model {}
@@ -27,40 +27,45 @@ export default (sequelize, DataTypes) => {
     })
 
     Teacher.associate = function (models) {
-        Teacher.belongsTo(models.User, {
+        Teacher.belongsToMany(models, {
+            through: models.group,
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        Teacher.belongsTo(models.Department, {
+        Teacher.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        Teacher.belongsTo(models.Position, {
+        Teacher.belongsTo(models.department, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        Teacher.belongsTo(models.AcademicRank, {
+        Teacher.belongsTo(models.position, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        Teacher.belongsTo(models.AcademicDegree, {
+        Teacher.belongsTo(models.academic_rank, {
+            onDelete: 'restrict',
+            onUpdate: 'restrict',
+        })
+        Teacher.belongsTo(models.academic_degree, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
 
-        Teacher.hasMany(models.GraduationPaper, {
+        Teacher.hasMany(models.graduation_paper, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        Teacher.hasMany(models.TermPaper, {
+        Teacher.hasMany(models.term_paper, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        Teacher.hasMany(models.Request, {
+        Teacher.hasMany(models.request, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        Teacher.hasMany(models.Lesson, {
+        Teacher.hasMany(models.lesson, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })

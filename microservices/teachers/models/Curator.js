@@ -1,4 +1,4 @@
-import { Model } from 'sequelize/types'
+import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
 
@@ -19,11 +19,11 @@ export default (sequelize, DataTypes) => {
     })
 
     Curator.associate = function (models) {
-        Curator.belongsTo(models.Teacher, {
+        Curator.belongsTo(models.teacher, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        Curator.belongsTo(models.Group, {
+        Curator.belongsTo(models.group, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })

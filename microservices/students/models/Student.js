@@ -1,4 +1,4 @@
-import { Model } from 'sequelize/types'
+import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
     class Student extends Model {}
@@ -34,28 +34,34 @@ export default (sequelize, DataTypes) => {
     })
 
     Student.associate = function (models) {
-        Student.belongsTo(models.User, {
-            onDelete: 'restrict',
-            onUpdate: 'restrict',
-        })
-        Student.belongsTo(models.Group, {
+        Student.belongsToMany(models.subgroup, {
+            through: models.student_subgroup,
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
 
-        Student.hasMany(models.GraduationPaper, {
+        Student.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        Student.hasMany(models.TermPaper, {
+        Student.belongsTo(models.group, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        Student.hasMany(models.Request, {
+
+        Student.hasMany(models.graduation_paper, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-        Student.hasMany(models.Practice, {
+        Student.hasMany(models.term_paper, {
+            onDelete: 'restrict',
+            onUpdate: 'restrict',
+        })
+        Student.hasMany(models.request, {
+            onDelete: 'restrict',
+            onUpdate: 'restrict',
+        })
+        Student.hasMany(models.practice, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
