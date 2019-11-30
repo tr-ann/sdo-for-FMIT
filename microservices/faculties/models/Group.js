@@ -1,11 +1,9 @@
-module.exports = (sequelize, DataTypes) => {
+import { Model } from 'sequelize/types'
+
+export default (sequelize, DataTypes) => {
+    class Group extends Model {}
+
     var Group = sequelize.define('group', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: Sequelize.INTEGER,
-        },
         number: {
             allowNull: false,
             type: Sequelize.STRING(4),
@@ -22,14 +20,49 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             type: Sequelize.SMALLINT,
         },
-    }, {});
-    Group.associate = function(models) {
-        // associations can be defined here
-        /*Group.hasMany(models.Comment,{
-          foreignKey: 'userId',
-          as: 'comments'
-        });*/
+    }, {
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'group',
 
+        name: {
+            singular: 'group',
+            plural: 'groups',
+        },
+    });
+    Group.associate = function(models) {
+        Group.belongsTo(models.specialty, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+        Group.belongsTo(models.study_mode, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+        Group.belongsTo(models.faculty, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+        Group.hasMany(models.curator, {//////????
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+        Group.hasMany(models.student, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+        Group.hasMany(models.subgroup, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+        Group.hasMany(models.lessons, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
     };
     return Group;
 };

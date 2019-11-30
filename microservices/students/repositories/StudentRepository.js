@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class Student {
+class Student {
     
     async readAll() {
         return await db.student.findAll()
@@ -22,3 +22,5 @@ export default class Student {
         return await student.destroy()
     }
 }
+
+export default new RoleRepository()

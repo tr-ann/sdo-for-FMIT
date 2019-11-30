@@ -1,11 +1,9 @@
-module.exports = (sequelize, DataTypes) => {
+import { Model } from 'sequelize/types'
+
+export default (sequelize, DataTypes) => {
+    class Specialty extends Model {}
+
     var Specialty = sequelize.define('specialty', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: Sequelize.INTEGER,
-        },
         code: {
             allowNull: false,
             type: Sequelize.STRING(20),
@@ -18,14 +16,26 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: Sequelize.STRING(60),
         },
-    }, {});
-    Specialty.associate = function(models) {
-        // associations can be defined here
-        /*Specialty.hasMany(models.Comment,{
-          foreignKey: 'userId',
-          as: 'comments'
-        });*/
+    }, {
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'specialty',
+        freezeTableName: 'specialties',
 
+        name: {
+            singular: 'specialty',
+            plural: 'specialties',
+        },
+    });
+    Specialty.associate = function(models) {
+        Specialty.hasMany(models.group, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
     };
     return Specialty;
 };

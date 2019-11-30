@@ -3,7 +3,7 @@ const userService = new UserService()
 
 const ResponseFormat = require('../../../core').ResponseFormat;
 
-export default class UserController {
+class UserController {
 
     async create(req, res) {
         try {
@@ -86,3 +86,5 @@ export default class UserController {
         }
     }
 }
+
+export default new UserController()

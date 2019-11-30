@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class RoleRepository {
+class RoleRepository {
 
     async create(role) {
         return await db.role.create(role)
@@ -26,3 +26,5 @@ export default class RoleRepository {
         return await db.role.getUsers({where: {id: id}})
     }
 }
+
+export default new RoleRepository()

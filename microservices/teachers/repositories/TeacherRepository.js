@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class TeacherRepository {
+class TeacherRepository {
 
     async create(teacher) {
         return await db.teacher.create(teacher)
@@ -34,3 +34,5 @@ export default class TeacherRepository {
         })
     }
 }
+
+export default new TeacherRepository()

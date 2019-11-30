@@ -1,11 +1,9 @@
-module.exports = (sequelize, DataTypes) => {
-    var Department = sequelize.define('department', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: Sequelize.INTEGER,
-        },
+import { Model } from 'sequelize/types'
+
+export default (sequelize, DataTypes) => {
+    class Department extends Model {}
+
+    Department.init({
         name: {
             allowNull: false,
             type: Sequelize.STRING(100),
@@ -22,14 +20,41 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             type: Sequelize.INTEGER,
         },
-    }, {});
-    Department.associate = function(models) {
-        // associations can be defined here
-        /*Department.hasMany(models.Comment,{
-          foreignKey: 'userId',
-          as: 'comments'
-        });*/
+    }, {
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'department',
 
-    };
+        name: {
+            simple: 'department',
+            plural: 'departments',
+        }
+    })
+    
+    Department.associate = function(models) {
+        Department.belongsTo(models.user, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+        Department.belongsTo(models.faculty, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+        Department.belongsTo(models.lecture_room, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+
+        Department.hasMany(models.teacher, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+    }
+
     return Department;
 };
+    

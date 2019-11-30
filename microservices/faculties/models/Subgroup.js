@@ -1,11 +1,9 @@
-module.exports = (sequelize, DataTypes) => {
+import { Model } from 'sequelize/types'
+
+export default (sequelize, DataTypes) => {
+    class Subgroup extends Model {}
+
     var Subgroup = sequelize.define('subgroup', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: Sequelize.INTEGER,
-        },
         name: {
             allowNull: false,
             type: Sequelize.STRING(20),
@@ -14,14 +12,29 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             type: Sequelize.INTEGER,
         },
-    }, {});
-    Subgroup.associate = function(models) {
-        // associations can be defined here
-        /*Subgroup.hasMany(models.Comment,{
-          foreignKey: 'userId',
-          as: 'comments'
-        });*/
+    }, {
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'subgroup',
 
+        name: {
+            singular: 'subgroup',
+            plural: 'subgroups',
+        },
+    });
+    Subgroup.associate = function(models) {
+        Subgroup.belongsTo(models.group, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+        Subgroup.hasMany(models.lessons, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
     };
     return Subgroup;
 };

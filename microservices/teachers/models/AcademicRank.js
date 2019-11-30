@@ -26,7 +26,7 @@ export default (sequelize, DataTypes) => {
     AcademicRank.associate = function (models) {
         AcademicRank.hasMany(models.Teacher, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
     }
 

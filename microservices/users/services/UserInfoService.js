@@ -1,20 +1,18 @@
 import UserInfoRepository from '../repositories/UserInfoRepository'
 
-export default class UserInfoService {
-
-    _repository = new UserInfoRepository()
+class UserInfoService {
 
     async list() {
-        return await this._repository.readAll()
+        return await UserInfoRepository.readAll()
     }
 
     /*  ????  */
     async create(userInfo) {
-        return await this._repository.create(userInfo)
+        return await UserInfoRepository.create(userInfo)
     }
 
     async findById(id) {
-        let userInfo = await this._repository.readById(id)
+        let userInfo = await UserInfoRepository.readById(id)
         if (!userInfo) {
             throw new NotFound(`${objectName} not found`)
         }
@@ -22,10 +20,12 @@ export default class UserInfoService {
     }
 
     async update(id, userInfo) {
-        return await this._repository.update(id, userInfo)
+        return await UserInfoRepository.update(id, userInfo)
     }
 
     async destroy(id) {
-        await this._repository.destroy(id)
+        await UserInfoRepository.destroy(id)
     }
-};
+}
+
+export default new UserInfoService()

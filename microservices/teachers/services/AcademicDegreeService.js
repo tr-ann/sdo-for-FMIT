@@ -1,21 +1,19 @@
 import AcademicDegreeRepository from '../repositories/AcademicDegreeRepository'
 
-export default class AcademicDegreeService {
-
-    _repository = new AcademicDegreeRepository()
+class AcademicDegreeService {
 
     /*  ????  */
     async list() {
-        return await this._repository.readAll()
+        return await AcademicDegreeRepository.readAll()
     }
 
     async create(academicDegree) {
-        return await this._repository.create(academicDegree)
+        return await AcademicDegreeRepository.create(academicDegree)
     }
 
     /*  ????  */
     async findById(id) {
-        let academicDegree = await this._repository.readById(id)
+        let academicDegree = await AcademicDegreeRepository.readById(id)
         if (!academicDegree) {
             throw new NotFound(`${objectName} not found`)
         }
@@ -23,10 +21,12 @@ export default class AcademicDegreeService {
     }
 
     async update(id, academicDegree) {
-        return await this._repository.update(id, academicDegree)
+        return await AcademicDegreeRepository.update(id, academicDegree)
     }
 
     async destroy(id) {
-        return await this._repository.destroy(id)
+        return await AcademicDegreeRepository.destroy(id)
     }
-};
+}
+
+export default new AcademicDegreeService()

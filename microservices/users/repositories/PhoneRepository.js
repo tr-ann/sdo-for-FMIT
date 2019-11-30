@@ -1,6 +1,6 @@
-import db from '../models'
+import db from '../../../config/dbModels'
 
-export default class PhoneRepository {
+class PhoneRepository {
 
     async create(phone) {
         return await db.phone.create(phone)
@@ -22,3 +22,5 @@ export default class PhoneRepository {
         return await db.phone.destroy({where: {id: id}})
     }
 }
+
+export default new PhoneRepository()

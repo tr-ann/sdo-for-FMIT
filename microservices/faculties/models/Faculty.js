@@ -1,11 +1,9 @@
-module.exports = (sequelize, DataTypes) => {
+import { Model } from 'sequelize/types'
+
+export default (sequelize, DataTypes) => {
+    class Faculty extends Model {}
+
     var Faculty = sequelize.define('faculty', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: Sequelize.INTEGER,
-        },
         name: {
             allowNull: false,
             type: Sequelize.STRING(100),
@@ -14,14 +12,30 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: Sequelize.STRING(50),
         },
-    }, {});
+    }, {
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'faculty',
+        freezeTableName: 'faculties',
+
+        name: {
+            singular: 'faculty',
+            plural: 'faculties',
+        },
+    });
     Faculty.associate = function(models) {
-      // associations can be defined here
-      /*Faculty.hasMany(models.Comment,{
-        foreignKey: 'userId',
-        as: 'comments'
-      });*/
-  
+        Faculty.hasMany(models.gorup, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
+        Faculty.hasOne(models.info_faculty, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
     };
     return Faculty;
 };

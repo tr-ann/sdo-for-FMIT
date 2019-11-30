@@ -26,7 +26,7 @@ export default (sequelize, DataTypes) => {
     Phone.associate = function (models) {
         Phone.belongsTo(models.User, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
     }
     return Phone;

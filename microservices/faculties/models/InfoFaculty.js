@@ -1,11 +1,9 @@
-module.exports = (sequelize, DataTypes) => {
+import { Model } from 'sequelize/types'
+
+export default (sequelize, DataTypes) => {
+    class InfoFaculty extends Model {}
+
     var InfoFaculty = sequelize.define('info_faculty', {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: Sequelize.INTEGER,
-        },
         description: {
             allowNull: true,
             type: Sequelize.TEXT,
@@ -14,14 +12,26 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: Sequelize.STRING(20),
         },
-    }, {});
-    InfoFaculty.associate = function(models) {
-        // associations can be defined here
-        /*InfoFaculty.hasMany(models.Comment,{
-          foreignKey: 'userId',
-          as: 'comments'
-        });*/
+    }, {
+        sequelize,
+        underscope: true,
+        createdAt: false,
+        updatedAt: false,
+        deletedAt: 'deleted_date',
+        paranoid: true,
+        modelName: 'info_faculty',
+        freezeTableName: 'info_faculties',
 
+        name: {
+            singular: 'infoFaculty',
+            plural: 'infoFaculties',
+        },
+    });
+    InfoFaculty.associate = function(models) {
+        InfoFaculty.belongsTo(models.faculty, {
+            onUpdate: 'restrict',
+            onDelete: 'restrict',
+        })
     };
     return InfoFaculty;
 };

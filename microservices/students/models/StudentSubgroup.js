@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     StudentGroup.associate = function (models) {
         StudentGroup.belongsTo(models.Student, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         });
         StudentGroup.belongsTo(models.Subgroup, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         });
     };
     return StudentSubgroup;

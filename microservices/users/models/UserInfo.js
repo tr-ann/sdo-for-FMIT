@@ -42,11 +42,11 @@ export default (sequelize, DataTypes) => {
     UserInfo.associate = function (models) {
         UserInfo.belongsTo(models.user, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         });
         UserInfo.belongsTo(models.Resource, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
     };
 

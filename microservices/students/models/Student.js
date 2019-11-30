@@ -36,28 +36,28 @@ export default (sequelize, DataTypes) => {
     Student.associate = function (models) {
         Student.belongsTo(models.User, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Student.belongsTo(models.Group, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
 
         Student.hasMany(models.GraduationPaper, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Student.hasMany(models.TermPaper, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Student.hasMany(models.Request, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
         Student.hasMany(models.Practice, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
     }
 

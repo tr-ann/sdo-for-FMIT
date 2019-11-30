@@ -26,7 +26,7 @@ export default (sequelize, DataTypes) => {
     Position.associate = function (models) {
         Position.hasMany(models.Teacher, {
             onDelete: 'restrict',
-            onUpdate: 'cascade',
+            onUpdate: 'restrict',
         })
     }
 

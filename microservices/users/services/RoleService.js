@@ -1,19 +1,17 @@
 import RoleRepository from '../repositories/RoleRepository'
 
-export default class RoleService {
-
-    _repository = new RoleRepository()
+class RoleService {
 
     async list() {
-        return await this._repository.readAll()
+        return await RoleRepository.readAll()
     }
 
     async create(role) {
-        return await this._repository.create(role)
+        return await RoleRepository.create(role)
     }
 
     async findById(id) {
-        let role = await this._repository.readById(id)
+        let role = await RoleRepository.readById(id)
         if (!role) {
             throw new NotFound(`${objectName} not found`)
         }
@@ -21,10 +19,12 @@ export default class RoleService {
     }
 
     async update(id, role) {
-        return await this._repository.update(id, role)
+        return await RoleRepository.update(id, role)
     }
 
     async destroy(id) {
-        await this._repository.destroy(id)
+        await RoleRepository.destroy(id)
     }
-};
+}
+
+export default new RoleService()
