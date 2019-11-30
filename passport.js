@@ -26,7 +26,7 @@ passport.serializeUser(function(user, cb) {
     cb(null, user.id)
 })
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser(async function(id, done) {
     let user = await UserRepository.readById(id)
     console.log('deserializing user:', user)
     done(err, user)

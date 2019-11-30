@@ -8,18 +8,19 @@ import { passport, isAutenticated } from '../passport'
 
 export default (app) => {
 
-    //router.get('/login', isAuthenticated)
+    //app.get('/login', isAuthenticated)
 
-    router.post('/login', 
+    app.post('/login', 
         passport.authenticate('local', {
             successRedirect: '/home',
             failureRedirect: '/login',
         })
     )
 
-    app.use('/users', isAutenticated, usersRouters.UserRouter);
-    app.use('/teachers', isAutenticated, teachersRouters.TeacherRouter);
-    app.use('/students', isAutenticated, studentsRouters.StudentRouter);
+    //console.log('routes')
+    app.use('/users', isAutenticated, usersRouters.UserRouter)
+    app.use('/teachers', isAutenticated, teachersRouters.TeacherRouter)
+    app.use('/students', isAutenticated, studentsRouters.StudentRouter)
 
     app.use('/buildings', lessonsRouters.buildingRouter)
     app.use('/disciplines', lessonsRouters.disciplineRouter)

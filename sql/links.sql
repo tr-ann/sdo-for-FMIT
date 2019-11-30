@@ -1,4 +1,4 @@
-USE `sdo_test`;
+USE `sdo_db`;
 
 /* таблица аудитории */
 ALTER TABLE lecture_rooms
@@ -14,7 +14,7 @@ ALTER TABLE lecture_rooms
 		ON UPDATE RESTRICT
 ;
 			
-
+            
 /* таблица кафедра */
 ALTER TABLE departments
     ADD CONSTRAINT FK_departments_to_users FOREIGN KEY(owner_id) REFERENCES users(id),
@@ -55,12 +55,12 @@ ALTER TABLE `groups`
 	
 /* таблица подгруппа */
 ALTER TABLE subgroups
-	ADD CONSTRAINT FK_subgroups_to_groups FOREIGN KEY(groups_id) REFERENCES `groups`(id);
+	ADD CONSTRAINT FK_subgroups_to_groups FOREIGN KEY(group_id) REFERENCES `groups`(id);
 
 /* таблица подгруппа и студент */
-ALTER TABLE subgroups_vs_students
+ALTER TABLE subgroups_students
 	ADD CONSTRAINT FK_subgroups_students_to_subgroups FOREIGN KEY(subgroup_id) REFERENCES subgroups(id),
-        ADD CONSTRAINT FK_subgroups_vs_students_to_students FOREIGN KEY(student_id) REFERENCES students(id);
+        ADD CONSTRAINT FK_subgroups_students_to_students FOREIGN KEY(student_id) REFERENCES students(id);
 
 /* таблица куратор */
 ALTER TABLE curators
@@ -72,7 +72,7 @@ ALTER TABLE lessons
 	ADD CONSTRAINT FK_lessons_to_groups FOREIGN KEY(group_id) REFERENCES `groups`(id),
         ADD CONSTRAINT FK_lessons_to_subgroups FOREIGN KEY(subgroup_id) REFERENCES subgroups(id),
             ADD CONSTRAINT FK_lessons_to_teachers FOREIGN KEY(teacher_id) REFERENCES teachers(id),
-                ADD CONSTRAINT FK_lessons_to_type FOREIGN KEY(type_id) REFERENCES lessons_type(id),
+                ADD CONSTRAINT FK_lessons_to_type FOREIGN KEY(type_id) REFERENCES lesson_types(id),
                     ADD CONSTRAINT FK_lessons_to_lecture_rooms FOREIGN KEY(room_id) REFERENCES lecture_rooms(id),
                         ADD CONSTRAINT FK_lessons_to_disciplines FOREIGN KEY(discipline_id) REFERENCES disciplines(id),  
                              ADD CONSTRAINT FK_lessons_to_lesson_numbers FOREIGN KEY(lesson_number_id) REFERENCES lesson_numbers(id);
@@ -105,8 +105,8 @@ ALTER TABLE graduation_papers
 /* таблица практика */
 ALTER TABLE practices
 	ADD CONSTRAINT FK_practices_to_students FOREIGN KEY(student_id) REFERENCES students(id),
-		ADD CONSTRAINT FK_practices_to_organization FOREIGN KEY(organization_id) REFERENCES organization(id),		
-			ADD CONSTRAINT FK_practices_to_statuses FOREIGN KEY(statuse_id) REFERENCES statuses(id),
+		ADD CONSTRAINT FK_practices_to_organizations FOREIGN KEY(organization_id) REFERENCES organizations(id),		
+			ADD CONSTRAINT FK_practices_to_statuses FOREIGN KEY(status_id) REFERENCES statuses(id),
 		        ADD CONSTRAINT FK_practices_to_resources FOREIGN KEY(resource_id) REFERENCES resources(id),
                     ADD CONSTRAINT FK_practices_to_practice_types FOREIGN KEY(type_id) REFERENCES practice_types(id);
 

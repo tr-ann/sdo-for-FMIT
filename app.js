@@ -6,5 +6,7 @@ import { connect as databaseConnect } from './config/sequelize'
 databaseConnect()
 //initModels()
 
-export default app = express()
+const app = express()
 initApp(app)
+
+export default app

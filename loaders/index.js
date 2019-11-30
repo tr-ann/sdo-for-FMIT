@@ -5,7 +5,7 @@ import initSessions from './sessions'
 
 export default (app) => {
     initExpress(app)
-    initMiddleware(app)
     initRoutes(app)
     initSessions(app)
+    initMiddleware(app)
 }

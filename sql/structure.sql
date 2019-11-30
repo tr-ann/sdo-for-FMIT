@@ -1,25 +1,12 @@
-/**
- * 1.  Нужно ли в таблице user для поля email параметр NOT NULL и UNIQUE.
- * 2.  Просмотреть структуру таблицы source.
-
- * 18. В старой БД не было информации об успеваемости, так что необходимо решить, в каком виде добавить эти данные:
- *     в виде таблицы exam_result и credit, или же создать отдельную таблицу accreditation, указывающую на конкретную
- *     сессию, а от нее сделать зависимые таблицы и для экзаменов, и для зачетов, а то, как в них будет храниться
- *     информация, уже обговорить позже. Пока реализован первый вариант с таблицами exam_result и credit.
-
- * 21. Нужно уточнить, как будет храниться информация о проведении и результатах защиты курсовых работ, дипломных работ и 
- *     о результатах практики (добавить поле оценка).
- */
-
 /* Таблица `дисциплина` */
-DROP DATABASE IF EXISTS `sdo_test`;
-CREATE DATABASE `sdo_test` DEFAULT CHARACTER SET UTF8MB4;
+DROP DATABASE IF EXISTS `sdo_db`;
+CREATE DATABASE `sdo_db` DEFAULT CHARACTER SET UTF8MB4;
 
-USE `sdo_test`;
+USE `sdo_db`;
 
 DROP TABLE IF EXISTS `disciplines`;
 CREATE TABLE `disciplines` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(150)NOT NULL,
     `short_name`            VARCHAR(20) NOT NULL,
     `deleted_date`          DATETIME
@@ -28,7 +15,7 @@ CREATE TABLE `disciplines` (
 /* Таблица `номер занятия` */
 DROP TABLE IF EXISTS `lesson_numbers`;
 CREATE TABLE `lesson_numbers` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `number`                INT    NOT NULL UNIQUE,
     `start_time_1`          TIME        NOT NULL,
     `end_time_1`            TIME        NOT NULL,
@@ -40,14 +27,14 @@ CREATE TABLE `lesson_numbers` (
 /* Таблица `тип помещения` */
 DROP TABLE IF EXISTS `room_types`;
 CREATE TABLE `room_types` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(50) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
 DROP TABLE IF EXISTS `buildings`;
 CREATE TABLE `buildings` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(200) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -55,18 +42,18 @@ CREATE TABLE `buildings` (
 /* Таблица `аудитория` */
 DROP TABLE IF EXISTS `lecture_rooms`;
 CREATE TABLE `lecture_rooms` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `number`                VARCHAR(5)  NOT NULL,
-    `type_id`               INT    ,
-    `building_id`           INT,
-    `seats_count`           INT,
+    `type_id`               INT         ,
+    `building_id`           INT         ,
+    `seats_count`           INT         ,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
 /* Таблица `тип занятия` */
 DROP TABLE IF EXISTS `lesson_types`;
 CREATE TABLE `lesson_types` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(30) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -74,7 +61,7 @@ CREATE TABLE `lesson_types` (
 /* Таблица `должность` */
 DROP TABLE IF EXISTS `positions`;
 CREATE TABLE `positions` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(40) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -82,7 +69,7 @@ CREATE TABLE `positions` (
 /* Таблица `ученая степень` */
 DROP TABLE IF EXISTS `academic_degrees` ;
 CREATE TABLE `academic_degrees` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(40) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -90,7 +77,7 @@ CREATE TABLE `academic_degrees` (
 /* Таблица `ученое звание` */
 DROP TABLE IF EXISTS `academic_ranks` ;
 CREATE TABLE `academic_ranks` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(40) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -98,7 +85,7 @@ CREATE TABLE `academic_ranks` (
 /* Таблица `роль` */
 DROP TABLE IF EXISTS `roles` ;
 CREATE TABLE `roles` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(25) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -106,7 +93,7 @@ CREATE TABLE `roles` (
 /* Таблица `пользователь` */
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `login`                 VARCHAR(50) NOT NULL UNIQUE,
     `password`              VARCHAR(100)NOT NULL,
     `deleted_date`          DATETIME
@@ -114,7 +101,7 @@ CREATE TABLE `users` (
 
 DROP TABLE IF EXISTS `users_roles` ;
 CREATE TABLE `users_roles` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `user_id`               INT NOT NULL,
     `role_id`               INT NOT NULL,
     `deleted_date`          DATETIME
@@ -123,7 +110,7 @@ CREATE TABLE `users_roles` (
 /* Таблица `кафедра` */
 DROP TABLE IF EXISTS `departments`;
 CREATE TABLE `departments` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(100)NOT NULL UNIQUE,
     `faculty_id`            INT NOT NULL,
     `owner_id`              INT         ,
@@ -135,7 +122,7 @@ CREATE TABLE `departments` (
 /* Таблица `телефон` */
 DROP TABLE IF EXISTS `phones`;
 CREATE TABLE `phones` (
-    `id`                    SERIAL PRIMARY KEY,
+    `id`                    INT auto_increment PRIMARY KEY,
     `user_id`               INT         ,
     `phone`                 VARCHAR(30),
     `deleted_date`          DATETIME
@@ -144,7 +131,7 @@ CREATE TABLE `phones` (
 /* Таблица `ресурс` */
 DROP TABLE IF EXISTS `resources`;
 CREATE TABLE `resources` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `description`           TEXT        NOT NULL,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -177,7 +164,7 @@ CREATE TABLE `teachers` (
 /* Таблица `факультет` */
 DROP TABLE IF EXISTS `faculties`;
 CREATE TABLE `faculties` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(100)NOT NULL UNIQUE,
     `short_name`            VARCHAR(50) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
@@ -195,7 +182,7 @@ CREATE TABLE `info_faculties` (
 /* Таблица `специальность` */
 DROP TABLE IF EXISTS `specialties` ;
 CREATE TABLE `specialties` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `code`                  VARCHAR(20) NOT NULL UNIQUE,
     `name`                  VARCHAR(100) NOT NULL UNIQUE,
     `short_name`            VARCHAR(60) NOT NULL UNIQUE,
@@ -205,7 +192,7 @@ CREATE TABLE `specialties` (
 /* Таблица `форма обучения` */
 DROP TABLE IF EXISTS `study_modes` ;
 CREATE TABLE `study_modes` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(45) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -213,7 +200,7 @@ CREATE TABLE `study_modes` (
 /* Таблица `группа` */
 DROP TABLE IF EXISTS `groups`;
 CREATE TABLE `groups` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `number`                VARCHAR(4)  NOT NULL,
     `faculty_id`            INT    ,
     `specialty_id`          INT    ,
@@ -224,7 +211,7 @@ CREATE TABLE `groups` (
 /* Таблица `подгруппа` */
 DROP TABLE IF EXISTS `subgroups`;
 CREATE TABLE `subgroups` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(20) NOT NULL,
     `group_id`              INT         ,
     `deleted_date`          DATETIME         
@@ -233,7 +220,7 @@ CREATE TABLE `subgroups` (
 /* Таблица `подгруппа и студент` */
 DROP TABLE IF EXISTS `subgroups_students`;
 CREATE TABLE `subgroups_students` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `student_id`            INT         ,
     `subgroup_id`           INT         ,
     `deleted_date`          DATETIME         
@@ -242,7 +229,7 @@ CREATE TABLE `subgroups_students` (
 /* Таблица `куратор` */
 DROP TABLE IF EXISTS `curators`;
 CREATE TABLE `curators` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `group_id`              INT         ,
     `teacher_id`            INT         ,
     `deleted_date`          DATETIME         
@@ -251,7 +238,7 @@ CREATE TABLE `curators` (
 /* Таблица `занятие` */
 DROP TABLE IF EXISTS `lessons` ;
 CREATE TABLE `lessons` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `group_id`              INT         ,
     `subgroup_id`           INT         ,
     `teacher_id`            INT         ,
@@ -305,7 +292,7 @@ CREATE TABLE `students` (
 /* Таблица `статус` */
 DROP TABLE IF EXISTS `statuses`;
 CREATE TABLE `statuses` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(12) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -313,7 +300,7 @@ CREATE TABLE `statuses` (
 /* Таблица `заявка` */
 DROP TABLE IF EXISTS `requests`;
 CREATE TABLE `requests` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `student_id`            INT         ,
     `teacher_id`            INT         ,
     `status_id`             INT    ,
@@ -328,7 +315,7 @@ CREATE TABLE `requests` (
 /* Таблица `курсовая работа` !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 DROP TABLE IF EXISTS `term_papers`;
 CREATE TABLE `term_papers` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `student_id`            INT         ,
     `teacher_id`            INT         ,
     `status_id`             INT         ,
@@ -342,7 +329,7 @@ CREATE TABLE `term_papers` (
 /* Таблица `дипломная работа` !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 DROP TABLE IF EXISTS `graduation_papers`;
 CREATE TABLE `graduation_papers` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `student_id`            INT         ,
     `teacher_id`            INT         ,
     `status_id`             INT         ,
@@ -356,7 +343,7 @@ CREATE TABLE `graduation_papers` (
 /* Таблица `организация` !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 DROP TABLE IF EXISTS `organizations`;
 CREATE TABLE `organizations` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(90) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -364,7 +351,7 @@ CREATE TABLE `organizations` (
 /* Таблица `виды практик` !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 DROP TABLE IF EXISTS `practice_types`;
 CREATE TABLE `practice_types` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(50) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -372,7 +359,7 @@ CREATE TABLE `practice_types` (
 /* Таблица `практика` !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 DROP TABLE IF EXISTS `practices`;
 CREATE TABLE `practices` (
-    `id`                    SERIAL      PRIMARY KEY,
+    `id`                    INT auto_increment      PRIMARY KEY,
     `student_id`            INT         ,
     `organization_id`       INT    ,
     `status_id`             INT         ,
@@ -388,13 +375,13 @@ CREATE TABLE `practices` (
 
 DROP TABLE IF EXISTS `urls`;
 CREATE TABLE `urls` (
-    `id`             SERIAL      PRIMARY KEY,
+    `id`             INT auto_increment      PRIMARY KEY,
     `url`            INT   
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
 DROP TABLE IF EXISTS `roles_urls`;
 CREATE TABLE `roles_urls` (
-    `id`            SERIAL        PRIMARY KEY,
+    `id`            INT auto_increment        PRIMARY KEY,
     `role_id`       INT             ,
     `url_id`        INT                      
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
