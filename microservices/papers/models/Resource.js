@@ -6,7 +6,7 @@ export default (sequelize, DataTypes) => {
     var Resource = sequelize.define('resource', {
         description: {
             allowNull: false,
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
         },
     }, {
         sequelize,
