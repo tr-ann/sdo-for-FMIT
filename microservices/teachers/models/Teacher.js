@@ -27,8 +27,8 @@ export default (sequelize, DataTypes) => {
     })
 
     Teacher.associate = function (models) {
-        Teacher.belongsToMany(models, {
-            through: models.group,
+        Teacher.belongsToMany(models.group, {
+            through: models.curator,
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })

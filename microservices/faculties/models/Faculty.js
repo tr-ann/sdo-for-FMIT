@@ -28,7 +28,7 @@ export default (sequelize, DataTypes) => {
         },
     });
     Faculty.associate = function(models) {
-        Faculty.hasMany(models.gorup, {
+        Faculty.hasMany(models.group, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
         })

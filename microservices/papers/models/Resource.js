@@ -23,7 +23,7 @@ export default (sequelize, DataTypes) => {
         },
     });
     Resource.associate = function(models) {
-        Resource.hasMany(models.users_info, {
+        Resource.hasMany(models.user_info, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
         })

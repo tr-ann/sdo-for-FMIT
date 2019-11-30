@@ -31,7 +31,7 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             onDelete: 'restrict',
         })
-        Subgroup.hasMany(models.lessons, {
+        Subgroup.hasMany(models.lesson, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
         })
