@@ -24,13 +24,13 @@ class TermPaperService {
 
     async update(id, termPaper) {
 
-        let termPaper = await TermPaperRepository.readById(id)
+        let oldTermPaper = await TermPaperRepository.readById(id)
         
-        if (!termPaper) {
+        if (!oldTermPaper) {
             throw new NotFound('Term paper not found')
         }
 
-        return await TermPaperRepository.update(termPaper)
+        return await TermPaperRepository.update(id, termPaper)
     }
 
     async destroy(id) {

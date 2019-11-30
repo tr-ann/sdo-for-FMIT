@@ -24,13 +24,13 @@ class OrganizationService {
 
     async update(id, organization) {
 
-        let organization = await OrganizationRepository.readById(id)
+        let oldOrganization = await OrganizationRepository.readById(id)
         
-        if (!organization) {
+        if (!oldOrganization) {
             throw new NotFound('Organization not found')
         }
 
-        return await OrganizationRepository.update(organization)
+        return await OrganizationRepository.update(id, organization)
     }
 
     async destroy(id) {

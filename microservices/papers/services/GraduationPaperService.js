@@ -24,13 +24,13 @@ class GraduationPaperService {
 
     async update(id, graduationPaper) {
 
-        let graduationPaper = await GraduationPaperRepository.readById(id)
+        let oldGraduationPaper = await GraduationPaperRepository.readById(id)
         
-        if (!graduationPaper) {
+        if (!oldGraduationPaper) {
             throw new NotFound('Graduation paper not found')
         }
 
-        return await GraduationPaperRepository.update(graduationPaper)
+        return await GraduationPaperRepository.update(id, graduationPaper)
     }
 
     async destroy(id) {

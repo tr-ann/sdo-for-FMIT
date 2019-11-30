@@ -24,13 +24,13 @@ class DisciplineService {
 
     async update(id, discipline) {
 
-        let discipline = await DisciplineRepository.readById(id)
+        let oldDiscipline = await DisciplineRepository.readById(id)
         
-        if (!discipline) {
+        if (!oldDiscipline) {
             throw new NotFound('Discipline not found')
         }
 
-        return await DisciplineRepository.update(discipline)
+        return await DisciplineRepository.update(id, discipline)
     }
 
     async destroy(id) {

@@ -24,13 +24,13 @@ class LessonService {
 
     async update(id, lesson) {
 
-        let lesson = await LessonRepository.readById(id)
+        let oldLesson = await LessonRepository.readById(id)
         
-        if (!lesson) {
+        if (!oldLesson) {
             throw new NotFound('Lesson not found')
         }
 
-        return await LessonRepository.update(lesson)
+        return await LessonRepository.update(id, lesson)
     }
 
     async destroy(id) {

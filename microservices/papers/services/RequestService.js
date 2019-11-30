@@ -24,13 +24,13 @@ class RequestService {
 
     async update(id, request) {
 
-        let request = await RequestRepository.readById(id)
+        let oldRequest = await RequestRepository.readById(id)
         
-        if (!request) {
+        if (!oldRequest) {
             throw new NotFound('Request not found')
         }
 
-        return await RequestRepository.update(request)
+        return await RequestRepository.update(id, request)
     }
 
     async destroy(id) {

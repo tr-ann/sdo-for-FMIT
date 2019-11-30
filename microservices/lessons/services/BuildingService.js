@@ -24,13 +24,13 @@ class BuildingService {
 
     async update(id, building) {
 
-        let building = await BuildingRepository.readById(id)
+        let oldBuilding = await BuildingRepository.readById(id)
         
-        if (!building) {
+        if (!oldBuilding) {
             throw new NotFound('Building not found')
         }
 
-        return await BuildingRepository.update(building)
+        return await BuildingRepository.update(id, building)
     }
 
     async destroy(id) {

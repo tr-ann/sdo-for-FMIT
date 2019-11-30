@@ -16,7 +16,7 @@ class StatusService {
         let status = await StatusRepository.readById(id)
 
         if (!status) {
-            throw new NotFound('Room type not found')
+            throw new NotFound('Status not found')
         }
 
         return status
@@ -24,13 +24,13 @@ class StatusService {
 
     async update(id, status) {
 
-        let status = await StatusRepository.readById(id)
+        let oldStatus = await StatusRepository.readById(id)
         
-        if (!status) {
-            throw new NotFound('Room type not found')
+        if (!oldStatus) {
+            throw new NotFound('Status not found')
         }
 
-        return await StatusRepository.update(status)
+        return await StatusRepository.update(id, status)
     }
 
     async destroy(id) {
@@ -38,7 +38,7 @@ class StatusService {
         let status = await StatusRepository.readById(id)
         
         if (!status) {
-            throw new NotFound('Room type not found')
+            throw new NotFound('Status not found')
         }
         
         return await StatusRepository.destroy(id)

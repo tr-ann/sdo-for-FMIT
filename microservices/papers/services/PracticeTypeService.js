@@ -24,13 +24,13 @@ class PracticeTypeService {
 
     async update(id, practiceType) {
 
-        let practiceType = await PracticeTypeRepository.readById(id)
+        let oldPracticeType = await PracticeTypeRepository.readById(id)
         
-        if (!practiceType) {
+        if (!oldPracticeType) {
             throw new NotFound('Practice type not found')
         }
 
-        return await PracticeTypeRepository.update(practiceType)
+        return await PracticeTypeRepository.update(id, practiceType)
     }
 
     async destroy(id) {

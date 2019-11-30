@@ -3,22 +3,20 @@ import NotFound from '../../../core/errors/4xx/notFound'
 
 class ResourceService {
 
-    _repository = new ResourceRepository()
-
     async create(resource) {
-        return await this._repository.create(resource)
+        return await ResourceRepository.create(resource)
     }
 
     async readAll() {
-        return await this._repository.readAll()
+        return await ResourceRepository.readAll()
     }
 
     async readById(id) {
 
-        let resource = await this._repository.readById(id)
+        let resource = await ResourceRepository.readById(id)
 
         if (!resource) {
-            throw new NotFound(`Resource not found`)
+            throw new NotFound('Resource not found')
         }
 
         return resource
@@ -26,24 +24,24 @@ class ResourceService {
 
     async update(id, resource) {
 
-        let resource = await this._repository.readById(id)
+        let oldResource = await ResourceRepository.readById(id)
         
-        if (!resource) {
-            throw new NotFound(`Resource not found`)
+        if (!oldResource) {
+            throw new NotFound('Resource not found')
         }
 
-        return await this._repository.update(resource)
+        return await ResourceRepository.update(id, resource)
     }
 
     async destroy(id) {
 
-        let resource = await this._repository.readById(id)
+        let resource = await ResourceRepository.readById(id)
         
         if (!resource) {
-            throw new NotFound(`Resource not found`)
+            throw new NotFound('Resource not found')
         }
         
-        return await this._repository.destroy(id)
+        return await ResourceRepository.destroy(id)
     }
 }
 

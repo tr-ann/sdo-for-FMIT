@@ -24,13 +24,13 @@ class RoomTypeService {
 
     async update(id, roomType) {
 
-        let roomType = await RoomTypeRepository.readById(id)
+        let oldRoomType = await RoomTypeRepository.readById(id)
         
-        if (!roomType) {
+        if (!oldRoomType) {
             throw new NotFound('Room type not found')
         }
 
-        return await RoomTypeRepository.update(roomType)
+        return await RoomTypeRepository.update(id, roomType)
     }
 
     async destroy(id) {

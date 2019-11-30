@@ -24,13 +24,13 @@ class LectureRoomService {
 
     async update(id, lectureRoom) {
 
-        let lectureRoom = await LectureRoomRepository.readById(id)
+        let oldLectureRoom = await LectureRoomRepository.readById(id)
         
-        if (!lectureRoom) {
+        if (!oldLectureRoom) {
             throw new NotFound('Lecture room not found')
         }
 
-        return await LectureRoomRepository.update(lectureRoom)
+        return await LectureRoomRepository.update(id, lectureRoom)
     }
 
     async destroy(id) {

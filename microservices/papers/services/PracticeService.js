@@ -3,8 +3,8 @@ import NotFound from '../../../core/errors/4xx/notFound'
 
 class PracticeService {
 
-    async create(Practice) {
-        return await PracticeRepository.create(Practice)
+    async create(practice) {
+        return await PracticeRepository.create(practice)
     }
 
     async readAll() {
@@ -13,31 +13,31 @@ class PracticeService {
 
     async readById(id) {
 
-        let Practice = await PracticeRepository.readById(id)
+        let practice = await PracticeRepository.readById(id)
 
-        if (!Practice) {
+        if (!practice) {
             throw new NotFound('Practice not found')
         }
 
-        return Practice
+        return practice
     }
 
-    async update(id, Practice) {
+    async update(id, practice) {
 
-        let Practice = await PracticeRepository.readById(id)
+        let oldPractice = await PracticeRepository.readById(id)
         
-        if (!Practice) {
+        if (!oldPractice) {
             throw new NotFound('Practice not found')
         }
 
-        return await PracticeRepository.update(Practice)
+        return await PracticeRepository.update(id, practice)
     }
 
     async destroy(id) {
 
-        let Practice = await PracticeRepository.readById(id)
+        let practice = await PracticeRepository.readById(id)
         
-        if (!Practice) {
+        if (!practice) {
             throw new NotFound('Practice not found')
         }
         
