@@ -20,6 +20,10 @@ class UserInfoService {
     }
 
     async update(id, userInfo) {
+        let nUserInfo = UserInfoRepository.readById(id)
+        if (!nUserInfo) {
+            throw new NotFound(`${objectName} not found`)
+        }
         return await UserInfoRepository.update(id, userInfo)
     }
 

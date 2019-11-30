@@ -19,6 +19,10 @@ class RoleService {
     }
 
     async update(id, role) {
+        let nRole = RoleRepository.readById(id)
+        if(!nRole) {
+            throw new NotFound(`${objectName} not found`)
+        }
         return await RoleRepository.update(id, role)
     }
 

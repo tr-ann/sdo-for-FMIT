@@ -20,8 +20,12 @@ class UserService {
         return user
     }
 
-    async update(user) {
-        return await UserRepository.update(user)
+    async update(id, user) {
+        let nUser = UserRepository.readById(id)
+        if (!nUser) {
+            throw new NotFound(`${objectName} not found`)
+        }
+        return await UserRepository.update(id, user)
     }
 
     async destroy(id) {
