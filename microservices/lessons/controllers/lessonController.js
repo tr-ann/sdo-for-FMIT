@@ -12,7 +12,7 @@ class lessonController {
                 type_id:            req.body.type_id,
                 room_id:            req.body.room_id,
                 discipline_id:      req.body.discipline_id,
-                lessonNumber_id:    req.body.lessonNumber_id,
+                lesson_number_id:   req.body.lesson_number_id,
                 week_day:           req.body.week_day,
             })
             
@@ -66,7 +66,7 @@ class lessonController {
                 type_id:            req.body.type_id,
                 room_id:            req.body.room_id,
                 discipline_id:      req.body.discipline_id,
-                lessonNumber_id:    req.body.lessonNumber_id,
+                lesson_number_id:   req.body.lesson_number_id,
                 week_day:           req.body.week_day,
             })
 

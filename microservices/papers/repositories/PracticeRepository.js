@@ -25,6 +25,7 @@ class PracticeRepository {
                 { model: db.organization, as: 'organization' },
                 { model: db.status, as: 'status' },
                 { model: db.resource, as: 'resource' },
+                { model: db.practice_type, as: 'practiceType' },
             ],
         })
     }
