@@ -28,11 +28,19 @@ export default (app) => {
     app.use('/students', studentRouter);
     app.use('/teachers', usersRouters.teacherRouter);
 
-    app.use('/buildings', lessonsRouters.buildingsRouter);
-    app.use('/disciplines', lessonsRouters.disciplinesRouter);
-    app.use('/lectureRooms', lessonsRouters.lectureRoomsRouter);
-    app.use('/lessonNumbers', lessonsRouters.lessonNumbersRouter);
-    app.use('/lessonTypes', lessonsRouters.lessonTypesRouter);
-    app.use('/lessons', lessonsRouters.lessonsRouter);
-    app.use('/roomTypes', lessonsRouters.roomTypesRouter);
+    app.use('/buildings', lessonsRouters.buildingRouter)
+    app.use('/disciplines', lessonsRouters.disciplineRouter)
+    app.use('/lectureRooms', lessonsRouters.lectureRoomRouter)
+    app.use('/lessonNumbers', lessonsRouters.lessonNumberRouter)
+    app.use('/lessonTypes', lessonsRouters.lessonTypeRouter)
+    app.use('/lessons', lessonsRouters.lessonRouter)
+    app.use('/roomTypes', lessonsRouters.roomTypeRouter)
+
+    app.use('/graduationPapers', papersRouters.graduationPaperRouter)
+    app.use('/organizations', papersRouters.organizationRouter)
+    app.use('/practices', papersRouters.practiceRouter)
+    app.use('/practiceTypes', papersRouters.practiceTypeRouter)
+    app.use('/requests', papersRouters.requestRouter)
+    app.use('/statuses', papersRouters.statusRouter)
+    app.use('/termPapers', papersRouters.termPaperRouter)
 }
