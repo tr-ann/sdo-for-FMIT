@@ -1,4 +1,4 @@
-import { Model } from 'sequelize/types'
+import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
     class Faculty extends Model {}
