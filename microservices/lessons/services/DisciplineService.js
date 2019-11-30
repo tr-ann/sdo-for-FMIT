@@ -18,7 +18,7 @@ export default class DisciplineService {
         let discipline = await this._disciplineRepository.readById(id)
 
         if (!discipline) {
-            throw new NotFound(`Discipline not found`)
+            throw new NotFound('Discipline not found')
         }
 
         return discipline
@@ -29,7 +29,7 @@ export default class DisciplineService {
         let discipline = await this._disciplineRepository.readById(id)
         
         if (!discipline) {
-            throw new NotFound(`Discipline not found`)
+            throw new NotFound('Discipline not found')
         }
 
         return await this._disciplineRepository.update(discipline)
@@ -40,7 +40,7 @@ export default class DisciplineService {
         let discipline = await this._disciplineRepository.readById(id)
         
         if (!discipline) {
-            throw new NotFound(`Discipline not found`)
+            throw new NotFound('Discipline not found')
         }
         
         return await this._disciplineRepository.destroy(id)

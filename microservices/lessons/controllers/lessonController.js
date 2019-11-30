@@ -1,9 +1,9 @@
-import LessonsService from '../services/LessonsService'
+import LessonService from '../services/LessonService'
 import core from '../../../core'
 
 export default class lessonController {
 
-    _lessonService = new LessonsService()
+    _lessonService = new LessonService()
 
     async create(req, res) {
         try {
@@ -85,10 +85,10 @@ export default class lessonController {
 
     async destroy(req, res) {
         try {
-            let deletedLesson = await this._lessonService.destroy(req.params.id)
+            await this._lessonService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
-                deletedLesson,
+                {},
                 "Lesson deleted successfully",
                 200,
                 "success"

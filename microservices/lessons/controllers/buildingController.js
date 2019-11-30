@@ -71,10 +71,10 @@ export default class buildingController {
 
     async destroy(req, res) {
         try {
-            let deletedBuilding = await this._buildingService.destroy(req.params.id)
+            await this._buildingService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
-                deletedBuilding,
+                {},
                 "Building deleted successfully",
                 200,
                 "success"

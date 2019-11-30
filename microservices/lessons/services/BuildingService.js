@@ -3,22 +3,22 @@ import NotFound from '../../../core/errors/4xx/notFound'
 
 export default class BuildingService {
 
-    _builfongRepository = new BuildingRepository()
+    _buildingRepository = new BuildingRepository()
 
     async create(building) {
-        return await this._builfongRepository.create(building)
+        return await this._buildingRepository.create(building)
     }
 
     async readAll() {
-        return await this._builfongRepository.readAll()
+        return await this._buildingRepository.readAll()
     }
 
     async readById(id) {
 
-        let building = await this._builfongRepository.readById(id)
+        let building = await this._buildingRepository.readById(id)
 
         if (!building) {
-            throw new NotFound(`Building not found`)
+            throw new NotFound('Building not found')
         }
 
         return building
@@ -26,23 +26,23 @@ export default class BuildingService {
 
     async update(id, building) {
 
-        let building = await this._builfongRepository.readById(id)
+        let building = await this._buildingRepository.readById(id)
         
         if (!building) {
-            throw new NotFound(`Building not found`)
+            throw new NotFound('Building not found')
         }
 
-        return await this._builfongRepository.update(building)
+        return await this._buildingRepository.update(building)
     }
 
     async destroy(id) {
 
-        let building = await this._builfongRepository.readById(id)
+        let building = await this._buildingRepository.readById(id)
         
         if (!building) {
-            throw new NotFound(`Building not found`)
+            throw new NotFound('Building not found')
         }
         
-        return await this._builfongRepository.destroy(id)
+        return await this._buildingRepository.destroy(id)
     }
 }

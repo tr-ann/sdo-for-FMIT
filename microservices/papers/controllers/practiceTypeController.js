@@ -1,19 +1,19 @@
-import RoomTypeService from '../services/RoomTypeService'
+import PracticeTypeService from '../services/PracticeTypeService'
 import core from '../../../core'
 
-export default class roomTypeController {
+export default class practiceTypeController {
 
-    _roomTypeService = new RoomTypeService()
+    _practiceTypeService = new PracticeTypeService()
 
     async create(req, res) {
         try {
-            let roomType = await this._roomTypeService.create({
+            let practiceType = await this._practiceTypeService.create({
                 name: req.body.name,
             })
             
             return res.status(201).json(core.ResponseFormat.build(
-                roomType,
-                "Room type created successfully",
+                practiceType,
+                "Practice type created successfully",
                 201,
                 "success"
             ))
@@ -24,11 +24,11 @@ export default class roomTypeController {
 
     async readAll(req, res) {
         try {
-            let roomTypes = await this._roomTypeService.readAll()
+            let practiceTypes = await this._practiceTypeService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
-                roomTypes,
-                "Room types read successfully",
+                practiceTypes,
+                "Practice types read successfully",
                 200,
                 "success"
             ))
@@ -39,11 +39,11 @@ export default class roomTypeController {
 
     async readById(req, res) {
         try {
-            let roomType = await this._roomTypeService.readById(req.params.id)
+            let practiceType = await this._practiceTypeService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
-                roomType,
-                "Room type read successfully",
+                practiceType,
+                "Practice type read successfully",
                 200,
                 "success"
             ))
@@ -54,13 +54,13 @@ export default class roomTypeController {
 
     async update(req, res) {
         try {
-            let roomType = await this._roomTypeService.update(req.params.id, {
+            let practiceType = await this._practiceTypeService.update(req.params.id, {
                 name:   req.body.name,
             })
 
             return res.status(200).json(core.ResponseFormat.build(
-                roomType,
-                "Room type updated successfully",
+                practiceType,
+                "Practice type updated successfully",
                 200,
                 "success"
             ))
@@ -71,11 +71,11 @@ export default class roomTypeController {
 
     async destroy(req, res) {
         try {
-            await this._roomTypeService.destroy(req.params.id)
+            await this._practiceTypeService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
-                "Room type deleted successfully",
+                "Practice type deleted successfully",
                 200,
                 "success"
             ))

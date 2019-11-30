@@ -1,9 +1,9 @@
-import DisciplinesService from '../services/DisciplinesService'
+import DisciplineService from '../services/DisciplineService'
 import core from '../../../core'
 
 export default class disciplineController {
 
-    _disciplinesService = new DisciplinesService()
+    _disciplinesService = new DisciplineService()
 
     async create(req, res) {
         try {
@@ -73,10 +73,10 @@ export default class disciplineController {
 
     async destroy(req, res) {
         try {
-            let deletedDiscipline = await this._disciplinesService.destroy(req.params.id)
+            await this._disciplinesService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
-                deletedDiscipline,
+                {},
                 "Discipline deleted successfully",
                 200,
                 "success"

@@ -1,9 +1,9 @@
-import LectureRoomsService from '../services/LectureRoomsService'
+import LectureRoomService from '../services/LectureRoomService'
 import core from '../../../core'
 
 export default class lectureRoomController {
 
-    _lectureRoomService = new LectureRoomsService()
+    _lectureRoomService = new LectureRoomService()
 
     async create(req, res) {
         try {
@@ -77,10 +77,10 @@ export default class lectureRoomController {
 
     async destroy(req, res) {
         try {
-            let deletedLectureRoom = await this._lectureRoomService.destroy(req.params.id)
+            await this._lectureRoomService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
-                deletedLectureRoom,
+                {},
                 "Lecture room deleted successfully",
                 200,
                 "success"

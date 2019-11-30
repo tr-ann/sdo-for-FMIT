@@ -1,19 +1,19 @@
-import RoomTypeService from '../services/RoomTypeService'
+import OrganizationService from '../services/OrganizationService'
 import core from '../../../core'
 
-export default class roomTypeController {
+export default class organizationController {
 
-    _roomTypeService = new RoomTypeService()
+    _organizationService = new OrganizationService()
 
     async create(req, res) {
         try {
-            let roomType = await this._roomTypeService.create({
+            let organization = await this._organizationService.create({
                 name: req.body.name,
             })
             
             return res.status(201).json(core.ResponseFormat.build(
-                roomType,
-                "Room type created successfully",
+                organization,
+                "Organization created successfully",
                 201,
                 "success"
             ))
@@ -24,11 +24,11 @@ export default class roomTypeController {
 
     async readAll(req, res) {
         try {
-            let roomTypes = await this._roomTypeService.readAll()
+            let organizations = await this._organizationService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
-                roomTypes,
-                "Room types read successfully",
+                organizations,
+                "Organizations read successfully",
                 200,
                 "success"
             ))
@@ -39,11 +39,11 @@ export default class roomTypeController {
 
     async readById(req, res) {
         try {
-            let roomType = await this._roomTypeService.readById(req.params.id)
+            let organization = await this._organizationService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
-                roomType,
-                "Room type read successfully",
+                organization,
+                "Organization read successfully",
                 200,
                 "success"
             ))
@@ -54,13 +54,13 @@ export default class roomTypeController {
 
     async update(req, res) {
         try {
-            let roomType = await this._roomTypeService.update(req.params.id, {
+            let organization = await this._organizationService.update(req.params.id, {
                 name:   req.body.name,
             })
 
             return res.status(200).json(core.ResponseFormat.build(
-                roomType,
-                "Room type updated successfully",
+                organization,
+                "Organization updated successfully",
                 200,
                 "success"
             ))
@@ -71,11 +71,11 @@ export default class roomTypeController {
 
     async destroy(req, res) {
         try {
-            await this._roomTypeService.destroy(req.params.id)
+            await this._organizationService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
-                "Room type deleted successfully",
+                "Organization deleted successfully",
                 200,
                 "success"
             ))
