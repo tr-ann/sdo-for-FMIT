@@ -24,6 +24,7 @@ export default (sequelize, DataTypes) => {
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'specialty',
+        freezeTableName: 'specialties',
 
         name: {
             singular: 'specialty',

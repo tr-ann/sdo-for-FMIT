@@ -20,6 +20,7 @@ export default (sequelize, DataTypes) => {
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'faculty',
+        freezeTableName: 'faculties',
 
         name: {
             singular: 'faculty',
