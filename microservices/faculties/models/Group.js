@@ -47,7 +47,8 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             onDelete: 'restrict',
         })
-        Group.hasMany(models.curator, {//////????
+        Group.belongsToMany(models.teacher, {
+            through: models.curator,
             onUpdate: 'restrict',
             onDelete: 'restrict',
         })
@@ -59,7 +60,7 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             onDelete: 'restrict',
         })
-        Group.hasMany(models.lessons, {
+        Group.hasMany(models.lesson, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
         })

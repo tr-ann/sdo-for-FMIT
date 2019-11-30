@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
 
     Url.associate = function (models) { 
         Url.belongsToMany(models.role, {
-            trought: models.roles_urls,
+            through: models.role_url,
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })

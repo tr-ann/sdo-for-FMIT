@@ -6,10 +6,12 @@ import faculties from '../microservices/faculties/models'
 import papers from '../microservices/papers/models'
 import lessons from '../microservices/lessons/models'
 
-export default db = {}
+const db = {}
 
 Object.assign(db, users, teachers, students, faculties, papers, lessons)
 
 Object.keys(db).forEach(modelName => {
     db[modelName].associate && db[modelName].associate(db)
 })
+
+export default db
