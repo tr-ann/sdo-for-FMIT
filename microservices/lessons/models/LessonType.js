@@ -7,7 +7,7 @@ export default (sequelize, DataTypes) => {
     LessonType.init({
         name: {
             allowNull: false,
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
         },
     }, {
         name: {
