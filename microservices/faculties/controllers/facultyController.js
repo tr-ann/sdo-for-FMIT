@@ -1,14 +1,12 @@
 import FacultyService from '../services/FacultyService'
 import core from '../../../core'
 
-export default class facultyController {
-
-    _facultyService = new FacultyService()
+class facultyController {
 
     async create(req, res) {
         try {
-            let faculty = await this._facultyService.create({
-                name:       req.body.name,
+            let faculty = await FacultyService.create({
+                name: req.body.name,
                 short_name: req.body.short_name,
             })
             
@@ -25,7 +23,7 @@ export default class facultyController {
 
     async readAll(req, res) {
         try {
-            let facultys = await this._facultyService.readAll()
+            let facultys = await FacultyService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
                 facultys,
@@ -40,7 +38,7 @@ export default class facultyController {
 
     async readById(req, res) {
         try {
-            let faculty = await this._facultyService.readById(req.params.id)
+            let faculty = await FacultyService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 faculty,
@@ -55,8 +53,8 @@ export default class facultyController {
 
     async update(req, res) {
         try {
-            let faculty = await this._facultyService.update(req.params.id, {
-                name:       req.body.name,
+            let faculty = await FacultyService.update(req.params.id, {
+                name:   req.body.name,
                 short_name: req.body.short_name,
             })
 
@@ -73,10 +71,10 @@ export default class facultyController {
 
     async destroy(req, res) {
         try {
-            let deletedFaculty = await this._facultyService.destroy(req.params.id)
+            await FacultyService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
-                deletedFaculty,
+                {},
                 "Faculty deleted successfully",
                 200,
                 "success"
@@ -86,3 +84,5 @@ export default class facultyController {
         }
     }
 }
+
+export default new facultyController()
