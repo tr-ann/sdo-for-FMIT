@@ -2,7 +2,6 @@ import PositionRepository from '../repositories/PositionRepository'
 
 class PositionService {
 
-    /*  ????  */
     async list() {
         return await PositionRepository.readAll()
     }

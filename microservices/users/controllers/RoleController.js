@@ -1,20 +1,19 @@
-import UserService from '../services/UserService'
+import RoleService from '../services/RoleService'
 
 const ResponseFormat = require('../../../core').ResponseFormat;
 
-class UserController {
+class RoleController {
 
     async create(req, res) {
         try {
-            const user = await UserService.create({
-                login: req.body.username,
-                password: req.body.password
+            const role = await RoleService.create({
+                name: req.body.name
             });
             return res.status(201)
                 .json(
                     ResponseFormat.build(
-                        user, 
-                        "User created successfully", 
+                        role, 
+                        "Role created successfully", 
                         201, 
                         "success"
                     )
@@ -26,12 +25,12 @@ class UserController {
 
     async readAll(req, res) {
         try {
-            let users = await UserService.all()
+            let roles = await RoleService.all()
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        users,
-                        "Users read successfully",
+                        roles,
+                        "Roles read successfully",
                         200,
                         "success"
                     )
@@ -43,12 +42,12 @@ class UserController {
 
     async readById(req, res) {
         try {
-            let user = UserService.findById(req.params.id)
+            let role = RoleService.findById(req.params.id)
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        user,
-                        "User read successfully",
+                        role,
+                        "Role read successfully",
                         200,
                         "success"
                     )
@@ -60,15 +59,14 @@ class UserController {
     
     async update(req, res) {
         try {
-            let user = await UserService.update(req.params.id, {
-                login: req.body.username,
-                password: req.body.password,
+            let role = await RoleService.update(req.params.id, {
+                name: req.body.name,
             })
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        user,
-                        "User updated successfully",
+                        role,
+                        "Role updated successfully",
                         200,
                         "success"
                     )
@@ -80,12 +78,12 @@ class UserController {
     
     async destroy (req, res) {
         try {
-            await UserService.delete(req.params.id)
+            await RoleService.delete(req.params.id)
             return res.status(200)
                 .json(
                     ResponseFormat.build(
                         {},
-                        "User deleted successfully",
+                        "Role deleted successfully",
                         200,
                         "success"
                     )
@@ -96,4 +94,4 @@ class UserController {
     }
 }
 
-export default new UserController()
+export default new RoleController()

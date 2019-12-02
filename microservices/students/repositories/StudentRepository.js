@@ -18,8 +18,8 @@ class StudentRepository {
         return await db.student.update(object, {where: {id: id}})
     }
    
-    async destroy(student) {
-        return await student.destroy()
+    async destroy(id) {
+        return await db.student.destroy({where: {id: id}})
     }
 }
 

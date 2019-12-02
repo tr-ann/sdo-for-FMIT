@@ -23,7 +23,15 @@ export default (app) => {
 
     //console.log('routes')
     app.use('/users', isAutenticated, usersRouters.UserRouter)
+    app.use('/phones', isAutenticated, usersRouters.PhoneRouter)
+    app.use('/roles', isAutenticated, usersRouters.RoleRouter)
+    //app.use('/usersInfo', isAutenticated, usersRouters.UserInfoRouter)  ????????
+    
     app.use('/teachers', isAutenticated, teachersRouters.TeacherRouter)
+    app.use('/academicDegrees', isAutenticated, teachersRouters.AcademicDegreeRouter)
+    app.use('/academicRanks', isAutenticated, teachersRouters.AcademicRankRouter)
+    app.use('/positions', isAutenticated, teachersRouters.PositionRouter)
+
     app.use('/students', isAutenticated, studentsRouters.StudentRouter)
 
     app.use('/buildings', lessonsRouters.buildingRouter)

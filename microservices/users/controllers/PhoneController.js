@@ -1,20 +1,19 @@
-import UserService from '../services/UserService'
+import PhoneService from '../services/PhoneService'
 
 const ResponseFormat = require('../../../core').ResponseFormat;
 
-class UserController {
+class PhoneController {
 
     async create(req, res) {
         try {
-            const user = await UserService.create({
-                login: req.body.username,
-                password: req.body.password
+            const phone = await PhoneService.create({
+                phone: req.body.phone
             });
             return res.status(201)
                 .json(
                     ResponseFormat.build(
-                        user, 
-                        "User created successfully", 
+                        phone, 
+                        "Phone created successfully", 
                         201, 
                         "success"
                     )
@@ -26,12 +25,12 @@ class UserController {
 
     async readAll(req, res) {
         try {
-            let users = await UserService.all()
+            let phones = await PhoneService.all()
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        users,
-                        "Users read successfully",
+                        phones,
+                        "Phones read successfully",
                         200,
                         "success"
                     )
@@ -43,12 +42,12 @@ class UserController {
 
     async readById(req, res) {
         try {
-            let user = UserService.findById(req.params.id)
+            let phone = PhoneService.findById(req.params.id)
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        user,
-                        "User read successfully",
+                        phone,
+                        "Phone read successfully",
                         200,
                         "success"
                     )
@@ -60,15 +59,14 @@ class UserController {
     
     async update(req, res) {
         try {
-            let user = await UserService.update(req.params.id, {
-                login: req.body.username,
-                password: req.body.password,
+            let phone = await PhoneService.update(req.params.id, {
+                phone: req.body.phone,
             })
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        user,
-                        "User updated successfully",
+                        phone,
+                        "Phone updated successfully",
                         200,
                         "success"
                     )
@@ -80,12 +78,12 @@ class UserController {
     
     async destroy (req, res) {
         try {
-            await UserService.delete(req.params.id)
+            await PhoneService.delete(req.params.id)
             return res.status(200)
                 .json(
                     ResponseFormat.build(
                         {},
-                        "User deleted successfully",
+                        "Phone deleted successfully",
                         200,
                         "success"
                     )
@@ -96,4 +94,4 @@ class UserController {
     }
 }
 
-export default new UserController()
+export default new PhoneController()

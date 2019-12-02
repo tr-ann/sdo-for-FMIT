@@ -1,24 +1,23 @@
-import UserService from '../services/UserService'
+import PositionService from '../services/PositionService'
 
-const ResponseFormat = require('../../../core').ResponseFormat;
+import { ResponseFormat } from '../../../core'
 
-class UserController {
+class PositionController {
 
     async create(req, res) {
         try {
-            const user = await UserService.create({
-                login: req.body.username,
-                password: req.body.password
+            const position = await PositionService.create({
+                name: req.body.name
             });
             return res.status(201)
                 .json(
                     ResponseFormat.build(
-                        user, 
-                        "User created successfully", 
+                        position, 
+                        "Position created successfully", 
                         201, 
                         "success"
                     )
-                );
+                )
         } catch (error) {
             return res.status(error.status).json(error);
         }
@@ -26,12 +25,12 @@ class UserController {
 
     async readAll(req, res) {
         try {
-            let users = await UserService.all()
+            let positions = await PositionService.readAll()
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        users,
-                        "Users read successfully",
+                        positions,
+                        "Positions read successfully",
                         200,
                         "success"
                     )
@@ -43,32 +42,31 @@ class UserController {
 
     async readById(req, res) {
         try {
-            let user = UserService.findById(req.params.id)
+            let position = PositionService.findById(req.params.id)
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        user,
-                        "User read successfully",
+                        position,
+                        "Position read successfully",
                         200,
                         "success"
                     )
                 )
-    } catch (error) {
+        } catch (error) {
             return res.status(error.status).json(error)
         }
     }
     
     async update(req, res) {
         try {
-            let user = await UserService.update(req.params.id, {
-                login: req.body.username,
-                password: req.body.password,
+            let position = await PositionService.update(req.params.id, {
+                name: req.body.name
             })
             return res.status(200)
                 .json(
                     ResponseFormat.build(
-                        user,
-                        "User updated successfully",
+                        position,
+                        "Position updated successfully",
                         200,
                         "success"
                     )
@@ -80,12 +78,12 @@ class UserController {
     
     async destroy (req, res) {
         try {
-            await UserService.delete(req.params.id)
+            await PositionService.delete(req.params.id)
             return res.status(200)
                 .json(
                     ResponseFormat.build(
                         {},
-                        "User deleted successfully",
+                        "Position deleted successfully",
                         200,
                         "success"
                     )
@@ -96,4 +94,4 @@ class UserController {
     }
 }
 
-export default new UserController()
+export default new PositionController()
