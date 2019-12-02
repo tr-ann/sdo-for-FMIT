@@ -1,20 +1,17 @@
-import GroupService from '../services/GroupService'
+import UrlService from '../services/UrlService'
 import core from '../../../core'
 
-class groupController {
+class urlController {
 
     async create(req, res) {
         try {
-            let group = await GroupService.create({
-                number: req.body.number,
-                faculty_id: req.body.faculty_id,
-                specialty_id: req.body.specialty_id,
-                study_mode_id:req.body.study_mode_id,
+            let url = await UrlService.create({
+                url:     req.body.url,
             })
             
             return res.status(201).json(core.ResponseFormat.build(
-                group,
-                "Group created successfully",
+                url,
+                "Url created successfully",
                 201,
                 "success"
             ))
@@ -25,11 +22,11 @@ class groupController {
 
     async readAll(req, res) {
         try {
-            let groups = await GroupService.readAll()
+            let urls = await UrlService.readAll()
             
             return res.status(200).json(core.ResponseFormat.build(
-                groups,
-                "Groups read successfully",
+                urls,
+                "Urls read successfully",
                 200,
                 "success"
             ))
@@ -40,11 +37,11 @@ class groupController {
 
     async readById(req, res) {
         try {
-            let group = await GroupService.readById(req.params.id)
+            let url = await UrlService.readById(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
-                group,
-                "Group read successfully",
+                url,
+                "Url read successfully",
                 200,
                 "success"
             ))
@@ -55,16 +52,13 @@ class groupController {
 
     async update(req, res) {
         try {
-            let group = await GroupService.update(req.params.id, {
-                number: req.body.number,
-                faculty_id: req.body.faculty_id,
-                specialty_id: req.body.specialty_id,
-                study_mode_id:req.body.study_mode_id,
+            let url = await UrlService.update(req.params.id, {
+                url:     req.body.url,
             })
 
             return res.status(200).json(core.ResponseFormat.build(
-                group,
-                "Group updated successfully",
+                url,
+                "Url updated successfully",
                 200,
                 "success"
             ))
@@ -75,11 +69,11 @@ class groupController {
 
     async destroy(req, res) {
         try {
-            await GroupService.destroy(req.params.id)
+            await UrlService.destroy(req.params.id)
 
             return res.status(200).json(core.ResponseFormat.build(
                 {},
-                "Group deleted successfully",
+                "Url deleted successfully",
                 200,
                 "success"
             ))
@@ -89,4 +83,4 @@ class groupController {
     }
 }
 
-export default new groupController()
+export default new urlController()
