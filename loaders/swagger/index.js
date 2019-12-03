@@ -1,6 +1,14 @@
 import swaggerUi from 'swagger-ui-express'
-const swaggerDocument = require('./swagger.json')
+import swaggerDocument from './swagger.json'
+
+const env = process.env.NODE_ENV || 'dev'
+
+const options = {
+    explorer: true
+}
 
 export default (app) => {
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    if (env == 'dev') {
+        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options))
+    }
 }

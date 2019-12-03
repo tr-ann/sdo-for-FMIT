@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "Swagger Petstore",
+        "title": "My univer docs",
         "description": "This is a sample server Petstore server.",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
@@ -18,11 +18,17 @@
         "url": "http://swagger.io"
     },
     "servers": {
-        "url": [
-            "https://petstore.swagger.io/v2",
-            "http://petstore.swagger.io/v2"
+        "urls": [
+            {
+                "name": "hello",
+                "url": "https://petstore.swagger.io/v2"
+            }
         ]
     },
+    "schemes": [
+        "https",
+        "http"
+      ],
     "consumes": [
         "application/json; charset=utf-8"
     ],
