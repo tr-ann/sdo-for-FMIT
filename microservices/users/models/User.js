@@ -29,7 +29,7 @@ export default (sequelize, DataTypes) => {
             simple: 'user',
             plural: 'users',
         }
-    });
+    })
 
     User.associate = function(models) {
         User.belongsToMany(models.role, {
@@ -40,28 +40,28 @@ export default (sequelize, DataTypes) => {
         User.hasMany(models.phone, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-        });
+        })
         User.hasOne(models.user_info, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-        });
+        })
         User.hasOne(models.student, { 
             onDelete: 'restrict',
             onUpdate: 'restrict',
-        });
+        })
         User.hasOne(models.teacher, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-        });
-    };
+        })
+    }
 
     User.prototype.validPassword = async function (password) {
-        return await Hash.compare(password, this.password);
-    };
+        return await Hash.compare(password, this.password)
+    }
     
     User.beforeCreate(
         async (user, options) => user.password = await Hash.get(user.password)
-    );
+    )
 
     User.afterCreate(
         async (user, options) => await db.user_info.create({ user_id: user.id })
