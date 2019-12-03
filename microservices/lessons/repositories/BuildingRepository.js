@@ -13,13 +13,15 @@ class BuildingRepository {
     }
 
     /**
-     * This is a standard method to read an entity from a database
+     * This method to read an entity from a database
      * 
      * @param {Number} id - id of building that will be read
      * @return {Promise} promise with result of create
      */
     async readById(id) {        
-        return await db.building.findByPk(id)
+        return await db.building.findByPk(id, {
+            attributes: ['id', 'name'],
+        })
     }
 
     /**
@@ -28,7 +30,9 @@ class BuildingRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.building.findAll()
+        return await db.building.findAll({
+            attributes: ['id', 'name'],
+        })
     }
 
     /**
@@ -40,7 +44,7 @@ class BuildingRepository {
      */
     async update(id, building) {
         return await db.building.update(building, {
-            where: { id: id }
+            where: { id: id },
         })
     }
 
@@ -52,8 +56,18 @@ class BuildingRepository {
      */
     async destroy(id) {
         return await db.building.destroy({
-            where: { id: id }
+            where: { id: id },
         })
+    }
+
+    /**
+     * This method reads entities by description from a database
+     * 
+     * @param {Object} options - description to read entities
+     * @return {Promise} promise with result of create
+     */
+    async get(options) {        
+        return await db.building.findAll(options)
     }
 }
 
