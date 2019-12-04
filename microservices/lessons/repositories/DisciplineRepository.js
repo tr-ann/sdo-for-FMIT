@@ -19,7 +19,9 @@ class DisciplineRepository {
      * @return {Promise} promise with result of create
      */
     async readById(id) {        
-        return await db.discipline.findByPk(id)
+        return await db.discipline.findByPk(id, {
+            attributes: [ 'id', 'name', 'short_name' ],
+        })
     }
 
     /**
@@ -28,7 +30,9 @@ class DisciplineRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.discipline.findAll()
+        return await db.discipline.findAll({
+            attributes: [ 'id', 'name', 'short_name', 'deleted_date' ],
+        })
     }
 
     /**
@@ -63,7 +67,7 @@ class DisciplineRepository {
      * @return {Promise} promise with result of create
      */
     async get(options) {        
-        return await db.building.findAll(options)
+        return await db.discipline.findAll(options)
     }
 }
 

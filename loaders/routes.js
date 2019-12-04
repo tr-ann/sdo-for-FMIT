@@ -34,13 +34,13 @@ export default (app) => {
 
     app.use('/students', isAutenticated, studentsRouters.StudentRouter)
 
-    app.use('/buildings', lessonsRouters.buildingRouter)
-    app.use('/disciplines', lessonsRouters.disciplineRouter)
-    app.use('/lectureRooms', lessonsRouters.lectureRoomRouter)
-    app.use('/lessonNumbers', lessonsRouters.lessonNumberRouter)
-    app.use('/lessonTypes', lessonsRouters.lessonTypeRouter)
-    app.use('/lessons', lessonsRouters.lessonRouter)
-    app.use('/roomTypes', lessonsRouters.roomTypeRouter)
+    app.use('/buildings', isAutenticated, lessonsRouters.buildingRouter)
+    app.use('/disciplines', isAutenticated, lessonsRouters.disciplineRouter)
+    app.use('/lectureRooms', isAutenticated, lessonsRouters.lectureRoomRouter)
+    app.use('/lessonNumbers', isAutenticated, lessonsRouters.lessonNumberRouter)
+    app.use('/lessonTypes', isAutenticated, lessonsRouters.lessonTypeRouter)
+    app.use('/lessons', isAutenticated, lessonsRouters.lessonRouter)
+    app.use('/roomTypes', isAutenticated, lessonsRouters.roomTypeRouter)
 
     app.use('/graduationPapers', papersRouters.graduationPaperRouter)
     app.use('/organizations', papersRouters.organizationRouter)

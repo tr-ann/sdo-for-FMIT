@@ -19,7 +19,9 @@ class LessonNumberRepository {
      * @return {Promise} promise with result of create
      */
     async readById(id) {        
-        return await db.lesson_number.findByPk(id)
+        return await db.lesson_number.findByPk(id, {
+            attributes: ['id', 'number', 'start_time_1', 'end_time_1', 'start_time_2', 'end_time_2'],
+        })
     }
 
     /**
@@ -28,7 +30,9 @@ class LessonNumberRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.lesson_number.findAll()
+        return await db.lesson_number.findAll({
+            attributes: [ 'id', 'number', 'start_time_1', 'end_time_1', 'start_time_2', 'end_time_2', 'deleted_date' ],
+        })
     }
 
     /**
@@ -54,6 +58,16 @@ class LessonNumberRepository {
         return await db.lesson_number.destroy({
             where: { id: id }
         })
+    }
+
+    /**
+     * This method reads entities by description from a database
+     * 
+     * @param {Object} options - description to read entities
+     * @return {Promise} promise with result of create
+     */
+    async get(options) {        
+        return await db.lesson_number.findAll(options)
     }
 }
 

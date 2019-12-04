@@ -20,10 +20,7 @@ class LectureRoomRepository {
      */
     async readById(id) {
         return await db.lecture_room.findByPk(id, {
-            include: [
-                { model: db.room_type, as: 'roomType' },
-                { model: db.building, as: 'building' },
-            ],
+            attributes: [ 'id', 'number', 'seats_count', 'room_type_id', 'building_id' ],
         })
     }
 
@@ -33,7 +30,21 @@ class LectureRoomRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.lecture_room.findAll()
+        return await db.lecture_room.findAll({
+            attributes: [ 'id', 'number', 'seats_count', 'deleted_date' ],
+            include: [
+                {
+                    model: db.room_type,
+                    as: 'roomType',
+                    attributes: [ 'name' ],
+                },
+                {
+                    model: db.building,
+                    as: 'building',
+                    attributes: [ 'name' ],
+                },
+            ]
+        })
     }
 
     /**
@@ -59,6 +70,16 @@ class LectureRoomRepository {
         return await db.lecture_room.destroy({
             where: { id: id }
         })
+    }
+
+    /**
+     * This method reads entities by description from a database
+     * 
+     * @param {Object} options - description to read entities
+     * @return {Promise} promise with result of create
+     */
+    async get(options) {        
+        return await db.lecture_room.findAll(options)
     }
 }
 
