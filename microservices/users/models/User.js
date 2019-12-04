@@ -64,7 +64,9 @@ export default (sequelize, DataTypes) => {
     )
 
     User.afterCreate(
-        async (user, options) => await db.user_info.create({ user_id: user.id })
+        /* ФИО(отчество не обязательное), телефон(не обязательно), email(обязательно), дата рождения(обязательно), пол(обязательное)  */
+        /* добавить это в сервисы */
+        async (user, options) => await db.user_info.create({ user_id: user.id })        
     )
 
     return User;

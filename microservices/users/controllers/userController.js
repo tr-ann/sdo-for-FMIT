@@ -9,7 +9,7 @@ class UserController {
             const user = await UserService.create({
                 login: req.body.username,
                 password: req.body.password
-            });
+            })
             return res.status(201)
                 .json(
                     ResponseFormat.build(
