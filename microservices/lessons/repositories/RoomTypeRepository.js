@@ -19,7 +19,9 @@ class RoomTypeRepository {
      * @return {Promise} promise with result of create
      */
     async readById(id) {        
-        return await db.room_type.findByPk(id)
+        return await db.room_type.findByPk(id, {
+            attributes: [ 'id', 'name' ],
+        })
     }
 
     /**
@@ -28,7 +30,9 @@ class RoomTypeRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.room_type.findAll()
+        return await db.room_type.findAll({
+            attributes: [ 'id', 'name' ],
+        })
     }
 
     /**
@@ -54,6 +58,16 @@ class RoomTypeRepository {
         return await db.room_type.destroy({
             where: { id: id }
         })
+    }
+
+    /**
+     * This method reads entities by description from a database
+     * 
+     * @param {Object} options - description to read entities
+     * @return {Promise} promise with result of create
+     */
+    async get(options) {        
+        return await db.room_type.findAll(options)
     }
 }
 
