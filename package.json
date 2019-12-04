@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon --exec babel-node ./bin/www",
-    "test": "mocha *.test.js"
+    "test": "npm run compile && mocha --compilers js:babel-core/register"
   },
   "dependencies": {
     "bcrypt": "^3.0.7",
