@@ -19,7 +19,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-export var server = http.createServer(app);
+var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -87,3 +87,5 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+module.exports = server
