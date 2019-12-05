@@ -8,6 +8,10 @@ export default (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.STRING(100),
         },
+        faculty_id: {
+            allowNull: true,
+            type: DataTypes.INTEGER,
+        },
         owner_id: {
             allowNull: true,
             type: DataTypes.INTEGER,
