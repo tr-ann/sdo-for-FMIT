@@ -3,8 +3,6 @@ import NotFound from '../../../core/errors/4xx/notFound'
 
 class StudyModeService {
 
-    _repository = new StudyModeRepository()
-
     async create(studyMode) {
         return await this._repository.create(studyMode)
     }

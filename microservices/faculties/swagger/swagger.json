@@ -1,9 +1,9 @@
 {
     "swagger": "2.0",
     "info": {
-      "description": "Information system for VSU",
+      "description": "Information system for VSU. Faculty module",
       "version": "1.0.0",
-      "title": "My Univer",
+      "title": "Faculty module",
       "termsOfService": "http://swagger.io/terms/",
       "contact": {
         "email": "apiteam@swagger.io"
@@ -19,46 +19,6 @@
           "description": "Find out more",
           "url": "http://swagger.io"
         }
-      },
-      {
-        "name": "lessons",
-        "description": "Everything about Lessons",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "http://swagger.io"
-        }
-      },
-      {
-        "name": "papers",
-        "description": "Everything about Papers",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "http://swagger.io"
-        }
-      },
-      {
-        "name": "students",
-        "description": "Everything about Students",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "http://swagger.io"
-        }
-      },
-      {
-        "name": "teachers",
-        "description": "Everything about Teachers",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "http://swagger.io"
-        }
-      },
-      {
-        "name": "users",
-        "description": "Everything about Users",
-        "externalDocs": {
-          "description": "Find out more",
-          "url": "http://swagger.io"
-        }
       }
     ],
     "schemes": [
@@ -69,11 +29,11 @@
       "/departments": {
         "post": {
           "tags": [
-            "pet"
+            "faculties"
           ],
-          "summary": "Add a new pet to the store",
+          "summary": "Add a new department",
           "description": "",
-          "operationId": "addPet",
+          "operationId": "addDepartment",
           "consumes": [
             "application/json",
             "application/xml"
@@ -86,10 +46,10 @@
             {
               "in": "body",
               "name": "body",
-              "description": "Pet object that needs to be added to the store",
+              "description": "Department object that needs to be added",
               "required": true,
               "schema": {
-                "$ref": "#/definitions/Pet"
+                "$ref": "#/definitions/Department"
               }
             }
           ],

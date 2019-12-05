@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import InfoFacultyController from '../controllers/buildingController'
+import InfoFacultyController from '../controllers/infoFacultyController'
 
 const router = Router()
 
