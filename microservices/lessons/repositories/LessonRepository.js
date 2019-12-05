@@ -20,14 +20,16 @@ class LessonRepository {
      */
     async readById(id) {
         return await db.lesson.findByPk(id, {
-            include: [
-                { model: db.group, as: 'group' },
-                { model: db.subgroup, as: 'subgroup' },
-                { model: db.teacher, as: 'teacher' },
-                { model: db.lesson_type, as: 'lessonType' },
-                { model: db.lecture_room, as: 'lectureRoom' },
-                { model: db.discipline, as: 'discipline' },
-                { model: db.lesson_number, as: 'lessonNumber' },
+            attributes: [
+                'id',
+                'week_day',
+                'group_id',
+                'subgroup_id',
+                'teacher_id',
+                'lesson_type_id',
+                'lecture_room_id',
+                'discipline_id',
+                'lesson_number_id',
             ],
         })
     }
@@ -38,7 +40,46 @@ class LessonRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.lesson.findAll()
+        return await db.lesson.findAll({
+            attributes: [ 'id', 'week_day', 'deleted_date' ],
+            include: [
+                {
+                    model: db.group,
+                    as: 'group',
+                    attributes: [ 'number' ],
+                },
+                {
+                    model: db.subgroup,
+                    as: 'subgroup',
+                    attributes: [ 'name' ],
+                },
+                {
+                    model: db.teacher,
+                    as: 'teacher',
+                    attributes: [ 'short_name' ],
+                },
+                {
+                    model: db.lesson_type,
+                    as: 'lessonType',
+                    attributes: [ 'name' ],
+                },
+                {
+                    model: db.lecture_room,
+                    as: 'room',
+                    attributes: [ 'number' ],
+                },
+                {
+                    model: db.discipline,
+                    as: 'discipline',
+                    attributes: [ 'short_name' ],
+                },
+                {
+                    model: db.lesson_number,
+                    as: 'lessonNumber',
+                    attributes: [ 'number' ],
+                },
+            ],
+        })
     }
 
     /**
@@ -64,6 +105,16 @@ class LessonRepository {
         return await db.lesson.destroy({
             where: { id: id }
         })
+    }
+
+    /**
+     * This method reads entities by description from a database
+     * 
+     * @param {Object} options - description to read entities
+     * @return {Promise} promise with result of create
+     */
+    async get(options) {        
+        return await db.lesson.findAll(options)
     }
 }
 
