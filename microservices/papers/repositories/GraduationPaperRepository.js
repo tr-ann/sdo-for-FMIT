@@ -20,11 +20,15 @@ class GraduationPaperRepository {
      */
     async readById(id) {        
         return await db.graduation_paper.findByPk(id, {
-            include: [
-                { model: db.student, as: 'student' },
-                { model: db.teacher, as: 'teacher' },
-                { model: db.status, as: 'status' },
-                { model: db.resource, as: 'resource' },
+            attributes: [
+                'id',
+                'topic',
+                'name',
+                'description',
+                'student_id',
+                'teacher_id',
+                'status_id',
+                'resource_id',
             ],
         })
     }
@@ -35,7 +39,37 @@ class GraduationPaperRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.graduation_paper.findAll()
+        return await db.graduation_paper.findAll({
+            attributes: [
+                'id',
+                'topic',
+                'name',
+                'description',
+                'student_id',
+                'teacher_id',
+                'status_id',
+                'resource_id',
+            ],
+            include: [
+                {
+                    model: db.student,
+                    as: 'student',
+                    attributes: [ 'short_name' ],
+                },
+                {
+                    model: db.teacher,
+                    as: 'teacher'
+                },
+                {
+                    model: db.status,
+                    as: 'status'
+                },
+                {
+                    model: db.resource,
+                    as: 'resource'
+                },
+            ],
+        })
     }
 
     /**
@@ -61,6 +95,16 @@ class GraduationPaperRepository {
         return await db.graduation_paper.destroy({
             where: { id: id }
         })
+    }
+
+    /**
+     * This method reads entities by description from a database
+     * 
+     * @param {Object} options - description to read entities
+     * @return {Promise} promise with result of create
+     */
+    async get(options) {        
+        return await db.lesson_type.findAll(options)
     }
 }
 

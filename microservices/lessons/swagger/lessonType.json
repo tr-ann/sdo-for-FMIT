@@ -1,90 +1,293 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "My univer docs",
-        "description": "This is a sample server Petstore server.",
-        "termsOfService": "http://swagger.io/terms/",
+        "title": "Пути для работы с типами занятий",
+        "description": "Здесь находится описание путей, ведущих к API для работы с типами занятий",
         "contact": {
+            "name": "Контактные данные отдела разработчиков",
             "email": "apiteam@swagger.io"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "version": "1.0.0"
     },
-    "externalDocs": {
-        "description": "Find out more about Swagger",
-        "url": "http://swagger.io"
-    },
     "servers": [
         {
-            "url":"https:/localhost",
-            "description":"Server to test api"
+            "url": "http:/localhost/3000",
+            "description": "Сервер для тестирования API"
+        },
+        {
+            "url": "https:/localhost/3000",
+            "description": "Сервер для тестирования API"
         }
     ],
     "paths": {
-        "/lessonTypes/:id": {
+        "/lessonTypes": {
             "get": {
-                "description": "",
-                "parameters": [],
+                "summary": "Получение списка типов занятий",
+                "operationId": "read_lesson_types",
+                "tags": [
+                    "lessonTypes"
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                       "description": "Lesson types read successfully",
+                       "content": {
+                           "application/json": {
+                               "schema": {
+                                   "$ref": "#/components/schemas/ReadLessonTypes"
+                               }
+                           }
+                       }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             },
             "post": {
-                "description": "",
-                "parameters": [],
+                "summary": "Создание типа занятия",
+                "operationId": "create_lesson_type",
+                "tags": [
+                    "lessonTypes"
+                ],
+                "requestBody": {
+                    "description": "Тело запроса на создание типа занятия",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LessonType"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        },
+        "/lessonTypes/{id}": {
+            "get": {
+                "summary": "Получение информации о типе занятия",
+                "operationId": "lesson_type_by_id",
+                "tags": [
+                    "lessonTypes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Lesson type read successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReadLessonType"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Обновление информации о типе занятия",
+                "operationId": "update_lesson_type",
+                "tags": [
+                    "lessonTypes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Тело запроса для обновления типа занятия",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LessonType"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             },
             "delete": {
-                "description": "",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "OK"
+                "summary": "Удаление типа занятия",
+                "operationId": "delete_lesson_type",
+                "tags": [
+                    "lessonTypes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
                     }
-                }
-            }
-        },
-        "/lessonTypes": {
-            "get": {
-                "description": "",
-                "parameters": [],
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
                     },
                     "404": {
-                        "description": "NOT FOUND"
-                    }
-                }
-            },
-            "post": {
-                "description": "",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "OK"
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             }
         }
-
     },
-    "tags": [
-
-    ],
     "components": {
-
-    },
-    "security": [
-
-    ]
+        "parameters": {
+            "id": {
+                "name": "id",
+                "description": "Идентификатор типа занятия",
+                "required": true,
+                "in": "path",
+                "schema": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 0,
+                    "example": 5
+                }
+            }
+        },
+        "responses": {
+            "Unauthorized": {
+                "description": "Unauthorized",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 401,
+                            "message": "Требуется авторизация"
+                        }
+                    }
+                }
+            },
+            "NotFound": {
+                "description": "The specified resource was not found",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 404,
+                            "message": "Объект не найден"
+                        }
+                    }
+                }
+            },
+            "UnexpectedError": {
+                "description": "Unexpected error",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "LessonType": {
+                "type": "object",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Название типа занятия",
+                        "type": "string",
+                        "example": "лекция"
+                    }
+                }
+            },
+            "ReadLessonType": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "id"
+                        ],
+                        "properties": {
+                            "id": {
+                                "description": "Идентификатор типа занятия",
+                                "type": "integer",
+                                "format": "int32",
+                                "minimum": 0,
+                                "example": 5
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/LessonType"
+                    }
+                ]
+            },
+            "ReadLessonTypes": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/ReadLessonType"
+                }
+            },
+            "Error": {
+                "type": "object",
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
 }

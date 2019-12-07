@@ -1,90 +1,293 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "My univer docs",
-        "description": "This is a sample server Petstore server.",
-        "termsOfService": "http://swagger.io/terms/",
+        "title": "Пути для работы с типами аудиторий",
+        "description": "Здесь находится описание путей, ведущих к API для работы с типами аудиторий",
         "contact": {
+            "name": "Контактные данные отдела разработчиков",
             "email": "apiteam@swagger.io"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "version": "1.0.0"
     },
-    "externalDocs": {
-        "description": "Find out more about Swagger",
-        "url": "http://swagger.io"
-    },
     "servers": [
         {
-            "url":"https:/localhost",
-            "description":"Server to test api"
+            "url": "http:/localhost/3000",
+            "description": "Сервер для тестирования API"
+        },
+        {
+            "url": "https:/localhost/3000",
+            "description": "Сервер для тестирования API"
         }
     ],
     "paths": {
-        "/roomTypes/:id": {
+        "/roomTypes": {
             "get": {
-                "description": "",
-                "parameters": [],
+                "summary": "Получение списка типов аудиторий",
+                "operationId": "read_room_types",
+                "tags": [
+                    "roomTypes"
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                       "description": "Room types read successfully",
+                       "content": {
+                           "application/json": {
+                               "schema": {
+                                   "$ref": "#/components/schemas/ReadRoomTypes"
+                               }
+                           }
+                       }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             },
             "post": {
-                "description": "",
-                "parameters": [],
+                "summary": "Создание типа аудитории",
+                "operationId": "create_room_type",
+                "tags": [
+                    "roomTypes"
+                ],
+                "requestBody": {
+                    "description": "Тело запроса на создание типа аудитории",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RoomType"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        },
+        "/roomTypes/{id}": {
+            "get": {
+                "summary": "Получение информации о типе аудитории",
+                "operationId": "room_type_by_id",
+                "tags": [
+                    "roomTypes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Room type read successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReadRoomType"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Обновление информации о типе аудитории",
+                "operationId": "update_room_type",
+                "tags": [
+                    "roomTypes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Тело запроса для обновления типа аудитории",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RoomType"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             },
             "delete": {
-                "description": "",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "OK"
+                "summary": "Удаление типа аудитории",
+                "operationId": "delete_room_type",
+                "tags": [
+                    "roomTypes"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
                     }
-                }
-            }
-        },
-        "/roomTypes": {
-            "get": {
-                "description": "",
-                "parameters": [],
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
                     },
                     "404": {
-                        "description": "NOT FOUND"
-                    }
-                }
-            },
-            "post": {
-                "description": "",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "OK"
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             }
         }
-
     },
-    "tags": [
-
-    ],
     "components": {
-
-    },
-    "security": [
-
-    ]
+        "parameters": {
+            "id": {
+                "name": "id",
+                "description": "Идентификатор типа аудитории",
+                "required": true,
+                "in": "path",
+                "schema": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 0,
+                    "example": 5
+                }
+            }
+        },
+        "responses": {
+            "Unauthorized": {
+                "description": "Unauthorized",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 401,
+                            "message": "Требуется авторизация"
+                        }
+                    }
+                }
+            },
+            "NotFound": {
+                "description": "The specified resource was not found",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 404,
+                            "message": "Объект не найден"
+                        }
+                    }
+                }
+            },
+            "UnexpectedError": {
+                "description": "Unexpected error",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "RoomType": {
+                "type": "object",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Название типа аудитории",
+                        "type": "string",
+                        "example": "лекция"
+                    }
+                }
+            },
+            "ReadRoomType": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "id"
+                        ],
+                        "properties": {
+                            "id": {
+                                "description": "Идентификатор типа аудитории",
+                                "type": "integer",
+                                "format": "int32",
+                                "minimum": 0,
+                                "example": 5
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/RoomType"
+                    }
+                ]
+            },
+            "ReadRoomTypes": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/ReadRoomType"
+                }
+            },
+            "Error": {
+                "type": "object",
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
 }

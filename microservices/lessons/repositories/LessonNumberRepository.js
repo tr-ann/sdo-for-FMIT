@@ -20,7 +20,7 @@ class LessonNumberRepository {
      */
     async readById(id) {        
         return await db.lesson_number.findByPk(id, {
-            attributes: ['id', 'number', 'start_time_1', 'end_time_1', 'start_time_2', 'end_time_2'],
+            attributes: [ 'id', 'number', 'start_time_1', 'end_time_1', 'start_time_2', 'end_time_2' ],
         })
     }
 
@@ -31,7 +31,7 @@ class LessonNumberRepository {
      */
     async readAll() {
         return await db.lesson_number.findAll({
-            attributes: [ 'id', 'number', 'start_time_1', 'end_time_1', 'start_time_2', 'end_time_2', 'deleted_date' ],
+            attributes: [ 'id', 'number', 'start_time_1', 'end_time_1', 'start_time_2', 'end_time_2' ],
         })
     }
 

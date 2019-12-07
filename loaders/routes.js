@@ -35,7 +35,7 @@ export default (app) => {
     app.use('/students', isAutenticated, studentsRouters.StudentRouter)
 
     app.use('/buildings', isAutenticated, lessonsRouters.buildingRouter)
-    app.use('/disciplines', isAutenticated, lessonsRouters.disciplineRouter)
+    app.use('/disciplines', sAutenticated, lessonsRouters.disciplineRouter)
     app.use('/lectureRooms', isAutenticated, lessonsRouters.lectureRoomRouter)
     app.use('/lessonNumbers', isAutenticated, lessonsRouters.lessonNumberRouter)
     app.use('/lessonTypes', isAutenticated, lessonsRouters.lessonTypeRouter)

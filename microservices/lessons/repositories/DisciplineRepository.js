@@ -31,7 +31,7 @@ class DisciplineRepository {
      */
     async readAll() {
         return await db.discipline.findAll({
-            attributes: [ 'id', 'name', 'short_name', 'deleted_date' ],
+            attributes: [ 'id', 'name', 'short_name' ],
         })
     }
 

@@ -1,90 +1,299 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "My univer docs",
-        "description": "This is a sample server Petstore server.",
-        "termsOfService": "http://swagger.io/terms/",
+        "title": "Пути для работы с дисциплинами",
+        "description": "Здесь находится описание путей, ведущих к API для работы с дисциплинами",
         "contact": {
+            "name": "Контактные данные отдела разработчиков",
             "email": "apiteam@swagger.io"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "version": "1.0.0"
     },
-    "externalDocs": {
-        "description": "Find out more about Swagger",
-        "url": "http://swagger.io"
-    },
     "servers": [
         {
-            "url":"https:/localhost",
-            "description":"Server to test api"
+            "url": "http:/localhost/3000",
+            "description": "Сервер для тестирования API"
+        },
+        {
+            "url": "https:/localhost/3000",
+            "description": "Сервер для тестирования API"
         }
     ],
     "paths": {
-        "/disciplines/:id": {
+        "/disciplines": {
             "get": {
-                "description": "",
-                "parameters": [],
+                "summary": "Получение списка дисциплин",
+                "operationId": "read_disciplines",
+                "tags": [
+                    "disciplines"
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                       "description": "Disciplines read successfully",
+                       "content": {
+                           "application/json": {
+                               "schema": {
+                                   "$ref": "#/components/schemas/ReadDisciplines"
+                               }
+                           }
+                       }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             },
             "post": {
-                "description": "",
-                "parameters": [],
+                "summary": "Создание дисциплины",
+                "operationId": "create_discipline",
+                "tags": [
+                    "disciplines"
+                ],
+                "requestBody": {
+                    "description": "Тело запроса на создание дисциплины",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Discipline"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        },
+        "/disciplines/{id}": {
+            "get": {
+                "summary": "Получение информации о дисциплине",
+                "operationId": "discipline_by_id",
+                "tags": [
+                    "disciplines"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Discipline read successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReadDiscipline"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Обновление информации о дисциплине",
+                "operationId": "update_discipline",
+                "tags": [
+                    "disciplines"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Тело запроса для обновления дисциплины",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Discipline"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             },
             "delete": {
-                "description": "",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "OK"
+                "summary": "Удаление дисциплины",
+                "operationId": "delete_discipline",
+                "tags": [
+                    "disciplines"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
                     }
-                }
-            }
-        },
-        "/disciplines": {
-            "get": {
-                "description": "",
-                "parameters": [],
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
                     },
                     "404": {
-                        "description": "NOT FOUND"
-                    }
-                }
-            },
-            "post": {
-                "description": "",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "OK"
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             }
         }
-
     },
-    "tags": [
-
-    ],
     "components": {
-
-    },
-    "security": [
-
-    ]
+        "parameters": {
+            "id": {
+                "name": "id",
+                "description": "Идентификатор дисциплины",
+                "required": true,
+                "in": "path",
+                "schema": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 0,
+                    "example": 5
+                }
+            }
+        },
+        "responses": {
+            "Unauthorized": {
+                "description": "Unauthorized",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 401,
+                            "message": "Требуется авторизация"
+                        }
+                    }
+                }
+            },
+            "NotFound": {
+                "description": "The specified resource was not found",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 404,
+                            "message": "Объект не найден"
+                        }
+                    }
+                }
+            },
+            "UnexpectedError": {
+                "description": "Unexpected error",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "Discipline": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "short_name"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Название дисциплины",
+                        "type": "string",
+                        "example": "Технологии разработки информационных систем"
+                    },
+                    "short_name": {
+                        "description": "Абревиатура",
+                        "type": "string",
+                        "example": "ТРИС"
+                    }
+                }
+            },
+            "ReadDiscipline": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "id"
+                        ],
+                        "properties": {
+                            "id": {
+                                "description": "Идентификатор дисциплины",
+                                "type": "integer",
+                                "format": "int32",
+                                "minimum": 0,
+                                "example": 5
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/Discipline"
+                    }
+                ]
+            },
+            "ReadDisciplines": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/ReadDiscipline"
+                }
+            },
+            "Error": {
+                "type": "object",
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
 }

@@ -1,90 +1,350 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "My univer docs",
-        "description": "This is a sample server Petstore server.",
-        "termsOfService": "http://swagger.io/terms/",
+        "title": "Пути для работы с занятиями",
+        "description": "Здесь находится описание путей, ведущих к API для работы с занятиями",
         "contact": {
+            "name": "Контактные данные отдела разработчиков",
             "email": "apiteam@swagger.io"
-        },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "version": "1.0.0"
     },
-    "externalDocs": {
-        "description": "Find out more about Swagger",
-        "url": "http://swagger.io"
-    },
     "servers": [
         {
-            "url":"https:/localhost",
-            "description":"Server to test api"
+            "url": "http:/localhost/3000",
+            "description": "Сервер для тестирования API"
+        },
+        {
+            "url": "https:/localhost/3000",
+            "description": "Сервер для тестирования API"
         }
     ],
     "paths": {
-        "/lessons/:id": {
+        "/lessons": {
             "get": {
-                "description": "",
-                "parameters": [],
+                "summary": "Получение списка занятий",
+                "operationId": "read_lessons",
+                "tags": [
+                    "lessons"
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                       "description": "Lessons read successfully",
+                       "content": {
+                           "application/json": {
+                               "schema": {
+                                   "$ref": "#/components/schemas/ReadLessons"
+                               }
+                           }
+                       }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             },
             "post": {
-                "description": "",
-                "parameters": [],
+                "summary": "Создание занятия",
+                "operationId": "create_lesson",
+                "tags": [
+                    "lessons"
+                ],
+                "requestBody": {
+                    "description": "Тело запроса на создание занятия",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Lesson"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        },
+        "/lessons/{id}": {
+            "get": {
+                "summary": "Получение информации о занятии",
+                "operationId": "lesson_by_id",
+                "tags": [
+                    "lessons"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Lesson read successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReadLesson"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Обновление информации о занятии",
+                "operationId": "update_lesson",
+                "tags": [
+                    "lessons"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Тело запроса для обновления занятия",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Lesson"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             },
             "delete": {
-                "description": "",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "OK"
+                "summary": "Удаление занятия",
+                "operationId": "delete_lesson",
+                "tags": [
+                    "lessons"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
                     }
-                }
-            }
-        },
-        "/lessons": {
-            "get": {
-                "description": "",
-                "parameters": [],
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
                     },
                     "404": {
-                        "description": "NOT FOUND"
-                    }
-                }
-            },
-            "post": {
-                "description": "",
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "OK"
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
                     }
                 }
             }
         }
-
     },
-    "tags": [
-
-    ],
     "components": {
-
-    },
-    "security": [
-
-    ]
+        "parameters": {
+            "id": {
+                "name": "id",
+                "description": "Идентификатор занятия",
+                "required": true,
+                "in": "path",
+                "schema": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 0,
+                    "example": 5
+                }
+            }
+        },
+        "responses": {
+            "Unauthorized": {
+                "description": "Unauthorized",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 401,
+                            "message": "Требуется авторизация"
+                        }
+                    }
+                }
+            },
+            "NotFound": {
+                "description": "The specified resource was not found",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 404,
+                            "message": "Объект не найден"
+                        }
+                    }
+                }
+            },
+            "UnexpectedError": {
+                "description": "Unexpected error",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "Lesson": {
+                "type": "object",
+                "required": [
+                    "week_day",
+                    "teacher_id",
+                    "lesson_type_id",
+                    "lecture_room_id",
+                    "discipline_id",
+                    "lesson_number_id"
+                ],
+                "properties": {
+                    "week_day": {
+                        "description": "Номер дня недели",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 1,
+                        "maximum": 7,
+                        "example": 3
+                    },
+                    "group_id": {
+                        "description": "Идентификатор группы",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 8
+                    },
+                    "subgroup_id": {
+                        "description": "Идентификатор подгруппы",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 17
+                    },
+                    "teacher_id": {
+                        "description": "Идентификатор преподавателя",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 45
+                    },
+                    "lesson_type_id": {
+                        "description": "Идентификатор типа занятия",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 2
+                    },
+                    "lecture_room_id": {
+                        "description": "Идентификатор типа аудитории",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 117
+                    },
+                    "discipline_id": {
+                        "description": "Идентификатор проводимой дисциплины",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 52
+                    },
+                    "lesson_number_id": {
+                        "description": "Идентификатор номера занятия",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 3
+                    }
+                }
+            },
+            "ReadLesson": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "id"
+                        ],
+                        "properties": {
+                            "id": {
+                                "description": "Идентификатор занятия",
+                                "type": "integer",
+                                "format": "int32",
+                                "minimum": 0,
+                                "example": 5
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/Lesson"
+                    }
+                ]
+            },
+            "ReadLessons": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/ReadLesson"
+                }
+            },
+            "Error": {
+                "type": "object",
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
 }

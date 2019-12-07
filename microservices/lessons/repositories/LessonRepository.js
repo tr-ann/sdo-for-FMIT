@@ -41,7 +41,7 @@ class LessonRepository {
      */
     async readAll() {
         return await db.lesson.findAll({
-            attributes: [ 'id', 'week_day', 'deleted_date' ],
+            attributes: [ 'id', 'week_day' ],
             include: [
                 {
                     model: db.group,

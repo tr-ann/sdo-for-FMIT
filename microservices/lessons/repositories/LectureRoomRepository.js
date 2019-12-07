@@ -31,7 +31,7 @@ class LectureRoomRepository {
      */
     async readAll() {
         return await db.lecture_room.findAll({
-            attributes: [ 'id', 'number', 'seats_count', 'deleted_date' ],
+            attributes: [ 'id', 'number', 'seats_count' ],
             include: [
                 {
                     model: db.room_type,

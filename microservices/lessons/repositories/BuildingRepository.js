@@ -31,7 +31,7 @@ class BuildingRepository {
      */
     async readAll() {
         return await db.building.findAll({
-            attributes: [ 'id', 'name', 'deleted_date' ],
+            attributes: [ 'id', 'name' ],
         })
     }
 

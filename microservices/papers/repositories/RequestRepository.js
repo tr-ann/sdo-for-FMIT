@@ -61,6 +61,16 @@ class RequestRepository {
             where: { id: id }
         })
     }
+
+    /**
+     * This method reads entities by description from a database
+     * 
+     * @param {Object} options - description to read entities
+     * @return {Promise} promise with result of create
+     */
+    async get(options) {        
+        return await db.lesson_type.findAll(options)
+    }
 }
 
 export default new RequestRepository()
