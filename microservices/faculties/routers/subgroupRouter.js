@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import SubgroupController from '../controllers/buildingController'
+import SubgroupController from '../controllers/subgroupController'
 
 const router = Router()
 

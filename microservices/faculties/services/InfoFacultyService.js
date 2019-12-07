@@ -3,8 +3,6 @@ import NotFound from '../../../core/errors/4xx/notFound'
 
 class InfoFacultyService {
 
-    _repository = new InfoFacultyRepository()
-
     async create(infoFaculty) {
         return await this._repository.create(infoFaculty)
     }

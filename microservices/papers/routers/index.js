@@ -1,6 +1,7 @@
 import termPaperRouter from './termPaperRouter'
 import statusRouter from './statusRouter'
 import requestRouter from './requestRouter'
+import resourceRouter from './resourceRouter'
 import practiceTypeRouter from './practiceTypeRouter'
 import practiceRouter from './practiceRouter'
 import organizationRouter from './organizationRouter'
@@ -14,4 +15,5 @@ export default {
     practiceRouter,
     organizationRouter,
     graduationPaperRouter,
+    resourceRouter,
 }

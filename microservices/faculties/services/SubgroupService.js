@@ -3,8 +3,6 @@ import NotFound from '../../../core/errors/4xx/notFound'
 
 class SubgroupService {
 
-    _repository = new SubgroupRepository()
-
     async create(subgroup) {
         return await this._repository.create(subgroup)
     }

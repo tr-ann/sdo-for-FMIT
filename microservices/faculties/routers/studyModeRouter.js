@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import StudyModeController from '../controllers/buildingController'
+import StudyModeController from '../controllers/studyModeController'
 
 const router = Router()
 
