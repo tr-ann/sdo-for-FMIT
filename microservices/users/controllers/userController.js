@@ -1,6 +1,8 @@
 import UserService from '../services/UserService'
+import UserInfoService from '../services/UserInfoService'
+import PhoneService from '../services/PhoneService'
 
-const ResponseFormat = require('../../../core').ResponseFormat;
+import core from '../../../core'
 
 class UserController {
 
@@ -10,26 +12,43 @@ class UserController {
                 login: req.body.username,
                 password: req.body.password
             })
+
+            let fullName = req.body.first_name + ' ' + req.body.last_name + ' ' + req.body.middle_name
+            await UserInfoService.create({
+                user_id: user.id,
+                full_name: fullName,
+                birthday: req.body.birthday,
+                sex: req.body.sex,
+            })
+
+            await PhoneService.create({
+                user_id: user.id,
+                phone: req.body.phone,
+            })
+
             return res.status(201)
                 .json(
-                    ResponseFormat.build(
-                        user, 
+                    core.ResponseFormat.build(
+                        user.login, 
                         "User created successfully", 
                         201, 
                         "success"
                     )
                 );
         } catch (error) {
+            console.log(error.name)
+            console.log(error.stack)
             return res.status(error.status).json(error);
         }
     }
 
     async readAll(req, res) {
         try {
-            let users = await UserService.all()
+            let users = await UserService.readAll()
+
             return res.status(200)
                 .json(
-                    ResponseFormat.build(
+                    core.ResponseFormat.build(
                         users,
                         "Users read successfully",
                         200,
@@ -37,6 +56,7 @@ class UserController {
                     )
                 )
         } catch(error) {
+            console.log(error)
             return res.status(error.status).json(error)
         }
     }
@@ -46,7 +66,7 @@ class UserController {
             let user = UserService.findById(req.params.id)
             return res.status(200)
                 .json(
-                    ResponseFormat.build(
+                    core.ResponseFormat.build(
                         user,
                         "User read successfully",
                         200,
@@ -66,7 +86,7 @@ class UserController {
             })
             return res.status(200)
                 .json(
-                    ResponseFormat.build(
+                    core.ResponseFormat.build(
                         user,
                         "User updated successfully",
                         200,
@@ -83,7 +103,7 @@ class UserController {
             await UserService.delete(req.params.id)
             return res.status(200)
                 .json(
-                    ResponseFormat.build(
+                    core.ResponseFormat.build(
                         {},
                         "User deleted successfully",
                         200,

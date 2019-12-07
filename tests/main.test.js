@@ -1,4 +1,5 @@
-const request = require("supertest")
+//import 'babel-polyfill'
+/*const request = require("supertest")
 const assert = require("assert")
 const bcrypt = require('bcrypt')
 
@@ -39,5 +40,5 @@ describe("Express Tests", function() {
                 assert.deepEqual(response.body, {name:"Tom", age:22})
             })
             .end(done)
-    })*/
-})
+    })
+})*/

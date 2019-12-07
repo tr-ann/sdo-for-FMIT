@@ -3,6 +3,7 @@ import db from './'
 import Hash from '../../../core/hash'
 
 export default (sequelize, DataTypes) => {
+    
     class User extends Model {}
 
     User.init({
@@ -69,5 +70,5 @@ export default (sequelize, DataTypes) => {
        // async (user, options) => await db.user_info.create({ user_id: user.id })        
     //)
 
-    return User;
-};
+    return User
+}

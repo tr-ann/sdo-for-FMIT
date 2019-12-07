@@ -1,6 +1,6 @@
 import RoleService from '../services/RoleService'
 
-const ResponseFormat = require('../../../core').ResponseFormat;
+import core from '../../../core'
 
 class RoleController {
 
@@ -8,10 +8,10 @@ class RoleController {
         try {
             const role = await RoleService.create({
                 name: req.body.name
-            });
+            })
             return res.status(201)
                 .json(
-                    ResponseFormat.build(
+                    core.ResponseFormat.build(
                         role, 
                         "Role created successfully", 
                         201, 
@@ -25,10 +25,10 @@ class RoleController {
 
     async readAll(req, res) {
         try {
-            let roles = await RoleService.all()
+            let roles = await RoleService.readAll()
             return res.status(200)
                 .json(
-                    ResponseFormat.build(
+                    core.ResponseFormat.build(
                         roles,
                         "Roles read successfully",
                         200,
@@ -45,7 +45,7 @@ class RoleController {
             let role = RoleService.findById(req.params.id)
             return res.status(200)
                 .json(
-                    ResponseFormat.build(
+                    core.ResponseFormat.build(
                         role,
                         "Role read successfully",
                         200,
@@ -64,7 +64,7 @@ class RoleController {
             })
             return res.status(200)
                 .json(
-                    ResponseFormat.build(
+                    core.ResponseFormat.build(
                         role,
                         "Role updated successfully",
                         200,
@@ -78,17 +78,17 @@ class RoleController {
     
     async destroy (req, res) {
         try {
-            await RoleService.delete(req.params.id)
+            await RoleService.destroy(req.params.id)
             return res.status(200)
                 .json(
-                    ResponseFormat.build(
+                    core.ResponseFormat.build(
                         {},
                         "Role deleted successfully",
                         200,
                         "success"
                     )
                 )
-        } catch (error) { 
+        } catch (error) {
             res.status(error.status).json(error)
         }
     }

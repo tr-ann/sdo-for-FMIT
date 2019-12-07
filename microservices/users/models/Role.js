@@ -4,9 +4,15 @@ export default (sequelize, DataTypes) => {
     class Role extends Model {}
 
     Role.init({
+        id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true
+        },
         name: {
             allowNull: false,
-            type: DataTypes.STRING(100),
+            type: DataTypes.STRING,
         },
     }, {
         sequelize,

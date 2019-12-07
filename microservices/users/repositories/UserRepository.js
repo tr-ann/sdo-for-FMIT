@@ -3,14 +3,37 @@ import db from '../../../config/dbModels'
 class UserRepository {
     
     async readAll() {
-        return await db.user.findAll()
+        return await db.user.findAll({
+            attributes: ['id', 'login'],
+            include: [
+                { 
+                    model: db.user_info,
+                    attributes: [ 'full_name']
+                },
+                {
+                    model: db.role,
+                    attributes: [ 'name' ]
+                }
+            ]
+        })
     }
 
     async readById(id) {
         return await db.user.findByPk(id, {
             attributes: ['id', 'login'],
             include: [   /* ?? */
-                { model: db.model_info }
+                { 
+                    model: db.model_info,
+                    attributes: [ 'id', 'full_name', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+                },
+                {
+                    model: db.role,
+                    attributes: [ 'id', 'name' ]
+                },
+                {
+                    model: db.phone,
+                    attributes: [ 'phone' ],
+                }
             ]
         })
     }

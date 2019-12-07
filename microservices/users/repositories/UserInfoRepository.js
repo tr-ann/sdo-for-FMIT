@@ -2,18 +2,36 @@ import db from '../../../config/dbModels'
 
 class UserInfoRepository {
 
-    /*  ????  */
     async create(userInfo) {
         return await db.user_info.create(userInfo)
     }
 
     /*  ????  */
     async readAll() {
-        return await db.user_info.findAll()
+        return await db.user_info.findAll({
+            attributes: [ 'id', 'full_name', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+            include: [
+                {
+                    model: db.resource,
+                    attributes: [ 'id', 'description' ],
+                },
+            ]
+        })
     }
 
-    async readById(id) {
-        return await db.user_info.findByPk(id)
+    /* ????????? */
+    async readById(user_id) {
+        return await db.user_info.findOne({
+            attributes: [ 'id', 'full_name', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+            include: [
+                {
+                    model: db.resource,
+                    attributes: [ 'id', 'description' ],
+                },
+            ],
+
+            where: { user_id: user_id }
+        })
     }
 
     async update(id, userInfo) {

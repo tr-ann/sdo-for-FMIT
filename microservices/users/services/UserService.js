@@ -2,7 +2,7 @@ import UserRepository from '../repositories/UserRepository'
 
 class UserService {
 
-    async list() {
+    async readAll() {
         return await UserRepository.readAll()
     }
 

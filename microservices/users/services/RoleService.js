@@ -2,7 +2,7 @@ import RoleRepository from '../repositories/RoleRepository'
 
 class RoleService {
 
-    async list() {
+    async readAll() {
         return await RoleRepository.readAll()
     }
 
