@@ -1,6 +1,8 @@
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from './swagger.json'
 import lessonsDocument from './../../microservices/lessons/swagger'
+import usersDoc from '../../microservices/users/swagger/user.json'
+
 // import papersRouters from './../../microservices/papers/routers'
 
 const env = process.env.NODE_ENV || 'dev'
@@ -21,5 +23,7 @@ export default (app) => {
         // app.use('/api-docs/lessons/lessonNumber', swaggerUi.serve, swaggerUi.setup(lessonsDocument.lessonNumber, options))
         // app.use('/api-docs/lessons/lessonType', swaggerUi.serve, swaggerUi.setup(lessonsDocument.lessonType, options))
         // app.use('/api-docs/lessons/roomType', swaggerUi.serve, swaggerUi.setup(lessonsDocument.roomType, options))
+        // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(usersDoc, options))
+        
     }
 }

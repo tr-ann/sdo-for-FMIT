@@ -1,0 +1,106 @@
+{
+    "components": {
+        "parameters": {
+            "id": {
+                "name": "id",
+                "description": "Идентификатор пользователя",
+                "required": true,
+                "in": "path",
+                "schema": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 1,
+                    "example": 9
+                }
+            }
+        },
+        "schemas": {
+            "id": {
+                "type": "integer",
+                "format": "int32",
+                "description": "Идентификатор пользователя",
+                "minimum": 0,
+                "example": 3
+            },
+            "newUser": 
+            {
+                "type": "object",
+                "required": [
+                    "login",
+                    "password"
+                ],
+                "properties":{
+                    "login": {
+                        "type": "string",
+                        "nimLength": 4,
+                        "uniqueItems": true
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "nimLength": 4
+                    }
+                }
+            },
+            "userInfo": {
+                "allOf": 
+                [
+                    {
+                        "$ref": "#components/schemas/id"
+                    },
+                    {
+                        "type": "object",
+                        "required": [
+                            "login",
+                            "full_name",
+                            "email",
+                            "sex",
+                            "birthday"
+                        ],
+                        "properties": {
+                            "login": {
+                                "type": "string",
+                                "nimLength": 4,
+                                "uniqueItems": true
+                            },
+                            "full_name": {
+                                "type": "string",
+                                "maxLength": 255
+                            },
+                            "email": {
+                                "type": "string",
+                                "format": "email",
+                                "uniqueItems": true
+                            },
+                            "sex": {
+                                "type": "string"
+                            },
+                            "birthday": {
+                                "type": "string",
+                                "format": "date"
+                            },
+                            "description": {
+                                "type": "string",
+                                "format": "text"
+                            },
+                            "city": {
+                                "type": "string",
+                                "maxLength": 100
+                            },
+                            "address": {
+                                "type": "string",
+                                "maxLength": 100
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+
+  "securitySchemes": {},
+
+  "requestBodies": {},
+  
+  "responses": {}
+}

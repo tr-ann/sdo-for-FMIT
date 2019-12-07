@@ -3,8 +3,6 @@ import NotFound from '../../../core/errors/4xx/notFound'
 
 class SpecialtyService {
 
-    _repository = new SpecialtyRepository()
-
     async create(specialty) {
         return await this._repository.create(specialty)
     }

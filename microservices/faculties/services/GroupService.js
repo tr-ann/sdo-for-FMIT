@@ -2,9 +2,7 @@ import GroupRepository from '../repositories/GroupRepository';
 import NotFound from '../../../core/errors/4xx/notFound'
 
 class GroupService {
-
-    _repository = new GroupRepository()
-
+    
     async create(group) {
         return await this._repository.create(group)
     }

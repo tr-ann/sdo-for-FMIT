@@ -5,15 +5,33 @@ export default (sequelize, DataTypes) => {
 
     UserInfo.init({
         full_name: {
-            allowNull: true,
+            allowNull: false,
             type: DataTypes.STRING(255),
+        },
+        email: {
+            allowNull: false,
+            type: DataTypes.STRING(255),
+            validate: {
+                isMail: true,
+            }
+        },
+        sex: {
+            allowNull: false,
+            type: DataTypes.STRING(10),
+            validate: {
+                customValidator(value) {
+                    if (value !== 'м' && value !== 'ж') {
+                      throw new Error('sex error');
+                    }
+                }
+           }
         },
         description: {
             allowNull: true,
             type: DataTypes.TEXT,
         },
         birthday: {
-            allowNull: true,
+            allowNull: false,
             type: DataTypes.DATE,
         },
         city: {
@@ -37,18 +55,18 @@ export default (sequelize, DataTypes) => {
             simple: 'userInfo',
             plural: 'usersInfo',
         }
-    });
+    })
 
     UserInfo.associate = function (models) {
         UserInfo.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-        });
+        })
         UserInfo.belongsTo(models.resource, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
         })
-    };
+    }
 
-    return UserInfo;
+    return UserInfo
 }
