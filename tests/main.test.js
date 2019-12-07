@@ -1,5 +1,4 @@
-//import 'babel-polyfill'
-/*const request = require("supertest")
+const request = require("supertest")
 const assert = require("assert")
 const bcrypt = require('bcrypt')
 
@@ -23,7 +22,7 @@ describe("Express Tests", function() {
             .end(done)
     })
     
-    /*it("should return NotFound with status 404", function(done) {
+    it("should return NotFound with status 404", function(done) {
          
         request(server)
             .get("/error")
@@ -41,4 +40,4 @@ describe("Express Tests", function() {
             })
             .end(done)
     })
-})*/
+})
