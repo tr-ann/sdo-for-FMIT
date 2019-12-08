@@ -12,23 +12,24 @@ class UserController {
 
     async create(req, res, next) {
         try {
-            const user = await UserService.create({
-                login: req.body.login,
-                password: req.body.password,
-                user_info: {
-                    full_name: req.body.first_name,
-                    email: req.body.email,
-                    birthday: req.body.birthday,
-                    sex: req.body.sex,
-                },
-                phones: {
-                    phone: req.body.phone,
-                },
-             }, {
-                include: {
-                    model: db.user_info,
-                    model: db.phone,
+            let user = await UserService.create({
+                    login: req.body.login,
+                    password: req.body.password,
+                    phones: {
+                        phone: req.body.phone,
+                    }
+                }, {
+                    include: {
+                        model: db.phone,
                 }
+            })
+
+            await user.addUserInfo({
+                user_id: user.id,
+                full_name: req.body.first_name,
+                email: req.body.email,
+                birthday: req.body.birthday,
+                sex: req.body.sex,
             })
 
             /*let fullName = req.body.first_name + ' ' + req.body.last_name + ' ' + req.body.middle_name

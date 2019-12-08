@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) => {
 
     UserInfo.init({
         user_id: {
-            allowNull: false,
+            allowNull: true,
             type: DataTypes.INTEGER,
         },
         full_name: {
@@ -53,8 +53,8 @@ export default (sequelize, DataTypes) => {
         modelName: 'user_info',
         freezeTableName: 'users_info',
         name: {
-            simple: 'userInfo',
-            plural: 'usersInfo',
+            simple: 'UserInfo',
+            plural: 'UsersInfo',
         }
     })
 
