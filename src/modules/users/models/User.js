@@ -1,5 +1,5 @@
 import { Model } from 'sequelize'
-import Hash from '../../../core/hash'
+import Hash from '../../../classes/hash'
 
 export default (sequelize, DataTypes) => {
     
