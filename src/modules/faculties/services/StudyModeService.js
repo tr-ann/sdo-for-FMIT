@@ -4,16 +4,16 @@ import NotFound from '../../../classes/errors/4xx/notFound'
 class StudyModeService {
 
     async create(studyMode) {
-        return await this._repository.create(studyMode)
+        return await StudyModeRepository.create(studyMode)
     }
 
     async readAll() {
-        return await this._repository.readAll()
+        return await StudyModeRepository.readAll()
     }
 
     async readById(id) {
 
-        let studyMode = await this._repository.readById(id)
+        let studyMode = await StudyModeRepository.readById(id)
 
         if (!studyMode) {
             throw new NotFound(`StudyMode not found`)
@@ -24,24 +24,24 @@ class StudyModeService {
 
     async update(id, studyMode) {
 
-        let nStudyMode = await this._repository.readById(id)
+        let nStudyMode = await StudyModeRepository.readById(id)
         
         if (!nStudyMode) {
             throw new NotFound(`StudyMode not found`)
         }
 
-        return await this._repository.update(studyMode)
+        return await StudyModeRepository.update(id, studyMode)
     }
 
     async destroy(id) {
 
-        let studyMode = await this._repository.readById(id)
+        let studyMode = await StudyModeRepository.readById(id)
         
         if (!studyMode) {
             throw new NotFound(`StudyMode not found`)
         }
         
-        return await this._repository.destroy(id)
+        return await StudyModeRepository.destroy(id)
     }
 }
 

@@ -4,16 +4,16 @@ import NotFound from '../../../classes/errors/4xx/notFound'
 class SubgroupService {
 
     async create(subgroup) {
-        return await this._repository.create(subgroup)
+        return await SubgroupRepository.create(subgroup)
     }
 
     async readAll() {
-        return await this._repository.readAll()
+        return await SubgroupRepository.readAll()
     }
 
     async readById(id) {
 
-        let subgroup = await this._repository.readById(id)
+        let subgroup = await SubgroupRepository.readById(id)
 
         if (!subgroup) {
             throw new NotFound(`Subgroup not found`)
@@ -24,24 +24,24 @@ class SubgroupService {
 
     async update(id, subgroup) {
 
-        let nSubgroup = await this._repository.readById(id)
+        let nSubgroup = await SubgroupRepository.readById(id)
         
         if (!nSubgroup) {
             throw new NotFound(`Subgroup not found`)
         }
 
-        return await this._repository.update(subgroup)
+        return await SubgroupRepository.update(id, subgroup)
     }
 
     async destroy(id) {
 
-        let subgroup = await this._repository.readById(id)
+        let subgroup = await SubgroupRepository.readById(id)
         
         if (!subgroup) {
             throw new NotFound(`Subgroup not found`)
         }
         
-        return await this._repository.destroy(id)
+        return await SubgroupRepository.destroy(id)
     }
 }
 

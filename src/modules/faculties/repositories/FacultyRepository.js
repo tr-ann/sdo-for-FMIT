@@ -12,7 +12,7 @@ class FacultyRepository {
             attributes: ["id", "name", "short_name"],
             include: [
                 {
-                    model: db.facultyInfo,
+                    model: db.info_faculty,
                     as: 'info_faculty',
                     attributes: [ 'id', 'description' ],
                 },
@@ -32,6 +32,13 @@ class FacultyRepository {
                 "id",
                 "name",
                 "short_name",
+            ],
+            include: [
+                {
+                    model: db.info_faculty,
+                    as: 'info_faculty',
+                    attributes: [ 'id', 'description' ],
+                },
             ],
         })
     }

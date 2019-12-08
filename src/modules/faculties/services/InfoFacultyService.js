@@ -30,7 +30,7 @@ class InfoFacultyService {
             throw new NotFound(`InfoFaculty not found`)
         }
 
-        return await InfoFacultyRepository.update(infoInfoFaculty)
+        return await InfoFacultyRepository.update(id, infoFaculty)
     }
 
     async destroy(id) {

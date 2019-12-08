@@ -10,17 +10,11 @@ export default (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'study_mode',
-
-        name: {
-            singular: 'studyMode',
-            plural: 'studyModes',
-        },
     });
     StudyMode.associate = function(models) {
         StudyMode.hasMany(models.group, {

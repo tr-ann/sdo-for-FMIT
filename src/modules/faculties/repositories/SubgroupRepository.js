@@ -9,12 +9,12 @@ class SubgroupRepository {
      */
     async readAll() {
         return await db.subgroup.findAll({
-            attributes: ["id","name", "group_id",'deleted_date'],
+            attributes: ["id","name"],
             include: [
                 {
                     model: db.group,
                     as: 'group',
-                    attributes: [ 'number' ],
+                    attributes: [ 'id', 'number' ],
                 },
             ],
         })
@@ -30,9 +30,15 @@ class SubgroupRepository {
         return await db.subgroup.findByPk(id, {
             attributes: [
                 "id",
-                "name",
-                "group_id",
-            ]
+                "name"
+            ],
+            include: [
+                {
+                    model: db.group,
+                    as: 'group',
+                    attributes: [ 'id', 'number' ],
+                },
+            ],
         })
     }
 

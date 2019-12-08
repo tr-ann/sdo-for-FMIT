@@ -24,7 +24,6 @@ class facultyController {
                 "success"
             ))
         } catch (error) {
-            console.log(error)
             next(error)
         }
     }
@@ -64,6 +63,12 @@ class facultyController {
             let faculty = await FacultyService.update(req.params.id, {
                 name:   req.body.name,
                 short_name: req.body.short_name,
+            })
+            
+            await InfoFacultyService.update(req.params.id,{
+                faculty_id: req.params.id,
+                description: req.body.description,
+                phone_number: req.body.phone_number 
             })
 
             return res.status(200).json(helpers.ResponseFormat.build(

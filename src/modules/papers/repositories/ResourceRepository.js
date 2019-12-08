@@ -9,7 +9,7 @@ class ResourceRepository {
      */
     async readAll() {
         return await db.resource.findAll({
-            attributes: [ 'id', 'description', 'deleted_date' ],
+            attributes: [ 'id', 'description'],
         })
     }
 

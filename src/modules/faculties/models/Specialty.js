@@ -18,18 +18,13 @@ export default (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'specialty',
-        freezeTableName: 'specialties',
+        tableName: 'specialties',
 
-        name: {
-            singular: 'specialty',
-            plural: 'specialties',
-        },
     });
     Specialty.associate = function(models) {
         Specialty.hasMany(models.group, {
