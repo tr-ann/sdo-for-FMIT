@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --exec babel-node ./bin/www",
-    "test": "mocha --require @babel/register 'tests/**.test.js'"
+    "start": "nodemon --exec babel-node ./src/bin/www",
+    "test": "mocha --require @babel/register './src/tests/**.test.js'"
   },
   "dependencies": {
     "@babel/plugin-transform-classes": "^7.7.4",
@@ -32,7 +32,7 @@
     "validator": "^12.1.0"
   },
   "description": "kursa4",
-  "main": "app.js",
+  "main": "./src/app.js",
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@babel/node": "^7.7.4",
