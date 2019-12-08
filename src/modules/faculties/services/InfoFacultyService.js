@@ -4,16 +4,16 @@ import NotFound from '../../../classes/errors/4xx/notFound'
 class InfoFacultyService {
 
     async create(infoFaculty) {
-        return await this._repository.create(infoFaculty)
+        return await InfoFacultyRepository.create(infoFaculty)
     }
 
     async readAll() {
-        return await this._repository.readAll()
+        return await InfoFacultyRepository.readAll()
     }
 
     async readById(id) {
 
-        let infoFaculty = await this._repository.readById(id)
+        let infoFaculty = await InfoFacultyRepository.readById(id)
 
         if (!infoFaculty) {
             throw new NotFound(`InfoFaculty not found`)
@@ -24,24 +24,24 @@ class InfoFacultyService {
 
     async update(id, infoFaculty) {
 
-        let nInfoFaculty = await this._repository.readById(id)
+        let nInfoFaculty = await InfoFacultyRepository.readById(id)
         
         if (!nInfoFaculty) {
             throw new NotFound(`InfoFaculty not found`)
         }
 
-        return await this._repository.update(infoInfoFaculty)
+        return await InfoFacultyRepository.update(infoInfoFaculty)
     }
 
     async destroy(id) {
 
-        let infoFaculty = await this._repository.readById(id)
+        let infoFaculty = await InfoFacultyRepository.readById(id)
         
         if (!infoFaculty) {
             throw new NotFound(`InfoFaculty not found`)
         }
         
-        return await this._repository.destroy(id)
+        return await InfoFacultyRepository.destroy(id)
     }
 }
 

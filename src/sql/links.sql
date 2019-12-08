@@ -109,7 +109,7 @@ ALTER TABLE teachers
 /* таблица информация о факультете */
 ALTER TABLE info_faculties
 
-	ADD CONSTRAINT FK_info_faculties_to_faculties FOREIGN KEY(id)
+	ADD CONSTRAINT FK_info_faculties_to_faculties FOREIGN KEY(faculty_id)
 		REFERENCES faculties(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
@@ -199,7 +199,7 @@ ALTER TABLE lessons
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
                     
-	ADD CONSTRAINT FK_lessons_to_lecture_rooms FOREIGN KEY(room_id)
+	ADD CONSTRAINT FK_lessons_to_lecture_rooms FOREIGN KEY(lecture_room_id)
 		REFERENCES lecture_rooms(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,

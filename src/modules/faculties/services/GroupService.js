@@ -4,16 +4,16 @@ import NotFound from '../../../classes/errors/4xx/notFound'
 class GroupService {
     
     async create(group) {
-        return await this._repository.create(group)
+        return await GroupRepository.create(group)
     }
 
     async readAll() {
-        return await this._repository.readAll()
+        return await GroupRepository.readAll()
     }
 
     async readById(id) {
 
-        let group = await this._repository.readById(id)
+        let group = await GroupRepository.readById(id)
 
         if (!group) {
             throw new NotFound(`Group not found`)
@@ -24,24 +24,24 @@ class GroupService {
 
     async update(id, group) {
 
-        let nGroup = await this._repository.readById(id)
+        let nGroup = await GroupRepository.readById(id)
         
         if (!nGroup) {
             throw new NotFound(`Group not found`)
         }
 
-        return await this._repository.update(group)
+        return await GroupRepository.update(id, group)
     }
 
     async destroy(id) {
 
-        let group = await this._repository.readById(id)
+        let group = await GroupRepository.readById(id)
         
         if (!group) {
             throw new NotFound(`Group not found`)
         }
         
-        return await this._repository.destroy(id)
+        return await GroupRepository.destroy(id)
     }
 }
 

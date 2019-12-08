@@ -14,24 +14,19 @@ export default (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'info_faculty',
-        freezeTableName: 'info_faculties',
-
-        name: {
-            singular: 'infoFaculty',
-            plural: 'infoFaculties',
-        },
+        tableName: 'info_faculties'
     });
     InfoFaculty.associate = function(models) {
         InfoFaculty.belongsTo(models.faculty, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
-            foreignKey: 'faculty_id'
+            foreignKey: 'faculty_id',
+            as: 'faculty'
         })
     };
     return InfoFaculty;

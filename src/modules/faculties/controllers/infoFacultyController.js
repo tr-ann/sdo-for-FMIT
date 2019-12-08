@@ -6,6 +6,7 @@ class infoFacultyController {
     async create(req, res, next) {
         try {
             let infoFaculty = await InfoFacultyService.create({
+                faculty_id: req.body.faculty_id,
                 description: req.body.description,
                 phone_number:req.body.phone_number,
             })

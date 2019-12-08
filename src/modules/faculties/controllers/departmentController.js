@@ -10,7 +10,7 @@ class departmentController {
                 faculty_id: req.body.faculty_id,
                 owner_id: req.body.owner_id,
                 phone: req.body.phone,
-                room_id: req.body.room_id,
+                lecture_room_id: req.body.lecture_room_id,
             })
             
             return res.status(201).json(helpers.ResponseFormat.build(
@@ -61,7 +61,7 @@ class departmentController {
                 faculty_id: req.body.faculty_id,
                 owner_id: req.body.owner_id,
                 phone: req.body.phone,
-                room_id: req.body.room_id,
+                lecture_room_id: req.body.lecture_room_id,
             })
 
             return res.status(200).json(helpers.ResponseFormat.build(

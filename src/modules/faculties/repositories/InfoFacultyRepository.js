@@ -9,7 +9,14 @@ class InfoFacultyRepository {
      */
     async readAll() {
         return await db.infoFaculty.findAll( {
-            attributes: ["id", "description","phone_number",'deleted_date'],
+            attributes: ["id", "description","phone_number"],
+            include: [
+                {
+                    model: db.faculty,
+                    as: 'faculty',
+                    attributes: [ 'id', 'name' ],
+                },
+            ],
         })
     }
 
@@ -36,7 +43,8 @@ class InfoFacultyRepository {
      * @return {Promise} promise with result of create
      */
     async create(infoFaculty) {
-        return await db.infoFaculty.create(infoFaculty)
+        console.log(db.info_faculty)
+        return await db.info_faculty.create(infoFaculty)
     }
 
     /**

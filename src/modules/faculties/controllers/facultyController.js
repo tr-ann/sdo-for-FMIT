@@ -1,4 +1,5 @@
 import FacultyService from '../services/FacultyService'
+import InfoFacultyService from '../services/InfoFacultyService'
 import helpers from '../../../helpers'
 
 class facultyController {
@@ -10,6 +11,12 @@ class facultyController {
                 short_name: req.body.short_name,
             })
             
+            await InfoFacultyService.create({
+                faculty_id: faculty.id,
+                description: req.body.description,
+                phone_number: req.body.phone_number 
+            })
+
             return res.status(201).json(helpers.ResponseFormat.build(
                 faculty,
                 "Faculty created successfully",
@@ -17,17 +24,18 @@ class facultyController {
                 "success"
             ))
         } catch (error) {
-             next(error)
+            console.log(error)
+            next(error)
         }
     }
 
     async readAll(req, res, next) {
         try {
-            let facultys = await FacultyService.readAll()
+            let faculties = await FacultyService.readAll()
             
             return res.status(200).json(helpers.ResponseFormat.build(
-                facultys,
-                "Facultys read successfully",
+                faculties,
+                "Faculties read successfully",
                 200,
                 "success"
             ))
@@ -65,7 +73,7 @@ class facultyController {
                 "success"
             ))
         } catch (error) {
-             next(error)
+            next(error)
         }
     }
 

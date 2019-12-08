@@ -14,19 +14,14 @@ export default (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'faculty',
-        freezeTableName: 'faculties',
-
-        name: {
-            singular: 'faculty',
-            plural: 'faculties',
-        },
+        tableName: 'faculties'
     });
+
     Faculty.associate = function(models) {
         Faculty.hasMany(models.group, {
             onUpdate: 'restrict',
@@ -36,7 +31,8 @@ export default (sequelize, DataTypes) => {
         Faculty.hasOne(models.info_faculty, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
-            foreignKey: 'faculty_id'
+            foreignKey: 'faculty_id',
+            as: 'info_faculty'
         })
     };
     return Faculty;

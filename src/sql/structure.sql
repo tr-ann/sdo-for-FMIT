@@ -115,7 +115,7 @@ CREATE TABLE `departments` (
     `faculty_id`            INT NOT NULL,
     `owner_id`              INT         ,
     `phone`                 VARCHAR(30) ,
-    `room_id`               INT,
+    `lecture_room_id`       INT,
     `deleted_date`          DATETIME      
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
@@ -178,6 +178,7 @@ CREATE TABLE `faculties` (
 DROP TABLE IF EXISTS `info_faculties`;
 CREATE TABLE `info_faculties` (
     `id`                    INT    PRIMARY KEY,
+    `faculty_id`            INT,
     `description`           TEXT        ,
     `phone_number`          VARCHAR(20) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
