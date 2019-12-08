@@ -31,6 +31,7 @@ export default (sequelize, DataTypes) => {
         InfoFaculty.belongsTo(models.faculty, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'faculty_id'
         })
     };
     return InfoFaculty;

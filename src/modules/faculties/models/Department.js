@@ -9,7 +9,7 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
         },
         faculty_id: {
-            allowNull: true,
+            allowNull: false,
             type: DataTypes.INTEGER,
         },
         owner_id: {
@@ -43,19 +43,23 @@ export default (sequelize, DataTypes) => {
         Department.belongsTo(models.user, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'user_id'
         })
         Department.belongsTo(models.faculty, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'faculty_id'
         })
         Department.belongsTo(models.lecture_room, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'lecture_room_id'
         })
 
         Department.hasMany(models.teacher, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'department_id'
         })
     }
 

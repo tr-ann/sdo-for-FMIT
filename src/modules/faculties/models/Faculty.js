@@ -31,10 +31,12 @@ export default (sequelize, DataTypes) => {
         Faculty.hasMany(models.group, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'faculty_id'
         })
         Faculty.hasOne(models.info_faculty, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'faculty_id'
         })
     };
     return Faculty;
