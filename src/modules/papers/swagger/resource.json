@@ -1,29 +1,292 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "My univer docs",
-        "description": "This is a sample server Petstore server.",
-        "termsOfService": "http://swagger.io/terms/",
+        "title": "Paths to work with resources",
+        "description": "Here is a description of the paths to the resources API.",
         "contact": {
             "email": "apiteam@swagger.io"
         },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        },
         "version": "1.0.0"
-    },
-    "externalDocs": {
-        "description": "Find out more about Swagger",
-        "url": "http://swagger.io"
     },
     "servers": [
         {
-            "url":"https:/localhost",
-            "description":"Server to test api"
+            "url": "http:/localhost/3000",
+            "description": "API testing server"
+        },
+        {
+            "url": "https:/localhost/3000",
+            "description": "API testing server"
         }
     ],
     "paths": {
-        
+        "/resources": {
+            "get": {
+                "summary": "Get list of resources",
+                "operationId": "read_resources",
+                "tags": [
+                    "resources"
+                ],
+                "responses": {
+                    "200": {
+                       "description": "Resources read successfully",
+                       "content": {
+                           "application/json": {
+                               "schema": {
+                                   "$ref": "#/components/schemas/ReadResources"
+                               }
+                           }
+                       }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add new resource",
+                "operationId": "create_resource",
+                "tags": [
+                    "resources"
+                ],
+                "requestBody": {
+                    "description": "Request body for creating a resource",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Resource"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        },
+        "/resources/{id}": {
+            "get": {
+                "summary": "Get resource by id",
+                "operationId": "resource_by_id",
+                "tags": [
+                    "resources"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Resource read successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReadResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Update resource by id",
+                "operationId": "update_resource",
+                "tags": [
+                    "resources"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body for resource update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Resource"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete resource",
+                "operationId": "delete_resource",
+                "tags": [
+                    "resources"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "id": {
+                "name": "id",
+                "description": "Resource id",
+                "required": true,
+                "in": "path",
+                "schema": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 0,
+                    "example": 42
+                }
+            }
+        },
+        "responses": {
+            "Unauthorized": {
+                "description": "Unauthorized",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 401,
+                            "message": "Authorization required"
+                        }
+                    }
+                }
+            },
+            "NotFound": {
+                "description": "The specified resource was not found",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 404,
+                            "message": "Object not found"
+                        }
+                    }
+                }
+            },
+            "UnexpectedError": {
+                "description": "Unexpected error",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "Resource": {
+                "type": "object",
+                "required": [
+                    "description"
+                ],
+                "properties": {
+                    "description": {
+                        "description": "resource description",
+                        "type": "string",
+                        "example": "Text document"
+                    }
+                }
+            },
+            "ReadResource": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "id"
+                        ],
+                        "properties": {
+                            "id": {
+                                "description": "resource id",
+                                "type": "integer",
+                                "format": "int32",
+                                "minimum": 0,
+                                "example": 42
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/Resource"
+                    }
+                ]
+            },
+            "ReadResources": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/ReadResource"
+                }
+            },
+            "Error": {
+                "type": "object",
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
     }
 }

@@ -115,7 +115,7 @@ CREATE TABLE `departments` (
     `faculty_id`            INT NOT NULL,
     `owner_id`              INT         ,
     `phone`                 VARCHAR(30) ,
-    `room_id`               INT,
+    `lecture_room_id`       INT,
     `deleted_date`          DATETIME      
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
@@ -177,7 +177,8 @@ CREATE TABLE `faculties` (
 /* Таблица `информация о факультете` */
 DROP TABLE IF EXISTS `info_faculties`;
 CREATE TABLE `info_faculties` (
-    `id`                    INT    PRIMARY KEY,
+    `id`                    INT  auto_increment  PRIMARY KEY,
+    `faculty_id`            INT,
     `description`           TEXT        ,
     `phone_number`          VARCHAR(20) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
@@ -380,7 +381,7 @@ CREATE TABLE `practices` (
 DROP TABLE IF EXISTS `urls`;
 CREATE TABLE `urls` (
     `id`             INT auto_increment      PRIMARY KEY,
-    `url`            INT   
+    `url`            VARCHAR(248)   
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
 DROP TABLE IF EXISTS `roles_urls`;

@@ -1,29 +1,300 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "My univer docs",
-        "description": "This is a sample server Petstore server.",
-        "termsOfService": "http://swagger.io/terms/",
+        "title": "Paths to work with subgroups",
+        "description": "Here is a description of the paths to the subgroups API.",
         "contact": {
             "email": "apiteam@swagger.io"
         },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        },
         "version": "1.0.0"
-    },
-    "externalDocs": {
-        "description": "Find out more about Swagger",
-        "url": "http://swagger.io"
     },
     "servers": [
         {
-            "url":"https:/localhost",
-            "description":"Server to test api"
+            "url": "http:/localhost/3000",
+            "description": "API testing server"
+        },
+        {
+            "url": "https:/localhost/3000",
+            "description": "API testing server"
         }
     ],
     "paths": {
-        
+        "/subgroups": {
+            "get": {
+                "summary": "Get list of subgroups",
+                "operationId": "read_subgroups",
+                "tags": [
+                    "subgroups"
+                ],
+                "responses": {
+                    "200": {
+                       "description": "Subgroups read successfully",
+                       "content": {
+                           "application/json": {
+                               "schema": {
+                                   "$ref": "#/components/schemas/ReadSubgroups"
+                               }
+                           }
+                       }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add new subgroup",
+                "operationId": "create_subgroup",
+                "tags": [
+                    "subgroups"
+                ],
+                "requestBody": {
+                    "description": "Request body for creating a subgroup",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Subgroup"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        },
+        "/subgroups/{id}": {
+            "get": {
+                "summary": "Get subgroup by id",
+                "operationId": "subgroup_by_id",
+                "tags": [
+                    "subgroups"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Subgroup read successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReadSubgroup"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Update subgroup by id",
+                "operationId": "update_subgroup",
+                "tags": [
+                    "subgroups"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body for subgroup update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Subgroup"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete subgroup",
+                "operationId": "delete_subgroup",
+                "tags": [
+                    "subgroups"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "id": {
+                "name": "id",
+                "description": "Subgroup id",
+                "required": true,
+                "in": "path",
+                "schema": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 0,
+                    "example": 42
+                }
+            }
+        },
+        "responses": {
+            "Unauthorized": {
+                "description": "Unauthorized",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 401,
+                            "message": "Authorization required"
+                        }
+                    }
+                }
+            },
+            "NotFound": {
+                "description": "The specified resource was not found",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 404,
+                            "message": "Object not found"
+                        }
+                    }
+                }
+            },
+            "UnexpectedError": {
+                "description": "Unexpected error",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "Subgroup": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "group"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "subgroup name",
+                        "type": "string",
+                        "example": "34_1"
+                    },
+                    "group_id": {
+                        "description": "group of the subgroup",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 42
+                    }
+                }
+            },
+            "ReadSubgroup": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "id"
+                        ],
+                        "properties": {
+                            "id": {
+                                "description": "subgroup id",
+                                "type": "integer",
+                                "format": "int32",
+                                "minimum": 0,
+                                "example": 42
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/Subgroup"
+                    }
+                ]
+            },
+            "ReadSubgroups": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/ReadSubgroup"
+                }
+            },
+            "Error": {
+                "type": "object",
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
     }
 }

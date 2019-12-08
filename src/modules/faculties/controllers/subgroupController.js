@@ -3,7 +3,7 @@ import helpers from '../../../helpers'
 
 class subgroupController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let subgroup = await SubgroupService.create({
                 name: req.body.name,
@@ -17,11 +17,11 @@ class subgroupController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let subgroups = await SubgroupService.readAll()
             
@@ -32,11 +32,11 @@ class subgroupController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let subgroup = await SubgroupService.readById(req.params.id)
 
@@ -47,11 +47,11 @@ class subgroupController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let subgroup = await SubgroupService.update(req.params.id, {
                 name:   req.body.name,
@@ -65,11 +65,11 @@ class subgroupController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await SubgroupService.destroy(req.params.id)
 
@@ -80,7 +80,7 @@ class subgroupController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 }

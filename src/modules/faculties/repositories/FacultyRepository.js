@@ -9,7 +9,14 @@ class FacultyRepository {
      */
     async readAll() {
         return await db.faculty.findAll({
-            attributes: ["id", "name", "short_name", 'deleted_date']
+            attributes: ["id", "name", "short_name"],
+            include: [
+                {
+                    model: db.facultyInfo,
+                    as: 'info_faculty',
+                    attributes: [ 'id', 'description' ],
+                },
+            ],
         })
     }
 

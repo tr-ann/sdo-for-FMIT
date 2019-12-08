@@ -24,7 +24,7 @@ export default (app) => {
 
     app.get('/logout', logout)
 
-    app.use('/users', isAutenticated, usersRouters.UserRouter)
+    app.use('/users', usersRouters.UserRouter)
 
     
     app.use('/phones', isAutenticated, usersRouters.PhoneRouter)

@@ -44,7 +44,24 @@ class DepartmentRepository {
                 'faculty_id',
                 'owner_id',
                 'phone',
-                'room_id',
+                'lecture_room_id',
+            ],
+            include: [
+                {
+                    model: db.faculty,
+                    as: 'faculty',
+                    attributes: [ 'name' ],
+                },
+                {
+                    model: db.user,
+                    as: 'user',
+                    attributes: [ 'login' ],
+                },
+                {
+                    model: db.lecture_room,
+                    as: 'lecture_room',
+                    attributes: [ 'number' ],
+                },
             ],
         })
     }

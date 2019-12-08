@@ -1,15 +1,22 @@
 import FacultyService from '../services/FacultyService'
+import InfoFacultyService from '../services/InfoFacultyService'
 import helpers from '../../../helpers'
 
 class facultyController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let faculty = await FacultyService.create({
                 name: req.body.name,
                 short_name: req.body.short_name,
             })
             
+            await InfoFacultyService.create({
+                faculty_id: faculty.id,
+                description: req.body.description,
+                phone_number: req.body.phone_number 
+            })
+
             return res.status(201).json(helpers.ResponseFormat.build(
                 faculty,
                 "Faculty created successfully",
@@ -17,26 +24,27 @@ class facultyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            console.log(error)
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
-            let facultys = await FacultyService.readAll()
+            let faculties = await FacultyService.readAll()
             
             return res.status(200).json(helpers.ResponseFormat.build(
-                facultys,
-                "Facultys read successfully",
+                faculties,
+                "Faculties read successfully",
                 200,
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let faculty = await FacultyService.readById(req.params.id)
 
@@ -47,11 +55,11 @@ class facultyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let faculty = await FacultyService.update(req.params.id, {
                 name:   req.body.name,
@@ -65,11 +73,11 @@ class facultyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await FacultyService.destroy(req.params.id)
 
@@ -80,7 +88,7 @@ class facultyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 }

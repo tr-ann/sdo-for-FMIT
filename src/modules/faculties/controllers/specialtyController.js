@@ -3,7 +3,7 @@ import helpers from '../../../helpers'
 
 class specialtyController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let specialty = await SpecialtyService.create({
                 code: req.body.code,
@@ -18,11 +18,11 @@ class specialtyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let specialtys = await SpecialtyService.readAll()
             
@@ -33,11 +33,11 @@ class specialtyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let specialty = await SpecialtyService.readById(req.params.id)
 
@@ -48,11 +48,11 @@ class specialtyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let specialty = await SpecialtyService.update(req.params.id, {
                 code: req.body.code,
@@ -67,11 +67,11 @@ class specialtyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await SpecialtyService.destroy(req.params.id)
 
@@ -82,7 +82,7 @@ class specialtyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 }

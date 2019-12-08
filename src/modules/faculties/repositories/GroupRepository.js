@@ -9,7 +9,7 @@ class GroupRepository {
      */
     async readAll() {
         return await db.group.findAll({
-            attributes: [ 'id', 'deleted_date' ],
+            attributes: [ 'id', 'number' ],
             include: [
                 {
                     model: db.faculty,
@@ -26,6 +26,11 @@ class GroupRepository {
                     as: 'study_mode',
                     attributes: [ 'name' ],
                 },
+                {
+                    model: db.teacher,
+                    as: 'teachers',
+                    attributes: [ 'full_name' ],
+                },
             ],
         })
     }
@@ -38,12 +43,28 @@ class GroupRepository {
      */
     async readById(id) {
         return await db.group.findByPk(id, {
-            attributes: [
-                "id",
-                "number",
-                "faculty_id",
-                "specialty_id",
-                "study_mode_id",
+            attributes: [ 'id', 'number' ],
+            include: [
+                {
+                    model: db.faculty,
+                    as: 'faculty',
+                    attributes: [ 'name' ],
+                },
+                {
+                    model: db.specialty,
+                    as: 'specialty',
+                    attributes: [ 'name' ],
+                },
+                {
+                    model: db.study_mode,
+                    as: 'study_mode',
+                    attributes: [ 'name' ],
+                },
+                {
+                    model: db.teacher,
+                    as: 'teachers',
+                    attributes: [ 'full_name' ],
+                },
             ],
         })
     }

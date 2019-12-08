@@ -1,29 +1,304 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "My univer docs",
-        "description": "This is a sample server Petstore server.",
-        "termsOfService": "http://swagger.io/terms/",
+        "title": "Paths to work with specialties",
+        "description": "Here is a description of the paths to the specialties API.",
         "contact": {
             "email": "apiteam@swagger.io"
         },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        },
         "version": "1.0.0"
-    },
-    "externalDocs": {
-        "description": "Find out more about Swagger",
-        "url": "http://swagger.io"
     },
     "servers": [
         {
-            "url":"https:/localhost",
-            "description":"Server to test api"
+            "url": "http:/localhost/3000",
+            "description": "API testing server"
+        },
+        {
+            "url": "https:/localhost/3000",
+            "description": "API testing server"
         }
     ],
     "paths": {
-        
+        "/specialties": {
+            "get": {
+                "summary": "Get list of specialties",
+                "operationId": "read_specialties",
+                "tags": [
+                    "specialties"
+                ],
+                "responses": {
+                    "200": {
+                       "description": "Specialties read successfully",
+                       "content": {
+                           "application/json": {
+                               "schema": {
+                                   "$ref": "#/components/schemas/ReadSpecialties"
+                               }
+                           }
+                       }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add new specialty",
+                "operationId": "create_specialty",
+                "tags": [
+                    "specialties"
+                ],
+                "requestBody": {
+                    "description": "Request body for creating a specialty",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Specialty"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        },
+        "/specialties/{id}": {
+            "get": {
+                "summary": "Get specialty by id",
+                "operationId": "specialty_by_id",
+                "tags": [
+                    "specialties"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Specialty read successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReadSpecialty"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Update specialty by id",
+                "operationId": "update_specialty",
+                "tags": [
+                    "specialties"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request body for specialty update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Specialty"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete specialty",
+                "operationId": "delete_specialty",
+                "tags": [
+                    "specialties"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "id": {
+                "name": "id",
+                "description": "Specialty id",
+                "required": true,
+                "in": "path",
+                "schema": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 0,
+                    "example": 42
+                }
+            }
+        },
+        "responses": {
+            "Unauthorized": {
+                "description": "Unauthorized",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 401,
+                            "message": "Authorization required"
+                        }
+                    }
+                }
+            },
+            "NotFound": {
+                "description": "The specified resource was not found",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 404,
+                            "message": "Object not found"
+                        }
+                    }
+                }
+            },
+            "UnexpectedError": {
+                "description": "Unexpected error",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "Specialty": {
+                "type": "object",
+                "required": [
+                    "code",
+                    "name",
+                    "short_name"
+                ],
+                "properties": {
+                    "code": {
+                        "description": "specialty code",
+                        "type": "string",
+                        "example": "1-40 01 01 03"
+                    },
+                    "name": {
+                        "description": "specialty name",
+                        "type": "string",
+                        "example": "Information technology software"
+                    },
+                    "short_name": {
+                        "description": "specialty short name",
+                        "type": "string",
+                        "example": "ITS"
+                    }
+                }
+            },
+            "ReadSpecialty": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "id"
+                        ],
+                        "properties": {
+                            "id": {
+                                "description": "specialty id",
+                                "type": "integer",
+                                "format": "int32",
+                                "minimum": 0,
+                                "example": 207
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/Specialty"
+                    }
+                ]
+            },
+            "ReadSpecialties": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/ReadSpecialty"
+                }
+            },
+            "Error": {
+                "type": "object",
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
     }
 }
