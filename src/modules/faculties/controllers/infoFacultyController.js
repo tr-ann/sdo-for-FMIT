@@ -3,7 +3,7 @@ import helpers from '../../../helpers'
 
 class infoFacultyController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let infoFaculty = await InfoFacultyService.create({
                 description: req.body.description,
@@ -17,11 +17,11 @@ class infoFacultyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let infoFacultys = await InfoFacultyService.readAll()
             
@@ -32,11 +32,11 @@ class infoFacultyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let infoFaculty = await InfoFacultyService.readById(req.params.id)
 
@@ -47,11 +47,11 @@ class infoFacultyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let infoFaculty = await InfoFacultyService.update(req.params.id, {
                 description: req.body.description,
@@ -65,11 +65,11 @@ class infoFacultyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await InfoFacultyService.destroy(req.params.id)
 
@@ -80,7 +80,7 @@ class infoFacultyController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 }

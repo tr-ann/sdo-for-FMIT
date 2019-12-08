@@ -3,7 +3,7 @@ import helpers from '../../../helpers'
 
 class departmentController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let department = await DepartmentService.create({
                 name: req.body.name,
@@ -20,11 +20,11 @@ class departmentController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let departments = await DepartmentService.readAll()
             
@@ -35,11 +35,11 @@ class departmentController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let department = await DepartmentService.readById(req.params.id)
 
@@ -50,11 +50,11 @@ class departmentController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let department = await DepartmentService.update(req.params.id, {
                 name: req.body.name,
@@ -71,11 +71,11 @@ class departmentController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await DepartmentService.destroy(req.params.id)
 
@@ -86,7 +86,7 @@ class departmentController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 }

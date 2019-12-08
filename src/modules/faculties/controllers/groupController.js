@@ -3,7 +3,7 @@ import helpers from '../../../helpers'
 
 class groupController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let group = await GroupService.create({
                 number: req.body.number,
@@ -19,11 +19,11 @@ class groupController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let groups = await GroupService.readAll()
             
@@ -34,11 +34,11 @@ class groupController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let group = await GroupService.readById(req.params.id)
 
@@ -49,11 +49,11 @@ class groupController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let group = await GroupService.update(req.params.id, {
                 number: req.body.number,
@@ -69,11 +69,11 @@ class groupController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await GroupService.destroy(req.params.id)
 
@@ -84,7 +84,7 @@ class groupController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 }
