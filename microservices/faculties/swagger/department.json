@@ -1,35 +1,318 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "Information system for VSU",
-        "description": "Departments",
-        "termsOfService": "http://swagger.io/terms/",
+        "title": "Pathes to work with departments",
+        "description": "Here is a description of the paths to the departments API.",
         "contact": {
             "email": "apiteam@swagger.io"
         },
         "version": "1.0.0"
     },
-    "externalDocs": {
-        "description": "Find out more about university",
-        "url": "http://vsu.by"
-    },
     "servers": [
         {
-            "url":"https:/localhost",
-            "description":"Server to test api"
-        }
-    ],
-    "tags": [
+            "url": "http:/localhost/3000",
+            "description": "API testing server"
+        },
         {
-          "name": "departments",
-          "description": "Everything about departments",
-          "externalDocs": {
-            "description": "Find out more",
-            "url": "https://vsu.by/universitet/fakultety.html"
-          }
+            "url": "https:/localhost/3000",
+            "description": "API testing server"
         }
     ],
     "paths": {
-        
+        "/departments": {
+            "get": {
+                "summary": "Get list of departments",
+                "operationId": "read_departments",
+                "tags": [
+                    "departments"
+                ],
+                "responses": {
+                    "200": {
+                       "description": "Departments read successfully",
+                       "content": {
+                           "application/json": {
+                               "schema": {
+                                   "$ref": "#/components/schemas/ReadDepartments"
+                               }
+                           }
+                       }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Создание аудитории",
+                "operationId": "create_lecture_room",
+                "tags": [
+                    "departments"
+                ],
+                "requestBody": {
+                    "description": "Тело запроса для создания аудитории",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LectureRoom"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        },
+        "/departments/{id}": {
+            "get": {
+                "summary": "Получение информации об аудитории",
+                "operationId": "lecture_room_by_id",
+                "tags": [
+                    "departments"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "LectureRoom read successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReadLectureRoom"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Обновление информации об аудитории",
+                "operationId": "update_lecture_room",
+                "tags": [
+                    "departments"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Тело запроса для обновления аудитории",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LectureRoom"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Удаление аудитории",
+                "operationId": "delete_lecture_room",
+                "tags": [
+                    "departments"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                       "description": "Null response"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Unauthorized"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedError"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "id": {
+                "name": "id",
+                "description": "Идентификатор аудитории",
+                "required": true,
+                "in": "path",
+                "schema": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 0,
+                    "example": 5
+                }
+            }
+        },
+        "responses": {
+            "Unauthorized": {
+                "description": "Unauthorized",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 401,
+                            "message": "Требуется авторизация"
+                        }
+                    }
+                }
+            },
+            "NotFound": {
+                "description": "The specified resource was not found",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        },
+                        "example": {
+                            "code": 404,
+                            "message": "Объект не найден"
+                        }
+                    }
+                }
+            },
+            "UnexpectedError": {
+                "description": "Unexpected error",
+                "content": {
+                   "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "LectureRoom": {
+                "type": "object",
+                "required": [
+                    "number",
+                    "seats_count",
+                    "room_type",
+                    "building"
+                ],
+                "properties": {
+                    "number": {
+                        "description": "Номер аудитории",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 206
+                    },
+                    "seats_count": {
+                        "description": "Количество мест",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 300
+                    },
+                    "room_type_id": {
+                        "description": "Идентификатор типа аудитории",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 1
+                    },
+                    "building_id": {
+                        "description": "Идентификатор корпуса",
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "example": 0
+                    }
+                }
+            },
+            "ReadLectureRoom": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "id"
+                        ],
+                        "properties": {
+                            "id": {
+                                "description": "Идентификатор аудитории",
+                                "type": "integer",
+                                "format": "int32",
+                                "minimum": 0,
+                                "example": 207
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/LectureRoom"
+                    }
+                ]
+            },
+            "ReadLectureRooms": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/ReadLectureRoom"
+                }
+            },
+            "Error": {
+                "type": "object",
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
     }
 }
