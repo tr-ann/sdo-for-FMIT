@@ -22,6 +22,8 @@ export default (app) => {
          })*/
     )
 
+    app.get('/logout', logout)
+
     app.use('/users', isAutenticated, usersRouters.UserRouter)
 
     

@@ -44,7 +44,7 @@ DROP TABLE IF EXISTS `lecture_rooms`;
 CREATE TABLE `lecture_rooms` (
     `id`                    INT auto_increment      PRIMARY KEY,
     `number`                VARCHAR(5)  NOT NULL,
-    `type_id`               INT         ,
+    `room_type_id`          INT         ,
     `building_id`           INT         ,
     `seats_count`           INT         ,
     `deleted_date`          DATETIME
@@ -243,15 +243,15 @@ CREATE TABLE `curators` (
 /* Таблица `занятие` */
 DROP TABLE IF EXISTS `lessons` ;
 CREATE TABLE `lessons` (
-    `id`                    INT auto_increment      PRIMARY KEY,
-    `group_id`              INT         ,
-    `subgroup_id`           INT         ,
-    `teacher_id`            INT         ,
-    `type_id`               INT    ,
-    `room_id`               INT    ,
-    `discipline_id`         INT    ,
-    `lesson_number_id`      INT    ,
-    `week_day`              INT    NOT NULL,
+    `id`                    INT     auto_increment PRIMARY KEY,
+    `group_id`              INT     ,
+    `subgroup_id`           INT     ,
+    `teacher_id`            INT     ,
+    `lesson_type_id`        INT     ,
+    `lecture_room_id`       INT     ,
+    `discipline_id`         INT     ,
+    `lesson_number_id`      INT     ,
+    `week_day`              INT     NOT NULL,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
@@ -305,13 +305,13 @@ CREATE TABLE `statuses` (
 /* Таблица `заявка` */
 DROP TABLE IF EXISTS `requests`;
 CREATE TABLE `requests` (
-    `id`                    INT auto_increment      PRIMARY KEY,
+    `id`                    INT         auto_increment PRIMARY KEY,
     `student_id`            INT         ,
     `teacher_id`            INT         ,
-    `status_id`             INT    ,
+    `status_id`             INT         ,
     `topic`                 VARCHAR(50) NOT NULL,
     `name`                  VARCHAR(90) NOT NULL,
-    `create_date`           DATETIME        DEFAULT (CURRENT_DATE),
+    `create_date`           DATETIME    DEFAULT (CURRENT_DATE),
     `update_date`           DATETIME    ,
     `description`           TEXT        ,
     `deleted_date`          DATETIME
@@ -320,7 +320,7 @@ CREATE TABLE `requests` (
 /* Таблица `курсовая работа` !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 DROP TABLE IF EXISTS `term_papers`;
 CREATE TABLE `term_papers` (
-    `id`                    INT auto_increment      PRIMARY KEY,
+    `id`                    INT         auto_increment PRIMARY KEY,
     `student_id`            INT         ,
     `teacher_id`            INT         ,
     `status_id`             INT         ,
@@ -356,7 +356,7 @@ CREATE TABLE `organizations` (
 /* Таблица `виды практик` !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 DROP TABLE IF EXISTS `practice_types`;
 CREATE TABLE `practice_types` (
-    `id`                    INT auto_increment      PRIMARY KEY,
+    `id`                    INT         auto_increment PRIMARY KEY,
     `name`                  VARCHAR(50) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -364,17 +364,17 @@ CREATE TABLE `practice_types` (
 /* Таблица `практика` !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 DROP TABLE IF EXISTS `practices`;
 CREATE TABLE `practices` (
-    `id`                    INT auto_increment      PRIMARY KEY,
+    `id`                    INT         auto_increment PRIMARY KEY,
     `student_id`            INT         ,
-    `organization_id`       INT    ,
+    `organization_id`       INT         ,
     `status_id`             INT         ,
     `topic`                 VARCHAR(50) NOT NULL,
     `name`                  VARCHAR(90) NOT NULL,
     `description`           TEXT        ,
-    `start_date`            DATETIME        NOT NULL,
-    `end_date`              DATETIME        NOT NULL,
+    `start_date`            DATETIME    NOT NULL,
+    `end_date`              DATETIME    NOT NULL,
     `resource_id`           INT         ,
-    `type_id`               INT         ,
+    `practice_type_id`      INT         ,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 

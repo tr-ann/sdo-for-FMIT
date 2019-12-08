@@ -69,7 +69,15 @@ function login(req, res, next) {
   
 function logout(req, res) {
     req.logout()
-    console.log('success logout')
+
+    return res.status(200).json(
+        ResponseFormat.build(
+            {},
+            'user logout successfully',
+            200,
+            'success'
+        )
+    )
 }
 
 

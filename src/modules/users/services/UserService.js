@@ -1,5 +1,6 @@
-import UserRepository from '../repositories/UserRepository';
+import UserRepository from '../repositories/UserRepository'
 import NotFound from '../../../classes/errors/4xx/notFound'
+import Hash from '../../../classes/hash'
 
 class UserService {
 
@@ -33,10 +34,13 @@ class UserService {
     async update(id, user) {
 
         let oldUser = await UserRepository.readById(id)
-        
+
         if (!oldUser) {
             throw new NotFound('User not found')
         }
+        
+        if(user.password)
+            user.password = Hash.get(user.password)
 
         return await UserRepository.update(id, user)
     }

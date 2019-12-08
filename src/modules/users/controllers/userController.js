@@ -85,11 +85,11 @@ class UserController {
     async update(req, res, next) {
         try {
 
-            let user = await UserService.update({
+            let user = await UserService.update(req.params.id, {
                 password: req.body.password,
             })
 
-            await PhoneService.update({
+            /*await PhoneService.update({
                 user_id: user.id, 
                 phone: req.body.phone
             })
@@ -98,15 +98,14 @@ class UserController {
                     + ' ' + req.body.last_name 
                     + ' ' + (req.body.middle_name || '')
 
-            await UserInfoService.create({
-                user_id: user.id,
+            await UserInfoService.update({
                 full_name: fullName,
                 email: req.body.email,
                 birthday: req.body.birthday,
                 sex: req.body.sex,
             })
 
-            UserRoleService.create({user_id: user.id, role_id: 1})
+            UserRoleService.create({user_id: user.id, role_id: 1})*/
 
             return res.status(200)
                 .json(
