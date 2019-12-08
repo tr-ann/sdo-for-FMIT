@@ -3,7 +3,7 @@ import core from '../../../core'
 
 class graduationPaperController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let graduationPaper = await GraduationPaperService.create({
                 student_id:     req.body.student_id,
@@ -22,11 +22,11 @@ class graduationPaperController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let graduationPapers = await GraduationPaperService.readAll()
             
@@ -37,11 +37,11 @@ class graduationPaperController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let graduationPaper = await GraduationPaperService.readById(req.params.id)
 
@@ -52,11 +52,11 @@ class graduationPaperController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let graduationPaper = await GraduationPaperService.update(req.params.id, {
                 student_id:     req.body.student_id,
@@ -75,11 +75,11 @@ class graduationPaperController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await GraduationPaperService.destroy(req.params.id)
 
@@ -90,7 +90,7 @@ class graduationPaperController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 }

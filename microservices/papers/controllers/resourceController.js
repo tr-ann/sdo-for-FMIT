@@ -3,7 +3,7 @@ import core from '../../../core'
 
 class resourceController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let resource = await ResourceService.create({
                 description:    req.body.description,
@@ -20,7 +20,7 @@ class resourceController {
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let resources = await ResourceService.readAll()
             
@@ -35,7 +35,7 @@ class resourceController {
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let resource = await ResourceService.readById(req.params.id)
 
@@ -50,7 +50,7 @@ class resourceController {
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let resource = await ResourceService.update(req.params.id, {
                 description:    req.body.description,
@@ -67,7 +67,7 @@ class resourceController {
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await ResourceService.destroy(req.params.id)
 

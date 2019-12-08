@@ -13,6 +13,12 @@ export default (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.INTEGER,
         },
+        room_type_id: {
+            type: DataTypes.INTEGER,
+        },
+        building_id: {
+            type: DataTypes.INTEGER,
+        },
     }, {
         name: {
             singular: 'lectureRoom',
@@ -31,14 +37,17 @@ export default (sequelize, DataTypes) => {
         LectureRoom.belongsTo(models.room_type, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'room_type_id',
         })
         LectureRoom.belongsTo(models.building, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'building_id',
         })
         LectureRoom.hasMany(models.lesson, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'lecture_room_id',
         })
     }
 

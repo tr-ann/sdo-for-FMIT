@@ -27,6 +27,7 @@ export default (sequelize, DataTypes) => {
         RoomType.hasMany(models.lecture_room, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'room_type_id',
         })
     }
 

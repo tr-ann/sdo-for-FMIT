@@ -28,6 +28,7 @@ export default (sequelize, DataTypes) => {
         PracticeType.hasMany(models.practice, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'practice_type_id',
         })
     }
 

@@ -9,6 +9,27 @@ export default (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.INTEGER,
         },
+        group_id: {
+            type: DataTypes.INTEGER,
+        },
+        subgroup_id: {
+            type: DataTypes.INTEGER,
+        },
+        teacher_id: {
+            type: DataTypes.INTEGER,
+        },
+        lesson_type_id: {
+            type: DataTypes.INTEGER,
+        },
+        lecture_room_id: {
+            type: DataTypes.INTEGER,
+        },
+        discipline_id: {
+            type: DataTypes.INTEGER,
+        },
+        lesson_number_id: {
+            type: DataTypes.INTEGER,
+        },
     }, {
         name: {
             singular: 'lesson',
@@ -27,30 +48,37 @@ export default (sequelize, DataTypes) => {
         Lesson.belongsTo(models.group, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'group_id',
         })
         Lesson.belongsTo(models.subgroup, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'subgroup_id',
         })
         Lesson.belongsTo(models.teacher, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'teacher_id',
         })
         Lesson.belongsTo(models.lesson_type, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'lesson_type_id',
         })
         Lesson.belongsTo(models.lecture_room, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'lecture_room_id',
         })
         Lesson.belongsTo(models.discipline, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'discipline_id',
         })
         Lesson.belongsTo(models.lesson_number, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'lesson_number_id',
         })
     }
     

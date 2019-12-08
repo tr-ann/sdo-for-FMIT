@@ -31,6 +31,7 @@ export default (sequelize, DataTypes) => {
         Discipline.hasMany(models.lesson, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'discipline_id',
         })
     }
 

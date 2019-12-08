@@ -27,6 +27,7 @@ export default (sequelize, DataTypes) => {
         LessonType.hasMany(models.lesson, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'lesson_type_id',
         })
     }
 

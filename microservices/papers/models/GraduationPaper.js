@@ -14,8 +14,20 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING(90),
         },
         description: {
-            type: DataTypes.TEXT
+            type: DataTypes.TEXT,
         },
+        student_id: {
+            type: DataTypes.INTEGER,
+        },
+        teacher_id: {
+            type: DataTypes.INTEGER,
+        },
+        status_id: {
+            type: DataTypes.INTEGER,
+        },
+        resource_id: {
+            type: DataTypes.INTEGER,
+        }
     }, {
         name: {
             singular: 'graduationPaper',
@@ -34,18 +46,22 @@ export default (sequelize, DataTypes) => {
         GraduationPaper.belongsTo(models.student, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'student_id',
         })
         GraduationPaper.belongsTo(models.teacher, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'teacher_id',
         })
         GraduationPaper.belongsTo(models.status, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'status_id',
         })
         GraduationPaper.belongsTo(models.resource, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'resource_id',
         })
     }
 

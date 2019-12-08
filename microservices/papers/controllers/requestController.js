@@ -3,7 +3,7 @@ import core from '../../../core'
 
 class requestController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let request = await RequestService.create({
                 student_id:     req.body.student_id,
@@ -21,11 +21,11 @@ class requestController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let requests = await RequestService.readAll()
             
@@ -36,11 +36,11 @@ class requestController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let request = await RequestService.readById(req.params.id)
 
@@ -51,11 +51,11 @@ class requestController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let request = await RequestService.update(req.params.id, {
                 student_id:     req.body.student_id,
@@ -74,11 +74,11 @@ class requestController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await RequestService.destroy(req.params.id)
 
@@ -89,7 +89,7 @@ class requestController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 }

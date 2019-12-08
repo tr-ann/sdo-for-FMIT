@@ -27,6 +27,7 @@ export default (sequelize, DataTypes) => {
         Building.hasMany(models.lecture_room, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'building_id',
         })
     }
 

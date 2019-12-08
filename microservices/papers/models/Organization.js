@@ -28,6 +28,7 @@ export default (sequelize, DataTypes) => {
         Organization.hasMany(models.practice, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'organization_id',
         })
     }
 

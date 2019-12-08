@@ -3,7 +3,7 @@ import core from '../../../core'
 
 class lessonController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let lesson = await LessonService.create({
                 group_id:           req.body.group_id,
@@ -23,11 +23,11 @@ class lessonController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let lessons = await LessonService.readAll()
             
@@ -38,11 +38,11 @@ class lessonController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let lesson = await LessonService.readById(req.params.id)
 
@@ -53,11 +53,11 @@ class lessonController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let lesson = await LessonService.update(req.params.id, {
                 group_id:           req.body.group_id,
@@ -77,11 +77,11 @@ class lessonController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await LessonService.destroy(req.params.id)
 
@@ -92,7 +92,7 @@ class lessonController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 }

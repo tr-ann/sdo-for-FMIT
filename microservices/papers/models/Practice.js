@@ -22,8 +22,23 @@ export default (sequelize, DataTypes) => {
             allowNull: false,
         },
         description: {
-            type: DataTypes.TEXT
+            type: DataTypes.TEXT,
         },
+        student_id: {
+            type: DataTypes.INTEGER,
+        },
+        organization_id: {
+            type: DataTypes.INTEGER,
+        },
+        status_id: {
+            type: DataTypes.INTEGER,
+        },
+        practice_type_id: {
+            type: DataTypes.INTEGER,
+        },
+        resource_id: {
+            type: DataTypes.INTEGER,
+        }
     }, {
         name: {
             singular: 'practice',
@@ -42,22 +57,27 @@ export default (sequelize, DataTypes) => {
         Practice.belongsTo(models.student, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'student_id',
         })
         Practice.belongsTo(models.organization, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'organization_id',
         })
         Practice.belongsTo(models.status, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'status_id',
         })
         Practice.belongsTo(models.practice_type, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'practice_type_id',
         })
         Practice.belongsTo(models.resource, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'resource_id',
         })
     }
 

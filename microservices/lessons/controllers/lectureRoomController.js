@@ -3,7 +3,7 @@ import core from '../../../core'
 
 class lectureRoomController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let lectureRoom = await LectureRoomService.create({
                 number:         req.body.number,
@@ -19,11 +19,11 @@ class lectureRoomController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let lectureRooms = await LectureRoomService.readAll()
             
@@ -34,11 +34,11 @@ class lectureRoomController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let lectureRoom = await LectureRoomService.readById(req.params.id)
 
@@ -49,11 +49,11 @@ class lectureRoomController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let lectureRoom = await LectureRoomService.update(req.params.id, {
                 number:         req.body.number,
@@ -69,11 +69,11 @@ class lectureRoomController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await LectureRoomService.destroy(req.params.id)
 
@@ -84,7 +84,7 @@ class lectureRoomController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 }

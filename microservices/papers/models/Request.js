@@ -22,8 +22,17 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.DATEONLY,
         },
         description: {
-            type: DataTypes.TEXT
+            type: DataTypes.TEXT,
         },
+        student_id: {
+            type: DataTypes.INTEGER,
+        },
+        teacher_id: {
+            type: DataTypes.INTEGER,
+        },
+        status_id: {
+            type: DataTypes.INTEGER,
+        }
     }, {
         name: {
             singular: 'request',
@@ -42,14 +51,17 @@ export default (sequelize, DataTypes) => {
         Request.belongsTo(models.student, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'student_id',
         })
         Request.belongsTo(models.teacher, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'teacher_id',
         })
         Request.belongsTo(models.status, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'status_id',
         })
     }
 

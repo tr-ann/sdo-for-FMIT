@@ -3,7 +3,7 @@ import core from '../../../core'
 
 class practiceController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let practice = await PracticeService.create({
                 student_id:         req.body.student_id,
@@ -25,11 +25,11 @@ class practiceController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let practices = await PracticeService.readAll()
             
@@ -40,11 +40,11 @@ class practiceController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let practice = await PracticeService.readById(req.params.id)
 
@@ -55,11 +55,11 @@ class practiceController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let practice = await PracticeService.update(req.params.id, {
                 student_id:         req.body.student_id,
@@ -81,11 +81,11 @@ class practiceController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await PracticeService.destroy(req.params.id)
 
@@ -96,7 +96,7 @@ class practiceController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 }

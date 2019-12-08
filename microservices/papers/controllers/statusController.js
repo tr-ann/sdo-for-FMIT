@@ -3,7 +3,7 @@ import core from '../../../core'
 
 class statusController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let status = await StatusService.create({
                 name:   req.body.name,
@@ -16,11 +16,11 @@ class statusController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let statuses = await StatusService.readAll()
             
@@ -31,11 +31,11 @@ class statusController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let status = await StatusService.readById(req.params.id)
 
@@ -46,11 +46,11 @@ class statusController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let status = await StatusService.update(req.params.id, {
                 name:   req.body.name,
@@ -63,11 +63,11 @@ class statusController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await StatusService.destroy(req.params.id)
 
@@ -78,7 +78,7 @@ class statusController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 }

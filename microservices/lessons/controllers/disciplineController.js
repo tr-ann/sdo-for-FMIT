@@ -3,7 +3,7 @@ import core from '../../../core'
 
 class disciplineController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let discipline = await DisciplineService.create({
                 name:       req.body.name,
@@ -17,11 +17,11 @@ class disciplineController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let disciplines = await DisciplineService.readAll()
             
@@ -32,11 +32,11 @@ class disciplineController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let discipline = await DisciplineService.readById(req.params.id)
 
@@ -47,11 +47,11 @@ class disciplineController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let discipline = await DisciplineService.update(req.params.id, {
                 name:       req.body.name,
@@ -65,11 +65,11 @@ class disciplineController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await DisciplineService.destroy(req.params.id)
 
@@ -80,7 +80,7 @@ class disciplineController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 }

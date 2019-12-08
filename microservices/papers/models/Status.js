@@ -29,18 +29,22 @@ export default (sequelize, DataTypes) => {
         Status.hasMany(models.request, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'status_id',
         })
         Status.hasMany(models.term_paper, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'status_id',
         })
         Status.hasMany(models.graduation_paper, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'status_id',
         })
         Status.hasMany(models.practice, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'status_id',
         })
     }
 
