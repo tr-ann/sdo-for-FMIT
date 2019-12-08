@@ -14,17 +14,12 @@ export default (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'user_role',
-        freezeTableName: 'users_roles',
-        name: {
-            simple: 'userRole',
-            plural: 'userRoles',
-        }
+        tableName: 'users_roles',        
     })
 
     UserRole.associate = function (models) {

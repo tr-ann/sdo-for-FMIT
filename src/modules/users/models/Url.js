@@ -10,16 +10,11 @@ export default (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'url',
-        name: {
-            simple: 'url',
-            plural: 'urls',
-        }
     });
 
     Url.associate = function (models) { 

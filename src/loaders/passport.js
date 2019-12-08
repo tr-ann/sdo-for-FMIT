@@ -11,7 +11,10 @@ passport.use(new LocalStrategy({
     },
     async function(login, password, done) {
         try {
-            const user = await UserRepository.get({ login })
+            const user = await UserRepository.get({ 
+                where: {login: login},
+                attributes: [ 'id', 'login', 'password' ]
+            })
 
             if (!user) {
                 return done(null, false, { message: 'Incorrect username.' })
@@ -48,6 +51,9 @@ function login(req, res, next) {
             req.logIn(user, function(err) {
                 if (err) next(err)
 
+                delete user.dataValues.password
+                delete user._previousDataValues.password
+
                 return res.status(200).json(
                     ResponseFormat.build(
                         user,
@@ -63,7 +69,15 @@ function login(req, res, next) {
   
 function logout(req, res) {
     req.logout()
-    console.log('success logout')
+
+    return res.status(200).json(
+        ResponseFormat.build(
+            {},
+            'user logout successfully',
+            200,
+            'success'
+        )
+    )
 }
 
 

@@ -14,24 +14,18 @@ export default (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'phone',
-
-        name: {
-            simple: 'phone',
-            plural: 'phones',
-        }
     })
     
     Phone.associate = function (models) {
         Phone.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'user_id'
+            foreignKey: 'user_id',
         })
     }
     return Phone;

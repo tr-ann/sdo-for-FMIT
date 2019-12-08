@@ -4,6 +4,11 @@ export default (sequelize, DataTypes) => {
     class UserInfo extends Model {}
 
     UserInfo.init({
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
         user_id: {
             allowNull: true,
             type: DataTypes.INTEGER,
@@ -45,24 +50,21 @@ export default (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'user_info',
-        freezeTableName: 'users_info',
-        name: {
-            simple: 'UserInfo',
-            plural: 'UsersInfo',
-        }
+        tableName: 'users_info',
+
     })
 
     UserInfo.associate = function (models) {
         UserInfo.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'user_id'
+            foreignKey: 'user_id',
+            as: 'user'
         })
         UserInfo.belongsTo(models.resource, {
             onDelete: 'restrict',
