@@ -1,10 +1,6 @@
 import UserService from '../services/UserService'
 import UserInfoService from '../services/UserInfoService'
 import PhoneService from '../services/PhoneService'
-import RoleService from '../services/RoleService'
-
-import db from '../../../config/dbModels'
-
 import helpers from '../../../helpers'
 import UserRoleService from '../services/UserRoleService'
 
@@ -13,27 +9,20 @@ class UserController {
     async create(req, res, next) {
         try {
             let user = await UserService.create({
-                    login: req.body.login,
-                    password: req.body.password,
-                    phones: {
-                        phone: req.body.phone,
-                    }
-                }, {
-                    include: {
-                        model: db.phone,
-                }
+                login: req.body.login,
+                password: req.body.password,
             })
 
-            await user.addUserInfo({
-                user_id: user.id,
-                full_name: req.body.first_name,
-                email: req.body.email,
-                birthday: req.body.birthday,
-                sex: req.body.sex,
+            await PhoneService.create({
+                user_id: user.id, 
+                phone: req.body.phone
             })
 
-            /*let fullName = req.body.first_name + ' ' + req.body.last_name + ' ' + req.body.middle_name
-            let userInfo = await UserInfoService.create({
+            let fullName = req.body.first_name 
+                    + ' ' + req.body.last_name 
+                    + ' ' + (req.body.middle_name || '')
+
+            await UserInfoService.create({
                 user_id: user.id,
                 full_name: fullName,
                 email: req.body.email,
@@ -41,16 +30,7 @@ class UserController {
                 sex: req.body.sex,
             })
 
-            await PhoneService.create({
-                user_id: user.id,
-                phone: req.body.phone,
-            })
-
-            console.log(JSON.stringify(userInfo))
-
-            await user.setRoles(1).then(sc=>{
-                UserRoleService.create(sc)
-            })*/
+            UserRoleService.create({user_id: user.id, role_id: 1})
 
             return res.status(201)
                 .json(
@@ -86,7 +66,8 @@ class UserController {
 
     async readById(req, res, next) {
         try {
-            let user = UserService.findById(req.params.id)
+            let user = await UserService.readById(req.params.id)
+            
             return res.status(200)
                 .json(
                     helpers.ResponseFormat.build(
@@ -103,10 +84,30 @@ class UserController {
     
     async update(req, res, next) {
         try {
-            let user = await UserService.update(req.params.id, {
-                login: req.body.username,
+
+            let user = await UserService.update({
                 password: req.body.password,
             })
+
+            await PhoneService.update({
+                user_id: user.id, 
+                phone: req.body.phone
+            })
+
+            let fullName = req.body.first_name 
+                    + ' ' + req.body.last_name 
+                    + ' ' + (req.body.middle_name || '')
+
+            await UserInfoService.create({
+                user_id: user.id,
+                full_name: fullName,
+                email: req.body.email,
+                birthday: req.body.birthday,
+                sex: req.body.sex,
+            })
+
+            UserRoleService.create({user_id: user.id, role_id: 1})
+
             return res.status(200)
                 .json(
                     helpers.ResponseFormat.build(
@@ -121,9 +122,9 @@ class UserController {
         }
     }
     
-    async destroy (req, res, next) {
+    async destroy(req, res, next) {
         try {
-            await UserService.delete(req.params.id)
+            await UserService.destroy(req.params.id)
             return res.status(200)
                 .json(
                     helpers.ResponseFormat.build(

@@ -51,7 +51,8 @@ export default (sequelize, DataTypes) => {
             through: models.curator,
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            otherKey: 'teacher_id'
+            foreignKey: 'teacher_id',
+            otherKey: 'group_id'
         })
         Teacher.belongsTo(models.user, {
             onDelete: 'restrict',

@@ -16,17 +16,11 @@ export default (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'user',
-
-        name: {
-            simple: 'user',
-            plural: 'users',
-        }
     })
 
     User.associate = function(models) {
@@ -35,16 +29,19 @@ export default (sequelize, DataTypes) => {
             onDelete: 'restrict',
             onUpdate: 'restrict',
             foreignKey: 'user_id',
-            otherKey: 'role_id'
+            otherKey: 'role_id',
+            as: 'roles'
         })        
         User.hasMany(models.phone, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            as: 'phones',
             foreignKey: 'user_id'
         })
         User.hasOne(models.user_info, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            as: 'user_info',
             foreignKey: 'user_id'
         })
         User.hasOne(models.student, { 

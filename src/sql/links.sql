@@ -147,14 +147,14 @@ ALTER TABLE subgroups
 
 
 /* таблица подгруппа и студент */
-ALTER TABLE subgroups_students
+ALTER TABLE students_subgroups
 
-	ADD CONSTRAINT FK_subgroups_students_to_subgroups FOREIGN KEY(subgroup_id)
+	ADD CONSTRAINT FK_students_subgroups_to_subgroups FOREIGN KEY(subgroup_id)
 		REFERENCES subgroups(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
-	ADD CONSTRAINT FK_subgroups_students_to_students FOREIGN KEY(student_id)
+	ADD CONSTRAINT FK_students_subgroups_to_students FOREIGN KEY(student_id)
 		REFERENCES students(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT

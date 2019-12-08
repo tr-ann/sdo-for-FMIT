@@ -6,9 +6,6 @@ const config    = configs[env]
 const sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
     dialect: config.dialect,
-    define: {
-        underscored: true
-    },
     logging: false
 })
 

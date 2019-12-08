@@ -139,12 +139,15 @@ CREATE TABLE `resources` (
 /* Таблица `информация о пользователе` */
 DROP TABLE IF EXISTS `users_info`;
 CREATE TABLE `users_info` (
-    `user_id`               INT         PRIMARY KEY,
+    `id`                    INT         PRIMARY KEY auto_increment,
+    `user_id`               INT         UNIQUE,
+    `full_name`             VARCHAR(255)NOT NULL,
+    `sex`                   VARCHAR(2)  NOT NULL,
     `email`                 VARCHAR(255)NOT NULL,
     `description`           TEXT,
     `birthday`              DATETIME    NOT NULL,
-    `city`                  VARCHAR(30) NOT NULL,
-    `address`               TEXT        NOT NULL,
+    `city`                  VARCHAR(30),
+    `address`               TEXT       ,
     `photo_id`              INT         ,
     `deleted_date`          DATETIME         
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -219,8 +222,8 @@ CREATE TABLE `subgroups` (
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
 /* Таблица `подгруппа и студент` */
-DROP TABLE IF EXISTS `subgroups_students`;
-CREATE TABLE `subgroups_students` (
+DROP TABLE IF EXISTS `students_subgroups`;
+CREATE TABLE `students_subgroups` (
     `id`                    INT auto_increment      PRIMARY KEY,
     `student_id`            INT         ,
     `subgroup_id`           INT         ,
