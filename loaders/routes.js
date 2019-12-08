@@ -23,9 +23,9 @@ export default (app) => {
     )
 
     //console.log('routes')
-    app.use('/users', isAutenticated, usersRouters.UserRouter)
+    app.use('/users', usersRouters.UserRouter)
     app.use('/phones', isAutenticated, usersRouters.PhoneRouter)
-    app.use('/roles', isAutenticated, usersRouters.RoleRouter)
+    app.use('/roles', usersRouters.RoleRouter)
     //app.use('/usersInfo', isAutenticated, usersRouters.UserInfoRouter)  ????????
     app.use('/urls', isAutenticated, usersRouters.UrlRouter)
     

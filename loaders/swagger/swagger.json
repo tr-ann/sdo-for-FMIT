@@ -887,17 +887,5 @@
             "url":"https:/localhost",
             "description":"Server to test api"
         }
-    ],
-    "paths": {
-        
-    },
-    "tags": [
-
-    ],
-    "components": {
-
-    },
-    "security": [
-
     ]
 }

@@ -1,19 +1,29 @@
-const request = require("supertest")
+//import 'babel-polyfill'
+/*const request = require("supertest")
 const assert = require("assert")
+const bcrypt = require('bcrypt')
 
 var server = require("../bin/www").server
 
 describe("Express Tests", function() {
 
-    it("should return Hello Test", function(done) {
+    it("should return new user", function(done) {
          
         request(server)
-            .get("/")
-            .expect("Hello Test")
+            .post("/users")
+            .send({
+                login: 'user1', 
+                password: 'user1'
+            })
+            .expect({
+                id: 1,
+                login: 'user1',
+                password: bcrypt.hash('user1')
+            })
             .end(done)
     })
- 
-    it("should return NotFound with status 404", function(done) {
+    
+    /*it("should return NotFound with status 404", function(done) {
          
         request(server)
             .get("/error")
@@ -31,4 +41,4 @@ describe("Express Tests", function() {
             })
             .end(done)
     })
-})
+})*/
