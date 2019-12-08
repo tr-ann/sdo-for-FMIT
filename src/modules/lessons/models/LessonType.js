@@ -10,12 +10,7 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
         },
     }, {
-        name: {
-            singular: 'lessonType',
-            plural: 'lessonTypes',
-        },
         sequelize,
-        underscored: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: "deleted_date",
@@ -28,8 +23,9 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'lesson_type_id',
+            as: 'lessons',
         })
     }
 
-    return LessonType;
-};
+    return LessonType
+}

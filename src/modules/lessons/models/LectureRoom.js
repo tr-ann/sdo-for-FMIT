@@ -13,19 +13,10 @@ export default (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.INTEGER,
         },
-        room_type_id: {
-            type: DataTypes.INTEGER,
-        },
-        building_id: {
-            type: DataTypes.INTEGER,
-        },
+        room_type_id: DataTypes.INTEGER,
+        building_id: DataTypes.INTEGER,
     }, {
-        name: {
-            singular: 'lectureRoom',
-            plural: 'lectureRooms',
-        },
         sequelize,
-        underscored: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: "deleted_date",
@@ -38,18 +29,21 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'room_type_id',
+            as: 'room_type',
         })
         LectureRoom.belongsTo(models.building, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'building_id',
+            as: 'building',
         })
         LectureRoom.hasMany(models.lesson, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'lecture_room_id',
+            as: 'lessons',
         })
     }
 
-    return LectureRoom;
-};
+    return LectureRoom
+}

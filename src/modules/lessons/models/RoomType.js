@@ -10,12 +10,7 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
         },
     }, {
-        name: {
-            singular: 'roomType',
-            plural: 'roomTypes',
-        },
         sequelize,
-        underscored: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: "deleted_date",
@@ -28,8 +23,9 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'room_type_id',
+            as: 'lecture_rooms',
         })
     }
 
-    return RoomType;
-};
+    return RoomType
+}

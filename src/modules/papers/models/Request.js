@@ -18,28 +18,13 @@ export default (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: new Date(),
         },
-        update_date: {
-            type: DataTypes.DATEONLY,
-        },
-        description: {
-            type: DataTypes.TEXT,
-        },
-        student_id: {
-            type: DataTypes.INTEGER,
-        },
-        teacher_id: {
-            type: DataTypes.INTEGER,
-        },
-        status_id: {
-            type: DataTypes.INTEGER,
-        }
+        update_date: DataTypes.DATEONLY,
+        description: DataTypes.TEXT,
+        student_id: DataTypes.INTEGER,
+        teacher_id: DataTypes.INTEGER,
+        status_id: DataTypes.INTEGER,
     }, {
-        name: {
-            singular: 'request',
-            plural: 'requests',
-        },
         sequelize,
-        underscored: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: "deleted_date",
@@ -52,18 +37,21 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'student_id',
+            as: 'student',
         })
         Request.belongsTo(models.teacher, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'teacher_id',
+            as: 'teacher',
         })
         Request.belongsTo(models.status, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'status_id',
+            as: 'status',
         })
     }
 
-    return Request;
-};
+    return Request
+}
