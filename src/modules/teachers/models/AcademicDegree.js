@@ -11,16 +11,11 @@ export default (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'academic_degree',
-        name: {
-            simple: 'academicDegree',
-            plural: 'academicDegrees',
-        }
     })
 
     AcademicDegree.associate = function (models) {
@@ -28,6 +23,7 @@ export default (sequelize, DataTypes) => {
             onDelete: 'restrict',
             onUpdate: 'restrict',
             foreignKey: 'academic_degree_id',
+            as: 'teachers',
         })
     }
 

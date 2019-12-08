@@ -11,23 +11,19 @@ export default (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'position',
-        name: {
-            simple: 'position',
-            plural: 'positions',
-        }
     })
     
     Position.associate = function (models) {
         Position.hasMany(models.teacher, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'position_id'
+            foreignKey: 'position_id',
+            as: teachers,
         })
     }
 

@@ -26,19 +26,11 @@ export default (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'student',
-
-        // freezeTableName: 'students',    
-
-        name: {
-            simple: 'student',
-            plural: 'students',
-        }
     })
 
     Student.associate = function (models) {
@@ -46,39 +38,46 @@ export default (sequelize, DataTypes) => {
             through: models.student_subgroup,
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            otherKey: 'student_id'
+            otherKey: 'student_id',
+            as: 'subgroups',
         })
 
         Student.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'user_id'
+            foreignKey: 'user_id',
+            as: 'user',
         })
         Student.belongsTo(models.group, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'group_id'
+            foreignKey: 'group_id',
+            as: 'group',
         })
 
         Student.hasMany(models.graduation_paper, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'student_id'
+            foreignKey: 'student_id',
+            as: 'graduation_papers',
         })
         Student.hasMany(models.term_paper, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'student_id'
+            foreignKey: 'student_id',
+            as: 'term_papers',
         })
         Student.hasMany(models.request, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'student_id'
+            foreignKey: 'student_id',
+            as: 'requests',
         })
         Student.hasMany(models.practice, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'student_id'
+            foreignKey: 'student_id',
+            as: 'practices',
         })
     }
 

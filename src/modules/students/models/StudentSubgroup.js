@@ -4,28 +4,34 @@ export default (sequelize, DataTypes) => {
 
     class StudentSubgroup extends Model {}
 
-    StudentSubgroup.init({}, {
+    StudentSubgroup.init({
+        student_id: {
+            allowNull: false,
+            type: DataTypes.INTEGER,
+        },
+        subgroup_id: {
+            allowNull: false,
+            type: DataTypes.INTEGER
+        }
+    }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'student_subgroup',
-        freezeTableName: 'students_subgroups',
-        name: {
-            simple: 'studentSubgroup',
-            plural: 'studentSubgroups',
-        }
+        tableName: 'students_subgroups',
     })
     StudentSubgroup.associate = function (models) {
         StudentSubgroup.belongsTo(models.student, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            as: 'students',
         })
         StudentSubgroup.belongsTo(models.subgroup, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            as: 'subgroups',
         })
     }
 

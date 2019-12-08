@@ -24,13 +24,15 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             foreignKey: 'role_id',
             otherKey: 'url_id',
+            as: 'urls',
         })
         Role.belongsToMany(models.user, {
             through: models.user_role,
             onDelete: 'restrict',
             onUpdate: 'restrict',
             foreignKey: 'role_id',
-            otherKey: 'user_id'
+            otherKey: 'user_id',
+            as: 'roles',
         })
     };
     

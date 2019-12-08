@@ -23,7 +23,8 @@ export default (sequelize, DataTypes) => {
             onDelete: 'restrict',
             onUpdate: 'restrict',
             foreignKey: 'url_id',
-            otherKey: 'role_id'
+            otherKey: 'role_id',
+            as: 'roles',
         })
     };
     
