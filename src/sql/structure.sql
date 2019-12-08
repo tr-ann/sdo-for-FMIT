@@ -177,7 +177,7 @@ CREATE TABLE `faculties` (
 /* Таблица `информация о факультете` */
 DROP TABLE IF EXISTS `info_faculties`;
 CREATE TABLE `info_faculties` (
-    `id`                    INT    PRIMARY KEY,
+    `id`                    INT  auto_increment  PRIMARY KEY,
     `faculty_id`            INT,
     `description`           TEXT        ,
     `phone_number`          VARCHAR(20) NOT NULL UNIQUE,
