@@ -54,8 +54,8 @@ export default (sequelize, DataTypes) => {
             through: models.curator,
             onUpdate: 'restrict',
             onDelete: 'restrict',
-            foreignKey: 'teacher_id',
-            otherKey: 'group_id'
+            foreignKey: 'group_id',
+            otherKey: 'teacher_id'
         })
         Group.hasMany(models.student, {
             onUpdate: 'restrict',
