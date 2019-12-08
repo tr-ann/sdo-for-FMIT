@@ -377,7 +377,7 @@ CREATE TABLE `practices` (
 DROP TABLE IF EXISTS `urls`;
 CREATE TABLE `urls` (
     `id`             INT auto_increment      PRIMARY KEY,
-    `url`            INT   
+    `url`            VARCHAR(248)   
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
 DROP TABLE IF EXISTS `roles_urls`;
