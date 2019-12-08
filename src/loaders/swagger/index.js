@@ -1,9 +1,9 @@
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from './swagger.json'
-import lessonsDocument from './../../microservices/lessons/swagger'
-import usersDoc from '../../microservices/users/swagger/user.json'
+import lessonsDocument from './../../modules/lessons/swagger'
+import usersDoc from '../../modules/users/swagger/user.json'
 
-// import papersRouters from './../../microservices/papers/routers'
+// import papersRouters from './../../modules/papers/routers'
 
 const env = process.env.NODE_ENV || 'dev'
 
