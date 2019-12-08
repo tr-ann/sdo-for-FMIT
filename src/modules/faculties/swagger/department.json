@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.1",
     "info": {
-        "title": "Pathes to work with departments",
+        "title": "Paths to work with departments",
         "description": "Here is a description of the paths to the departments API.",
         "contact": {
             "email": "apiteam@swagger.io"
@@ -46,18 +46,18 @@
                 }
             },
             "post": {
-                "summary": "Создание аудитории",
-                "operationId": "create_lecture_room",
+                "summary": "Add new department",
+                "operationId": "create_department",
                 "tags": [
                     "departments"
                 ],
                 "requestBody": {
-                    "description": "Тело запроса для создания аудитории",
+                    "description": "Request body for creating a department",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LectureRoom"
+                                "$ref": "#/components/schemas/Department"
                             }
                         }
                     }
@@ -77,8 +77,8 @@
         },
         "/departments/{id}": {
             "get": {
-                "summary": "Получение информации об аудитории",
-                "operationId": "lecture_room_by_id",
+                "summary": "Get department by id",
+                "operationId": "department_by_id",
                 "tags": [
                     "departments"
                 ],
@@ -89,11 +89,11 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "LectureRoom read successfully",
+                        "description": "Department read successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ReadLectureRoom"
+                                    "$ref": "#/components/schemas/ReadDepartment"
                                 }
                             }
                         }
@@ -110,8 +110,8 @@
                 }
             },
             "post": {
-                "summary": "Обновление информации об аудитории",
-                "operationId": "update_lecture_room",
+                "summary": "Update department by id",
+                "operationId": "update_department",
                 "tags": [
                     "departments"
                 ],
@@ -121,12 +121,12 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "Тело запроса для обновления аудитории",
+                    "description": "Request body for department update",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LectureRoom"
+                                "$ref": "#/components/schemas/Department"
                             }
                         }
                     }
@@ -147,8 +147,8 @@
                 }
             },
             "delete": {
-                "summary": "Удаление аудитории",
-                "operationId": "delete_lecture_room",
+                "summary": "Delete department",
+                "operationId": "delete_department",
                 "tags": [
                     "departments"
                 ],
@@ -178,14 +178,14 @@
         "parameters": {
             "id": {
                 "name": "id",
-                "description": "Идентификатор аудитории",
+                "description": "Department id",
                 "required": true,
                 "in": "path",
                 "schema": {
                     "type": "integer",
                     "format": "int32",
                     "minimum": 0,
-                    "example": 5
+                    "example": 42
                 }
             }
         },
@@ -199,7 +199,7 @@
                         },
                         "example": {
                             "code": 401,
-                            "message": "Требуется авторизация"
+                            "message": "Authorization required"
                         }
                     }
                 }
@@ -213,7 +213,7 @@
                         },
                         "example": {
                             "code": 404,
-                            "message": "Объект не найден"
+                            "message": "Object not found"
                         }
                     }
                 }
@@ -230,46 +230,50 @@
             }
         },
         "schemas": {
-            "LectureRoom": {
+            "Department": {
                 "type": "object",
                 "required": [
-                    "number",
-                    "seats_count",
-                    "room_type",
-                    "building"
+                    "name",
+                    "faculty",
+                    "owner",
+                    "phone",
+                    "room"
                 ],
                 "properties": {
-                    "number": {
-                        "description": "Номер аудитории",
-                        "type": "integer",
-                        "format": "int32",
-                        "minimum": 0,
-                        "example": 206
+                    "name": {
+                        "description": "department name",
+                        "type": "string",
+                        "example": "Department of applied and system programming"
                     },
-                    "seats_count": {
-                        "description": "Количество мест",
+                    "faculty_id": {
+                        "description": "faculty of the department",
                         "type": "integer",
                         "format": "int32",
                         "minimum": 0,
-                        "example": 300
+                        "example": 42
                     },
-                    "room_type_id": {
-                        "description": "Идентификатор типа аудитории",
+                    "owner_id": {
+                        "description": "owner of the department",
                         "type": "integer",
                         "format": "int32",
                         "minimum": 0,
-                        "example": 1
+                        "example": 42
                     },
-                    "building_id": {
-                        "description": "Идентификатор корпуса",
+                    "phone": {
+                        "description": "phone of the department",
+                        "type": "string",
+                        "example": "+37529123456"
+                    },
+                    "room_id": {
+                        "description": "audience of the department",
                         "type": "integer",
                         "format": "int32",
                         "minimum": 0,
-                        "example": 0
+                        "example": 42
                     }
                 }
             },
-            "ReadLectureRoom": {
+            "ReadDepartment": {
                 "allOf": [
                     {
                         "type": "object",
@@ -278,23 +282,23 @@
                         ],
                         "properties": {
                             "id": {
-                                "description": "Идентификатор аудитории",
+                                "description": "department id",
                                 "type": "integer",
                                 "format": "int32",
                                 "minimum": 0,
-                                "example": 207
+                                "example": 42
                             }
                         }
                     },
                     {
-                        "$ref": "#/components/schemas/LectureRoom"
+                        "$ref": "#/components/schemas/Department"
                     }
                 ]
             },
-            "ReadLectureRooms": {
+            "ReadDepartments": {
                 "type": "array",
                 "items": {
-                    "$ref": "#/components/schemas/ReadLectureRoom"
+                    "$ref": "#/components/schemas/ReadDepartment"
                 }
             },
             "Error": {

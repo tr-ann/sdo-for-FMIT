@@ -6,7 +6,7 @@ export default (sequelize, DataTypes) => {
     Url.init({
         url: {
             allowNull: false,
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
         },
     }, {
         sequelize,
