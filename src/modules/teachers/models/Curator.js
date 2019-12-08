@@ -15,28 +15,25 @@ export default (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'curator',
-        name: {
-            simple: 'carator',
-            plural: 'curators',
-        }
     })
 
     Curator.associate = function (models) {
         Curator.belongsTo(models.teacher, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'teacher_id'
+            foreignKey: 'teacher_id',
+            as: 'teachers',
         })
         Curator.belongsTo(models.group, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'group_id'
+            foreignKey: 'group_id',
+            as: 'groups',
         })
     }
     

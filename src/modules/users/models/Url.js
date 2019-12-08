@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             foreignKey: 'url_id',
             otherKey: 'role_id',
-            as: 'roles'
+            as: 'roles',
         })
     };
     
