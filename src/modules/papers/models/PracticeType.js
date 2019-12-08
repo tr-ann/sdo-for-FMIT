@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'practice_type_id',
-            as: 'practices'
+            as: 'practices',
         })
     }
 
