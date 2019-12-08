@@ -21,31 +21,14 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.DATEONLY,
             allowNull: false,
         },
-        description: {
-            type: DataTypes.TEXT,
-        },
-        student_id: {
-            type: DataTypes.INTEGER,
-        },
-        organization_id: {
-            type: DataTypes.INTEGER,
-        },
-        status_id: {
-            type: DataTypes.INTEGER,
-        },
-        practice_type_id: {
-            type: DataTypes.INTEGER,
-        },
-        resource_id: {
-            type: DataTypes.INTEGER,
-        }
+        description: DataTypes.TEXT,
+        student_id: DataTypes.INTEGER,
+        organization_id: DataTypes.INTEGER,
+        status_id: DataTypes.INTEGER,
+        practice_type_id: DataTypes.INTEGER,
+        resource_id: DataTypes.INTEGER,
     }, {
-        name: {
-            singular: 'practice',
-            plural: 'practices',
-        },
         sequelize,
-        underscored: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: "deleted_date",
@@ -58,28 +41,33 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'student_id',
+            as: 'student',
         })
         Practice.belongsTo(models.organization, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'organization_id',
+            as: 'organization',
         })
         Practice.belongsTo(models.status, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'status_id',
+            as: 'status',
         })
         Practice.belongsTo(models.practice_type, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'practice_type_id',
+            as: 'practice_type',
         })
         Practice.belongsTo(models.resource, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'resource_id',
+            as: 'resource',
         })
     }
 
-    return Practice;
-};
+    return Practice
+}

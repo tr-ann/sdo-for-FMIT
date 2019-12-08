@@ -4,16 +4,16 @@ import NotFound from '../../../classes/errors/4xx/notFound'
 class DepartmentService {
 
     async create(department) {
-        return await this._repository.create(department)
+        return await DepartmentRepository.create(department)
     }
 
     async readAll() {
-        return await this._repository.readAll()
+        return await DepartmentRepository.readAll()
     }
 
     async readById(id) {
 
-        let department = await this._repository.readById(id)
+        let department = await DepartmentRepository.readById(id)
 
         if (!department) {
             throw new NotFound(`Department not found`)
@@ -24,24 +24,24 @@ class DepartmentService {
 
     async update(id, department) {
 
-        let nDepartment = await this._repository.readById(id)
+        let nDepartment = await DepartmentRepository.readById(id)
         
         if (!nDepartment) {
             throw new NotFound(`Department not found`)
         }
 
-        return await this._repository.update(department)
+        return await DepartmentRepository.update(id, department)
     }
 
     async destroy(id) {
 
-        let department = await this._repository.readById(id)
+        let department = await DepartmentRepository.readById(id)
         
         if (!department) {
             throw new NotFound(`Department not found`)
         }
         
-        return await this._repository.destroy(id)
+        return await DepartmentRepository.destroy(id)
     }
 }
 

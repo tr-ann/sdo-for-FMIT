@@ -4,16 +4,16 @@ import NotFound from '../../../classes/errors/4xx/notFound'
 class SpecialtyService {
 
     async create(specialty) {
-        return await this._repository.create(specialty)
+        return await SpecialtyRepository.create(specialty)
     }
 
     async readAll() {
-        return await this._repository.readAll()
+        return await SpecialtyRepository.readAll()
     }
 
     async readById(id) {
 
-        let specialty = await this._repository.readById(id)
+        let specialty = await SpecialtyRepository.readById(id)
 
         if (!specialty) {
             throw new NotFound(`Specialty not found`)
@@ -24,24 +24,24 @@ class SpecialtyService {
 
     async update(id, specialty) {
 
-        let nSpecialty = await this._repository.readById(id)
+        let nSpecialty = await SpecialtyRepository.readById(id)
         
         if (!nSpecialty) {
             throw new NotFound(`Specialty not found`)
         }
 
-        return await this._repository.update(specialty)
+        return await SpecialtyRepository.update(id, specialty)
     }
 
     async destroy(id) {
 
-        let specialty = await this._repository.readById(id)
+        let specialty = await SpecialtyRepository.readById(id)
         
         if (!specialty) {
             throw new NotFound(`Specialty not found`)
         }
         
-        return await this._repository.destroy(id)
+        return await SpecialtyRepository.destroy(id)
     }
 }
 

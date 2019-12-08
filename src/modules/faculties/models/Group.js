@@ -38,31 +38,43 @@ export default (sequelize, DataTypes) => {
         Group.belongsTo(models.specialty, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'specialty_id',
+            as: 'specialty'
         })
         Group.belongsTo(models.study_mode, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'study_mode_id',
+            as: 'study_mode'
         })
         Group.belongsTo(models.faculty, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'faculty_id',
+            as: 'faculty'
         })
         Group.belongsToMany(models.teacher, {
             through: models.curator,
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'group_id',
+            otherKey: 'teacher_id',
+            as: 'teachers'
         })
         Group.hasMany(models.student, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'group_id'
         })
         Group.hasMany(models.subgroup, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'group_id'
         })
         Group.hasMany(models.lesson, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'group_id'
         })
     };
     return Group;

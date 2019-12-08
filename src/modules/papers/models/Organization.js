@@ -11,12 +11,7 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING(90),
         },
     }, {
-        name: {
-            singular: 'organization',
-            plural: 'organizations',
-        },
         sequelize,
-        underscored: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: "deleted_date",
@@ -29,8 +24,9 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'organization_id',
+            as: 'practices',
         })
     }
 
-    return Organization;
-};
+    return Organization
+}

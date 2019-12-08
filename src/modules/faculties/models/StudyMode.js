@@ -26,6 +26,7 @@ export default (sequelize, DataTypes) => {
         StudyMode.hasMany(models.group, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'study_mode_id'
         })
     };
     return StudyMode;

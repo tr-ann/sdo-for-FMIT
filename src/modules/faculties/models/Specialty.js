@@ -35,6 +35,7 @@ export default (sequelize, DataTypes) => {
         Specialty.hasMany(models.group, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'specialty_id'
         })
     };
     return Specialty;

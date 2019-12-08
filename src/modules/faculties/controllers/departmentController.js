@@ -3,14 +3,14 @@ import helpers from '../../../helpers'
 
 class departmentController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let department = await DepartmentService.create({
                 name: req.body.name,
                 faculty_id: req.body.faculty_id,
                 owner_id: req.body.owner_id,
                 phone: req.body.phone,
-                room_id: req.body.room_id,
+                lecture_room_id: req.body.lecture_room_id,
             })
             
             return res.status(201).json(helpers.ResponseFormat.build(
@@ -20,11 +20,11 @@ class departmentController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let departments = await DepartmentService.readAll()
             
@@ -35,11 +35,11 @@ class departmentController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let department = await DepartmentService.readById(req.params.id)
 
@@ -50,18 +50,18 @@ class departmentController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let department = await DepartmentService.update(req.params.id, {
                 name: req.body.name,
                 faculty_id: req.body.faculty_id,
                 owner_id: req.body.owner_id,
                 phone: req.body.phone,
-                room_id: req.body.room_id,
+                lecture_room_id: req.body.lecture_room_id,
             })
 
             return res.status(200).json(helpers.ResponseFormat.build(
@@ -71,11 +71,11 @@ class departmentController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await DepartmentService.destroy(req.params.id)
 
@@ -86,7 +86,7 @@ class departmentController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+             next(error)
         }
     }
 }

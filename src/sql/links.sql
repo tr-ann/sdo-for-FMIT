@@ -4,7 +4,7 @@ USE `sdo_db`;
 /* таблица аудитории */
 ALTER TABLE lecture_rooms
 
-    ADD CONSTRAINT FK_lecture_rooms_to_room_types FOREIGN KEY (type_id)    
+    ADD CONSTRAINT FK_lecture_rooms_to_room_types FOREIGN KEY (room_type_id)    
 		REFERENCES room_types(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
@@ -24,7 +24,7 @@ ALTER TABLE departments
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
-	ADD CONSTRAINT FK_departments_to_lecture_rooms FOREIGN KEY(room_id)
+	ADD CONSTRAINT FK_departments_to_lecture_rooms FOREIGN KEY(lecture_room_id)
 		REFERENCES lecture_rooms(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
@@ -109,7 +109,7 @@ ALTER TABLE teachers
 /* таблица информация о факультете */
 ALTER TABLE info_faculties
 
-	ADD CONSTRAINT FK_info_faculties_to_faculties FOREIGN KEY(id)
+	ADD CONSTRAINT FK_info_faculties_to_faculties FOREIGN KEY(faculty_id)
 		REFERENCES faculties(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
@@ -194,12 +194,12 @@ ALTER TABLE lessons
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
-	ADD CONSTRAINT FK_lessons_to_type FOREIGN KEY(type_id)
+	ADD CONSTRAINT FK_lessons_to_lesson_types FOREIGN KEY(lesson_type_id)
 		REFERENCES lesson_types(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
                     
-	ADD CONSTRAINT FK_lessons_to_lecture_rooms FOREIGN KEY(room_id)
+	ADD CONSTRAINT FK_lessons_to_lecture_rooms FOREIGN KEY(lecture_room_id)
 		REFERENCES lecture_rooms(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
@@ -324,7 +324,7 @@ ALTER TABLE practices
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
-	ADD CONSTRAINT FK_practices_to_practice_types FOREIGN KEY(type_id)
+	ADD CONSTRAINT FK_practices_to_practice_types FOREIGN KEY(practice_type_id)
 		REFERENCES practice_types(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT

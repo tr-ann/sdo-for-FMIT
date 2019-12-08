@@ -26,12 +26,7 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.TIME,
         },
     }, {
-        name: {
-            singular: 'lessonNumber',
-            plural: 'lessonNumbers',
-        },
         sequelize,
-        underscored: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: "deleted_date",
@@ -44,8 +39,9 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             onDelete: 'restrict',
             foreignKey: 'lesson_number_id',
+            as: 'lessons',
         })
     }
 
-    return LessonNumber;
-};
+    return LessonNumber
+}

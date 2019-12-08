@@ -30,10 +30,12 @@ export default (sequelize, DataTypes) => {
         Subgroup.belongsTo(models.group, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'group_id'
         })
         Subgroup.hasMany(models.lesson, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
+            foreignKey: 'subgroup_id'
         })
     };
     return Subgroup;
