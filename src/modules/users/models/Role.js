@@ -10,16 +10,11 @@ export default (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'role',
-        name: {
-            simple: 'role',
-            plural: 'roles',
-        }
     });
 
     Role.associate = function (models) {

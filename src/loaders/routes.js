@@ -22,7 +22,7 @@ export default (app) => {
          })*/
     )
 
-    app.use('/users', usersRouters.UserRouter)
+    app.use('/users', isAutenticated, usersRouters.UserRouter)
 
     
     app.use('/phones', isAutenticated, usersRouters.PhoneRouter)

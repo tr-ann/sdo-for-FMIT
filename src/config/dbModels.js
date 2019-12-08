@@ -1,4 +1,3 @@
-//import { sequelize, connect } from './sequelize'
 import users from '../modules/users/models'
 import teachers from '../modules/teachers/models'
 import students from '../modules/students/models'
