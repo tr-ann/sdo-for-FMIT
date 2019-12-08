@@ -3,7 +3,7 @@ import core from '../../../core'
 
 class urlController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             let url = await UrlService.create({
                 url:     req.body.url,
@@ -16,11 +16,11 @@ class urlController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let urls = await UrlService.readAll()
             
@@ -31,11 +31,11 @@ class urlController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let url = await UrlService.readById(req.params.id)
 
@@ -46,11 +46,11 @@ class urlController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let url = await UrlService.update(req.params.id, {
                 url:     req.body.url,
@@ -63,11 +63,11 @@ class urlController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async destroy(req, res) {
+    async destroy(req, res, next) {
         try {
             await UrlService.destroy(req.params.id)
 
@@ -78,7 +78,7 @@ class urlController {
                 "success"
             ))
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 }

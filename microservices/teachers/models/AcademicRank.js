@@ -27,6 +27,7 @@ export default (sequelize, DataTypes) => {
         AcademicRank.hasMany(models.teacher, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'academic_rank_id'
         })
     }
 

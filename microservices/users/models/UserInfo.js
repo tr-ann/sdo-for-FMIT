@@ -4,6 +4,10 @@ export default (sequelize, DataTypes) => {
     class UserInfo extends Model {}
 
     UserInfo.init({
+        user_id: {
+            allowNull: false,
+            type: DataTypes.INTEGER,
+        },
         full_name: {
             allowNull: false,
             type: DataTypes.STRING(255),
@@ -12,19 +16,12 @@ export default (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.STRING(255),
             validate: {
-                isMail: true,
+                isEmail: true,
             }
         },
         sex: {
             allowNull: false,
             type: DataTypes.STRING(10),
-            validate: {
-                customValidator(value) {
-                    if (value !== 'м' && value !== 'ж') {
-                      throw new Error('sex error');
-                    }
-                }
-           }
         },
         description: {
             allowNull: true,
@@ -42,6 +39,10 @@ export default (sequelize, DataTypes) => {
             allowNull: true,
             type: DataTypes.STRING(255),
         },
+        resource_id: {
+            allowNull: true,
+            type: DataTypes.INTEGER,
+        }
     }, {
         sequelize,
         underscope: true,
@@ -61,10 +62,12 @@ export default (sequelize, DataTypes) => {
         UserInfo.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'user_id'
         })
         UserInfo.belongsTo(models.resource, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'resource_id'
         })
     }
 

@@ -5,7 +5,7 @@ import teachersRouters from '../microservices/teachers/routers'
 import studentsRouters from '../microservices/students/routers'
 import facultiesRouters from '../microservices/faculties/routers'
 
-import { passport, isAutenticated } from '../passport'
+import { passport, login, logout, isAutenticated } from './passport'
 
 export default (app) => {
 
@@ -15,18 +15,18 @@ export default (app) => {
             : next() //render('')
     })
 
-    app.post('/login', 
-        passport.authenticate('local', {
-            successRedirect: '/home',
-            failureRedirect: '/login',
-        })
+    app.post('/login', login
+        /*{
+             successRedirect: '/home',
+             failureRedirect: '/login',
+         })*/
     )
 
-    //console.log('routes')
     app.use('/users', usersRouters.UserRouter)
+
+    
     app.use('/phones', isAutenticated, usersRouters.PhoneRouter)
     app.use('/roles', usersRouters.RoleRouter)
-    //app.use('/usersInfo', isAutenticated, usersRouters.UserInfoRouter)  ????????
     app.use('/urls', isAutenticated, usersRouters.UrlRouter)
     
     app.use('/teachers', isAutenticated, teachersRouters.TeacherRouter)

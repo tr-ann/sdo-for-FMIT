@@ -1,5 +1,8 @@
 import { Router } from 'express'
 import userController from '../controllers/UserController'
+import UserService from '../services/UserService'
+
+import core from '../../../core'
 
 const router = Router()
 

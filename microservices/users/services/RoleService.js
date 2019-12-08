@@ -26,6 +26,10 @@ class RoleService {
         return await RoleRepository.update(id, role)
     }
 
+    async get(options) {
+        return await RoleRepository.get(options)
+    }
+
     async destroy(id) {
         await RoleRepository.destroy(id)
     }

@@ -140,8 +140,9 @@ CREATE TABLE `resources` (
 DROP TABLE IF EXISTS `users_info`;
 CREATE TABLE `users_info` (
     `user_id`               INT         PRIMARY KEY,
+    `email`                 VARCHAR(255)NOT NULL,
     `description`           TEXT,
-    `birthday`              DATETIME        NOT NULL,
+    `birthday`              DATETIME    NOT NULL,
     `city`                  VARCHAR(30) NOT NULL,
     `address`               TEXT        NOT NULL,
     `photo_id`              INT         ,
