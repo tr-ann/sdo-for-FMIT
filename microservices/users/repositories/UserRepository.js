@@ -21,20 +21,20 @@ class UserRepository {
     async readById(id) {
         return await db.user.findByPk(id, {
             attributes: ['id', 'login'],
-            include: [   /* ?? */
+            /*include: [    ?? 
                 { 
                     model: db.model_info,
                     attributes: [ 'id', 'full_name', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
                 },
                 {
                     model: db.role,
-                    attributes: [ 'id', 'name' ]
+                    attributes: [ 'id' ]
                 },
                 {
                     model: db.phone,
-                    attributes: [ 'phone' ],
+                    attributes: [ 'id', 'phone' ],
                 }
-            ]
+            ]*/
         })
     }
 
@@ -44,6 +44,10 @@ class UserRepository {
 
     async create(user) {
         return await db.user.create(user)
+    }
+
+    async create(user, option) {
+        return await db.user.create(user, option)
     }
 
     async update(id, user) {

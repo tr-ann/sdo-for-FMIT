@@ -4,7 +4,7 @@ const ResponseFormat = require('../../../core').ResponseFormat;
 
 class PhoneController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const phone = await PhoneService.create({
                 phone: req.body.phone
@@ -19,11 +19,11 @@ class PhoneController {
                     )
                 );
         } catch (error) {
-            return res.status(error.status).json(error);
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let phones = await PhoneService.all()
             return res.status(200)
@@ -36,11 +36,11 @@ class PhoneController {
                     )
                 )
         } catch(error) {
-            return res.status(error.status).json(error)
+           next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let phone = PhoneService.findById(req.params.id)
             return res.status(200)
@@ -52,12 +52,12 @@ class PhoneController {
                         "success"
                     )
                 )
-    } catch (error) {
-            return res.status(error.status).json(error)
+        } catch (error) {
+            next(error)
         }
     }
     
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let phone = await PhoneService.update(req.params.id, {
                 phone: req.body.phone,
@@ -72,11 +72,11 @@ class PhoneController {
                     )
                 )
         } catch(error) {
-             res.status(error.status).json(error)
+            next(error)
         }
     }
     
-    async destroy (req, res) {
+    async destroy (req, res, next) {
         try {
             await PhoneService.delete(req.params.id)
             return res.status(200)
@@ -89,7 +89,7 @@ class PhoneController {
                     )
                 )
         } catch (error) { 
-            res.status(error.status).json(error)
+            next(error)
         }
     }
 }

@@ -4,7 +4,7 @@ import core from '../../../core'
 
 class RoleController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const role = await RoleService.create({
                 name: req.body.name
@@ -19,11 +19,11 @@ class RoleController {
                     )
                 );
         } catch (error) {
-            return res.status(error.status).json(error);
+            return next(error);
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let roles = await RoleService.readAll()
             return res.status(200)
@@ -36,11 +36,11 @@ class RoleController {
                     )
                 )
         } catch(error) {
-            return res.status(error.status).json(error)
+            return next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let role = RoleService.findById(req.params.id)
             return res.status(200)
@@ -53,11 +53,11 @@ class RoleController {
                     )
                 )
     } catch (error) {
-            return res.status(error.status).json(error)
+            return next(error)
         }
     }
     
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let role = await RoleService.update(req.params.id, {
                 name: req.body.name,
@@ -72,11 +72,11 @@ class RoleController {
                     )
                 )
         } catch(error) {
-             res.status(error.status).json(error)
+             next(error)
         }
     }
     
-    async destroy (req, res) {
+    async destroy (req, res, next) {
         try {
             await RoleService.destroy(req.params.id)
             return res.status(200)
@@ -89,7 +89,7 @@ class RoleController {
                     )
                 )
         } catch (error) {
-            res.status(error.status).json(error)
+            next(error)
         }
     }
 }

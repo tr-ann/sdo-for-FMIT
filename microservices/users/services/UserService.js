@@ -12,6 +12,12 @@ class UserService {
         return newUser
     }
 
+    async create(user, option) {
+        let newUser = await UserRepository.create(user, option)
+        delete newUser.password
+        return newUser
+    }
+
     async findById(id) {
         let user = await UserRepository.readById(id)
         if (!user) {

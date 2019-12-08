@@ -4,7 +4,7 @@ import { ResponseFormat } from '../../../core'
 
 class PositionController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const position = await PositionService.create({
                 name: req.body.name
@@ -19,11 +19,11 @@ class PositionController {
                     )
                 )
         } catch (error) {
-            return res.status(error.status).json(error);
+            next(error);
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let positions = await PositionService.readAll()
             return res.status(200)
@@ -36,11 +36,11 @@ class PositionController {
                     )
                 )
         } catch(error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let position = PositionService.findById(req.params.id)
             return res.status(200)
@@ -53,11 +53,11 @@ class PositionController {
                     )
                 )
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
     
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let position = await PositionService.update(req.params.id, {
                 name: req.body.name
@@ -72,11 +72,11 @@ class PositionController {
                     )
                 )
         } catch(error) {
-             res.status(error.status).json(error)
+            next(error)
         }
     }
     
-    async destroy (req, res) {
+    async destroy (req, res, next) {
         try {
             await PositionService.delete(req.params.id)
             return res.status(200)
@@ -89,7 +89,7 @@ class PositionController {
                     )
                 )
         } catch (error) { 
-            res.status(error.status).json(error)
+           next(error)
         }
     }
 }

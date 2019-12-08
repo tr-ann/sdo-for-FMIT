@@ -4,7 +4,7 @@ import { ResponseFormat } from '../../../core'
 
 class AcademicRankController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const academRank = await AcademicRankService.create({
                 name: req.body.name
@@ -19,11 +19,11 @@ class AcademicRankController {
                     )
                 )
         } catch (error) {
-            return res.status(error.status).json(error);
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let academRanks = await AcademicRankService.readAll()
             return res.status(200)
@@ -36,11 +36,11 @@ class AcademicRankController {
                     )
                 )
         } catch(error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let academRank = AcademicRankService.findById(req.params.id)
             return res.status(200)
@@ -53,11 +53,11 @@ class AcademicRankController {
                     )
                 )
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
     
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let academRank = await AcademicRankService.update(req.params.id, {
                 name: req.body.name
@@ -72,11 +72,11 @@ class AcademicRankController {
                     )
                 )
         } catch(error) {
-             res.status(error.status).json(error)
+            next(error)
         }
     }
     
-    async destroy (req, res) {
+    async destroy(req, res, next) {
         try {
             await AcademicRankService.delete(req.params.id)
             return res.status(200)
@@ -89,7 +89,7 @@ class AcademicRankController {
                     )
                 )
         } catch (error) { 
-            res.status(error.status).json(error)
+           next(error)
         }
     }
 }

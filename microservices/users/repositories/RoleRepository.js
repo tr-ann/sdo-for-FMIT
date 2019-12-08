@@ -18,6 +18,10 @@ class RoleRepository {
         return await db.role.update(role, {where: {id: id}})
     }
 
+    async get(options) {
+        return await db.role.findAll(options)
+    }
+
     async destroy(id) {
         return await db.role.destroy({where: {id: id}})
     }

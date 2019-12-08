@@ -4,7 +4,16 @@ export default (sequelize, DataTypes) => {
 
     class Curator extends Model {}
     
-    Curator.init({}, {
+    Curator.init({
+        teacher_id: {
+            allowNull: false,
+            type: DataTypes.INTEGER,
+        },
+        group_id: {
+            allowNull: false,
+            type: DataTypes.INTEGER,
+        }
+    }, {
         sequelize,
         underscope: true,
         createdAt: false,
@@ -22,10 +31,12 @@ export default (sequelize, DataTypes) => {
         Curator.belongsTo(models.teacher, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'teacher_id'
         })
         Curator.belongsTo(models.group, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'group_id'
         })
     }
     

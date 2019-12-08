@@ -3,7 +3,16 @@ import { Model } from 'sequelize'
 export default (sequelize, DataTypes) => {
     class UserRole extends Model {}
 
-    UserRole.init({}, {
+    UserRole.init({
+        user_id: {
+            allowNull: false,
+            type: DataTypes.INTEGER,
+        },
+        role_id: {
+            allowNull: false,
+            type: DataTypes.INTEGER,
+        }
+    }, {
         sequelize,
         underscope: true,
         createdAt: false,
@@ -22,11 +31,14 @@ export default (sequelize, DataTypes) => {
         UserRole.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'user_id'
         })
         UserRole.belongsTo(models.role, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'role_id'
         })
     }
-    return UserRole;
-};
+    
+    return UserRole
+}

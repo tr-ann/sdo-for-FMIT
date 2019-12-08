@@ -1,9 +1,32 @@
+import ResponseFormat from '../core/ResponseFormat'
+
 export default function(err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message
-    res.locals.error = req.app.get('env') === 'development' ? err : {}
-  
-    // render the error page
-    res.status(err.status || 500)
-    console.log('error')
+    //return res.status(err.status).json(err)
+
+    switch (err.name) {
+        case 'Unauthorized':
+        case 'Gone':
+        case 'RetryWith':
+        case 'NotFound':
+        case 'BadRequest':
+        case 'InternalServer':
+        case 'NotImplemented':
+            return res.status(err.status).json(
+                ResponseFormat.error(
+                    err,
+                    err.message,
+                    err.status,
+                    'failed'
+                )
+            )
+        default:
+            return res.status(500).json(
+                ResponseFormat.error(
+                    err,
+                    'unexpected error',
+                    500,
+                    'failed'
+                )
+            )
+    }
 }

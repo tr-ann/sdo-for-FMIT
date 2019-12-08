@@ -4,7 +4,7 @@ import { ResponseFormat } from '../../../core'
 
 class AcademicDegreeController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const academDegree = await AcademicDegreeService.create({
                 name: req.body.name
@@ -19,11 +19,11 @@ class AcademicDegreeController {
                     )
                 )
         } catch (error) {
-            return res.status(error.status).json(error);
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let academDegrees = await AcademicDegreeService.readAll()
             return res.status(200)
@@ -36,11 +36,11 @@ class AcademicDegreeController {
                     )
                 )
         } catch(error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let academDegree = AcademicDegreeService.findById(req.params.id)
             return res.status(200)
@@ -53,11 +53,11 @@ class AcademicDegreeController {
                     )
                 )
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
     
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let academDegree = await AcademicDegreeService.update(req.params.id, {
                 name: req.body.name
@@ -72,11 +72,11 @@ class AcademicDegreeController {
                     )
                 )
         } catch(error) {
-             res.status(error.status).json(error)
+             next(error)
         }
     }
     
-    async destroy (req, res) {
+    async destroy (req, res, next) {
         try {
             await AcademicDegreeService.delete(req.params.id)
             return res.status(200)
@@ -89,7 +89,7 @@ class AcademicDegreeController {
                     )
                 )
         } catch (error) { 
-            res.status(error.status).json(error)
+            next(error)
         }
     }
 }
