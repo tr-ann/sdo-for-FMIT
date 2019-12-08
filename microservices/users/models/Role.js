@@ -4,12 +4,6 @@ export default (sequelize, DataTypes) => {
     class Role extends Model {}
 
     Role.init({
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true
-        },
         name: {
             allowNull: false,
             type: DataTypes.STRING,
@@ -33,11 +27,15 @@ export default (sequelize, DataTypes) => {
             through: models.role_url,
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'role_id',
+            otherKey: 'url_id',
         })
         Role.belongsToMany(models.user, {
             through: models.user_role,
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'role_id',
+            otherKey: 'user_id'
         })
     };
     

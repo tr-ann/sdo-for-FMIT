@@ -1,11 +1,13 @@
 import { Model } from 'sequelize'
 
-//var Model = require('sequelize').Model
-
 export default (sequelize, DataTypes) => {
     class Phone extends Model {}
 
     Phone.init({
+        user_id: {
+            allowNull: false,
+            type: DataTypes.INTEGER,
+        },
         phone: {
             allowNull: false,
             type: DataTypes.STRING(30),
@@ -29,6 +31,7 @@ export default (sequelize, DataTypes) => {
         Phone.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'user_id'
         })
     }
     return Phone;

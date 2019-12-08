@@ -4,7 +4,7 @@ const ResponseFormat = require('../../../core').ResponseFormat;
 
 class UserInfoController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const userInfo = await UserInfoService.create({
                 full_name: req.body.full_name,
@@ -23,11 +23,11 @@ class UserInfoController {
                     )
                 );
         } catch (error) {
-            return res.status(error.status).json(error);
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let userInfos = await UserInfoService.all()
             return res.status(200)
@@ -40,11 +40,11 @@ class UserInfoController {
                     )
                 )
         } catch(error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let userInfo = UserInfoService.findById(req.params.id)
             return res.status(200)
@@ -57,11 +57,11 @@ class UserInfoController {
                     )
                 )
     } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
     
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let userInfo = await UserInfoService.update(req.params.id, {
                 full_name: req.body.full_name,
@@ -80,11 +80,11 @@ class UserInfoController {
                     )
                 )
         } catch(error) {
-             res.status(error.status).json(error)
+            next(error)
         }
     }
     
-    async destroy (req, res) {
+    async destroy (req, res, next) {
         try {
             await UserInfoService.delete(req.params.id)
             return res.status(200)
@@ -97,7 +97,7 @@ class UserInfoController {
                     )
                 )
         } catch (error) { 
-            res.status(error.status).json(error)
+            next(error)
         }
     }
 }

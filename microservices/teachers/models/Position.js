@@ -27,6 +27,7 @@ export default (sequelize, DataTypes) => {
         Position.hasMany(models.teacher, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'position_id'
         })
     }
 

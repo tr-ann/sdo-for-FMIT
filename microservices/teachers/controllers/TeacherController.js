@@ -4,7 +4,7 @@ import { ResponseFormat } from '../../../core'
 
 class TeacherController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const teacher = await TeacherService.create({
                 full_name:          req.body.full_name,
@@ -24,11 +24,11 @@ class TeacherController {
                     )
                 )
         } catch (error) {
-            return res.status(error.status).json(error);
+            next(error);
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let teachers = await TeacherService.readAll()
             return res.status(200)
@@ -41,11 +41,11 @@ class TeacherController {
                     )
                 )
         } catch(error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let teacher = TeacherService.findById(req.params.id)
             return res.status(200)
@@ -58,11 +58,11 @@ class TeacherController {
                     )
                 )
         } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
     
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let teacher = await TeacherService.update(req.params.id, {
                 full_name:          req.body.full_name,
@@ -82,11 +82,11 @@ class TeacherController {
                     )
                 )
         } catch(error) {
-             res.status(error.status).json(error)
+             next(error)
         }
     }
     
-    async destroy (req, res) {
+    async destroy (req, res, next) {
         try {
             await TeacherService.delete(req.params.id)
             return res.status(200)
@@ -99,7 +99,7 @@ class TeacherController {
                     )
                 )
         } catch (error) { 
-            res.status(error.status).json(error)
+            next(error)
         }
     }
 }

@@ -27,6 +27,8 @@ export default (sequelize, DataTypes) => {
             through: models.role_url,
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'url_id',
+            otherKey: 'role_id'
         })
     };
     

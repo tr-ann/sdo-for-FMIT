@@ -4,7 +4,7 @@ const ResponseFormat = require('../../../core').ResponseFormat;
 
 class StudentController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const student = await StudentService.create({
                 full_name:          req.body.full_name,
@@ -22,11 +22,11 @@ class StudentController {
                     )
                 )
         } catch (error) {
-            return res.status(error.status).json(error);
+            next(error)
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             let students = await StudentService.readAll()
             return res.status(200)
@@ -39,11 +39,11 @@ class StudentController {
                     )
                 )
         } catch(error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
 
-    async readById(req, res) {
+    async readById(req, res, next) {
         try {
             let student = StudentService.findById(req.params.id)
             return res.status(200)
@@ -56,11 +56,11 @@ class StudentController {
                     )
                 )
     } catch (error) {
-            return res.status(error.status).json(error)
+            next(error)
         }
     }
     
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             let student = await StudentService.update(
                 req.params.id, {
@@ -80,11 +80,11 @@ class StudentController {
                     )
                 )
         } catch(error) {
-             res.status(error.status).json(error)
+            next(error)
         }
     }
     
-    async destroy (req, res) {
+    async destroy (req, res, next) {
         try {
             await StudentService.destroy(req.params.id)
             return res.status(200)
@@ -97,7 +97,7 @@ class StudentController {
                     )
                 )
         } catch (error) { 
-            res.status(error.status).json(error)
+            next(error)
         }
     }
 }

@@ -2,11 +2,10 @@ import UserInfoRepository from '../repositories/UserInfoRepository'
 
 class UserInfoService {
 
-    async list() {
+    async readAll() {
         return await UserInfoRepository.readAll()
     }
 
-    /*  ????  */
     async create(userInfo) {
         return await UserInfoRepository.create(userInfo)
     }

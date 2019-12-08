@@ -6,8 +6,8 @@ import initSwagger from './swagger'
 
 export default (app) => {
     initExpress(app)
-    initRoutes(app)
     initSwagger(app)
     initSessions(app)
+    initRoutes(app)
     initMiddleware(app)
 }
