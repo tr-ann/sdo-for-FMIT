@@ -7,8 +7,7 @@ class TeacherController {
     async create(req, res, next) {
         try {
             const teacher = await TeacherService.create({
-                full_name:          req.body.full_name,
-                short_name:         req.body.short_name,
+                user_id:            req.body.user_id,
                 department_id:      req.body.department_id,
                 position_id:        req.body.position_id,
                 academic_degree_id: req.body.academic_degree_id,
@@ -17,9 +16,9 @@ class TeacherController {
             return res.status(201)
                 .json(
                     ResponseFormat.build(
-                        teacher, 
-                        "Teacher created successfully", 
-                        201, 
+                        teacher,
+                        "Teacher created successfully",
+                        201,
                         "success"
                     )
                 )
@@ -82,7 +81,7 @@ class TeacherController {
                     )
                 )
         } catch(error) {
-             next(error)
+            next(error)
         }
     }
     
@@ -98,7 +97,7 @@ class TeacherController {
                         "success"
                     )
                 )
-        } catch (error) { 
+        } catch (error) {
             next(error)
         }
     }

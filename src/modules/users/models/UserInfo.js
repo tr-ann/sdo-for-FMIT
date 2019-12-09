@@ -56,7 +56,6 @@ export default (sequelize, DataTypes) => {
         paranoid: true,
         modelName: 'user_info',
         tableName: 'users_info',
-
     })
 
     UserInfo.associate = function (models) {
@@ -69,7 +68,8 @@ export default (sequelize, DataTypes) => {
         UserInfo.belongsTo(models.resource, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'resource_id'
+            foreignKey: 'resource_id',
+            as: 'resource'
         })
     }
 

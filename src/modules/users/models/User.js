@@ -35,24 +35,26 @@ export default (sequelize, DataTypes) => {
         User.hasMany(models.phone, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'user_id',
             as: 'phones',
-            foreignKey: 'user_id'
         })
         User.hasOne(models.user_info, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
+            foreignKey: 'user_id',
             as: 'user_info',
-            foreignKey: 'user_id'
         })
         User.hasOne(models.student, { 
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'user_id'
+            foreignKey: 'user_id',
+            as: 'student'
         })
         User.hasOne(models.teacher, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'user_id'
+            foreignKey: 'user_id',
+            as: 'teacher'
         })
     }
 
@@ -61,7 +63,7 @@ export default (sequelize, DataTypes) => {
     }
     
     User.beforeCreate(
-        async (user, options) => user.password = Hash.get(user.password)
+        (user, options) => user.password = Hash.get(user.password)
     )
 
     return User

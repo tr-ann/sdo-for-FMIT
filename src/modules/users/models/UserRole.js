@@ -26,12 +26,14 @@ export default (sequelize, DataTypes) => {
         UserRole.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'user_id'
+            foreignKey: 'user_id',
+            as: 'users',
         })
         UserRole.belongsTo(models.role, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'role_id'
+            foreignKey: 'role_id',
+            as: 'roles',
         })
     }
     

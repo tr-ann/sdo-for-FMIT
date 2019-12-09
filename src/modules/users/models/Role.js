@@ -1,6 +1,7 @@
 import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
+    
     class Role extends Model {}
 
     Role.init({
@@ -15,7 +16,7 @@ export default (sequelize, DataTypes) => {
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'role',
-    });
+    })
 
     Role.associate = function (models) {
         Role.belongsToMany(models.url, {
@@ -24,13 +25,15 @@ export default (sequelize, DataTypes) => {
             onUpdate: 'restrict',
             foreignKey: 'role_id',
             otherKey: 'url_id',
+            as: 'urls',
         })
         Role.belongsToMany(models.user, {
             through: models.user_role,
             onDelete: 'restrict',
             onUpdate: 'restrict',
             foreignKey: 'role_id',
-            otherKey: 'user_id'
+            otherKey: 'user_id',
+            as: 'roles',
         })
     };
     

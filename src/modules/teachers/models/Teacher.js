@@ -34,16 +34,11 @@ export default (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'teacher',
-        name: {
-            simple: 'teacher',
-            plural: 'teachers',
-        }
     })
 
     Teacher.associate = function (models) {
@@ -52,53 +47,63 @@ export default (sequelize, DataTypes) => {
             onDelete: 'restrict',
             onUpdate: 'restrict',
             foreignKey: 'teacher_id',
-            otherKey: 'group_id'
+            otherKey: 'group_id',
+            as: 'group'
         })
         Teacher.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'user_id'
+            foreignKey: 'user_id',
+            as: 'user',
         })
         Teacher.belongsTo(models.department, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'department_id'
+            foreignKey: 'department_id',
+            as: 'department',
         })
         Teacher.belongsTo(models.position, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'position_id'
+            foreignKey: 'position_id',
+            as: 'position',
         })
         Teacher.belongsTo(models.academic_rank, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'academic_rank_id'
+            foreignKey: 'academic_rank_id',
+            as: 'academic_rank',
         })
         Teacher.belongsTo(models.academic_degree, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'academic_degree_id'
+            foreignKey: 'academic_degree_id',
+            as: 'academic_degree',
         })
 
         Teacher.hasMany(models.graduation_paper, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'teacher_id'
+            foreignKey: 'teacher_id',
+            as: 'graduation_papers',
         })
         Teacher.hasMany(models.term_paper, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'teacher_id'
+            foreignKey: 'teacher_id',
+            as: 'term_papers',
         })
         Teacher.hasMany(models.request, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'teacher_id'
+            foreignKey: 'teacher_id',
+            as: 'requests',
         })
         Teacher.hasMany(models.lesson, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'teacher_id'
+            foreignKey: 'teacher_id',
+            as: 'lessons',
         })
     }
 

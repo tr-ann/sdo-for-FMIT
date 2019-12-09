@@ -8,8 +8,8 @@ class StudyModeRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.studyMode.findAll({
-            attributes: ["id","name",'deleted_date'],
+        return await db.study_mode.findAll({
+            attributes: ["id","name"],
         })
     }
 
@@ -20,7 +20,7 @@ class StudyModeRepository {
      * @return {Promise} promise with result of create
      */
     async readById(id) {
-        return await db.studyMode.findByPk(id, {
+        return await db.study_mode.findByPk(id, {
             attributes: [
                 "id",
                 "name",
@@ -35,7 +35,7 @@ class StudyModeRepository {
      * @return {Promise} promise with result of create
      */
     async create(studyMode) {
-        return await db.studyMode.create(studyMode)
+        return await db.study_mode.create(studyMode)
     }
 
     /**
@@ -46,7 +46,7 @@ class StudyModeRepository {
      * @return {Promise} promise with result of update
      */
     async update(id, studyMode) {
-        return await db.studyMode.update(studyMode, {where: {id: id}})
+        return await db.study_mode.update(studyMode, {where: {id: id}})
     }
    
     /**
@@ -56,7 +56,7 @@ class StudyModeRepository {
      * @return {Promise} promise with result of destroy
      */
     async destroy(id) {
-        return await db.studyMode.destroy({where: {id: id}})
+        return await db.study_mode.destroy({where: {id: id}})
     }
 
     /**
@@ -66,7 +66,7 @@ class StudyModeRepository {
      * @return {Promise} promise with result of create
      */
     async get(options) {        
-        return await db.studyMode.findAll(options)
+        return await db.study_mode.findAll(options)
     }
 }
 

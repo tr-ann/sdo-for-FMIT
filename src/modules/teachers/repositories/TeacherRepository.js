@@ -2,36 +2,78 @@ import db from '../../../config/dbModels'
 
 class TeacherRepository {
 
+    /**
+     * Create an entity in a database
+     * 
+     * @param {Object} teacher - body of teacher that will be created
+     * @return {Promise} promise with result of create
+     */
     async create(teacher) {
         return await db.teacher.create(teacher)
     }
 
-    async readAll() {
-        return await db.teacher.findAll()
-    }
-
-    async readById(id) {
-        return await db.teacher.findByPk(id)
-    }
-
-    async update(id, teacher) {
-        return await db.teacher.update(teacher, {where: {id: id}})
-    }
-
-    async destroy(id) {
-        return await db.teacher.destroy({where: {id: id}})
-    }
-
-    async getInfo(id) {
+    /**
+     * Read an entity from a database
+     * 
+     * @param {Number} id - id of teacher that will be read
+     * @return {Promise} promise with result of create
+     */
+    async readById(id) {        
         return await db.teacher.findByPk(id, {
-            include: [
-                { model: db.user },
-                { model: db.group },
-                { model: db.academic_degree },
-                { model: db.academic_rank },
-                { model: db.position }
-            ]
+            attributes: [ 'id', 'full_name' ],
         })
+    }
+
+    /**
+     * Read all the entities from a database
+     * 
+     * @return {Promise} promise with result of read
+     */
+    async readAll() {
+        return await db.teacher.findAll({
+            attributes: [ 'id', 'full_name' ],
+        })
+    }
+
+    /**
+     * Update an entity from a database
+     * 
+     * @param {Number} id - id of teacher that will be updated
+     * @param {Object} teacher - body of teacher that will be updated
+     * @return {Promise} promise with result of update
+     */
+    async update(id, teacher) {
+        return await db.teacher.update(teacher, {where: { id: id }})
+    }
+
+    /**
+     * Destroy an entity from a database
+     * 
+     * @param {Number} id - id of teacher that will be destroyed
+     * @return {Promise} promise with result of destroy
+     */
+    async destroy(id) {
+        return await db.teacher.destroy({where: { id: id }})
+    }
+
+    /**
+     * Reads entities by description from a database
+     * 
+     * @param {Object} options - description to read entities
+     * @return {Promise} promise with result of create
+     */
+    async getAll(options) {
+        return await db.teacher.findAll(options)
+    }
+
+    /**
+     * Reads entity by description from a database
+     * 
+     * @param {Object} options - description to read entity
+     * @return {Promise} promise with result of create
+     */
+    async get(options) {        
+        return await db.teacher.findOne(options)
     }
 }
 

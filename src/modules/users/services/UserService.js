@@ -12,9 +12,7 @@ class UserService {
     }
 
     async readAll() {
-        let users = await UserRepository.readAll()
-        console.log(users)
-        return users
+        return await UserRepository.readAll()
     }
 
     async readById(id) {

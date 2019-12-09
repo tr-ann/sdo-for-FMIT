@@ -26,12 +26,14 @@ export default (sequelize, DataTypes) => {
         RoleUrl.belongsTo(models.url, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'url_id'
+            foreignKey: 'url_id',
+            as: 'urls'
         })
         RoleUrl.belongsTo(models.role, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'role_id'
+            foreignKey: 'role_id',
+            as: 'roles'
         })
     }
     return RoleUrl;

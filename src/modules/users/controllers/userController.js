@@ -30,7 +30,7 @@ class UserController {
                 sex: req.body.sex,
             })
 
-            UserRoleService.create({user_id: user.id, role_id: 1})
+            await UserRoleService.create({user_id: user.id, role_id: 1})
 
             return res.status(201)
                 .json(

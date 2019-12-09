@@ -1,4 +1,5 @@
 import UrlService from '../services/UrlService'
+import RoleUrlService from '../services/RoleUrlService'
 import helpers from '../../../helpers'
 
 class urlController {
@@ -9,6 +10,8 @@ class urlController {
                 url:     req.body.url,
             })
             
+            await RoleUrlService.create({url_id: url.id, role_id: req.body.role_id})
+
             return res.status(201).json(helpers.ResponseFormat.build(
                 url,
                 "Url created successfully",
@@ -46,6 +49,7 @@ class urlController {
                 "success"
             ))
         } catch (error) {
+            console.log(error)
             next(error)
         }
     }
