@@ -9,12 +9,6 @@ import { passport, login, logout, isAutenticated } from './passport'
 
 export default (app) => {
 
-    app.get('/login', (req, res, next) => {
-        req.isAutenticated()
-            ? res.redirect('/')
-            : next() //render('')
-    })
-
     app.post('/login', login
         /*{
              successRedirect: '/home',
@@ -55,7 +49,7 @@ export default (app) => {
     app.use('/statuses', isAutenticated, papersRouters.statusRouter)
     app.use('/termPapers', isAutenticated, papersRouters.termPaperRouter)
 
-    app.use('/departments', isAutenticated, facultiesRouters.departmentRouter)
+    app.use('/departments',facultiesRouters.departmentRouter)
     app.use('/faculties', isAutenticated, facultiesRouters.facultyRouter)
     app.use('/groups', isAutenticated, facultiesRouters.groupRouter)
     app.use('/specialties', isAutenticated, facultiesRouters.specialtyRouter)
