@@ -14,22 +14,22 @@ class GroupRepository {
                 {
                     model: db.faculty,
                     as: 'faculty',
-                    attributes: [ 'name' ],
+                    attributes: [ 'id', 'name' ],
                 },
                 {
                     model: db.specialty,
                     as: 'specialty',
-                    attributes: [ 'name' ],
+                    attributes: [ 'id', 'name' ],
                 },
                 {
                     model: db.study_mode,
                     as: 'study_mode',
-                    attributes: [ 'name' ],
+                    attributes: [ 'id', 'name' ],
                 },
                 {
                     model: db.teacher,
                     as: 'teachers',
-                    attributes: [ 'full_name' ],
+                    attributes: [ 'id', 'full_name' ],
                 },
             ],
         })
@@ -48,22 +48,22 @@ class GroupRepository {
                 {
                     model: db.faculty,
                     as: 'faculty',
-                    attributes: [ 'name' ],
+                    attributes: [ 'id', 'name' ],
                 },
                 {
                     model: db.specialty,
                     as: 'specialty',
-                    attributes: [ 'name' ],
+                    attributes: [ 'id', 'name' ],
                 },
                 {
                     model: db.study_mode,
                     as: 'study_mode',
-                    attributes: [ 'name' ],
+                    attributes: [ 'id', 'name' ],
                 },
                 {
                     model: db.teacher,
                     as: 'teachers',
-                    attributes: [ 'full_name' ],
+                    attributes: [ 'id', 'full_name' ],
                 },
             ],
         })

@@ -19,7 +19,14 @@ class UrlRepository {
      */
     async readAll() {
         return await db.url.findAll({
-            attributes: [ 'id', 'url', 'deleted_date' ],
+            attributes: [ 'id', 'url'], 
+            include: [
+                {
+                    model: db.role,
+                    attributes: [ 'id', 'name' ],
+                    as: 'roles'
+                }
+            ]
         })
     }
 
@@ -34,7 +41,14 @@ class UrlRepository {
             attributes: [
                 'id',
                 'url',
-            ],
+            ], 
+            include: [
+                {
+                    model: db.role,
+                    attributes: [ 'id', 'name' ],
+                    as: 'roles'
+                }
+            ]
         })
     }
 

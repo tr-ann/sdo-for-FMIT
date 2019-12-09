@@ -14,7 +14,6 @@ export default (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        underscope: true,
         createdAt: false,
         updatedAt: false,
         deletedAt: 'deleted_date',
@@ -30,7 +29,8 @@ export default (sequelize, DataTypes) => {
         Subgroup.belongsTo(models.group, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
-            foreignKey: 'group_id'
+            foreignKey: 'group_id',
+            as: 'group',
         })
         Subgroup.hasMany(models.lesson, {
             onUpdate: 'restrict',

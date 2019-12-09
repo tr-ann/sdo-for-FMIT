@@ -9,22 +9,22 @@ class DepartmentRepository {
      */
     async readAll() {
         return await db.department.findAll({
-            attributes: [ 'id', 'name', 'phone', 'deleted_date' ],
+            attributes: [ 'id', 'name', 'phone' ],
             include: [
                 {
                     model: db.faculty,
                     as: 'faculty',
-                    attributes: [ 'name' ],
+                    attributes: [ 'id', 'name' ],
                 },
                 {
                     model: db.user,
                     as: 'user',
-                    attributes: [ 'login' ],
+                    attributes: [ 'id', 'login' ],
                 },
                 {
                     model: db.lecture_room,
                     as: 'lecture_room',
-                    attributes: [ 'number' ],
+                    attributes: [ 'id', 'number' ],
                 },
             ],
         })
@@ -41,26 +41,23 @@ class DepartmentRepository {
             attributes: [
                 'id',
                 'name',
-                'faculty_id',
-                'owner_id',
                 'phone',
-                'lecture_room_id',
             ],
             include: [
                 {
                     model: db.faculty,
                     as: 'faculty',
-                    attributes: [ 'name' ],
+                    attributes: [ 'id', 'name' ],
                 },
                 {
                     model: db.user,
                     as: 'user',
-                    attributes: [ 'login' ],
+                    attributes: [ 'id', 'login' ],
                 },
                 {
                     model: db.lecture_room,
                     as: 'lecture_room',
-                    attributes: [ 'number' ],
+                    attributes: [ 'id', 'number' ],
                 },
             ],
         })

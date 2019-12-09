@@ -8,7 +8,7 @@ class InfoFacultyRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.infoFaculty.findAll( {
+        return await db.info_faculty.findAll( {
             attributes: ["id", "description","phone_number"],
             include: [
                 {
@@ -27,11 +27,18 @@ class InfoFacultyRepository {
      * @return {Promise} promise with result of create
      */
     async readById(id) {
-        return await db.infoFaculty.findByPk(id, {
+        return await db.info_faculty.findByPk(id, {
             attributes: [
                 "id",
                 "description",
                 "phone_number",
+            ],
+            include: [
+                {
+                    model: db.faculty,
+                    as: 'faculty',
+                    attributes: [ 'id', 'name' ],
+                },
             ],
         })
     }
@@ -55,7 +62,7 @@ class InfoFacultyRepository {
      * @return {Promise} promise with result of update
      */
     async update(id, infoFaculty) {
-        return await db.infoFaculty.update(infoFaculty, {where: {id: id}})
+        return await db.info_faculty.update(infoFaculty, {where: {id: id}})
     }
    
     /**
@@ -65,7 +72,7 @@ class InfoFacultyRepository {
      * @return {Promise} promise with result of destroy
      */
     async destroy(id) {
-        return await db.infoFaculty.destroy({where: {id: id}})
+        return await db.info_faculty.destroy({where: {id: id}})
     }
 
     /**
@@ -75,7 +82,7 @@ class InfoFacultyRepository {
      * @return {Promise} promise with result of create
      */
     async get(options) {        
-        return await db.infoFaculty.findAll(options)
+        return await db.info_faculty.findAll(options)
     }
 }
 

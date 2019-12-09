@@ -58,7 +58,6 @@ export default (app) => {
     app.use('/departments', isAutenticated, facultiesRouters.departmentRouter)
     app.use('/faculties', isAutenticated, facultiesRouters.facultyRouter)
     app.use('/groups', isAutenticated, facultiesRouters.groupRouter)
-    app.use('/infoFaculties', isAutenticated, facultiesRouters.infoFacultyRouter)
     app.use('/specialties', isAutenticated, facultiesRouters.specialtyRouter)
     app.use('/studyModes', isAutenticated, facultiesRouters.studyModeRouter)
     app.use('/subgroups', isAutenticated, facultiesRouters.subgroupRouter)

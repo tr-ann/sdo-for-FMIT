@@ -9,7 +9,7 @@ class SpecialtyRepository {
      */
     async readAll() {
         return await db.specialty.findAll({
-            attributes: [ "id","code","name","short_name", 'deleted_date'],
+            attributes: [ "id","code","name","short_name"],
         })
     }
 
