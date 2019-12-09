@@ -5,7 +5,7 @@
         "description": "",
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
-            "email": "artik.e@mail.ru"
+            "email": "admin@mail.ru"
         },
         "license": {
             "name": "Apache 2.0",
@@ -77,12 +77,12 @@
                                         "id": {
                                             "type": "integer",
                                             "format": "int32",
-                                            "description": "Идентификатор пользователя",
+                                            "description": "user ID",
                                             "minimum": 1
                                         },
                                         "login": {
                                             "type": "string",
-                                            "description": "Логин пользователя",
+                                            "description": "User login",
                                             "minLength": 4
                                         }
                                     }
@@ -149,12 +149,7 @@
                 "tags": [ "users" ],
                 "description": "Soft user deletion. User identrified by `id`",
                 "parameters": [{
-                    "in": "path",
-                    "name": "id",
-                    "required": true,
-                    "schemas": {
-                        "$ref": "#/components/userId"
-                    }
+                    "$ref": "#/components/parameters/id"
                 }],
                 "responses": {
                     "200": {
@@ -173,7 +168,7 @@
         "parameters": {
             "id": {
                 "name": "id",
-                "description": "Идентификатор пользователя",
+                "description": "user ID",
                 "required": true,
                 "in": "path",
                 "schema": {
@@ -196,7 +191,7 @@
                     "id": {
                         "type": "integer",
                         "format": "int32",
-                        "description": "Идентификатор пользователя",
+                        "description": "user ID",
                         "minimum": 1
                     },
                     "login": {
@@ -252,7 +247,7 @@
                     "id": {
                         "type": "integer",
                         "format": "int32",
-                        "description": "Идентификатор пользователя",
+                        "description": "user ID",
                         "minimum": 1
                     },
                     "login": {
