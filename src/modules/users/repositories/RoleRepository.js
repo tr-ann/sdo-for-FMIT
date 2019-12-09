@@ -60,7 +60,7 @@ class RoleRepository {
      * Reads entities by description from a database
      * 
      * @param {Object} options - description to read entities
-     * @return {Promise} promise with result of create
+     * @return {Promise} promise with array of objects
      */
     async get(options) {        
         return await db.role.findAll(options)

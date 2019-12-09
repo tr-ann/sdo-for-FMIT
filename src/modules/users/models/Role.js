@@ -1,6 +1,7 @@
 import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
+    
     class Role extends Model {}
 
     Role.init({
@@ -15,7 +16,7 @@ export default (sequelize, DataTypes) => {
         deletedAt: 'deleted_date',
         paranoid: true,
         modelName: 'role',
-    });
+    })
 
     Role.associate = function (models) {
         Role.belongsToMany(models.url, {

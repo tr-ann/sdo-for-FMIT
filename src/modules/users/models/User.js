@@ -63,7 +63,7 @@ export default (sequelize, DataTypes) => {
     }
     
     User.beforeCreate(
-        async (user, options) => user.password = Hash.get(user.password)
+        (user, options) => user.password = Hash.get(user.password)
     )
 
     return User
