@@ -1,4 +1,4 @@
-import db from '../../../config/dbModels'
+import db from '../../../classes/dbModels'
 
 class PhoneRepository {
 

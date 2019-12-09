@@ -1,4 +1,4 @@
-import { sequelize } from '../../../config/sequelize'
+import { sequelize } from '../../../classes/sequelize'
 
 import fs from 'fs'
 import path from 'path'
