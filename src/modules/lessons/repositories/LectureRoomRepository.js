@@ -35,7 +35,7 @@ class LectureRoomRepository {
             include: [
                 {
                     model: db.room_type,
-                    as: 'roomType',
+                    as: 'room_type',
                     attributes: [ 'name' ],
                 },
                 {

@@ -8,7 +8,7 @@ class lectureRoomController {
             let lectureRoom = await LectureRoomService.create({
                 number:         req.body.number,
                 seats_count:    req.body.seats_count,
-                type_id:        req.body.type_id,
+                room_type_id:   req.body.room_type_id,
                 building_id:    req.body.building_id,
             })
             
@@ -58,7 +58,7 @@ class lectureRoomController {
             let lectureRoom = await LectureRoomService.update(req.params.id, {
                 number:         req.body.number,
                 seats_count:    req.body.seats_count,
-                type_id:        req.body.type_id,
+                room_type_id:   req.body.room_type_id,
                 building_id:    req.body.building_id,
             })
 
