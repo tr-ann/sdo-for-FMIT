@@ -9,12 +9,18 @@ import { passport, login, logout, isAutenticated } from './passport'
 
 export default (app) => {
 
+
+    app.get('/login', function(req, res, next) {
+        res.render('login')
+      })
+
     app.post('/login', login
         /*{
              successRedirect: '/home',
              failureRedirect: '/login',
          })*/
     )
+
 
     app.get('/logout', logout)
 
