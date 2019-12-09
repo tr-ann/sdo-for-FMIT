@@ -20,11 +20,15 @@ class TermPaperRepository {
      */
     async readById(id) {        
         return await db.term_paper.findByPk(id, {
-            include: [
-                { model: db.student, as: 'student' },
-                { model: db.teacher, as: 'teacher' },
-                { model: db.status, as: 'status' },
-                { model: db.resource, as: 'resource' },
+            attributes: [
+                'id',
+                'topic',
+                'name',
+                'description',
+                'student_id',
+                'teacher_id',
+                'status_id',
+                'resource_id',
             ],
         })
     }
@@ -35,7 +39,36 @@ class TermPaperRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.term_paper.findAll()
+        return await db.term_paper.findAll({
+            attributes: [
+                'id',
+                'topic',
+                'name',
+                'description',
+            ],
+            include: [
+                {
+                    model: db.student,
+                    as: 'student',
+                    attributes: [ 'id', 'short_name' ],
+                },
+                {
+                    model: db.teacher,
+                    as: 'teacher',
+                    attributes: [ 'id', 'short_name' ],
+                },
+                {
+                    model: db.status,
+                    as: 'status',
+                    attributes: [ 'id', 'name' ],
+                },
+                {
+                    model: db.resource,
+                    as: 'resource',
+                    attributes: [ 'id' ],
+                },
+            ],
+        })
     }
 
     /**
@@ -70,7 +103,7 @@ class TermPaperRepository {
      * @return {Promise} promise with result of create
      */
     async get(options) {        
-        return await db.lesson_type.findAll(options)
+        return await db.term_paper.findAll(options)
     }
 }
 

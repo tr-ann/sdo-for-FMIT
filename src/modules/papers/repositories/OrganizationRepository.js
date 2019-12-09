@@ -19,7 +19,9 @@ class OrganizationRepository {
      * @return {Promise} promise with result of create
      */
     async readById(id) {        
-        return await db.organization.findByPk(id)
+        return await db.organization.findByPk(id, {
+            attributes: [ 'id', 'name' ],
+        })
     }
 
     /**
@@ -28,7 +30,9 @@ class OrganizationRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.organization.findAll()
+        return await db.organization.findAll({
+            attributes: [ 'id', 'name' ],
+        })
     }
 
     /**
@@ -63,7 +67,7 @@ class OrganizationRepository {
      * @return {Promise} promise with result of create
      */
     async get(options) {        
-        return await db.lesson_type.findAll(options)
+        return await db.organization.findAll(options)
     }
 }
 

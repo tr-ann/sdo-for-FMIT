@@ -20,10 +20,16 @@ class RequestRepository {
      */
     async readById(id) {        
         return await db.request.findByPk(id, {
-            include: [
-                { model: db.student, as: 'student' },
-                { model: db.teacher, as: 'teacher' },
-                { model: db.status, as: 'status' },
+            attributes: [
+                'id',
+                'topic',
+                'name',
+                'create_date',
+                'update_date',
+                'description',
+                'student_id',
+                'teacher_id',
+                'status_id',
             ],
         })
     }
@@ -34,7 +40,31 @@ class RequestRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.request.findAll()
+        return await db.request.findAll({
+            attributes: [
+                'id',
+                'topic',
+                'name',
+                'description',
+            ],
+            include: [
+                {
+                    model: db.student,
+                    as: 'student',
+                    attributes: [ 'id', 'short_name' ],
+                },
+                {
+                    model: db.teacher,
+                    as: 'teacher',
+                    attributes: [ 'id', 'short_name' ],
+                },
+                {
+                    model: db.status,
+                    as: 'status',
+                    attributes: [ 'id', 'name' ],
+                },
+            ],
+        })
     }
 
     /**
@@ -69,7 +99,7 @@ class RequestRepository {
      * @return {Promise} promise with result of create
      */
     async get(options) {        
-        return await db.lesson_type.findAll(options)
+        return await db.request.findAll(options)
     }
 }
 

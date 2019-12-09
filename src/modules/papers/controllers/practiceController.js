@@ -15,7 +15,7 @@ class practiceController {
                 start_date:         req.body.start_date,
                 end_date:           req.body.end_date,
                 resource_id:        req.body.resource_id,
-                type_id:            req.body.type_id,
+                practice_type_id:   req.body.practice_type_id,
             })
             
             return res.status(201).json(helpers.ResponseFormat.build(

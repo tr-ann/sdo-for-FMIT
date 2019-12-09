@@ -20,12 +20,18 @@ class PracticeRepository {
      */
     async readById(id) {
         return await db.practice.findByPk(id, {
-            include: [
-                { model: db.student, as: 'student' },
-                { model: db.organization, as: 'organization' },
-                { model: db.status, as: 'status' },
-                { model: db.resource, as: 'resource' },
-                { model: db.practice_type, as: 'practiceType' },
+            attributes: [
+                'id',
+                'topic',
+                'name',
+                'create_date',
+                'update_date',
+                'description',
+                'student_id',
+                'organization_id',
+                'status_id',
+                'practice_type_id',
+                'resource_id',
             ],
         })
     }
@@ -36,7 +42,41 @@ class PracticeRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.practice.findAll()
+        return await db.practice.findAll({
+            attributes: [
+                'id',
+                'topic',
+                'name',
+                'description',
+            ],
+            include: [
+                {
+                    model: db.student,
+                    as: 'student',
+                    attributes: [ 'id', 'short_name' ],
+                },
+                {
+                    model: db.organization,
+                    as: 'organization',
+                    attributes: [ 'id', 'name' ],
+                },
+                {
+                    model: db.status,
+                    as: 'status',
+                    attributes: [ 'id', 'name' ],
+                },
+                {
+                    model: db.practice_type,
+                    as: 'practice_type',
+                    attributes: [ 'id', 'name' ],
+                },
+                {
+                    model: db.resource,
+                    as: 'resource',
+                    attributes: [ 'id' ],
+                },
+            ],
+        })
     }
 
     /**
@@ -71,7 +111,7 @@ class PracticeRepository {
      * @return {Promise} promise with result of create
      */
     async get(options) {        
-        return await db.lesson_type.findAll(options)
+        return await db.practice.findAll(options)
     }
 }
 

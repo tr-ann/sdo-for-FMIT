@@ -19,7 +19,9 @@ class PracticeTypeRepository {
      * @return {Promise} promise with result of create
      */
     async readById(id) {
-        return await db.practice_type.findByPk(id)
+        return await db.practice_type.findByPk(id, {
+            attributes: [ 'id', 'name' ],
+        })
     }
 
     /**
@@ -28,7 +30,9 @@ class PracticeTypeRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.practice_type.findAll()
+        return await db.practice_type.findAll({
+            attributes: [ 'id', 'name' ],
+        })
     }
 
     /**
@@ -63,7 +67,7 @@ class PracticeTypeRepository {
      * @return {Promise} promise with result of create
      */
     async get(options) {        
-        return await db.lesson_type.findAll(options)
+        return await db.practice_type.findAll(options)
     }
 }
 

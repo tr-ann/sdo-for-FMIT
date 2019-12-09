@@ -45,28 +45,27 @@ class GraduationPaperRepository {
                 'topic',
                 'name',
                 'description',
-                'student_id',
-                'teacher_id',
-                'status_id',
-                'resource_id',
             ],
             include: [
                 {
                     model: db.student,
                     as: 'student',
-                    attributes: [ 'short_name' ],
+                    attributes: [ 'id', 'short_name' ],
                 },
                 {
                     model: db.teacher,
-                    as: 'teacher'
+                    as: 'teacher',
+                    attributes: [ 'id', 'short_name' ],
                 },
                 {
                     model: db.status,
-                    as: 'status'
+                    as: 'status',
+                    attributes: [ 'id', 'name' ],
                 },
                 {
                     model: db.resource,
-                    as: 'resource'
+                    as: 'resource',
+                    attributes: [ 'id' ],
                 },
             ],
         })
@@ -104,7 +103,7 @@ class GraduationPaperRepository {
      * @return {Promise} promise with result of create
      */
     async get(options) {        
-        return await db.lesson_type.findAll(options)
+        return await db.graduation_paper.findAll(options)
     }
 }
 
