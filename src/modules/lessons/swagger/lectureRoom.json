@@ -33,7 +33,7 @@
                        "content": {
                            "application/json": {
                                "schema": {
-                                   "$ref": "#/components/schemas/ReadLectureRooms"
+                                   "$ref": "#/components/schemas/ResponseWithRooms"
                                }
                            }
                        }
@@ -65,8 +65,15 @@
                 },
                 "responses": {
                     "201": {
-                       "description": "Null response"
-                    },
+                        "description": "Lecture room created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseWithRoom"
+                                }
+                            }
+                        }
+                     },
                     "401": {
                         "$ref": "#/components/responses/Unauthorized"
                     },
@@ -90,14 +97,14 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "LectureRoom read successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ReadLectureRoom"
-                                }
-                            }
-                        }
+                       "description": "Lecture room read successfully",
+                       "content": {
+                           "application/json": {
+                               "schema": {
+                                   "$ref": "#/components/schemas/ResponseWithRoom"
+                               }
+                           }
+                       }
                     },
                     "401": {
                         "$ref": "#/components/responses/Unauthorized"
@@ -134,7 +141,14 @@
                 },
                 "responses": {
                     "200": {
-                       "description": "Null response"
+                       "description": "Lecture room updated successfully",
+                       "content": {
+                           "application/json": {
+                               "schema": {
+                                   "$ref": "#/components/schemas/ResponseWithRoom"
+                               }
+                           }
+                       }
                     },
                     "401": {
                         "$ref": "#/components/responses/Unauthorized"
@@ -160,7 +174,14 @@
                 ],
                 "responses": {
                     "200": {
-                       "description": "Null response"
+                       "description": "Lecture room deleted successfully",
+                       "content": {
+                           "application/json": {
+                               "schema": {
+                                   "$ref": "#/components/schemas/ResponseWithoutRooms"
+                               }
+                           }
+                       }
                     },
                     "401": {
                         "$ref": "#/components/responses/Unauthorized"
@@ -196,11 +217,63 @@
                 "content": {
                    "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/Error"
-                        },
-                        "example": {
-                            "code": 401,
-                            "message": "Требуется авторизация"
+                            "allOf": [
+                                {
+                                    "type": "object",
+                                    "required": [
+                                        "error"
+                                    ],
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "required": [
+                                                "name",
+                                                "message",
+                                                "statuse"
+                                            ],
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Unauthorized"
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Требуется авторизация"
+                                                },
+                                                "statuse": {
+                                                    "type": "string",
+                                                    "example": "failed"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "required": [
+                                        "code",
+                                        "message",
+                                        "status"
+                                    ],
+                                    "properties": {
+                                        "code": {
+                                            "description": "Code of answer",
+                                            "type": "integer",
+                                            "example": "401"
+                                        },
+                                        "message": {
+                                            "description": "Message with information about results of answer",
+                                            "type": "string",
+                                            "example": "Требуется авторизация"
+                                        },
+                                        "status": {
+                                            "description": "Status of answer",
+                                            "type": "string",
+                                            "example": "failed"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -210,11 +283,63 @@
                 "content": {
                    "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/Error"
-                        },
-                        "example": {
-                            "code": 404,
-                            "message": "Объект не найден"
+                            "allOf": [
+                                {
+                                    "type": "object",
+                                    "required": [
+                                        "error"
+                                    ],
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "required": [
+                                                "name",
+                                                "message",
+                                                "statuse"
+                                            ],
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "NotFound"
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Ресурс не найден"
+                                                },
+                                                "statuse": {
+                                                    "type": "string",
+                                                    "example": "failed"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "required": [
+                                        "code",
+                                        "message",
+                                        "status"
+                                    ],
+                                    "properties": {
+                                        "code": {
+                                            "description": "Code of answer",
+                                            "type": "integer",
+                                            "example": "404"
+                                        },
+                                        "message": {
+                                            "description": "Message with information about results of answer",
+                                            "type": "string",
+                                            "example": "Ресурс не найден"
+                                        },
+                                        "status": {
+                                            "description": "Status of answer",
+                                            "type": "string",
+                                            "example": "failed"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -224,13 +349,146 @@
                 "content": {
                    "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/Error"
+                            "allOf": [
+                                {
+                                    "type": "object",
+                                    "required": [
+                                        "error"
+                                    ],
+                                    "properties": {
+                                        "error": {
+                                            "type": "object",
+                                            "required": [
+                                                "name",
+                                                "message",
+                                                "statuse"
+                                            ],
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "UnexpectedError"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                },
+                                                "statuse": {
+                                                    "type": "string",
+                                                    "example": "failed"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "required": [
+                                        "code",
+                                        "message",
+                                        "status"
+                                    ],
+                                    "properties": {
+                                        "code": {
+                                            "description": "Code of answer",
+                                            "type": "integer",
+                                            "example": "500"
+                                        },
+                                        "message": {
+                                            "description": "Message with information about results of answer",
+                                            "type": "string"
+                                        },
+                                        "status": {
+                                            "description": "Status of answer",
+                                            "type": "string",
+                                            "example": "failed"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
             }
         },
         "schemas": {
+            "ResponseBody": {
+                "type": "object",
+                "required": [
+                    "code",
+                    "message",
+                    "status"
+                ],
+                "properties": {
+                    "code": {
+                        "description": "Code of answer",
+                        "type": "integer"
+                    },
+                    "message": {
+                        "description": "Message with information about results of answer",
+                        "type": "string"
+                    },
+                    "status": {
+                        "description": "Status of answer",
+                        "type": "string"
+                    }
+                }
+            },
+            "ResponseWithRoom": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "data"
+                        ],
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/LectureRoom"
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/ResponseBody"
+                    }
+                ]
+            },
+            "ResponseWithRooms": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "data"
+                        ],
+                        "properties": {
+                            "data": {
+                                "type":"array",
+                                "items": {
+                                    "$ref": "#/components/schemas/LectureRoom"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/ResponseBody"
+                    }
+                ]
+            },
+            "ResponseWithoutRooms": {
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "data"
+                        ],
+                        "properties": {
+                            "data": {
+                                "type": "object"
+                            }
+                        }
+                    },
+                    {
+                        "$ref": "#/components/schemas/ResponseBody"
+                    }
+                ]
+            },
             "LectureRoom": {
                 "type": "object",
                 "required": [
@@ -296,22 +554,6 @@
                 "type": "array",
                 "items": {
                     "$ref": "#/components/schemas/ReadLectureRoom"
-                }
-            },
-            "Error": {
-                "type": "object",
-                "required": [
-                    "code",
-                    "message"
-                ],
-                "properties": {
-                    "code": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "message": {
-                        "type": "string"
-                    }
                 }
             }
         }
