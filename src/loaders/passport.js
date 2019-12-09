@@ -54,14 +54,15 @@ function login(req, res, next) {
                 delete user.dataValues.password
                 delete user._previousDataValues.password
 
-                return res.status(200).json(
+                res.redirect('/users')
+                /*return res.status(200).json(
                     ResponseFormat.build(
                         user,
                         'user authorized successfully',
                         200,
                         'success'
                     )
-                )
+                )*/
             })
         }
     )(req, res, next)

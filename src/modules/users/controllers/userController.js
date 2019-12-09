@@ -51,7 +51,8 @@ class UserController {
         try {
             let users = await UserService.readAll()
 
-            return res.status(200)
+            return res.render('usersList', {users})
+            /*.status(200)
                 .json(
                     helpers.ResponseFormat.build(
                         users,
@@ -59,7 +60,7 @@ class UserController {
                         200,
                         "success"
                     )
-                )
+                )*/
         } catch(error) {
             next(error)
         }
