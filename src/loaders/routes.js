@@ -9,12 +9,6 @@ import { passport, login, logout, isAutenticated } from './passport'
 
 export default (app) => {
 
-    app.get('/login', (req, res, next) => {
-        req.isAutenticated()
-            ? res.redirect('/')
-            : next() //render('')
-    })
-
     app.post('/login', login
         /*{
              successRedirect: '/home',
