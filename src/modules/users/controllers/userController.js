@@ -72,7 +72,9 @@ class UserController {
         try {
             let user = await UserService.readById(req.params.id)
             
-            return res.status(200)
+            res.render('userInfo', {user: user})
+
+            /*return res.status(200)
                 .json(
                     helpers.ResponseFormat.build(
                         user,
@@ -80,7 +82,7 @@ class UserController {
                         200,
                         "success"
                     )
-                )
+                )*/
         } catch (error) {
             next(error)
         }
@@ -89,11 +91,9 @@ class UserController {
     async update(req, res, next) {
         try {
 
-            let user = await UserService.update(req.params.id, {
-                password: req.body.password,
-            })
+            let user = await UserService.readById(req.params.id)
 
-            /*await PhoneService.update({
+            await PhoneService.update({
                 user_id: user.id, 
                 phone: req.body.phone
             })
@@ -102,16 +102,18 @@ class UserController {
                     + ' ' + req.body.last_name 
                     + ' ' + (req.body.middle_name || '')
 
-            await UserInfoService.update({
+            let usI = UserInfoService.get({where: {user_id: user.id}})
+
+            await UserInfoService.update(usI.id, {
+                user_id:   user.id,
                 full_name: fullName,
                 email: req.body.email,
                 birthday: req.body.birthday,
                 sex: req.body.sex,
             })
 
-            UserRoleService.create({user_id: user.id, role_id: 1})*/
-
-            return res.status(200)
+            res.render(`/users/${req.params.id}`)
+            /*return res.status(200)
                 .json(
                     helpers.ResponseFormat.build(
                         user,
@@ -119,7 +121,7 @@ class UserController {
                         200,
                         "success"
                     )
-                )
+                )*/
         } catch(error) {
             next(error)
         }

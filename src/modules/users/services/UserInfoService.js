@@ -33,6 +33,10 @@ class UserInfoService {
         return await UserInfoRepository.update(id, userInfo)
     }
 
+    async get(params) {
+        return  await UserInfoRepository.get(params)
+    }
+
     async destroy(id) {
 
         let userInfo = await UserInfoRepository.readById(id)

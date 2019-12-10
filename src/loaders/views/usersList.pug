@@ -14,3 +14,6 @@ block content
                     for role in user.roles
                         span #{role.name}, 
                 td #{user.user_info.full_name}
+    
+    form(method='GET' action='/logout')
+        button.btn.btn-primary(type='submit') Logout

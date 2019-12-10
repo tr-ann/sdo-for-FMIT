@@ -9,10 +9,9 @@ import { passport, login, logout, isAutenticated } from './passport'
 
 export default (app) => {
 
-
     app.get('/login', function(req, res, next) {
-        res.render('login')
-      })
+        res.render('login', {message: req.query.message})
+    })
 
     app.post('/login', login)
 
@@ -23,7 +22,7 @@ export default (app) => {
 
     
     app.use('/phones', isAutenticated, usersRouters.PhoneRouter)
-    app.use('/roles', usersRouters.RoleRouter)
+    app.use('/roles', isAutenticated, usersRouters.RoleRouter)
     app.use('/urls', isAutenticated, usersRouters.UrlRouter)
     
     app.use('/teachers', isAutenticated, teachersRouters.TeacherRouter)
