@@ -13,6 +13,7 @@ class UserController {
                 password: req.body.password,
             })
 
+
             await PhoneService.create({
                 user_id: user.id, 
                 phone: req.body.phone

@@ -13,4 +13,4 @@ export default Joi
             .min(6)
             .max(30)
             .required(),
-    });
+    })

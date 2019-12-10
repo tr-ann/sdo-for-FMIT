@@ -12,15 +12,15 @@ export default (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.INTEGER,
         },
-        fullName: {
+        full_name: {
             allowNull: false,
             type: DataTypes.STRING(100),
         },
-        shortName: {
+        short_name: {
             allowNull: false,
             type: DataTypes.STRING(100),
         },
-        recordBook: {
+        record_book: {
             allowNull: false,
             type: DataTypes.STRING(30),
         }

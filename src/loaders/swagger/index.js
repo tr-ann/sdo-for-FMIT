@@ -5,8 +5,6 @@ import facultiesDocument from './../../modules/faculties/swagger'
 import papersDocument from './../../modules/papers/swagger'
 import usersDoc from '../../modules/users/swagger/user.json'
 
-// import papersRouters from './../../modules/papers/routers'
-
 const env = process.env.NODE_ENV || 'dev'
 
 const options = {
