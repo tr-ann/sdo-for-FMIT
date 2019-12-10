@@ -9,6 +9,10 @@ import { passport, login, logout, isAutenticated } from './passport'
 
 export default (app) => {
 
+    app.get('/signup', function(req, res, next) {
+        res.render('signup')
+    })
+
     app.get('/login', function(req, res, next) {
         res.render('login', {message: req.query.message})
     })

@@ -47,7 +47,7 @@ function login(req, res, next) {
             if (err) next(err)
             
             if (!user)
-                res.redirect('/login?message=incorrect login or parrword', 403)
+                res.redirect('/login?message=Incorrect login or parrword')
 
             req.logIn(user, function(err) {
                 if (err) next(err)
@@ -88,7 +88,7 @@ function logout(req, res) {
 function isAutenticated(req, res, next) {
     req.isAuthenticated()
         ? next()
-        : res.redirect('/login?message=need authenticate')
+        : res.redirect('/login?message=Need to authenticate')
 }
 
 export { passport, login, logout, isAutenticated }
