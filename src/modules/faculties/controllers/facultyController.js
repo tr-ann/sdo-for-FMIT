@@ -31,13 +31,15 @@ class facultyController {
     async readAll(req, res, next) {
         try {
             let faculties = await FacultyService.readAll()
+
+            return res.render("facultiesList", {faculties})
             
-            return res.status(200).json(helpers.ResponseFormat.build(
-                faculties,
-                "Faculties read successfully",
-                200,
-                "success"
-            ))
+            // return res.status(200).json(helpers.ResponseFormat.build(
+            //     faculties,
+            //     "Faculties read successfully",
+            //     200,
+            //     "success"
+            // ))
         } catch (error) {
              next(error)
         }

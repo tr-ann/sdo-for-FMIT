@@ -24,14 +24,16 @@ class specialtyController {
 
     async readAll(req, res, next) {
         try {
-            let specialtys = await SpecialtyService.readAll()
+            let specialties = await SpecialtyService.readAll()
             
-            return res.status(200).json(helpers.ResponseFormat.build(
-                specialtys,
-                "Specialtys read successfully",
-                200,
-                "success"
-            ))
+            return res.render("specialtiesList", {specialties})
+
+            // return res.status(200).json(helpers.ResponseFormat.build(
+            //     specialties,
+            //     "Specialtys read successfully",
+            //     200,
+            //     "success"
+            // ))
         } catch (error) {
              next(error)
         }

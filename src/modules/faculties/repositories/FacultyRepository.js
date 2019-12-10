@@ -14,7 +14,7 @@ class FacultyRepository {
                 {
                     model: db.info_faculty,
                     as: 'info_faculty',
-                    attributes: [ 'id', 'description' ],
+                    attributes: [ 'id', 'description', 'phone_number' ],
                 },
             ],
         })
