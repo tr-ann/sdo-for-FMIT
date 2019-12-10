@@ -51,7 +51,9 @@ class UserController {
         try {
             let users = await UserService.readAll()
 
-            return res.render('usersList', {users})
+            let us = req.user
+
+            return res.render('usersList', {users, us})
             /*.status(200)
                 .json(
                     helpers.ResponseFormat.build(

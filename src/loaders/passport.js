@@ -46,7 +46,8 @@ function login(req, res, next) {
         function(err, user, info) {
             if (err) next(err)
             
-            if (!user) next(new NotFound())
+            if (!user) /*next(new NotFound())*/
+                res.redirect('/login?message=incorrect login or parrword', 403)
 
             req.logIn(user, function(err) {
                 if (err) next(err)
