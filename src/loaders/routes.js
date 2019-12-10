@@ -14,17 +14,12 @@ export default (app) => {
         res.render('login')
     })
 
-    app.post('/login', login
-        /*{
-             successRedirect: '/home',
-             failureRedirect: '/login',
-         })*/
-    )
+    app.post('/login', login)
 
 
     app.get('/logout', logout)
 
-    app.use('/users', isAutenticated, usersRouters.UserRouter)
+    app.use('/users', usersRouters.UserRouter)
 
     
     app.use('/phones', isAutenticated, usersRouters.PhoneRouter)
