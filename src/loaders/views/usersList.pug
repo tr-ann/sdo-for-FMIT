@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    p User: #{us.login}
+
     table(border='1px')
         th UserName
         th Roles
@@ -12,3 +14,6 @@ block content
                     for role in user.roles
                         span #{role.name}, 
                 td #{user.user_info.full_name}
+    
+    form(method='GET' action='/logout')
+        button.btn.btn-primary(type='submit') Logout

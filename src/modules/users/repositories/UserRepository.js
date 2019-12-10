@@ -24,7 +24,7 @@ class UserRepository {
             include: [
                 { 
                     model: db.user_info,
-                    attributes: [ 'id', 'full_name'],
+                    attributes: [ 'id', 'full_name', 'email', 'sex', 'description', 'birthday', 'city', 'address'],
                     as: 'user_info'
                 },
                 {
