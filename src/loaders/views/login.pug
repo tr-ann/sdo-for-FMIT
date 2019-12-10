@@ -1,7 +1,8 @@
 extends layout
 
 block content
-    p #{message}
+    if (message)
+        div(class="alert alert-danger" role="alert" style="text-align: center") #{message}
 
     form(method='POST' action='/login')
         div.form-group
@@ -9,5 +10,5 @@ block content
             input#name.form-control(type='text' name='login') 
         div.form-group
             label(for='password') Password:
-            input#pw.form-control(type='password' name='password')
+            input#password.form-control(type='password' name='password')
         button.btn.btn-primary(type='submit') Sign up
