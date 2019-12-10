@@ -32,7 +32,7 @@ class facultyController {
         try {
             let faculties = await FacultyService.readAll()
 
-            return res.render("facultiesList", {faculties})
+            return res.render("facultiesList", {faculties, currentUser: req.user})
             
             // return res.status(200).json(helpers.ResponseFormat.build(
             //     faculties,

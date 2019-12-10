@@ -1,14 +1,15 @@
 extends layout
 
 block content
-    table(border='1px')
-        th Name
-        th Short name
-        th Description
-        th Phone number
-        for faculty in faculties
-            tr 
-                td #{faculty.name}
-                td #{faculty.short_name}
-                td #{faculty.info_faculty.description}
-                td #{faculty.info_faculty.phone_number}
+    div(class='container')
+        table(class='table')
+            th Name
+            th Short name
+            th Description
+            th Phone number
+            for faculty in faculties
+                tr 
+                    td #{faculty.name}
+                    td #{faculty.short_name}
+                    td #{faculty.info_faculty.description}
+                    td #{faculty.info_faculty.phone_number}
