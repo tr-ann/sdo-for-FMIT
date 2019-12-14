@@ -1,85 +1,55 @@
-extends layout 
-
-block head
-    <link rel="stylesheet" href="general.css">
+extends layout
 
 block content
-    <div>
-		<div class="col-md-6">
-			<div class="panel panel-default card-view">
-				<div class="panel-heading">
-					<div class="pl-3 pb-4">
-						<h6 class="panel-title">Panel</h6>
-					</div>
-				</div>				
-				<div class="col-sm-12 col-xs-12">
-					<form>
-						<div class="mb-2 input-groop-2">
-							<div>
-								<div>
-									<label for = "input name 2">Username*</label>
-								</div>
-								<div>
-									<i class="fa fa-user m-2"></i>
-								</div>
-								<div>
-									<input class="pl-2" placeholder="Username" type="text" name="User Name 2" id="input name 2">
-								</div>
-							</div>
-							<div>
-								<div>
-									<label for = "input address 2">Email Address</label>
-								</div>
-								<div>
-									<i class="fa fa-envelope m-2"></i>
-								</div>
-								<div>
-									<input class="pl-2" placeholder="Enter Email" type="text" name="Email Address 2" id="input address 2">
-								</div>
-							</div>
-							<div>
-								<div>
-									<label for = "input Website">Website</label>
-								</div>
-								<div>
-									<i class="fa fa-globe m-2"></i>
-								</div>
-								<div>
-									<input class="pl-2" placeholder="Enter Website Name" type="text" name="Website" id="input Website">
-								</div>
-							</div>
-							<div>
-								<div>
-									<label for = "input password 2">Password</label>
-								</div>
-								<div>
-									<i class="fa fa-lock m-2"></i>
-								</div>
-								<div>
-									<input class="pl-2" placeholder="Enter Pwd" type="password" name="Password 2" id="input password 2">
-								</div>
-							</div>	
-							<div>
-								<div>
-									<label for = "confirm password 2">Re Password</label>
-								</div>
-								<div>
-									<i class="fa fa-lock m-2"></i>
-								</div>
-								<div>
-									<input class="pl-2" placeholder="Re Enter Pwd" type="password" name="Confirm Password 2" id="confirm password 2">
-								</div>
-							</div>					
-						</div>
-						<div class="mb-3 mt-3" align="center">
-							<input type="checkbox" id="checkbox_2">
-							<label for="checkbox_2" style="margin-left: 7px;">Check me out !</label>
-						</div>
-						<div align="center">						
-							<button type="submit" class="form-button sign-in-button">Sign In</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-    </div>
+	form(method='POST' action='/signup')
+		
+		div(class="form-group row")
+			label(for="inputLogin" class="col-sm-2 col-form-label") Login*
+			div(class="col-sm-10")
+				input#inputLogin.form-control(type="text" class="form-control" placeholder="login")
+		
+		div(class="form-group row")
+			label(for="inputEmail" class="col-sm-2 col-form-label") Email*
+			div(class="col-sm-10")
+				input#inputEmail.form-control(type="text" class="form-control" placeholder="email")
+		
+		div(class="form-group row")
+			label(for="inputPassword" class="col-sm-2 col-form-label") Password*
+			div(class="col-sm-10")
+				input#inputPassword.form-control(type="password" class="form-control" placeholder="Password")
+		
+		div(class="form-group row")
+			label(for="inputLastName" class="col-sm-2 col-form-label") Last name*
+			div(class="col-sm-10")
+				input#inputLastName.form-control(type="text" class="form-control")
+		
+		div(class="form-group row")
+			label(for="inputFirstName" class="col-sm-2 col-form-label") First name*
+			div(class="col-sm-10")
+				input#inputFirstName.form-control(type="text" class="form-control")
+		
+		div(class="form-group row")
+			label(for="inputMiddleName" class="col-sm-2 col-form-label") Middle name
+			div(class="col-sm-10")
+				input#inputMiddleName.form-control(type="text" class="form-control")
+
+		div(class="form-group row")
+			label(for="inputBirthday" class="col-sm-2 col-form-label") Birthday*
+			div(class="col-sm-10")
+				input#inputBirthday.form-control(type="date" class="form-control")
+
+		div(class="form-group row")
+			label(class="col-sm-2 col-form-label") Sex*
+			div(class="col-sm-2")
+				label(for="maleRadio" style="margin-right: 10px") Male
+				input#maleRadio(type="radio" name="sexRadio"  value="male")
+			div(class="col-sm-2")
+				label(for="femaleRadio" style="margin-right: 10px") Female
+				input#femaleRadio(type="radio" name="sexRadio" value="female")
+
+		div(class="form-group row")
+			label(for="inputPhone" class="col-sm-2 col-form-label") Phone
+			div(class="col-sm-10")
+				input#inputPhone.form-control(type="text" class="form-control")
+		div(class="form-group row")
+			button.btn.btn-primary(class="col-sm-2" type='submit') Sign up

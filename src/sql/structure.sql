@@ -103,7 +103,7 @@ DROP TABLE IF EXISTS `users_roles` ;
 CREATE TABLE `users_roles` (
     `id`                    INT auto_increment      PRIMARY KEY,
     `user_id`               INT NOT NULL,
-    `role_id`               INT NOT NULL,
+    `role_id`               INT DEFAULT 1,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
@@ -141,7 +141,9 @@ DROP TABLE IF EXISTS `users_info`;
 CREATE TABLE `users_info` (
     `id`                    INT         PRIMARY KEY auto_increment,
     `user_id`               INT         UNIQUE,
-    `full_name`             VARCHAR(255)NOT NULL,
+    `last_name`             VARCHAR(100)NOT NULL,
+    `first_name`            VARCHAR(100)NOT NULL,
+    `midlle_name`           VARCHAR(100)        ,
     `sex`                   VARCHAR(2)  NOT NULL,
     `email`                 VARCHAR(255)NOT NULL,
     `description`           TEXT,
@@ -156,8 +158,9 @@ CREATE TABLE `users_info` (
 DROP TABLE IF EXISTS `teachers`;
 CREATE TABLE `teachers` (
     `id`                    INT         PRIMARY KEY,
-    `full_name`             VARCHAR(150)NOT NULL,
-    `short_name`            VARCHAR(50) NOT NULL,
+    `last_name`             VARCHAR(100)NOT NULL,
+    `first_name`            VARCHAR(100)NOT NULL,
+    `midlle_name`           VARCHAR(100)        ,
     `department_id`         INT    ,
     `position_id`           INT    ,
     `academic_degree_id`    INT    ,
@@ -259,8 +262,9 @@ CREATE TABLE `lessons` (
 DROP TABLE IF EXISTS `students`;
 CREATE TABLE `students` ( 
     `id`                    INT             PRIMARY KEY,
-    `full_name`             VARCHAR(300)    NOT NULL,
-    `short_name`            VARCHAR(100)    NOT NULL,
+    `last_name`             VARCHAR(100)NOT NULL,
+    `first_name`            VARCHAR(100)NOT NULL,
+    `midlle_name`           VARCHAR(100)        ,
     `group_id`              INT             ,
     `record_book`           VARCHAR(30)     NOT NULL,
     `deleted_date`          DATETIME

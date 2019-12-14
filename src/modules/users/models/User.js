@@ -29,7 +29,6 @@ export default (sequelize, DataTypes) => {
             onDelete: 'restrict',
             onUpdate: 'restrict',
             foreignKey: 'user_id',
-            otherKey: 'role_id',
             as: 'roles'
         })        
         User.hasMany(models.phone, {
