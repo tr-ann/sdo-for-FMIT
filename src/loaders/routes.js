@@ -4,30 +4,16 @@ import usersRouters from '../modules/users/routers'
 import teachersRouters from '../modules/teachers/routers'
 import studentsRouters from '../modules/students/routers'
 import facultiesRouters from '../modules/faculties/routers'
-import UserController from '../modules/users/controllers/UserController'
+import authRouter from '../modules/auth/AuthRouter'
 
-import { passport, login, logout, isAuthenticated, isUnauthorized } from './passport'
+import { isAuthenticated } from './passport'
 import { filter } from './filter'
 
 export default (app) => {
 
-    app.get('/signup', function(req, res, next) {
-        res.render('signup')
-    })
-
-    app.post('/signup', UserController.create, (req, res, next) => {
-        res.redirect('/login')
-    })
-
-    app.get('/login', isUnauthorized, function(req, res, next) {
-        res.render('login', {message: req.query.message})
-    })
-
-    app.post('/login', isUnauthorized, login)
+    app.use(authRouter)
 
     app.use(isAuthenticated)
-
-    app.get('/logout', logout)
 
     app.use(filter)
     

@@ -1,9 +1,6 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import UserRepository from '../modules/users/repositories/UserRepository'
-import Unauthorized from '../classes/errors/4xx/unauthorized'
-import NotFound from '../classes/errors/4xx/notFound'
-import ResponseFormat from '../helpers/ResponseFormat'
 
 passport.use(new LocalStrategy({
         usernameField: 'login',
@@ -41,44 +38,6 @@ passport.deserializeUser(async function(id, done) {
 })
 
 
-function login(req, res, next) {
-    passport.authenticate('local',
-        function(err, user, info) {
-            if (err) 
-                next(err)
-            
-            if (!user)
-                res.redirect('/login?message=Incorrect login or parrword')
-
-            req.logIn(user, function(err) {
-                if (err) 
-                    next(err)
-
-                delete user.dataValues.password
-                delete user._previousDataValues.password
-
-                res.redirect('/users')
-            })
-        }
-    )(req, res, next)
-}
-  
-function logout(req, res) {
-    req.logout()
-
-    res.redirect('/login')
-
-    /*return res.status(200).json(
-        ResponseFormat.build(
-            {},
-            'user logout successfully',
-            200,
-            'success'
-        )
-    )*/
-}
-
-
 function isAuthenticated(req, res, next) {
     req.isAuthenticated()
         ? next()
@@ -91,4 +50,4 @@ function isUnauthorized(req, res, next) {
         : next()
 }
 
-export { passport, login, logout, isAuthenticated, isUnauthorized }
+export { passport, isAuthenticated, isUnauthorized }
