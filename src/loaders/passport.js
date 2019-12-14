@@ -44,26 +44,20 @@ passport.deserializeUser(async function(id, done) {
 function login(req, res, next) {
     passport.authenticate('local',
         function(err, user, info) {
-            if (err) next(err)
+            if (err) 
+                next(err)
             
             if (!user)
                 res.redirect('/login?message=Incorrect login or parrword')
 
             req.logIn(user, function(err) {
-                if (err) next(err)
+                if (err) 
+                    next(err)
 
                 delete user.dataValues.password
                 delete user._previousDataValues.password
 
                 res.redirect('/users')
-                /*return res.status(200).json(
-                    ResponseFormat.build(
-                        user,
-                        'user authorized successfully',
-                        200,
-                        'success'
-                    )
-                )*/
             })
         }
     )(req, res, next)

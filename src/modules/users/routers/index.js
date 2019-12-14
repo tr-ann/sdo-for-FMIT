@@ -1,7 +1,7 @@
 import UserRouter from './UserRouter'
 import PhoneRouter from './PhoneRouter'
 import RoleRouter from './RoleRouter'
-import UrlRouter from './UrlRouter'
+import ControlPointRouter from './ControlPointRouter'
 import UserInfoRouter from './UserInfoRouter'
 
 export default {
@@ -9,5 +9,5 @@ export default {
     PhoneRouter,
     RoleRouter,
     UserInfoRouter,
-    UrlRouter,
+    ControlPointRouter,
 }

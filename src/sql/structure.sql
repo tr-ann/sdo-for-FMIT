@@ -143,7 +143,7 @@ CREATE TABLE `users_info` (
     `user_id`               INT         UNIQUE,
     `last_name`             VARCHAR(100)NOT NULL,
     `first_name`            VARCHAR(100)NOT NULL,
-    `midlle_name`           VARCHAR(100)        ,
+    `middle_name`           VARCHAR(100)        ,
     `sex`                   VARCHAR(2)  NOT NULL,
     `email`                 VARCHAR(255)NOT NULL,
     `description`           TEXT,

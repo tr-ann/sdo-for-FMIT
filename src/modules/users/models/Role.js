@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
             onDelete: 'restrict',
             onUpdate: 'restrict',
             foreignKey: 'role_id',
-            as: 'control_ponints',
+            as: 'controlPoints',
         })
         Role.belongsToMany(models.user, {
             through: models.user_role,

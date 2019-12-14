@@ -6,8 +6,8 @@ import studentsRouters from '../modules/students/routers'
 import facultiesRouters from '../modules/faculties/routers'
 import UserController from '../modules/users/controllers/UserController'
 
-import { passport, login, logout, isAuthenticated } from './passport'
-import filter from './filter'
+import { passport, login, logout, isAuthenticated, isUnauthorized } from './passport'
+import { filter } from './filter'
 
 export default (app) => {
 
@@ -15,7 +15,9 @@ export default (app) => {
         res.render('signup')
     })
 
-    app.post('/signup', UserController.create)
+    app.post('/signup', UserController.create, (req, res, next) => {
+        res.redirect('/login')
+    })
 
     app.get('/login', isUnauthorized, function(req, res, next) {
         res.render('login', {message: req.query.message})
@@ -33,7 +35,6 @@ export default (app) => {
     
     app.use('/phones', usersRouters.PhoneRouter)
     app.use('/roles', usersRouters.RoleRouter)
-    app.use('/urls', usersRouters.UrlRouter)
     
     app.use('/teachers', teachersRouters.TeacherRouter)
     app.use('/academicDegrees', teachersRouters.AcademicDegreeRouter)

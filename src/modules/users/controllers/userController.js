@@ -14,7 +14,10 @@ class UserController {
       })
 
       if (req.body.phone) {
-        await user.addPhone({ phone: req.body.phone })
+        await PhoneService.create({
+            user_id: user.id,
+            phone: req.body.phone
+        })
       }
 
       await UserInfoService.create({
@@ -27,9 +30,9 @@ class UserController {
         sex: req.body.sex,
       })
 
-      await UserRoleService.create({ user_id: user.id })
-
-      res.redirect('/faculties');
+      await user.addRole(1)
+      
+      next()
 
     } catch (error) {
 
@@ -42,15 +45,6 @@ class UserController {
             let users = await UserService.readAll()
 
             return res.render('usersList', {users, currentUser: req.user})
-            /*.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        users,
-                        "Users read successfully",
-                        200,
-                        "success"
-                    )
-                )*/
         } catch(error) {
             next(error)
         }
@@ -60,17 +54,8 @@ class UserController {
         try {
             let user = await UserService.readById(req.params.id)
 
-            res.render('userInfo', {user: user})
-
-            /*return res.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        user,
-                        "User read successfully",
-                        200,
-                        "success"
-                    )
-                )*/
+            res.currentUser = req.user
+            res.render('userInfo', { user: user })
         } catch (error) {
             next(error)
         }
@@ -81,35 +66,32 @@ class UserController {
 
             let user = await UserService.readById(req.params.id)
 
-            await PhoneService.update({
-                user_id: user.id, 
+            let phones = await user.getPhones()
+
+            for (let phone of phones) {
+                phone.destroy()
+            }
+
+            await PhoneService.create({
+                user_id: user.id,
                 phone: req.body.phone
             })
 
-            let fullName = req.body.first_name 
-                    + ' ' + req.body.last_name 
-                    + ' ' + (req.body.middle_name || '')
+            let userInfo = UserInfoService.get({where: {user_id: user.id}})
 
-            let usI = UserInfoService.get({where: {user_id: user.id}})
-
-            await UserInfoService.update(usI.id, {
-                user_id:   user.id,
-                full_name: fullName,
+            await UserInfoService.update(userInfo.id, {
+                lastName: req.body.lastName,
+                firstName: req.body.firstName,
+                middleName: req.body.middleName,
                 email: req.body.email,
                 birthday: req.body.birthday,
                 sex: req.body.sex,
+                city: req.body.city,
+                address: req.body.address
             })
-
+            
+            res.currentUser = req.user
             res.render(`/users/${req.params.id}`)
-            /*return res.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        user,
-                        "User updated successfully",
-                        200,
-                        "success"
-                    )
-                )*/
         } catch(error) {
             next(error)
         }

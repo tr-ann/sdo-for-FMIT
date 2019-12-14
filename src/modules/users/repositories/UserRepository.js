@@ -24,7 +24,14 @@ class UserRepository {
             include: [
                 { 
                     model: db.user_info,
-                    attributes: [ 'id', 'full_name', 'email', 'sex', 'description', 'birthday', 'city', 'address'],
+                    attributes: [ 
+                        'id', 
+                        ['last_name', 'lastName'], 
+                        ['first_name', 'firstName'], 
+                        ['middle_name', 'middleName'], 
+                        'email', 'sex', 'description', 
+                        'birthday', 'city', 'address'
+                    ],
                     as: 'user_info'
                 },
                 {
@@ -52,7 +59,13 @@ class UserRepository {
             include: [
                 { 
                     model: db.user_info,
-                    attributes: [ 'id', 'full_name'],
+                    attributes: 
+                    [ 
+                        'id', 
+                        ['last_name', 'lastName'], 
+                        ['first_name', 'firstName'], 
+                        ['middle_name', 'middleName'],  
+                    ],
                     as: 'user_info'
                 },
                 {
