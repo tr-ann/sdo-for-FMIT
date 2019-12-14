@@ -13,9 +13,9 @@ export default (app) => {
 
     app.use(authRouter)
 
-    //app.use(isAuthenticated)
+    app.use(isAuthenticated)
 
-    //app.use(filter)
+    app.use(filter)
     
     app.use('/users', usersRouters.UserRouter)
     

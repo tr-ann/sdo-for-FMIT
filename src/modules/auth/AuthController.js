@@ -1,4 +1,7 @@
 import { passport } from '../../loaders/passport'
+import UserService from '../users/services/UserService'
+import UserInfoService from '../users/services/UserInfoService'
+import PhoneService from '../users/services/PhoneService'
 
 class AuthController {
 
@@ -9,7 +12,7 @@ class AuthController {
           next(err)
         
         if (!user)
-          res.redirect('/login?message=Incorrect login or parrword')
+          res.redirect('/login?message=Incorrect login or password')
 
         req.logIn(user, function(err) {
           if (err) 
@@ -55,7 +58,7 @@ class AuthController {
 
       await user.addRole(1)
 
-      this.login(req, res, next)
+      new AuthController().login(req, res, next)
 
     } catch (error) {
         next(error)
