@@ -2,6 +2,24 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+  
+    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
+
   body
+
+    nav(class="navbar navbar-dark bg-inverse")
+      a(class="navbar-brand" href="#") Navbar
+      ul
+        li
+          a(href="#") lol
+        li
+          a(href="#") kek
+        li
+          a(href="#") keklol
+      div(class="form-inline pull-xs-right")
+        a(class="btn btn-outline-success" type="submit") Search
+
     block content

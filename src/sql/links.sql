@@ -331,16 +331,17 @@ ALTER TABLE practices
 ;
 
 
-/* таблица roles_urls */
-ALTER TABLE roles_urls
+/* таблица access_rules */
+ALTER TABLE access_rules
 
-	ADD CONSTRAINT FK_roles_urls_to_roles FOREIGN KEY(role_id)
+	ADD CONSTRAINT FK_access_rules_to_roles FOREIGN KEY(role_id)
 		REFERENCES roles(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT,
+		ON UPDATE RESTRICT
+	,
 
-	ADD CONSTRAINT FK_roles_urls_to_urls FOREIGN KEY(url_id)
-		REFERENCES urls(id)
+	ADD CONSTRAINT FK_access_rules_to_control_points FOREIGN KEY(control_point_id)
+		REFERENCES control_points(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;

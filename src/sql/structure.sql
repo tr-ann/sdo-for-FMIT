@@ -93,7 +93,7 @@ CREATE TABLE `roles` (
 /* Таблица `пользователь` */
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-    `id`                    INT auto_increment      PRIMARY KEY,
+    `id`                    INT         auto_increment PRIMARY KEY,
     `login`                 VARCHAR(50) NOT NULL UNIQUE,
     `password`              VARCHAR(100)NOT NULL,
     `deleted_date`          DATETIME
@@ -378,15 +378,18 @@ CREATE TABLE `practices` (
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
-DROP TABLE IF EXISTS `urls`;
-CREATE TABLE `urls` (
-    `id`             INT auto_increment      PRIMARY KEY,
-    `url`            VARCHAR(248)   
+DROP TABLE IF EXISTS `access_rules`;
+CREATE TABLE `access_rules` (
+    `id`                INT         auto_increment PRIMARY KEY,
+    `role_id`           INT         ,
+    `control_point_id`  INT         ,
+    `deleted_date`      DATETIME                 
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
-DROP TABLE IF EXISTS `roles_urls`;
-CREATE TABLE `roles_urls` (
-    `id`            INT auto_increment        PRIMARY KEY,
-    `role_id`       INT             ,
-    `url_id`        INT                      
+DROP TABLE IF EXISTS `control_points`;
+CREATE TABLE `control_points` (
+    `id`            INT             auto_increment PRIMARY KEY,
+    `url`           VARCHAR(2048)   NOT NULL,
+    `method`        VARCHAR(30)     NOT NULL,
+    `deleted_date`  DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
