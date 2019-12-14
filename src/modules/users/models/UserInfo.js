@@ -46,7 +46,7 @@ export default (sequelize, DataTypes) => {
         },
         birthday: {
             allowNull: false,
-            type: DataTypes.DATE
+            type: DataTypes.DATEONLY
         },
         city: {
             allowNull: true,

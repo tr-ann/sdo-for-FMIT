@@ -31,8 +31,8 @@ class UserController {
       })
 
       await user.addRole(1)
-      
-      next()
+
+      res.render('usersList', {currentUser: req.user})
 
     } catch (error) {
 
@@ -54,8 +54,7 @@ class UserController {
         try {
             let user = await UserService.readById(req.params.id)
 
-            res.currentUser = req.user
-            res.render('userInfo', { user: user })
+            res.render('userInfo', { user: user, currentUser: req.user })
         } catch (error) {
             next(error)
         }
@@ -77,9 +76,7 @@ class UserController {
                 phone: req.body.phone
             })
 
-            let userInfo = UserInfoService.get({where: {user_id: user.id}})
-
-            await UserInfoService.update(userInfo.id, {
+            await UserInfoService.update(user.id, {
                 lastName: req.body.lastName,
                 firstName: req.body.firstName,
                 middleName: req.body.middleName,
@@ -90,8 +87,7 @@ class UserController {
                 address: req.body.address
             })
             
-            res.currentUser = req.user
-            res.render(`/users/${req.params.id}`)
+            res.redirect(`/users/${req.params.id}`)
         } catch(error) {
             next(error)
         }

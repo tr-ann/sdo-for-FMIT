@@ -26,7 +26,7 @@ export default (sequelize, DataTypes) => {
         Resource.hasMany(models.user_info, {
             onUpdate: 'restrict',
             onDelete: 'restrict',
-            foreignKey: 'resource_id'
+            foreignKey: 'resourceId'
         })
         Resource.hasMany(models.term_paper, {
             onUpdate: 'restrict',

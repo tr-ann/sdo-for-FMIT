@@ -22,15 +22,15 @@ class UserInfoService {
         return userInfo
     }
 
-    async update(id, userInfo) {
+    async update(user_id, userInfo) {
 
-        let oldUserInfo = await UserInfoRepository.readById(id)
+        let oldUserInfo = await UserInfoRepository.readById(user_id)
         
         if (!oldUserInfo) {
             throw new NotFound('User info not found')
         }
 
-        return await UserInfoRepository.update(id, userInfo)
+        return await UserInfoRepository.update(user_id, userInfo)
     }
 
     async get(params) {

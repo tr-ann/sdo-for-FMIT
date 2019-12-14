@@ -29,7 +29,7 @@ class AuthController {
     res.redirect('/login')
   }
 
-  signup(req, res, next) {
+  async signup(req, res, next) {
     try {
       let user = await UserService.create({
         login: req.body.login,

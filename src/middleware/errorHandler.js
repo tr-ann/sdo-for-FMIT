@@ -1,6 +1,7 @@
 import ResponseFormat from '../helpers/ResponseFormat'
 
 export default function(err, req, res, next) {
+    console.log(err.stack)
 
     switch (err.name) {
         case 'Unauthorized':

@@ -147,7 +147,7 @@ CREATE TABLE `users_info` (
     `sex`                   VARCHAR(2)  NOT NULL,
     `email`                 VARCHAR(255)NOT NULL,
     `description`           TEXT,
-    `birthday`              DATETIME    NOT NULL,
+    `birthday`              DATE    NOT NULL,
     `city`                  VARCHAR(30),
     `address`               TEXT       ,
     `photo_id`              INT         ,

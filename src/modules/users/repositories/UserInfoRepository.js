@@ -20,14 +20,15 @@ class UserInfoRepository {
      */
     async readById(user_id) {        
         return await db.user_info.findOne({
-            attributes: [ 'id', 'full_name', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
-            include: [
-                {
-                    model: db.resource,
-                    attributes: [ 'id', 'description' ],
-                },
+            attributes: [ 
+                'id', 
+                ['last_name', 'lastName'], 
+                ['first_name', 'firstName'], 
+                ['middle_name', 'middleName'],
+                'email', 'sex', 'description',
+                'birthday', 'city', 'address' 
             ],
-
+            
             where: { user_id: user_id }
         })
     }
@@ -35,12 +36,12 @@ class UserInfoRepository {
     /**
      * Update an entity from a database
      * 
-     * @param {Number} id - id of userInfo that will be updated
+     * @param {Number} user_id - id of user that will be updated
      * @param {Object} userInfo - body of userInfo that will be updated
      * @return {Promise} promise with result of update
      */
-    async update(id, userInfo) {
-        return await db.user_info.update(userInfo, {where: { id: id }})
+    async update(user_id, userInfo) {
+        return await db.user_info.update(userInfo, {where: { user_id: user_id }})
     }
 
     /**

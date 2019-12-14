@@ -21,7 +21,7 @@ block content
         div(class="form-group row")
             label(for="inputBirthday" class="col-sm-2 col-form-label") Birthday*
             div(class="col-sm-10")
-                input#inputBirthday.form-control(type="date" class="form-control" name="birtday" value=currentUser.user_info.birthday)
+                input#inputBirthday.form-control(type="date" class="form-control" name="birthday" value=currentUser.user_info.birthday)
         div(class="form-group row")
             label(class="col-sm-2 col-form-label") Sex*
             div(class="col-sm-2")
@@ -33,5 +33,5 @@ block content
         div(class="form-group row")
             label(for="inputPhone" class="col-sm-2 col-form-label") Phone
             div(class="col-sm-10")
-                input#inputPhone.form-control(type="text" class="form-control" name="phone" value=currentUser.user_info.phone)
+                input#inputPhone.form-control(type="text" class="form-control" name="phone" value=phones)
         button.btn.btn-success(type='submit') Save
