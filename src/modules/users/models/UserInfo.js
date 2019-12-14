@@ -7,46 +7,59 @@ export default (sequelize, DataTypes) => {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
-            primaryKey: true,
+            primaryKey: true
         },
-        user_id: {
+        userId: {
             allowNull: true,
             type: DataTypes.INTEGER,
+            field: 'user_id'
         },
-        full_name: {
+        firstName: {
             allowNull: false,
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING(100),
+            field: 'first_name'
+        },
+        lastName: {
+            allowNull: false,
+            type: DataTypes.STRING(100),
+            field: 'last_name'
+        },
+        middleName: {
+            allowNull: true,
+            type: DataTypes.STRING(100),
+            field: 'middle_name'
         },
         email: {
             allowNull: false,
             type: DataTypes.STRING(255),
             validate: {
-                isEmail: true,
+                isEmail: true
             }
         },
         sex: {
             allowNull: false,
-            type: DataTypes.STRING(10),
+            type: DataTypes.STRING(10)
         },
         description: {
             allowNull: true,
-            type: DataTypes.TEXT,
+            type: DataTypes.TEXT
         },
         birthday: {
             allowNull: false,
-            type: DataTypes.DATE,
+            type: DataTypes.DATE
         },
         city: {
             allowNull: true,
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING(255)
         },
         address: {
             allowNull: true,
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING(255)
         },
-        resource_id: {
+        resourceId: {
             allowNull: true,
             type: DataTypes.INTEGER,
+            field: 'resource_id'
         }
     }, {
         sequelize,
@@ -62,13 +75,13 @@ export default (sequelize, DataTypes) => {
         UserInfo.belongsTo(models.user, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'user_id',
+            foreignKey: 'userId',
             as: 'user'
         })
         UserInfo.belongsTo(models.resource, {
             onDelete: 'restrict',
             onUpdate: 'restrict',
-            foreignKey: 'resource_id',
+            foreignKey: 'resourceId',
             as: 'resource'
         })
     }

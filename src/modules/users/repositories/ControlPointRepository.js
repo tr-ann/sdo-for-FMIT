@@ -1,15 +1,15 @@
 import db from '../../../classes/dbModels'
 
-class UrlRepository {
+class ControlPointRepository {
 
     /**
      * This is a standard method to create an entity in a database
      * 
-     * @param {Object} url - body of url that will be created
+     * @param {Object} controlPoint - body of controlPoint that will be created
      * @return {Promise} promise with result of create
      */
-    async create(url) {
-        return await db.url.create(url)
+    async create(controlPoint) {
+        return await db.control_point.create(controlPoint)
     }
 
     /**
@@ -18,30 +18,20 @@ class UrlRepository {
      * @return {Promise} promise with result of read
      */
     async readAll() {
-        return await db.url.findAll({
-            attributes: [ 'id', 'url'], 
-            include: [
-                {
-                    model: db.role,
-                    attributes: [ 'id', 'name' ],
-                    as: 'roles'
-                }
-            ]
+        return await db.control_point.findAll({
+            attributes: [ 'id', 'url', 'method' ],
         })
     }
 
     /**
      * This is a standard method to read an entity from a database
      * 
-     * @param {Number} id - id of url that will be read
+     * @param {Number} id - id of controlPoint that will be read
      * @return {Promise} promise with result of create
      */
     async readById(id) {
-        return await db.url.findByPk(id, {
-            attributes: [
-                'id',
-                'url',
-            ], 
+        return await db.control_point.findByPk(id, {
+            attributes: [ 'id', 'url', 'method' ], 
             include: [
                 {
                     model: db.role,
@@ -55,22 +45,22 @@ class UrlRepository {
     /**
      * This is a standard method to update an entity from a database
      * 
-     * @param {Number} id - id of url that will be updated
-     * @param {Object} url - body of url that will be updated
+     * @param {Number} id - id of controlPoint that will be updated
+     * @param {Object} controlPoint - body of controlPoint that will be updated
      * @return {Promise} promise with result of update
      */
-    async update(id, url) {
-        return await db.url.update(url, {where: {id: id}})
+    async update(id, controlPoint) {
+        return await db.control_point.update(controlPoint, {where: {id: id}})
     }
 
      /**
      * This is a standard method to destroy an entity from a database
      * 
-     * @param {Number} id - id of url that will be destroyed
+     * @param {Number} id - id of controlPoint that will be destroyed
      * @return {Promise} promise with result of destroy
      */
     async destroy(id) {
-        return await db.url.destroy({where: {id: id}})
+        return await db.control_point.destroy({where: {id: id}})
     }
 
     /**
@@ -80,8 +70,8 @@ class UrlRepository {
      * @return {Promise} promise with result of create
      */
     async get(options) {        
-        return await db.url.findAll(options)
+        return await db.control_point.findOne(options)
     }
 }
 
-export default new UrlRepository()
+export default new ControlPointRepository()

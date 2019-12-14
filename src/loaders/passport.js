@@ -85,10 +85,16 @@ function logout(req, res) {
 }
 
 
-function isAutenticated(req, res, next) {
+function isAuthenticated(req, res, next) {
     req.isAuthenticated()
         ? next()
         : res.redirect('/login?message=Need to authenticate')
 }
 
-export { passport, login, logout, isAutenticated }
+function isUnauthorized(req, res, next) {
+    req.isAuthenticated()
+        ? res.redirect(`/users/${req.user.id}`)
+        : next()
+}
+
+export { passport, login, logout, isAuthenticated, isUnauthorized }

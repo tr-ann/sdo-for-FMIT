@@ -19,21 +19,19 @@ export default (sequelize, DataTypes) => {
     })
 
     Role.associate = function (models) {
-        Role.belongsToMany(models.url, {
-            through: models.role_url,
+        Role.belongsToMany(models.control_point, {
+            through: models.access_rule,
             onDelete: 'restrict',
             onUpdate: 'restrict',
             foreignKey: 'role_id',
-            otherKey: 'url_id',
-            as: 'urls',
+            as: 'control_ponints',
         })
         Role.belongsToMany(models.user, {
             through: models.user_role,
             onDelete: 'restrict',
             onUpdate: 'restrict',
             foreignKey: 'role_id',
-            otherKey: 'user_id',
-            as: 'roles',
+            as: 'users',
         })
     };
     

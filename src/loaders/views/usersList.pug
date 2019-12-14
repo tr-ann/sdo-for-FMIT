@@ -5,11 +5,12 @@ block content
         table(class='table')
             th UserName
             th Roles
-            th FullName
+            th Name
             for user in users
                 tr 
-                    td #{user.login}
+                    td 
+                        a(href='/users/' + user.id) #{user.login}
                     td
                         for role in user.roles
                             span #{role.name}, 
-                    td #{user.user_info.full_name}
+                    td #{user.user_info.lastName} #{user.user_info.firstName}

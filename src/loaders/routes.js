@@ -4,8 +4,10 @@ import usersRouters from '../modules/users/routers'
 import teachersRouters from '../modules/teachers/routers'
 import studentsRouters from '../modules/students/routers'
 import facultiesRouters from '../modules/faculties/routers'
+import UserController from '../modules/users/controllers/UserController'
 
-import { passport, login, logout, isAutenticated } from './passport'
+import { passport, login, logout, isAuthenticated } from './passport'
+import filter from './filter'
 
 export default (app) => {
 
@@ -13,49 +15,54 @@ export default (app) => {
         res.render('signup')
     })
 
-    app.get('/login', function(req, res, next) {
+    app.post('/signup', UserController.create)
+
+    app.get('/login', isUnauthorized, function(req, res, next) {
         res.render('login', {message: req.query.message})
     })
 
-    app.post('/login', login)
+    app.post('/login', isUnauthorized, login)
+
+    app.use(isAuthenticated)
 
     app.get('/logout', logout)
 
-    app.use('/users', isAutenticated, usersRouters.UserRouter)
-
+    app.use(filter)
     
-    app.use('/phones', isAutenticated, usersRouters.PhoneRouter)
-    app.use('/roles', isAutenticated, usersRouters.RoleRouter)
-    app.use('/urls', isAutenticated, usersRouters.UrlRouter)
+    app.use('/users', usersRouters.UserRouter)
     
-    app.use('/teachers', isAutenticated, teachersRouters.TeacherRouter)
-    app.use('/academicDegrees', isAutenticated, teachersRouters.AcademicDegreeRouter)
-    app.use('/academicRanks', isAutenticated, teachersRouters.AcademicRankRouter)
-    app.use('/positions', isAutenticated, teachersRouters.PositionRouter)
+    app.use('/phones', usersRouters.PhoneRouter)
+    app.use('/roles', usersRouters.RoleRouter)
+    app.use('/urls', usersRouters.UrlRouter)
+    
+    app.use('/teachers', teachersRouters.TeacherRouter)
+    app.use('/academicDegrees', teachersRouters.AcademicDegreeRouter)
+    app.use('/academicRanks', teachersRouters.AcademicRankRouter)
+    app.use('/positions', teachersRouters.PositionRouter)
 
-    app.use('/students', isAutenticated, studentsRouters.StudentRouter)
+    app.use('/students', studentsRouters.StudentRouter)
 
-    app.use('/buildings', isAutenticated, lessonsRouters.buildingRouter)
-    app.use('/disciplines', isAutenticated, lessonsRouters.disciplineRouter)
-    app.use('/lectureRooms', isAutenticated, lessonsRouters.lectureRoomRouter)
-    app.use('/lessonNumbers', isAutenticated, lessonsRouters.lessonNumberRouter)
-    app.use('/lessonTypes', isAutenticated, lessonsRouters.lessonTypeRouter)
-    app.use('/lessons', isAutenticated, lessonsRouters.lessonRouter)
-    app.use('/roomTypes', isAutenticated, lessonsRouters.roomTypeRouter)
+    app.use('/buildings', lessonsRouters.buildingRouter)
+    app.use('/disciplines', lessonsRouters.disciplineRouter)
+    app.use('/lectureRooms', lessonsRouters.lectureRoomRouter)
+    app.use('/lessonNumbers', lessonsRouters.lessonNumberRouter)
+    app.use('/lessonTypes', lessonsRouters.lessonTypeRouter)
+    app.use('/lessons', lessonsRouters.lessonRouter)
+    app.use('/roomTypes', lessonsRouters.roomTypeRouter)
 
-    app.use('/graduationPapers', isAutenticated, papersRouters.graduationPaperRouter)
-    app.use('/organizations', isAutenticated, papersRouters.organizationRouter)
-    app.use('/practices', isAutenticated, papersRouters.practiceRouter)
-    app.use('/practiceTypes', isAutenticated, papersRouters.practiceTypeRouter)
-    app.use('/requests', isAutenticated, papersRouters.requestRouter)
-    app.use('/resources', isAutenticated, papersRouters.resourceRouter)
-    app.use('/statuses', isAutenticated, papersRouters.statusRouter)
-    app.use('/termPapers', isAutenticated, papersRouters.termPaperRouter)
+    app.use('/graduationPapers', papersRouters.graduationPaperRouter)
+    app.use('/organizations', papersRouters.organizationRouter)
+    app.use('/practices', papersRouters.practiceRouter)
+    app.use('/practiceTypes', papersRouters.practiceTypeRouter)
+    app.use('/requests', papersRouters.requestRouter)
+    app.use('/resources', papersRouters.resourceRouter)
+    app.use('/statuses', papersRouters.statusRouter)
+    app.use('/termPapers', papersRouters.termPaperRouter)
 
-    app.use('/departments', isAutenticated,facultiesRouters.departmentRouter)
-    app.use('/faculties', isAutenticated, facultiesRouters.facultyRouter)
-    app.use('/groups', isAutenticated, facultiesRouters.groupRouter)
-    app.use('/specialties', isAutenticated, facultiesRouters.specialtyRouter)
-    app.use('/studyModes', isAutenticated, facultiesRouters.studyModeRouter)
-    app.use('/subgroups', isAutenticated, facultiesRouters.subgroupRouter)
+    app.use('/departments', facultiesRouters.departmentRouter)
+    app.use('/faculties', facultiesRouters.facultyRouter)
+    app.use('/groups', facultiesRouters.groupRouter)
+    app.use('/specialties', facultiesRouters.specialtyRouter)
+    app.use('/studyModes', facultiesRouters.studyModeRouter)
+    app.use('/subgroups', facultiesRouters.subgroupRouter)
 }

@@ -1,10 +1,29 @@
 extends layout
 
 block content
-    table
-        tr 
-            td Name
-            td #{user.user_info.full_name}
-        tr 
-            td Login
-            td #{user.login}
+  table.table
+    tr 
+      td Name
+      td #{user.user_info.lastName} #{user.user_info.firstName} #{user.user_info.middleName}
+    tr 
+      td Login
+      td #{user.login}
+    tr
+      td Email
+      td #{user.user_info.email}
+    tr
+      td Sex
+      td 
+        if user.user_info.sex == 'm'
+          span male
+        else 
+          span female
+    tr
+      td Birthday
+      td #{user.user_info.birthday}
+    tr  
+      td City
+      td #{user.user_info.city}
+    tr
+      td Address
+      td #{user.user_info.address}

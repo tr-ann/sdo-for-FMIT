@@ -4,7 +4,7 @@ import RoleService from '../services/RoleService'
 
 const router = Router()
 
-router.get('/:id', [], RoleController.readById)
+router.get('/:id', RoleController.readById)
 router.post('/:id', RoleController.update)
 router.delete('/:id', RoleController.destroy)
 router.get('/', RoleController.readAll)
