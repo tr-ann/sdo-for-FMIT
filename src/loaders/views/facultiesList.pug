@@ -1,15 +1,19 @@
 extends layout
 
 block content
-    div(class='container')
-        table(class='table')
-            th Name
-            th Short name
-            th Description
-            th Phone number
+    <div class='container'>
+        <table class='table'>
+            <th> Name </th>
+            <th> Short name </th>
+            <th> Description </th>
+            <th> Phone number </th>
             for faculty in faculties
-                tr 
-                    td #{faculty.name}
-                    td #{faculty.short_name}
-                    td #{faculty.info_faculty.description}
-                    td #{faculty.info_faculty.phone_number}
+                - var id = faculty.id
+                <tr> 
+                    <td> <a href = "faculties/#{id}"> #{faculty.name} </a>
+                    <td> #{faculty.short_name} </td>
+                    <td> #{faculty.info_faculty.description} </td>
+                    <td> #{faculty.info_faculty.phone_number} </td>
+                </th>
+        </table>
+    </div>
