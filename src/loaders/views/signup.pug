@@ -1,0 +1,55 @@
+extends layout
+
+block content
+	form(method='POST' action='/signup')
+		
+		div(class="form-group row")
+			label(for="inputLogin" class="col-sm-2 col-form-label") Login*
+			div(class="col-sm-10")
+				input#inputLogin.form-control(type="text" class="form-control" placeholder="login")
+		
+		div(class="form-group row")
+			label(for="inputEmail" class="col-sm-2 col-form-label") Email*
+			div(class="col-sm-10")
+				input#inputEmail.form-control(type="text" class="form-control" placeholder="email")
+		
+		div(class="form-group row")
+			label(for="inputPassword" class="col-sm-2 col-form-label") Password*
+			div(class="col-sm-10")
+				input#inputPassword.form-control(type="password" class="form-control" placeholder="Password")
+		
+		div(class="form-group row")
+			label(for="inputLastName" class="col-sm-2 col-form-label") Last name*
+			div(class="col-sm-10")
+				input#inputLastName.form-control(type="text" class="form-control")
+		
+		div(class="form-group row")
+			label(for="inputFirstName" class="col-sm-2 col-form-label") First name*
+			div(class="col-sm-10")
+				input#inputFirstName.form-control(type="text" class="form-control")
+		
+		div(class="form-group row")
+			label(for="inputMiddleName" class="col-sm-2 col-form-label") Middle name
+			div(class="col-sm-10")
+				input#inputMiddleName.form-control(type="text" class="form-control")
+
+		div(class="form-group row")
+			label(for="inputBirthday" class="col-sm-2 col-form-label") Birthday*
+			div(class="col-sm-10")
+				input#inputBirthday.form-control(type="date" class="form-control")
+
+		div(class="form-group row")
+			label(class="col-sm-2 col-form-label") Sex*
+			div(class="col-sm-2")
+				label(for="maleRadio" style="margin-right: 10px") Male
+				input#maleRadio(type="radio" name="sexRadio"  value="male")
+			div(class="col-sm-2")
+				label(for="femaleRadio" style="margin-right: 10px") Female
+				input#femaleRadio(type="radio" name="sexRadio" value="female")
+
+		div(class="form-group row")
+			label(for="inputPhone" class="col-sm-2 col-form-label") Phone
+			div(class="col-sm-10")
+				input#inputPhone.form-control(type="text" class="form-control")
+		div(class="form-group row")
+			button.btn.btn-primary(class="col-sm-2" type='submit') Sign up

@@ -46,8 +46,8 @@ function login(req, res, next) {
         function(err, user, info) {
             if (err) next(err)
             
-            if (!user) /*next(new NotFound())*/
-                res.redirect('/login?message=incorrect login or parrword', 403)
+            if (!user)
+                res.redirect('/login?message=Incorrect login or parrword')
 
             req.logIn(user, function(err) {
                 if (err) next(err)
@@ -72,21 +72,29 @@ function login(req, res, next) {
 function logout(req, res) {
     req.logout()
 
-    return res.status(200).json(
+    res.redirect('/login')
+
+    /*return res.status(200).json(
         ResponseFormat.build(
             {},
             'user logout successfully',
             200,
             'success'
         )
-    )
+    )*/
 }
 
 
-function isAutenticated(req, res, next) {
+function isAuthenticated(req, res, next) {
     req.isAuthenticated()
         ? next()
-        : next(new Unauthorized())
+        : res.redirect('/login?message=Need to authenticate')
 }
 
-export { passport, login, logout, isAutenticated }
+function isUnauthorized(req, res, next) {
+    req.isAuthenticated()
+        ? res.redirect(`/users/${req.user.id}`)
+        : next()
+}
+
+export { passport, login, logout, isAuthenticated, isUnauthorized }

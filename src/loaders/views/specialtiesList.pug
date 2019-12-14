@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    table(border='1px')
+        th Code
+        th Name
+        th Short name
+        for specialty in specialties
+            tr 
+                td #{specialty.code}
+                td #{specialty.name}
+                td #{specialty.short_name}

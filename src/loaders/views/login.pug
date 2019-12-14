@@ -1,6 +1,9 @@
 extends layout
 
 block content
+    if (message)
+        div(class="alert alert-danger" role="alert" style="text-align: center") #{message}
+
     form(method='POST' action='/login')
         div.form-group
             label(for='name') Name:
@@ -8,4 +11,7 @@ block content
         div.form-group
             label(for='password') Password:
             input#password.form-control(type='password' name='password')
-        button.btn.btn-primary(type='submit') Sign up
+        button.btn.btn-primary(type='submit') Sign in
+    br
+    a(href="/signup" class="btn btn-outline-warning active" role="button" aria-pressed="true") Sign up
+        

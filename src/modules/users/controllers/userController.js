@@ -6,54 +6,42 @@ import UserRoleService from '../services/UserRoleService'
 
 class UserController {
 
-    async create(req, res, next) {
-        try {
-            let user = await UserService.create({
-                login: req.body.login,
-                password: req.body.password,
-            })
+  async create(req, res, next) {
+    try {
+      let user = await UserService.create({
+        login: req.body.login,
+        password: req.body.password,
+      })
 
+      if (req.body.phone) {
+        await user.addPhone({ phone: req.body.phone })
+      }
 
-            await PhoneService.create({
-                user_id: user.id, 
-                phone: req.body.phone
-            })
+      await UserInfoService.create({
+        userId: user.id,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        middleName: req.body.middleName,
+        email: req.body.email,
+        birthday: req.body.birthday,
+        sex: req.body.sex,
+      })
 
-            let fullName = req.body.first_name 
-                    + ' ' + req.body.last_name 
-                    + ' ' + (req.body.middle_name || '')
+      await UserRoleService.create({ user_id: user.id })
 
-            await UserInfoService.create({
-                user_id: user.id,
-                full_name: fullName,
-                email: req.body.email,
-                birthday: req.body.birthday,
-                sex: req.body.sex,
-            })
+      res.redirect('/faculties');
 
-            await UserRoleService.create({user_id: user.id, role_id: 1})
+    } catch (error) {
 
-            return res.status(201)
-                .json(
-                    helpers.ResponseFormat.build(
-                        user.login, 
-                        "User created successfully", 
-                        201, 
-                        "success"
-                    )
-                )
-        } catch (error) {
-            next(error)
-        }
+        next(error)
     }
+  }
 
     async readAll(req, res, next) {
         try {
             let users = await UserService.readAll()
 
-            let us = req.user
-
-            return res.render('usersList', {users, us})
+            return res.render('usersList', {users, currentUser: req.user})
             /*.status(200)
                 .json(
                     helpers.ResponseFormat.build(
@@ -71,8 +59,10 @@ class UserController {
     async readById(req, res, next) {
         try {
             let user = await UserService.readById(req.params.id)
-            
-            return res.status(200)
+
+            res.render('userInfo', {user: user})
+
+            /*return res.status(200)
                 .json(
                     helpers.ResponseFormat.build(
                         user,
@@ -80,7 +70,7 @@ class UserController {
                         200,
                         "success"
                     )
-                )
+                )*/
         } catch (error) {
             next(error)
         }
@@ -89,11 +79,9 @@ class UserController {
     async update(req, res, next) {
         try {
 
-            let user = await UserService.update(req.params.id, {
-                password: req.body.password,
-            })
+            let user = await UserService.readById(req.params.id)
 
-            /*await PhoneService.update({
+            await PhoneService.update({
                 user_id: user.id, 
                 phone: req.body.phone
             })
@@ -102,16 +90,18 @@ class UserController {
                     + ' ' + req.body.last_name 
                     + ' ' + (req.body.middle_name || '')
 
-            await UserInfoService.update({
+            let usI = UserInfoService.get({where: {user_id: user.id}})
+
+            await UserInfoService.update(usI.id, {
+                user_id:   user.id,
                 full_name: fullName,
                 email: req.body.email,
                 birthday: req.body.birthday,
                 sex: req.body.sex,
             })
 
-            UserRoleService.create({user_id: user.id, role_id: 1})*/
-
-            return res.status(200)
+            res.render(`/users/${req.params.id}`)
+            /*return res.status(200)
                 .json(
                     helpers.ResponseFormat.build(
                         user,
@@ -119,7 +109,7 @@ class UserController {
                         200,
                         "success"
                     )
-                )
+                )*/
         } catch(error) {
             next(error)
         }
