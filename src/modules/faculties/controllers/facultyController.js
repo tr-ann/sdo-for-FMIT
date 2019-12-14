@@ -48,13 +48,15 @@ class facultyController {
     async readById(req, res, next) {
         try {
             let faculty = await FacultyService.readById(req.params.id)
+            
+            return res.render("facultyEdit", {currentUser: req.user, faculty: faculty})
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                faculty,
-                "Faculty read successfully",
-                200,
-                "success"
-            ))
+            // return res.status(200).json(helpers.ResponseFormat.build(
+            //     faculty,
+            //     "Faculty read successfully",
+            //     200,
+            //     "success"
+            // ))
         } catch (error) {
              next(error)
         }
@@ -73,12 +75,14 @@ class facultyController {
                 phone_number: req.body.phone_number 
             })
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                faculty,
-                "Faculty updated successfully",
-                200,
-                "success"
-            ))
+            res.redirect("/faculties")
+
+            // return res.status(200).json(helpers.ResponseFormat.build(
+            //     faculty,
+            //     "Faculty updated successfully",
+            //     200,
+            //     "success"
+            // ))
         } catch (error) {
             next(error)
         }
