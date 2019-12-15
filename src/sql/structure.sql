@@ -104,7 +104,9 @@ CREATE TABLE `users_roles` (
     `id`                    INT auto_increment      PRIMARY KEY,
     `user_id`               INT NOT NULL,
     `role_id`               INT DEFAULT 1,
-    `deleted_date`          DATETIME
+    `deleted_date`          DATETIME,
+
+    UNIQUE KEY (`user_id`, `role_id`)
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
 /* Таблица `кафедра` */
@@ -113,9 +115,9 @@ CREATE TABLE `departments` (
     `id`                    INT auto_increment      PRIMARY KEY,
     `name`                  VARCHAR(100)NOT NULL UNIQUE,
     `faculty_id`            INT NOT NULL,
-    `owner_id`              INT         ,
+    `owner_id`              INT NOT NULL,
     `phone`                 VARCHAR(30) ,
-    `lecture_room_id`       INT,
+    `lecture_room_id`       INT NOT NULL,
     `deleted_date`          DATETIME      
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
@@ -123,8 +125,8 @@ CREATE TABLE `departments` (
 DROP TABLE IF EXISTS `phones`;
 CREATE TABLE `phones` (
     `id`                    INT auto_increment PRIMARY KEY,
-    `user_id`               INT         ,
-    `phone`                 VARCHAR(30),
+    `user_id`               INT NOT NULL,
+    `phone`                 VARCHAR(30) NOT NULL,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
@@ -161,10 +163,10 @@ CREATE TABLE `teachers` (
     `last_name`             VARCHAR(100)NOT NULL,
     `first_name`            VARCHAR(100)NOT NULL,
     `midlle_name`           VARCHAR(100)        ,
-    `department_id`         INT    ,
-    `position_id`           INT    ,
-    `academic_degree_id`    INT    ,
-    `academic_rank_id`      INT    ,
+    `department_id`         INT NOT NULL,
+    `position_id`           INT NOT NULL,
+    `academic_degree_id`    INT NOT NULL,
+    `academic_rank_id`      INT NOT NULL,
     `deleted_date`          DATETIME    
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
@@ -181,7 +183,7 @@ CREATE TABLE `faculties` (
 DROP TABLE IF EXISTS `info_faculties`;
 CREATE TABLE `info_faculties` (
     `id`                    INT  auto_increment  PRIMARY KEY,
-    `faculty_id`            INT,
+    `faculty_id`            INT NOT NULL UNIQUE,
     `description`           TEXT        ,
     `phone_number`          VARCHAR(20) NOT NULL UNIQUE,
     `deleted_date`          DATETIME
@@ -210,9 +212,9 @@ DROP TABLE IF EXISTS `groups`;
 CREATE TABLE `groups` (
     `id`                    INT auto_increment      PRIMARY KEY,
     `number`                VARCHAR(4)  NOT NULL,
-    `faculty_id`            INT    ,
-    `specialty_id`          INT    ,
-    `study_mode_id`         INT    ,
+    `faculty_id`            INT NOT NULL,
+    `specialty_id`          INT NOT NULL,
+    `study_mode_id`         INT NOT NULL,
     `deleted_date`          DATETIME    
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
@@ -229,18 +231,20 @@ CREATE TABLE `subgroups` (
 DROP TABLE IF EXISTS `students_subgroups`;
 CREATE TABLE `students_subgroups` (
     `id`                    INT auto_increment      PRIMARY KEY,
-    `student_id`            INT         ,
-    `subgroup_id`           INT         ,
-    `deleted_date`          DATETIME         
+    `student_id`            INT NOT NULL,
+    `subgroup_id`           INT NOT NULL,
+    `deleted_date`          DATETIME    ,     
+
+    UNIQUE KEY (`student_id`, `subgroup_id`)         
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
 /* Таблица `куратор` */
 DROP TABLE IF EXISTS `curators`;
 CREATE TABLE `curators` (
     `id`                    INT auto_increment      PRIMARY KEY,
-    `group_id`              INT         ,
-    `teacher_id`            INT         ,
-    `deleted_date`          DATETIME         
+    `group_id`              INT NOT NULL,
+    `teacher_id`            INT NOT NULL,
+    `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
 /* Таблица `занятие` */
@@ -249,11 +253,11 @@ CREATE TABLE `lessons` (
     `id`                    INT     auto_increment PRIMARY KEY,
     `group_id`              INT     ,
     `subgroup_id`           INT     ,
-    `teacher_id`            INT     ,
-    `lesson_type_id`        INT     ,
+    `teacher_id`            INT     NOT NULL,
+    `lesson_type_id`        INT     NOT NULL,
     `lecture_room_id`       INT     ,
-    `discipline_id`         INT     ,
-    `lesson_number_id`      INT     ,
+    `discipline_id`         INT     NOT NULL,
+    `lesson_number_id`      INT     NOT NULL,
     `week_day`              INT     NOT NULL,
     `deleted_date`          DATETIME
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
@@ -314,7 +318,7 @@ CREATE TABLE `requests` (
     `teacher_id`            INT         ,
     `status_id`             INT         ,
     `topic`                 VARCHAR(50) NOT NULL,
-    `name`                  VARCHAR(90) NOT NULL,
+    `name`                  VARCHAR(100) NOT NULL,
     `create_date`           DATETIME    DEFAULT (CURRENT_DATE),
     `update_date`           DATETIME    ,
     `description`           TEXT        ,
@@ -329,7 +333,7 @@ CREATE TABLE `term_papers` (
     `teacher_id`            INT         ,
     `status_id`             INT         ,
     `topic`                 VARCHAR(50) NOT NULL,
-    `name`                  VARCHAR(90) NOT NULL,
+    `name`                  VARCHAR(100) NOT NULL,
     `description`           TEXT        ,
     `resource_id`           INT         ,
     `deleted_date`          DATETIME
@@ -343,7 +347,7 @@ CREATE TABLE `graduation_papers` (
     `teacher_id`            INT         ,
     `status_id`             INT         ,
     `topic`                 VARCHAR(50) NOT NULL,
-    `name`                  VARCHAR(90) NOT NULL,
+    `name`                  VARCHAR(100) NOT NULL,
     `description`           TEXT        ,
     `resource_id`           INT         ,
     `deleted_date`          DATETIME  
@@ -373,7 +377,7 @@ CREATE TABLE `practices` (
     `organization_id`       INT         ,
     `status_id`             INT         ,
     `topic`                 VARCHAR(50) NOT NULL,
-    `name`                  VARCHAR(90) NOT NULL,
+    `name`                  VARCHAR(100) NOT NULL,
     `description`           TEXT        ,
     `start_date`            DATETIME    NOT NULL,
     `end_date`              DATETIME    NOT NULL,
@@ -387,7 +391,9 @@ CREATE TABLE `access_rules` (
     `id`                INT         auto_increment PRIMARY KEY,
     `role_id`           INT         ,
     `control_point_id`  INT         ,
-    `deleted_date`      DATETIME                 
+    `deleted_date`      DATETIME    ,
+
+    UNIQUE KEY (`role_id`, `control_point_id`)                 
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
 
 DROP TABLE IF EXISTS `control_points`;
@@ -395,5 +401,7 @@ CREATE TABLE `control_points` (
     `id`            INT             auto_increment PRIMARY KEY,
     `url`           VARCHAR(2048)   NOT NULL,
     `method`        VARCHAR(30)     NOT NULL,
-    `deleted_date`  DATETIME
+    `deleted_date`  DATETIME                ,
+
+    UNIQUE KEY (`url`, `method`)     
 ) ENGINE=INNODB DEFAULT CHARACTER SET UTF8MB4;
