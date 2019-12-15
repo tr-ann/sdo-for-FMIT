@@ -5,15 +5,18 @@ block content
         <table class='table'>
             <th> Name </th>
             <th> Short name </th>
-            <th> Description </th>
-            <th> Phone number </th>
+            //- <th> Description </th>
+            //- <th> Phone number </th>
             for faculty in faculties
                 - var id = faculty.id
                 <tr> 
-                    <td> <a href = "faculties/#{id}"> #{faculty.name} </a>
+                    <td> <a href = "faculties/#{id}"> #{faculty.name} </a></td>
                     <td> #{faculty.short_name} </td>
-                    <td> #{faculty.info_faculty.description} </td>
-                    <td> #{faculty.info_faculty.phone_number} </td>
-                </th>
+                    //- <td> #{faculty.info_faculty.description} </td>
+                    //- <td> #{faculty.info_faculty.phone_number} </td>
+                </tr>
         </table>
+        <form style="margin-top: 1rem;" method="GET" action="/faculties/#{id}/edit">
+            <button style="margin-top: 1rem;" class="btn btn-success" type="submit"><a href = "faculties/#{id}/edit">Add new</a></button>
+        </form>
     </div>

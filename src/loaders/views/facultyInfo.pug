@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    <div class='container'>
+        <table class='table'>
+            <th> Name </th>
+            <tr> 
+                <td> #{faculty.name}</td>
+            </tr>
+            <th> Short name </th>
+            <tr>
+                <td> #{faculty.short_name} </td>
+            </tr>
+            <th> Description </th>
+            <tr>
+                <td> #{faculty.info_faculty.description} </td>
+            </tr>
+            <th> Phone number </th>
+            <tr>
+                <td> #{faculty.info_faculty.phone_number} </td>
+            </tr>
+        </table>
+        <form style="margin-top: 1rem;" method="GET" action="/faculties/#{id}">
+            <button style="margin-top: 1rem;" class="btn btn-success" type="submit"><a href = "faculties/#{id}/edit">Edit</a></button>
+        </form>
+    </div>

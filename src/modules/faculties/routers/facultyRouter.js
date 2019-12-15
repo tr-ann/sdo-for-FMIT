@@ -5,8 +5,14 @@ import expressJoi from 'express-joi'
 
 const router = Router()
 
-router.get('/:id/edit', FacultyController.readById)
-router.get('/:id', FacultyController.readById)
+router.get('/:id/edit', (req, res, next) => {
+    FacultyController.readById(req, res, next)
+    res.render('facultyEdit', { currentUser: req.user, faculty: res.faculty })
+})
+router.get('/:id',  (req, res, next) => {
+    FacultyController.readById(req, res, next)
+    res.render('facultyInfo', { currentUser: req.user, faculty: res.faculty })
+})
 router.post('/:id', /*expressJoi.joiValidate(facultyValidation),*/  FacultyController.update)
 router.delete('/:id', FacultyController.destroy)
 router.get('/', FacultyController.readAll)
