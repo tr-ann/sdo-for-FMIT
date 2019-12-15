@@ -15,7 +15,7 @@ ALTER TABLE lecture_rooms
 		ON UPDATE RESTRICT
 ;
 			
-            
+
 /* таблица кафедра */
 ALTER TABLE departments
 
@@ -79,7 +79,7 @@ ALTER TABLE users_info
 /* таблица преподаватель */
 ALTER TABLE teachers
 
-    ADD CONSTRAINT FK_teachers_to_users FOREIGN KEY(id)
+    ADD CONSTRAINT FK_teachers_to_users FOREIGN KEY(user_id)
 		REFERENCES users(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
@@ -219,7 +219,7 @@ ALTER TABLE lessons
 /* таблица студент */
 ALTER TABLE students
 
-    ADD CONSTRAINT FK_students_to_users FOREIGN KEY(id)
+    ADD CONSTRAINT FK_students_to_users FOREIGN KEY(user_id)
 		REFERENCES users(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
@@ -337,8 +337,7 @@ ALTER TABLE access_rules
 	ADD CONSTRAINT FK_access_rules_to_roles FOREIGN KEY(role_id)
 		REFERENCES roles(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT
-	,
+		ON UPDATE RESTRICT,
 
 	ADD CONSTRAINT FK_access_rules_to_control_points FOREIGN KEY(control_point_id)
 		REFERENCES control_points(id)
