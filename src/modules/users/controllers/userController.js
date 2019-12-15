@@ -32,7 +32,7 @@ class UserController {
 
       await user.addRole(1)
 
-      res.render('usersList', {currentUser: req.user})
+      res.redirect('/users')
 
     } catch (error) {
 
@@ -43,7 +43,7 @@ class UserController {
     async readAll(req, res, next) {
         try {
             let users = await UserService.readAll()
-
+            
             return res.render('usersList', {users, currentUser: req.user})
         } catch(error) {
             next(error)

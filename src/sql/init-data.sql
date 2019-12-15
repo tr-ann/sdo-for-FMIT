@@ -1,3 +1,6 @@
+INSERT INTO `roles` (`name`) VALUES
+("authenticated user"),
+("admin");
 
 INSERT INTO `control_points`(`id`, `url`, `method`) VALUES
 (   1   ,   "/users"    ,   "GET"),
