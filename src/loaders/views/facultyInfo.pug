@@ -1,0 +1,31 @@
+extends layout
+
+block content
+
+    - var id = faculty.id
+
+    <div class='container'>
+        <table class='table'>
+            <th> Name </th>
+            <tr> 
+                <td> #{faculty.name}</td>
+            </tr>
+            <th> Short name </th>
+            <tr>
+                <td> #{faculty.short_name} </td>
+            </tr>
+            <th> Description </th>
+            <tr>
+                <td> #{faculty.info_faculty.description} </td>
+            </tr>
+            <th> Phone number </th>
+            <tr>
+                <td> #{faculty.info_faculty.phone_number} </td>
+            </tr>
+        </table>
+        <a href="#{id}/edit" class="btn btn-outline-warning active" role="button" aria-pressed="true">Edit</a>
+        <form style="margin-top: 1rem;" method="DELETE" action="/faculties/#{id}">
+            <button style="margin-top: 1rem;" class="btn btn-danger" type="submit">Delete</button>
+        </form>
+        <a href="/faculties" class="btn btn-primary active" role="button" aria-pressed="true">Back</a>
+    </div>

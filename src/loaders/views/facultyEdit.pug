@@ -2,23 +2,25 @@ extends layout
 
 block content
 
-	- var id = faculty.id
+	if faculty
+		- var id = faculty.id
 
 	<div>
 		<form style="margin-top: 1rem;" method="POST" action="/faculties/#{id}">
 		
 			<p style="margin-top: 1rem;" class="lead">Name</p>
-			<input class="form-control" name="name" type="text" value=#{faculty.name}>
+			input.form-control(type="text" name="name" value=faculty?faculty.name:"")
 
 			<p style="margin-top: 1rem;" class="lead">Short name</p>
-			<input class="form-control"  name="short_name" type="text" value=#{faculty.short_name}>
+			input.form-control(type="text" name="short_name" value=faculty?faculty.short_name:"")
 
 			<p style="margin-top: 1rem;" class="lead">Description</p>
-			<input class="form-control" name="description" type="text" value=#{faculty.info_faculty.description}>
+			input.form-control(type="text" name="description" value=faculty?faculty.info_faculty.description:"")
 
 			<p style="margin-top: 1rem;" class="lead">Phone number</p>
-			<input class="form-control" name="phone_number" type="text" value=#{faculty.info_faculty.phone_number}>
+			input.form-control(type="text" name="phone_number" value=faculty?faculty.info_faculty.phone_number:"")
 
 			<button style="margin-top: 1rem;" class="btn btn-success" type="submit">Send</button>
 		</form>
+		a.btn.btn-primary.active(href=faculty?"/faculties/"+id:"/faculties"  role="button" aria-pressed="true") Back
 	</div>

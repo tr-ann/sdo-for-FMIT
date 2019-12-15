@@ -17,12 +17,14 @@ class facultyController {
                 phone_number: req.body.phone_number 
             })
 
-            return res.status(201).json(helpers.ResponseFormat.build(
-                faculty,
-                "Faculty created successfully",
-                201,
-                "success"
-            ))
+            res.redirect("/faculties")
+
+            // return res.status(201).json(helpers.ResponseFormat.build(
+            //     faculty,
+            //     "Faculty created successfully",
+            //     201,
+            //     "success"
+            // ))
         } catch (error) {
             next(error)
         }
@@ -49,7 +51,7 @@ class facultyController {
         try {
             let faculty = await FacultyService.readById(req.params.id)
             
-            return res.render("facultyEdit", {currentUser: req.user, faculty: faculty})
+            return res.render("facultyInfo", {currentUser: req.user, faculty: faculty})
 
             // return res.status(200).json(helpers.ResponseFormat.build(
             //     faculty,
@@ -92,12 +94,14 @@ class facultyController {
         try {
             await FacultyService.destroy(req.params.id)
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                {},
-                "Faculty deleted successfully",
-                200,
-                "success"
-            ))
+            res.redirect("/faculties")
+
+            // return res.status(200).json(helpers.ResponseFormat.build(
+            //     {},
+            //     "Faculty deleted successfully",
+            //     200,
+            //     "success"
+            // ))
         } catch (error) {
              next(error)
         }

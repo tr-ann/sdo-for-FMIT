@@ -5,15 +5,16 @@ block content
         <table class='table'>
             <th> Name </th>
             <th> Short name </th>
-            <th> Description </th>
-            <th> Phone number </th>
+            //- <th> Description </th>
+            //- <th> Phone number </th>
             for faculty in faculties
                 - var id = faculty.id
                 <tr> 
-                    <td> <a href = "faculties/#{id}"> #{faculty.name} </a>
+                    <td> <a href = "faculties/#{id}"> #{faculty.name} </a></td>
                     <td> #{faculty.short_name} </td>
-                    <td> #{faculty.info_faculty.description} </td>
-                    <td> #{faculty.info_faculty.phone_number} </td>
-                </th>
+                    //- <td> #{faculty.info_faculty.description} </td>
+                    //- <td> #{faculty.info_faculty.phone_number} </td>
+                </tr>
         </table>
+        <a href="faculties/create" class="btn btn-primary active" role="button" aria-pressed="true">Create</a>
     </div>
