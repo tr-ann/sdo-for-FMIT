@@ -1,10 +1,10 @@
 import { Router } from 'express'
-import { userFilter } from '../../../loaders/filter'
+import { userFilter, readUserFilter } from '../../../loaders/filter'
 import userController from '../controllers/UserController'
 
 const router = Router()
 
-router.get('/:id', userController.readById)
+router.get('/:id',  readUserFilter, userController.readById)
 router.post('/:id', userFilter, userController.update)
 router.get('/:id/edit', userFilter, (req, res, next) => {
     let userPhones = ''

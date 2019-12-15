@@ -11,22 +11,25 @@ export default function(err, req, res, next) {
         case 'BadRequest':
         case 'InternalServer':
         case 'NotImplemented':
-            return res.status(err.status).json(
-                ResponseFormat.error(
-                    err,
-                    err.message,
-                    err.status,
-                    'failed'
-                )
-            )
+            return res.render("error", {currentUser: req.user, error: err})
+            // return res.status(err.status).json(
+            //     ResponseFormat.error(
+            //         err,
+            //         err.message,
+            //         err.status,
+            //         'failed'
+            //     )
+            // )
         default:
-            return res.status(500).json(
-                ResponseFormat.error(
-                    err,
-                    'unexpected error',
-                    500,
-                    'failed'
-                )
-            )
+            err.status = 500
+            return res.render("error", {currentUser: req.user, error: err})
+            // return res.status(500).json(
+            //     ResponseFormat.error(
+            //         err,
+            //         'unexpected error',
+            //         500,
+            //         'failed'
+            //     )
+            // )
     }
 }
