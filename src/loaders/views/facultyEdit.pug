@@ -5,7 +5,7 @@ block content
 	if faculty
 		- var id = faculty.id
 
-	<div>
+	<div style="position: relative;">
 		<form style="margin-top: 1rem;" method="POST" action="/faculties/#{id}">
 		
 			<p style="margin-top: 1rem;" class="lead">Name</p>
@@ -20,7 +20,7 @@ block content
 			<p style="margin-top: 1rem;" class="lead">Phone number</p>
 			input.form-control(type="text" name="phone_number" value=faculty?faculty.info_faculty.phone_number:"")
 
-			<button style="margin-top: 1rem;" class="btn btn-success" type="submit">Send</button>
+			<button style="float:left; margin-top: 1rem;" class="btn btn-success" type="submit">Send</button>
 		</form>
-		a.btn.btn-primary.active(href=faculty?"/faculties/"+id:"/faculties"  role="button" aria-pressed="true") Back
+		a.btn.btn-primary.active(style="float:left; margin:0 10px; margin-top: 1rem;" href=faculty?"/faculties/"+id:"/faculties"  role="button" aria-pressed="true") Back
 	</div>

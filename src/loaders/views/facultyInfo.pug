@@ -23,9 +23,11 @@ block content
                 <td> #{faculty.info_faculty.phone_number} </td>
             </tr>
         </table>
-        <a href="#{id}/edit" class="btn btn-outline-warning active" role="button" aria-pressed="true">Edit</a>
-        <form style="margin-top: 1rem;" method="DELETE" action="/faculties/#{id}">
-            <button style="margin-top: 1rem;" class="btn btn-danger" type="submit">Delete</button>
-        </form>
-        <a href="/faculties" class="btn btn-primary active" role="button" aria-pressed="true">Back</a>
+        <div style="position: relative;">
+            <a style="float:left; margin:0 10px;" href="#{id}/edit" class="btn btn-outline-warning active" role="button" aria-pressed="true">Edit</a>
+            <form style="float:left; margin:0 10px;" method="DELETE" action="/faculties/#{id}">
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+            <a style="float:left; margin:0 10px;" href="/faculties" class="btn btn-primary active" role="button" aria-pressed="true">Back</a>
+        </div>
     </div>
