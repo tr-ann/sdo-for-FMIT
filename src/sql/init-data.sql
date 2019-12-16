@@ -32,3 +32,13 @@ INSERT INTO `access_rules`(`id`, `role_id`, `control_point_id`) VALUES
 (   12  ,   2   ,   7   ),
 (   13  ,   2   ,   9   ),
 (   14  ,   2   ,   10  );
+
+INSERT INTO `users`(`login`, `password`) VALUES
+("test_user",   "tG45Dwgd"),
+("admin",       "hf74983hfjHh_");
+
+SELECT `id`, `last_name`, `first_name`, `middle_name`
+FROM `teachers`
+RIGHT JOIN `department`
+WHERE department.id = 4
+ORDER BY `last_name`, `first_name`;

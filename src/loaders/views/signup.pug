@@ -1,10 +1,13 @@
 extends layout
 
 block content
-	form(method='POST' action='/signup')
+	script(src="/checkLogin.js")
+
+	form(method='POST' action='/signup' id="registration")
 		
 		div(class="form-group row")
 			label(for="inputLogin" class="col-sm-2 col-form-label") Login*
+			p(style="color: red") !{text}
 			div(class="col-sm-10")
 				input#inputLogin.form-control(type="text" name="login" required class="form-control" placeholder="login")
 		
@@ -53,3 +56,4 @@ block content
 				input#inputPhone.form-control(type="text" name="phone" class="form-control")
 		div(class="form-group row")
 			button.btn.btn-primary(class="col-sm-2" type='submit') Sign up
+

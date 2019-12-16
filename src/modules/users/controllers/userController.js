@@ -109,6 +109,10 @@ class UserController {
             next(error)
         }
     }
+
+    async checkLogin(req, res, next) {
+        
+    }
 }
 
 export default new UserController()

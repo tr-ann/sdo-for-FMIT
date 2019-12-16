@@ -43,13 +43,14 @@ async function _userFilter(req, res, next) {
 }
 
 async function _readUserFilter(req, res, next) {
-  if (await _userFilter(req, res, next))
+  if (req.params.id == req.user.id) {
     return true
+  }
 
   let roles = req.user.roles
   for (let role of roles) {
     if (role.id == 2)
-    return true
+      return true
   }
 
   throw new BadRequest("Access denied")
