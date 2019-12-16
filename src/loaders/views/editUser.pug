@@ -1,27 +1,31 @@
 extends layout
 
 block content
+    
+    if currentUser
+        - var id = currentUser.id
+    
     form(method='POST' action='/users/' + currentUser.id)
         div(class="form-group row")
             label(for="inputEmail" class="col-sm-2 col-form-label") Email*
             div(class="col-sm-10")
-                input#inputEmail.form-control(type="text" class="form-control" name="email" placeholder="email" value=currentUser.user_info.email)
+                input#inputEmail.form-control(type="text" class="form-control" name="email" placeholder="email" value=currentUser?currentUser.user_info.email:"")
         div(class="form-group row")
             label(for="inputLastName" class="col-sm-2 col-form-label") Last name*
             div(class="col-sm-10")
-                input#inputLastName.form-control(type="text" class="form-control" name="lastName" value=currentUser.user_info.lastName)
+                input#inputLastName.form-control(type="text" class="form-control" name="lastName" value=currentUser?currentUser.user_info.lastName:"")
         div(class="form-group row")
             label(for="inputFirstName" class="col-sm-2 col-form-label") First name*
             div(class="col-sm-10")
-                input#inputFirstName.form-control(type="text" class="form-control" name="firstName" value=currentUser.user_info.firstName)
+                input#inputFirstName.form-control(type="text" class="form-control" name="firstName" value=currentUser?currentUser.user_info.firstName:"")
         div(class="form-group row")
             label(for="inputMiddleName" class="col-sm-2 col-form-label") Middle name
             div(class="col-sm-10")
-                input#inputMiddleName.form-control(type="text" class="form-control" name="middleName" value=currentUser.user_info.middleName)
+                input#inputMiddleName.form-control(type="text" class="form-control" name="middleName" value=currentUser?currentUser.user_info.middleName:"")
         div(class="form-group row")
             label(for="inputBirthday" class="col-sm-2 col-form-label") Birthday*
             div(class="col-sm-10")
-                input#inputBirthday.form-control(type="date" class="form-control" name="birthday" value=currentUser.user_info.birthday)
+                input#inputBirthday.form-control(type="date" class="form-control" name="birthday" value=currentUser?currentUser.user_info.birthday:"")
         div(class="form-group row")
             label(class="col-sm-2 col-form-label") Sex*
             div(class="col-sm-2")
@@ -33,5 +37,6 @@ block content
         div(class="form-group row")
             label(for="inputPhone" class="col-sm-2 col-form-label") Phone
             div(class="col-sm-10")
-                input#inputPhone.form-control(type="text" class="form-control" name="phone" value=phones)
+                input#inputPhone.form-control(type="text" class="form-control" name="phone" value=currentUser?phones:"")
         button.btn.btn-success(type='submit') Save
+    a.btn.btn-primary.active(href=currentUser?"/users/"+id:"/users"  role="button" aria-pressed="true") Back

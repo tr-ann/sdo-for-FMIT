@@ -33,7 +33,10 @@ block content
         for phone in user.phones
           span #{phone.phone}, 
 
-  a.btn.btn-outline-warning.active(href="/users/" + user.id + "/edit" role="button" aria-pressed="true") Edit
+  if currentUser.id == user.id
+    a.btn.btn-outline-warning.active(href="/users/" + user.id + "/edit" role="button" aria-pressed="true") Edit
   
   form.form-inline.my-2.my-lg-0(method='DELETE' action='/user/' + user.id)
-    button.btn.btn-outline-danger.my-2.my-sm-0(type="submit") Delete
+    button.btn.btn-danger.my-2.my-sm-0(type="submit") Delete
+  
+  a.btn.btn-primary.active(href="/users" role="button" aria-pressed="true") Back
