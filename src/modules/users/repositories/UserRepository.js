@@ -82,6 +82,12 @@ class UserRepository {
         })
     }
 
+    async getAllLogins() {
+        return await db.user.find({
+            attributes: [ 'login' ]
+        });
+    }
+
     /**
      * Update an entity from a database
      * 

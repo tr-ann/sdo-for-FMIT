@@ -4,6 +4,7 @@ import userController from '../controllers/UserController'
 
 const router = Router()
 
+router.post('/check', userController.checkLogin)
 router.get('/:id',  readUserFilter, userController.readById)
 router.post('/:id', userFilter, userController.update)
 router.get('/:id/edit', userFilter, (req, res, next) => {
