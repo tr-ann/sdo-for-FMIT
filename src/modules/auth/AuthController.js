@@ -64,6 +64,20 @@ class AuthController {
         next(error)
     }
   }
+
+  async checkLogin(req, res, next) {
+    console.log(1);
+    let logins = await UserRepository.getAllLogins();
+    console.log(logins)
+    console.log(req.body.login)
+
+    for (let login of logins) {
+        if (req.body.login == login)
+            return true;                //такой логин существует
+    }
+
+    next();
+}
 }
 
 export default new AuthController()

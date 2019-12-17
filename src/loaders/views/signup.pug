@@ -2,6 +2,24 @@ extends layout
 
 block content
 	//-script(src="/checkLogin.js")
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+	script.
+		$(document).ready(function(){
+			$("form#registration").on('submit', function(e){
+				e.preventDefault();
+				var login = $('input[name=login]').val();
+				alert(login);
+				$.ajax({
+					type: 'post',
+					url: '/signup/check',
+					data: login,
+					dataType: 'text'
+				})
+				.done(function(data){
+					alert("not unique login")
+				});
+			});
+		});
 
 	form(method='POST' action='/signup' id="registration")
 		
@@ -56,20 +74,3 @@ block content
 				input#inputPhone.form-control(type="text" name="phone" class="form-control")
 		div(class="form-group row")
 			button.btn.btn-primary(class="col-sm-2" type='submit') Sign up
-
-	script.
-		$(document).ready(function(){
-			$("form#registration").on('submit', function(e){
-				e.preventDefault();
-				var login = $('input[name=login]').val();
-				$.ajax({
-					type: 'post',
-					url: '/users/check',
-					data: login,
-					dataType: 'text'
-				})
-				.done(function(data){
-					alert("not unique login")
-				});
-			});
-		});
