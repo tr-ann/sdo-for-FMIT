@@ -4,6 +4,8 @@ import AuthController from './AuthController'
 
 const router = Router()
 
+
+router.post('/signup/check', AuthController.checkLogin)
 router.get('/signup', function(req, res, next) {
     res.render('signup')
 })

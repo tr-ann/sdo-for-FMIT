@@ -23,14 +23,14 @@
         <li class="nav-item active">
             <a class="nav-link" href="../users">Users <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" href="../faculties">Faculties</a>
         </li>
         </ul>
         if currentUser
           - var userInfo = 'http://localhost:3000/users/' + currentUser.id
           <form class="form-inline my-2 my-lg-0" method='GET' action='/logout'>
-            a(href=userInfo style="margin-right: 50px") #{currentUser.login}
+            a.text-dark(href=userInfo style="margin-right: 50px") #{currentUser.login}
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
           </form>
         else  

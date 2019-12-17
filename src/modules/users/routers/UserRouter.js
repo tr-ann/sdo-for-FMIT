@@ -4,9 +4,7 @@ import userController from '../controllers/UserController'
 
 const router = Router()
 
-router.post('/check', userController.checkLogin)
-router.get('/:id',  readUserFilter, userController.readById)
-router.post('/:id', userFilter, userController.update)
+router.post('/:id/delete', userController.destroy)
 router.get('/:id/edit', userFilter, (req, res, next) => {
     let userPhones = ''
     for (let phone of req.user.phones) {
@@ -15,7 +13,9 @@ router.get('/:id/edit', userFilter, (req, res, next) => {
 
     res.render('editUser', { currentUser: req.user, phones: userPhones })
 })
-router.delete('/:id', userController.destroy)
+router.get('/:id',  readUserFilter, userController.readById)
+router.post('/:id', userFilter, userController.update)
+//router.delete('/:id', userController.destroy)
 router.get('/', userController.readAll)
 router.post('/', userController.create)
 

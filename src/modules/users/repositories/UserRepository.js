@@ -83,7 +83,7 @@ class UserRepository {
     }
 
     async getAllLogins() {
-        return await db.user.find({
+        return await db.user.findAll({
             attributes: [ 'login' ]
         });
     }

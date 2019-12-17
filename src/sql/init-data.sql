@@ -12,7 +12,7 @@ INSERT INTO `control_points`(`id`, `url`, `method`) VALUES
 (   7   ,   "/faculties" ,   "POST"),
 (   8   ,   "/faculties/\\d" ,  "GET"),
 (   9   ,   "/faculties/\\d" ,  "POST"),
-(   10  ,   "/faculties/\\d" ,  "DELETE");
+(   10  ,   "/faculties/\\d/delete" ,  "POST");
 
 INSERT INTO `access_rules`(`id`, `role_id`, `control_point_id`) VALUES
 (   1   ,   1   ,   3   ),

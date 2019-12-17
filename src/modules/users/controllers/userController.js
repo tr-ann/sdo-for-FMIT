@@ -96,32 +96,20 @@ class UserController {
     async destroy(req, res, next) {
         try {
             await UserService.destroy(req.params.id)
-            return res.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        {},
-                        "User deleted successfully",
-                        200,
-                        "success"
-                    )
-                )
+
+            res.redirect("/users")
+            // return res.status(200)
+            //     .json(
+            //         helpers.ResponseFormat.build(
+            //             {},
+            //             "User deleted successfully",
+            //             200,
+            //             "success"
+            //         )
+            //     )
         } catch (error) { 
             next(error)
         }
-    }
-
-    async checkLogin(req, res, next) {
-        console.log(1);
-        let logins = await UserRepository.getAllLogins();
-        console.log(logins)
-        console.log(req.body.login)
-
-        for (let login of logins) {
-            if (req.body.login == login)
-                return true;                //такой логин существует
-        }
-
-        next();
     }
 }
 

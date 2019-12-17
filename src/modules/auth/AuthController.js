@@ -1,6 +1,7 @@
 import { passport } from '../../loaders/passport'
 import UserService from '../users/services/UserService'
 import UserInfoService from '../users/services/UserInfoService'
+import UserRepository from '../users/repositories/UserRepository'
 import PhoneService from '../users/services/PhoneService'
 
 class AuthController {
@@ -21,7 +22,7 @@ class AuthController {
           delete user.dataValues.password
           delete user._previousDataValues.password
 
-          res.redirect('/users')
+          res.redirect('/faculties')
         })
       }
     )(req, res, next)
@@ -63,6 +64,17 @@ class AuthController {
     } catch (error) {
         next(error)
     }
+  }
+
+  async checkLogin(req, res, next) {
+    let logins = await UserRepository.getAllLogins();
+    
+    for (let login of logins) {
+      if (req.body.login == login)
+        return  res.json({text:"HelloWorld"});                //такой логин существует
+    }
+
+    console.log(res.json({text:"HelloWorld"}));
   }
 }
 
