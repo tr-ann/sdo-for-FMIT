@@ -56,8 +56,20 @@ async function _readUserFilter(req, res, next) {
   throw new BadRequest("Access denied")
 }
 
+async function _isAdminFilter(req, res, next) {
+
+  let roles = req.user.roles
+  for (let role of roles) {
+    if (role.id == 2)
+      return true
+  }
+
+  throw new BadRequest("Access denied")
+}
+
 const filter = decorator(_filter)
 const userFilter = decorator(_userFilter)
 const readUserFilter = decorator(_readUserFilter)
+const isAdminFilter = decorator(_isAdminFilter)
 
-export { filter, userFilter, readUserFilter }
+export { filter, userFilter, readUserFilter, isAdminFilter }

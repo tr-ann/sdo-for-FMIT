@@ -24,10 +24,11 @@ block content
             </tr>
         </table>
         <div style="position: relative;">
-            <a style="float:left; margin:0 10px;" href="#{id}/edit" class="btn btn-outline-warning active" role="button" aria-pressed="true">Edit</a>
-            <form style="float:left; margin:0 10px;" method="POST" action="/faculties/#{id}/delete">
-                <button class="btn btn-danger" type="submit">Delete</button>
-            </form>
+            if currentUser.roles[0].id == 2
+                <a style="float:left; margin:0 10px;" href="#{id}/edit" class="btn btn-outline-warning active" role="button" aria-pressed="true">Edit</a>
+                <form style="float:left; margin:0 10px;" method="POST" action="/faculties/#{id}/delete">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
             <a style="float:left; margin:0 10px;" href="/faculties" class="btn btn-primary active" role="button" aria-pressed="true">Back</a>
         </div>
     </div>
