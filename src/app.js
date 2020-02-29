@@ -1,12 +1,24 @@
-import express from 'express'
-import initApp from './loaders'
-import { connect as databaseConnect } from './classes/sequelize'
-//import initModels from './classes/dbModels'
+const express = require('express');
+const initApp = require('./loaders');
+const databaseConnect = require('./sequelize').connect;
 
-databaseConnect()
-//initModels()
+(async () => {
+  
+  try {
+    
+    await databaseConnect();
 
-const app = express()
-initApp(app)
+    const app = express();
+    initApp(app);
 
-export default app
+    module.exports = app;
+  }
+  catch (error) {
+
+    console.log(error.name);
+    console.log(error.message);
+    console.log(error.stack);
+
+    process.exit(1);
+  }
+})();

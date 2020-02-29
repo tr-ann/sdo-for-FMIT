@@ -1,20 +1,7 @@
-const ResponseFormat = {
-    build: (object, message, code, status)  => {
-        return {
-            data: object,
-            code: code,
-            message: message,
-            status: status
-        }
-    },
-    error: (object, message, code, status)  => {
-        return {
-            error: object,
-            code: code,
-            message: message,
-            status: status
-        }
-    }
-}
+module.exports.build = (data, message, code, status) => {
+  return { data, code, message, status };
+};
 
-export default ResponseFormat
+module.exports.error = (error, message, code, status) => {
+  return { error, code, message, status };
+};

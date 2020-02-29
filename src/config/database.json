@@ -1,29 +1,29 @@
 {
-    "dev": {
-        "username": "root",
-        "password": "root",
-        "operatorsAliases": false,
-        "database": "sdo_db",
-        "host": "127.0.0.1",
-        "dialect": "mysql",
-        "timestamps": false
-    },
-    "test": {
-        "username": "root",
-        "password": "root",
-        "operatorsAliases": false,
-        "database": "test",
-        "host": "127.0.0.1",
-        "dialect": "mysql",
-        "timestamps": false
-    },
-    "prod": {
-        "username": "root",
-        "password": "root",
-        "operatorsAliases": false,
-        "database": "test",
-        "host": "127.0.0.1",
-        "dialect": "mysql",
-        "timestamps": false
-    }
+  "dev": {
+    "username": "root",
+    "password": "root",
+    "operatorsAliases": false,
+    "database": "sdo_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timestamps": false
+  },
+  "test": {
+    "username": "root",
+    "password": "root",
+    "operatorsAliases": false,
+    "database": "test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timestamps": false
+  },
+  "prod": {
+    "username": "root",
+    "password": "root",
+    "operatorsAliases": false,
+    "database": "test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timestamps": false
+  }
 }

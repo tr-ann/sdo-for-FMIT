@@ -1,5 +1,2 @@
-import ResponseFormat from './ResponseFormat'
-
-export default {
-    ResponseFormat,
-}
+module.exports.responseFormat = require('./responseFormat');
+module.exports.tryCatch = require('./tryCatch');

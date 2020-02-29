@@ -1,5 +1,5 @@
-import NotFoundError from '../classes/errors/4xx/notFound'
+const { NotFound } = require('../classes').errors;
 
-export default (request, response) => {
-    throw new NotFoundError('Router not found, incorrect request URL')
-}
+module.exports = (req, res, next) => {
+  next(new NotFound('Router not found, incorrect request URL'));
+};

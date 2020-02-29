@@ -1,0 +1,9 @@
+module.exports.BadRequest = require('./4xx/BadRequest');
+module.exports.Conflict = require('./4xx/Conflict');
+module.exports.Gone = require('./4xx/Gone');
+module.exports.NotFound = require('./4xx/NotFound');
+module.exports.RetryWith = require('./4xx/RetryWith');
+module.exports.Unauthorized = require('./4xx/Unauthorized');
+module.exports.UnprocessableEntity = require('./4xx/UnprocessableEntity');
+module.exports.InternalServerError = require('./5xx/InternalServerError');
+module.exports.NotImplemented = require('./5xx/NotImplemented');

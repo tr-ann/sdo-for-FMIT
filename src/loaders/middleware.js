@@ -1,8 +1,8 @@
-import NotFoundError from '../middleware/notFound'
-import ErrorHandler from '../middleware/errorHandler'
+const NotFoundError = require('../middleware/notFound');
+const ErrorHandler = require('../middleware/errorHandler');
 
-export default (app) => {
-    app
-        .use(NotFoundError)
-        .use(ErrorHandler)
-}
+module.exports = (app) => {
+  app
+    .use(NotFoundError)
+    .use(ErrorHandler);
+};

@@ -1,12 +1,14 @@
+const errorsInfo = require('../../../constants/errorsInfo');
+
 /**
- * Сервер не поддерживает возможностей, необходимых для обработки запроса.
- * Например, сервер не понимает указанный в запросе метод.
+ * The server does not support the capabilities required to process the request.
+ * For example, the server does not understand the method specified in the request.
  */
-export default class NotImplemented extends Error {
-    
-    constructor(message = 'The server does not support capabilities required to process the request') {
-        super(message)
-        super.name = 'NotImplemented'
-        this.status = 501
-    }
-}
+module.exports = class NotImplemented extends Error {
+  
+  constructor(message = errorsInfo.ERR_501_MESSAGE) {
+    super(message);
+    super.name = errorsInfo.ERR_501_NAME;
+    this.status = 501;
+  }
+};

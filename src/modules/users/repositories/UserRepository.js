@@ -1,4 +1,4 @@
-import db from '../../../classes/dbModels'
+const db = require('../../../dbModels');
 
 class UserRepository {
 
@@ -111,4 +111,4 @@ class UserRepository {
     }
 }
 
-export default new UserRepository()
+module.exports = new UserRepository();
