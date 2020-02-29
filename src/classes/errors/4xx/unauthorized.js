@@ -1,11 +1,13 @@
+const errorsInfo = require('../../../constants/errorsInfo');
+
 /**
- * Возвращается сервером, если для доступа к запрашиваемому ресурсу требуется аутентификация.
+ * It is returned by the server if authentication is required to access the requested resource.
  */
-export default class Unauthorized extends Error {
-    
-    constructor(message = 'To access the requested resource requires authentication') {
-        super(message)
-        super.name = 'Unauthorized'
-        this.status = 401
-    }
-}
+module.exports = class Unauthorized extends Error {
+  
+  constructor(message = errorsInfo.ERR_401_MESSAGE) {
+    super(message);
+    super.name = errorsInfo.ERR_401_NAME;
+    this.status = 401;
+  }
+};

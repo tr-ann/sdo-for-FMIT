@@ -1,11 +1,13 @@
+const errorsInfo = require('../../../constants/errorsInfo');
+
 /**
- * Возвращается сервером, если не было нашйдено соответствующего ресурса по указанному URL.
+ * It is returned by the server if requested resource is not found at the specified URL.
  */
-export default class NotFound extends Error {
-    
-    constructor(message = 'The resource is not found') {
-        super(message)
-        super.name = 'NotFound'
-        this.status = 404
-    }
-}
+module.exports = class NotFound extends Error {
+  
+  constructor(message = errorsInfo.ERR_404_MESSAGE) {
+    super(message);
+    super.name = errorsInfo.ERR_404_NAME;
+    this.status = 404;
+  }
+};

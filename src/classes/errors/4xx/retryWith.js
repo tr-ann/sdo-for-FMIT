@@ -1,11 +1,13 @@
+const errorsInfo = require('../../../constants/errorsInfo');
+
 /**
- * Возвращается сервером, если для обработки запроса от клиента поступило недостаточно информации.
+ * It is returned by the server if there is insufficient information from the client to process the request.
  */
-export default class RetryWith extends Error {
-    
-    constructor(message = 'Did not enough information') {
-        super(message)
-        super.name = 'RetryWith'
-        this.status = 449
-    }
-}
+module.exports = class RetryWith extends Error {
+  
+  constructor(message = errorsInfo.ERR_449_MESSAGE) {
+    super(message);
+    super.name = errorsInfo.ERR_449_NAME;
+    this.status = 449;
+  }
+};

@@ -1,11 +1,13 @@
+const errorsInfo = require('../../../constants/errorsInfo');
+
 /**
- * Возвращается сервером, если в запросе клиента обнаружена синтаксическая ошибка.
+ * It is returned by the server if a syntax error is detected in a client request.
  */
-export default class BadRequest extends Error {
-    
-    constructor(message = 'The request contains a syntax error') {
-        super(message)
-        super.name = 'BadRequest'
-        this.status = 400
-    }
-}
+module.exports = class BadRequest extends Error {
+  
+  constructor(message = errorsInfo.ERR_400_MESSAGE) {
+    super(message);
+    super.name = errorsInfo.ERR_400_NAME;
+    this.status = 400;
+  }
+};

@@ -1,11 +1,13 @@
+const errorsInfo = require('../../../constants/errorsInfo');
+
 /**
- * Возвращается сервером, если ресурс раньше был по указанному URL, но был удалён и теперь недоступен.
+ * It is returned by the server if the resource used at the specified URL, but was deleted and is no longer available.
  */
-export default class Gone extends Error {
-    
-    constructor(message = 'The resource has been deleted and is no longer available') {
-        super(message)
-        super.name = 'Gone'
-        this.status = 410
-    }
-}
+module.exports = class Gone extends Error {
+  
+  constructor(message = errorsInfo.ERR_410_MESSAGE) {
+    super(message);
+    super.name = errorsInfo.ERR_410_NAME;
+    this.status = 410;
+  }
+};
