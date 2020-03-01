@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import GroupController from '../controllers/groupController'
+const { Router } = require('express');
+const GroupController = require('../controllers/GroupController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', GroupController.readById)
-router.post('/:id', GroupController.update)
-router.delete('/:id', GroupController.destroy)
-router.get('/', GroupController.readAll)
-router.post('/', GroupController.create)
+router.get('/:id', tryCatch(GroupController.readById));
+router.post('/:id', tryCatch(GroupController.update));
+router.delete('/:id', tryCatch(GroupController.destroy));
+router.get('/', tryCatch(GroupController.readAll));
+router.post('/', tryCatch(GroupController.create));
 
-export default router
+module.exports = router;

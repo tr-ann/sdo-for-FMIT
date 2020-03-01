@@ -1,88 +1,96 @@
-import SubgroupService from '../services/SubgroupService'
-import helpers from '../../../helpers'
+const SubgroupService = require('../services/SubgroupService');
+const helpers = require('../../../helpers');
 
-class subgroupController {
+class SubgroupController {
 
-    async create(req, res, next) {
-        try {
-            let subgroup = await SubgroupService.create({
-                name: req.body.name,
-                group_id: req.body.group_id,
-            })
-            
-            return res.status(201).json(helpers.ResponseFormat.build(
-                subgroup,
-                "Subgroup created successfully",
-                201,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async create(req, res, next) {
+      
+    let subgroup = await SubgroupService.create({
+      name: req.body.name,
+      groupId: req.body.groupId,
+    });
+    
+    res
+      .status(201)
+      .json(
+        helpers.ResponseFormat.build(
+          subgroup,
+          "Subgroup created successfully",
+          201,
+          "success"
+        )
+      );
+  }
 
-    async readAll(req, res, next) {
-        try {
-            let subgroups = await SubgroupService.readAll()
-            
-            return res.status(200).json(helpers.ResponseFormat.build(
-                subgroups,
-                "Subgroups read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async readAll(req, res, next) {
+      
+    let subgroups = await SubgroupService.readAll();
+          
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          subgroups,
+          "Subgroups read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async readById(req, res, next) {
-        try {
-            let subgroup = await SubgroupService.readById(req.params.id)
+  async readById(req, res, next) {
+      
+    let subgroup = await SubgroupService.readById(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                subgroup,
-                "Subgroup read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          subgroup,
+          "Subgroup read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async update(req, res, next) {
-        try {
-            let subgroup = await SubgroupService.update(req.params.id, {
-                name:   req.body.name,
-                group_id: req.body.group_id,
-            })
+  async update(req, res, next) {
+      
+    let subgroup = await SubgroupService.update(
+      req.params.id,
+      {
+        name: req.body.name,
+        groupId: req.body.groupId,
+      }
+    );
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                subgroup,
-                "Subgroup updated successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          subgroup,
+          "Subgroup updated successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async destroy(req, res, next) {
-        try {
-            await SubgroupService.destroy(req.params.id)
+  async destroy(req, res, next) {
+      
+    await SubgroupService.destroy(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                {},
-                "Subgroup deleted successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          {},
+          "Subgroup deleted successfully",
+          200,
+          "success"
+        )
+      );
+  }
 }
 
-export default new subgroupController()
+module.exports = new SubgroupController();

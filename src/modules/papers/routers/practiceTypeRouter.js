@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import PracticeTypeController from '../controllers/practiceTypeController'
+const { Router } = require('express');
+const PracticeTypeController = require('../controllers/PracticeTypeController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', PracticeTypeController.readById)
-router.post('/:id', PracticeTypeController.update)
-router.delete('/:id', PracticeTypeController.destroy)
-router.get('/', PracticeTypeController.readAll)
-router.post('/', PracticeTypeController.create)
+router.get('/:id', tryCatch(PracticeTypeController.readById));
+router.post('/:id', tryCatch(PracticeTypeController.update));
+router.delete('/:id', tryCatch(PracticeTypeController.destroy));
+router.get('/', tryCatch(PracticeTypeController.readAll));
+router.post('/', tryCatch(PracticeTypeController.create));
 
-export default router
+module.exports = router;

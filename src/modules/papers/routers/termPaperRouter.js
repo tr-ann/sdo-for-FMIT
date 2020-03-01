@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import TermPaperController from '../controllers/termPaperController'
+const { Router } = require('express');
+const TermPaperController = require('../controllers/TermPaperController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', TermPaperController.readById)
-router.post('/:id', TermPaperController.update)
-router.delete('/:id', TermPaperController.destroy)
-router.get('/', TermPaperController.readAll)
-router.post('/', TermPaperController.create)
+router.get('/:id', tryCatch(TermPaperController.readById));
+router.post('/:id', tryCatch(TermPaperController.update));
+router.delete('/:id', tryCatch(TermPaperController.destroy));
+router.get('/', tryCatch(TermPaperController.readAll));
+router.post('/', tryCatch(TermPaperController.create));
 
-export default router
+module.exports = router;

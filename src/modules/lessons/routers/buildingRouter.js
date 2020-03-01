@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import BuildingController from '../controllers/buildingController'
+const { Router } = require('express');
+const BuildingController = require('../controllers/BuildingController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', BuildingController.readById)
-router.post('/:id', BuildingController.update)
-router.delete('/:id', BuildingController.destroy)
-router.get('/', BuildingController.readAll)
-router.post('/', BuildingController.create)
+router.get('/:id', tryCatch(BuildingController.readById));
+router.post('/:id', tryCatch(BuildingController.update));
+router.delete('/:id', tryCatch(BuildingController.destroy));
+router.get('/', tryCatch(BuildingController.readAll));
+router.post('/', tryCatch(BuildingController.create));
 
-export default router
+module.exports = router;

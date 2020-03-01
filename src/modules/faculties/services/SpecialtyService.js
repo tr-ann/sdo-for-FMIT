@@ -1,48 +1,48 @@
-import SpecialtyRepository from '../repositories/SpecialtyRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const SpecialtyRepository = require('../repositories/SpecialtyRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class SpecialtyService {
 
-    async create(specialty) {
-        return await SpecialtyRepository.create(specialty)
+  async create(specialty) {
+    return await SpecialtyRepository.create(specialty);
+  }
+
+  async readAll() {
+    return await SpecialtyRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let specialty = await SpecialtyRepository.readById(id);
+
+    if (!specialty) {
+      throw new NotFound(`Specialty not found`);
     }
 
-    async readAll() {
-        return await SpecialtyRepository.readAll()
+    return specialty;
+  }
+
+  async update(id, specialty) {
+
+    let nSpecialty = await SpecialtyRepository.readById(id);
+    
+    if (!nSpecialty) {
+      throw new NotFound(`Specialty not found`);
     }
 
-    async readById(id) {
+    return await SpecialtyRepository.update(id, specialty);
+  }
 
-        let specialty = await SpecialtyRepository.readById(id)
+  async destroy(id) {
 
-        if (!specialty) {
-            throw new NotFound(`Specialty not found`)
-        }
-
-        return specialty
+    let specialty = await SpecialtyRepository.readById(id);
+    
+    if (!specialty) {
+      throw new NotFound(`Specialty not found`);
     }
-
-    async update(id, specialty) {
-
-        let nSpecialty = await SpecialtyRepository.readById(id)
-        
-        if (!nSpecialty) {
-            throw new NotFound(`Specialty not found`)
-        }
-
-        return await SpecialtyRepository.update(id, specialty)
-    }
-
-    async destroy(id) {
-
-        let specialty = await SpecialtyRepository.readById(id)
-        
-        if (!specialty) {
-            throw new NotFound(`Specialty not found`)
-        }
-        
-        return await SpecialtyRepository.destroy(id)
-    }
+    
+    return await SpecialtyRepository.destroy(id);
+  }
 }
 
-export default new SpecialtyService()
+module.exports = new SpecialtyService();

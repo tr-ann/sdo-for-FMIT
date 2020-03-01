@@ -1,17 +1,7 @@
-import departmentRouter from './departmentRouter'
-import facultyRouter from './facultyRouter'
-import groupRouter from './groupRouter'
-import infoFacultyRouter from './infoFacultyRouter'
-import specialtyRouter from './specialtyRouter'
-import studyModeRouter from './studyModeRouter'
-import subgroupRouter from './subgroupRouter'
-
-export default {
-    departmentRouter,
-    facultyRouter,
-    groupRouter,
-    infoFacultyRouter,
-    specialtyRouter,
-    studyModeRouter,
-    subgroupRouter,
-}
+module.exports.departmentRouter = require('./departmentRouter');
+module.exports.facultyRouter = require('./facultyRouter');
+module.exports.groupRouter = require('./groupRouter');
+module.exports.infoFacultyRouter = require('./infoFacultyRouter');
+module.exports.specialtyRouter = require('./specialtyRouter');
+module.exports.studyModeRouter = require('./studyModeRouter');
+module.exports.subgroupRouter = require('./subgroupRouter');

@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import ResourceController from '../controllers/resourceController'
+const { Router } = require('express');
+const ResourceController = require('../controllers/ResourceController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', ResourceController.readById)
-router.post('/:id', ResourceController.update)
-router.delete('/:id', ResourceController.destroy)
-router.get('/', ResourceController.readAll)
-router.post('/', ResourceController.create)
+router.get('/:id', tryCatch(ResourceController.readById));
+router.post('/:id', tryCatch(ResourceController.update));
+router.delete('/:id', tryCatch(ResourceController.destroy));
+router.get('/', tryCatch(ResourceController.readAll));
+router.post('/', tryCatch(ResourceController.create));
 
-export default router
+module.exports = router;

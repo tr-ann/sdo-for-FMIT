@@ -1,48 +1,48 @@
-import RequestRepository from '../repositories/RequestRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const RequestRepository = require('../repositories/RequestRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class RequestService {
 
-    async create(request) {
-        return await RequestRepository.create(request)
+  async create(request) {
+    return await RequestRepository.create(request);
+  }
+
+  async readAll() {
+    return await RequestRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let request = await RequestRepository.readById(id);
+
+    if (!request) {
+      throw new NotFound('Request not found');
     }
 
-    async readAll() {
-        return await RequestRepository.readAll()
+    return request;
+  }
+
+  async update(id, request) {
+
+    let oldRequest = await RequestRepository.readById(id);
+    
+    if (!oldRequest) {
+      throw new NotFound('Request not found');
     }
 
-    async readById(id) {
+    return await RequestRepository.update(id, request);
+  }
 
-        let request = await RequestRepository.readById(id)
+  async destroy(id) {
 
-        if (!request) {
-            throw new NotFound('Request not found')
-        }
-
-        return request
+    let request = await RequestRepository.readById(id);
+    
+    if (!request) {
+      throw new NotFound('Request not found');
     }
-
-    async update(id, request) {
-
-        let oldRequest = await RequestRepository.readById(id)
-        
-        if (!oldRequest) {
-            throw new NotFound('Request not found')
-        }
-
-        return await RequestRepository.update(id, request)
-    }
-
-    async destroy(id) {
-
-        let request = await RequestRepository.readById(id)
-        
-        if (!request) {
-            throw new NotFound('Request not found')
-        }
-        
-        return await RequestRepository.destroy(id)
-    }
+    
+    return await RequestRepository.destroy(id);
+  }
 }
 
-export default new RequestService()
+module.exports = new RequestService();

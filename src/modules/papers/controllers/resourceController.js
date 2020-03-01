@@ -1,86 +1,94 @@
-import ResourceService from '../services/ResourceService'
-import helpers from '../../../helpers'
+const ResourceService = require('../services/ResourceService');
+const { responseFormat } = require('../../../helpers');
 
-class resourceController {
+class ResourceController {
 
-    async create(req, res, next) {
-        try {
-            let resource = await ResourceService.create({
-                description:    req.body.description,
-            })
-            
-            return res.status(201).json(helpers.ResponseFormat.build(
-                resource,
-                "Resource created successfully",
-                201,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+  async create(req, res, next) {
+      
+    let resource = await ResourceService.create({
+      description: req.body.description,
+    });
+    
+    res
+      .status(201)
+      .json(
+        responseFormat.build(
+          resource,
+          "Resource created successfully",
+          201,
+          "success"
+        )
+      );
+  }
 
-    async readAll(req, res, next) {
-        try {
-            let resources = await ResourceService.readAll()
-            
-            return res.status(200).json(helpers.ResponseFormat.build(
-                resources,
-                "Resources read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+  async readAll(req, res, next) {
+      
+    let resources = await ResourceService.readAll();
+    
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          resources,
+          "Resources read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async readById(req, res, next) {
-        try {
-            let resource = await ResourceService.readById(req.params.id)
+  async readById(req, res, next) {
+      
+    let resource = await ResourceService.readById(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                resource,
-                "Resource read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          resource,
+          "Resource read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async update(req, res, next) {
-        try {
-            let resource = await ResourceService.update(req.params.id, {
-                description:    req.body.description,
-            })
+  async update(req, res, next) {
+      
+    let resource = await ResourceService.update(
+      req.params.id,
+      {
+        description: req.body.description,
+      }
+    );
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                resource,
-                "Resource updated successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          resource,
+          "Resource updated successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async destroy(req, res, next) {
-        try {
-            await ResourceService.destroy(req.params.id)
+  async destroy(req, res, next) {
+      
+    await ResourceService.destroy(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                {},
-                "Resource deleted successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          {},
+          "Resource deleted successfully",
+          200,
+          "success"
+        )
+      );
+  }
 }
 
-export default new resourceController()
+module.exports = new ResourceController();

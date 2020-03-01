@@ -1,86 +1,94 @@
-import BuildingService from '../services/BuildingService'
-import helpers from '../../../helpers'
+const BuildingService = require('../services/BuildingService');
+const { responseFormat } = require('../../../helpers');
 
-class buildingController {
+class BuildingController {
 
-    async create(req, res, next) {
-        try {
-            let building = await BuildingService.create({
-                name: req.body.name,
-            })
-            
-            return res.status(201).json(helpers.ResponseFormat.build(
-                building,
-                "Building created successfully",
-                201,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async create(req, res, next) {
+    
+    let building = await BuildingService.create({
+      name: req.body.name,
+    });
+    
+    res
+      .status(201)
+      .json(
+        responseFormat.build(
+          building,
+          "Building created successfully",
+          201,
+          "success"
+        )
+      );
+  }
 
-    async readAll(req, res, next) {
-        try {
-            let buildings = await BuildingService.readAll()
-            
-            return res.status(200).json(helpers.ResponseFormat.build(
-                buildings,
-                "Buildings read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async readAll(req, res, next) {
+      
+    let buildings = await BuildingService.readAll();
+    
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          buildings,
+          "Buildings read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async readById(req, res, next) {
-        try {
-            let building = await BuildingService.readById(req.params.id)
+  async readById(req, res, next) {
+      
+    let building = await BuildingService.readById(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                building,
-                "Building read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          building,
+          "Building read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async update(req, res, next) {
-        try {
-            let building = await BuildingService.update(req.params.id, {
-                name:   req.body.name,
-            })
+  async update(req, res, next) {
+      
+    let building = await BuildingService.update(
+      req.params.id,
+      {
+        name: req.body.name,
+      }
+    );
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                building,
-                "Building updated successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          building,
+          "Building updated successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async destroy(req, res, next) {
-        try {
-            await BuildingService.destroy(req.params.id)
+  async destroy(req, res, next) {
+      
+    await BuildingService.destroy(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                {},
-                "Building deleted successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          {},
+          "Building deleted successfully",
+          200,
+          "success"
+        )
+      );
+  }
 }
 
-export default new buildingController()
+module.exports = new BuildingController();

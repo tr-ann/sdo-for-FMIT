@@ -1,86 +1,90 @@
-import PracticeTypeService from '../services/PracticeTypeService'
-import helpers from '../../../helpers'
+const PracticeTypeService = require('../services/PracticeTypeService');
+const { responseFormat } = require('../../../helpers');
 
-class practiceTypeController {
+class PracticeTypeController {
 
-    async create(req, res, next) {
-        try {
-            let practiceType = await PracticeTypeService.create({
-                name: req.body.name,
-            })
-            
-            return res.status(201).json(helpers.ResponseFormat.build(
-                practiceType,
-                "Practice type created successfully",
-                201,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async create(req, res, next) {
+      
+    let practiceType = await PracticeTypeService.create({
+      name: req.body.name,
+    });
+    
+    res
+      .status(201)
+      .json(
+        responseFormat.build(
+          practiceType,
+          "Practice type created successfully",
+          201,
+          "success"
+        )
+      );
+  }
 
-    async readAll(req, res, next) {
-        try {
-            let practiceTypes = await PracticeTypeService.readAll()
-            
-            return res.status(200).json(helpers.ResponseFormat.build(
-                practiceTypes,
-                "Practice types read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async readAll(req, res, next) {
+      
+    let practiceTypes = await PracticeTypeService.readAll();
+    
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          practiceTypes,
+          "Practice types read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async readById(req, res, next) {
-        try {
-            let practiceType = await PracticeTypeService.readById(req.params.id)
+  async readById(req, res, next) {
+      
+    let practiceType = await PracticeTypeService.readById(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                practiceType,
-                "Practice type read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          practiceType,
+          "Practice type read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async update(req, res, next) {
-        try {
-            let practiceType = await PracticeTypeService.update(req.params.id, {
-                name:   req.body.name,
-            })
+  async update(req, res, next) {
+      
+    let practiceType = await PracticeTypeService.update(
+      req.params.id,
+      {
+        name: req.body.name,
+      }
+    );
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                practiceType,
-                "Practice type updated successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res.status(200).json(responseFormat.build(
+        practiceType,
+        "Practice type updated successfully",
+        200,
+        "success"
+    ));
+  }
 
-    async destroy(req, res, next) {
-        try {
-            await PracticeTypeService.destroy(req.params.id)
+  async destroy(req, res, next) {
+      
+    await PracticeTypeService.destroy(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                {},
-                "Practice type deleted successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          {},
+          "Practice type deleted successfully",
+          200,
+          "success"
+        )
+      );
+  }
 }
 
-export default new practiceTypeController()
+module.exports = new PracticeTypeController();

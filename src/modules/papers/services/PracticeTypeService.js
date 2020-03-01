@@ -1,48 +1,48 @@
-import PracticeTypeRepository from '../repositories/PracticeTypeRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const PracticeTypeRepository = require('../repositories/PracticeTypeRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class PracticeTypeService {
 
-    async create(practiceType) {
-        return await PracticeTypeRepository.create(practiceType)
+  async create(practiceType) {
+    return await PracticeTypeRepository.create(practiceType);
+  }
+
+  async readAll() {
+    return await PracticeTypeRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let practiceType = await PracticeTypeRepository.readById(id);
+
+    if (!practiceType) {
+      throw new NotFound('Practice type not found');
     }
 
-    async readAll() {
-        return await PracticeTypeRepository.readAll()
+    return practiceType;
+  }
+
+  async update(id, practiceType) {
+
+    let oldPracticeType = await PracticeTypeRepository.readById(id);
+    
+    if (!oldPracticeType) {
+      throw new NotFound('Practice type not found');
     }
 
-    async readById(id) {
+    return await PracticeTypeRepository.update(id, practiceType);
+  }
 
-        let practiceType = await PracticeTypeRepository.readById(id)
+  async destroy(id) {
 
-        if (!practiceType) {
-            throw new NotFound('Practice type not found')
-        }
-
-        return practiceType
+    let practiceType = await PracticeTypeRepository.readById(id);
+    
+    if (!practiceType) {
+      throw new NotFound('Practice type not found');
     }
-
-    async update(id, practiceType) {
-
-        let oldPracticeType = await PracticeTypeRepository.readById(id)
-        
-        if (!oldPracticeType) {
-            throw new NotFound('Practice type not found')
-        }
-
-        return await PracticeTypeRepository.update(id, practiceType)
-    }
-
-    async destroy(id) {
-
-        let practiceType = await PracticeTypeRepository.readById(id)
-        
-        if (!practiceType) {
-            throw new NotFound('Practice type not found')
-        }
-        
-        return await PracticeTypeRepository.destroy(id)
-    }
+    
+    return await PracticeTypeRepository.destroy(id);
+  }
 }
 
-export default new PracticeTypeService()
+module.exports = new PracticeTypeService();

@@ -1,94 +1,103 @@
-import DepartmentService from '../services/DepartmentService'
-import helpers from '../../../helpers'
+const DepartmentService = require('../services/DepartmentService');
+const helpers = require('../../../helpers');
 
-class departmentController {
+class DepartmentController {
 
-    async create(req, res, next) {
-        try {
-            let department = await DepartmentService.create({
-                name: req.body.name,
-                faculty_id: req.body.faculty_id,
-                owner_id: req.body.owner_id,
-                phone: req.body.phone,
-                lecture_room_id: req.body.lecture_room_id,
-            })
-            
-            return res.status(201).json(helpers.ResponseFormat.build(
-                department,
-                "Department created successfully",
-                201,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+  async create(req, res, next) {
+     
+    let department = await DepartmentService.create({
+      name: req.body.name,
+      facultyId: req.body.facultyId,
+      ownerId: req.body.ownerId,
+      phone: req.body.phone,
+      lectureRoomId: req.body.lectureRoomId,
+    });
+    
+    
+    res
+      .status(201)
+      .json(
+        helpers.ResponseFormat.build(
+          department,
+          "Department created successfully",
+          201,
+          "success"
+        )
+      );
+  }
 
-    async readAll(req, res, next) {
-        try {
-            let departments = await DepartmentService.readAll()
-            
-            return res.status(200).json(helpers.ResponseFormat.build(
-                departments,
-                "Departments read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+  async readAll(req, res, next) {
+      
+    let departments = await DepartmentService.readAll();
+    
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          departments,
+          "Departments read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async readById(req, res, next) {
-        try {
-            let department = await DepartmentService.readById(req.params.id)
+  async readById(req, res, next) {
+      
+    let department = await DepartmentService.readById(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                department,
-                "Department read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          department,
+          "Department read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async update(req, res, next) {
-        try {
-            let department = await DepartmentService.update(req.params.id, {
-                name: req.body.name,
-                faculty_id: req.body.faculty_id,
-                owner_id: req.body.owner_id,
-                phone: req.body.phone,
-                lecture_room_id: req.body.lecture_room_id,
-            })
+  async update(req, res, next) {
+    
+    let department = await DepartmentService.update(
+      req.params.id,
+      {
+        name: req.body.name,
+        facultyId: req.body.facultyId,
+        ownerId: req.body.ownerId,
+        phone: req.body.phone,
+        lectureRoomId: req.body.lectureRoomId,
+      }
+    );
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                department,
-                "Department updated successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          department,
+          "Department updated successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async destroy(req, res, next) {
-        try {
-            await DepartmentService.destroy(req.params.id)
+  async destroy(req, res, next) {
+      
+    await DepartmentService.destroy(req.params.id)
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                {},
-                "Department deleted successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          {},
+          "Department deleted successfully",
+          200,
+          "success"
+        )
+      );
+  }
 }
 
-export default new departmentController()
+module.exports = new DepartmentController();

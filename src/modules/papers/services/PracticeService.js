@@ -1,48 +1,48 @@
-import PracticeRepository from '../repositories/PracticeRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const PracticeRepository = require('../repositories/PracticeRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class PracticeService {
 
-    async create(practice) {
-        return await PracticeRepository.create(practice)
+  async create(practice) {
+    return await PracticeRepository.create(practice);
+  }
+
+  async readAll() {
+    return await PracticeRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let practice = await PracticeRepository.readById(id);
+
+    if (!practice) {
+      throw new NotFound('Practice not found');
     }
 
-    async readAll() {
-        return await PracticeRepository.readAll()
+    return practice;
+  }
+
+  async update(id, practice) {
+
+    let oldPractice = await PracticeRepository.readById(id);
+    
+    if (!oldPractice) {
+      throw new NotFound('Practice not found');
     }
 
-    async readById(id) {
+    return await PracticeRepository.update(id, practice);
+  }
 
-        let practice = await PracticeRepository.readById(id)
+  async destroy(id) {
 
-        if (!practice) {
-            throw new NotFound('Practice not found')
-        }
-
-        return practice
+    let practice = await PracticeRepository.readById(id);
+    
+    if (!practice) {
+      throw new NotFound('Practice not found');
     }
-
-    async update(id, practice) {
-
-        let oldPractice = await PracticeRepository.readById(id)
-        
-        if (!oldPractice) {
-            throw new NotFound('Practice not found')
-        }
-
-        return await PracticeRepository.update(id, practice)
-    }
-
-    async destroy(id) {
-
-        let practice = await PracticeRepository.readById(id)
-        
-        if (!practice) {
-            throw new NotFound('Practice not found')
-        }
-        
-        return await PracticeRepository.destroy(id)
-    }
+    
+    return await PracticeRepository.destroy(id);
+  }
 }
 
-export default new PracticeService()
+module.exports = new PracticeService();

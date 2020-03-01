@@ -1,48 +1,48 @@
-import DisciplineRepository from '../repositories/DisciplineRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const DisciplineRepository = require('../repositories/DisciplineRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class DisciplineService {
 
-    async create(discipline) {
-        return await DisciplineRepository.create(discipline)
+  async create(discipline) {
+    return await DisciplineRepository.create(discipline);
+  }
+
+  async readAll() {
+    return await DisciplineRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let discipline = await DisciplineRepository.readById(id);
+
+    if (!discipline) {
+      throw new NotFound('Discipline not found');
     }
 
-    async readAll() {
-        return await DisciplineRepository.readAll()
+    return discipline;
+  }
+
+  async update(id, discipline) {
+
+    let oldDiscipline = await DisciplineRepository.readById(id);
+    
+    if (!oldDiscipline) {
+      throw new NotFound('Discipline not found');
     }
 
-    async readById(id) {
+    return await DisciplineRepository.update(id, discipline);
+  }
 
-        let discipline = await DisciplineRepository.readById(id)
+  async destroy(id) {
 
-        if (!discipline) {
-            throw new NotFound('Discipline not found')
-        }
-
-        return discipline
+    let discipline = await DisciplineRepository.readById(id);
+    
+    if (!discipline) {
+      throw new NotFound('Discipline not found');
     }
-
-    async update(id, discipline) {
-
-        let oldDiscipline = await DisciplineRepository.readById(id)
-        
-        if (!oldDiscipline) {
-            throw new NotFound('Discipline not found')
-        }
-
-        return await DisciplineRepository.update(id, discipline)
-    }
-
-    async destroy(id) {
-
-        let discipline = await DisciplineRepository.readById(id)
-        
-        if (!discipline) {
-            throw new NotFound('Discipline not found')
-        }
-        
-        return await DisciplineRepository.destroy(id)
-    }
+    
+    return await DisciplineRepository.destroy(id);
+  }
 }
 
-export default new DisciplineService()
+module.exports = new DisciplineService();

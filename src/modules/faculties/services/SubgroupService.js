@@ -1,48 +1,48 @@
-import SubgroupRepository from '../repositories/SubgroupRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const SubgroupRepository = require('../repositories/SubgroupRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class SubgroupService {
 
-    async create(subgroup) {
-        return await SubgroupRepository.create(subgroup)
+  async create(subgroup) {
+    return await SubgroupRepository.create(subgroup);
+  }
+
+  async readAll() {
+    return await SubgroupRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let subgroup = await SubgroupRepository.readById(id);
+
+    if (!subgroup) {
+      throw new NotFound(`Subgroup not found`);
     }
 
-    async readAll() {
-        return await SubgroupRepository.readAll()
+    return subgroup;
+  }
+
+  async update(id, subgroup) {
+
+    let nSubgroup = await SubgroupRepository.readById(id);
+    
+    if (!nSubgroup) {
+      throw new NotFound(`Subgroup not found`);
     }
 
-    async readById(id) {
+    return await SubgroupRepository.update(id, subgroup);
+  }
 
-        let subgroup = await SubgroupRepository.readById(id)
+  async destroy(id) {
 
-        if (!subgroup) {
-            throw new NotFound(`Subgroup not found`)
-        }
-
-        return subgroup
+    let subgroup = await SubgroupRepository.readById(id);
+    
+    if (!subgroup) {
+      throw new NotFound(`Subgroup not found`);
     }
-
-    async update(id, subgroup) {
-
-        let nSubgroup = await SubgroupRepository.readById(id)
-        
-        if (!nSubgroup) {
-            throw new NotFound(`Subgroup not found`)
-        }
-
-        return await SubgroupRepository.update(id, subgroup)
-    }
-
-    async destroy(id) {
-
-        let subgroup = await SubgroupRepository.readById(id)
-        
-        if (!subgroup) {
-            throw new NotFound(`Subgroup not found`)
-        }
-        
-        return await SubgroupRepository.destroy(id)
-    }
+    
+    return await SubgroupRepository.destroy(id);
+  }
 }
 
-export default new SubgroupService()
+module.exports = new SubgroupService();

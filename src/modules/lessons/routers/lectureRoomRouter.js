@@ -1,15 +1,13 @@
-import { Router } from 'express'
-import LectureRoomController from '../controllers/lectureRoomController'
-import IdValidator from '../../../validation/id-validation'
-import LectureRoomValidator from '../validators/lecture-room-validator'
-import expressJoi from 'express-joi'
+const { Router } = require('express');
+const LectureRoomController = require('../controllers/LectureRoomController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', expressJoi.joiValidate(IdValidator), LectureRoomController.readById)
-router.post('/:id', expressJoi.joiValidate(IdValidator, LectureRoomValidator), LectureRoomController.update)
-router.delete('/:id', expressJoi.joiValidate(IdValidator), LectureRoomController.destroy)
-router.get('/', LectureRoomController.readAll)
-router.post('/', expressJoi.joiValidate(LectureRoomValidator), LectureRoomController.create)
+router.get('/:id', tryCatch(LectureRoomController.readById));
+router.post('/:id', tryCatch(LectureRoomController.update));
+router.delete('/:id', tryCatch(LectureRoomController.destroy));
+router.get('/', tryCatch(LectureRoomController.readAll));
+router.post('/', tryCatch(LectureRoomController.create));
 
-export default router
+module.exports = router;

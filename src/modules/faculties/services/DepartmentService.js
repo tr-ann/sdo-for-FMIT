@@ -1,48 +1,48 @@
-import DepartmentRepository from '../repositories/DepartmentRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const DepartmentRepository = require('../repositories/DepartmentRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class DepartmentService {
 
-    async create(department) {
-        return await DepartmentRepository.create(department)
+  async create(department) {
+    return await DepartmentRepository.create(department);
+  }
+
+  async readAll() {
+    return await DepartmentRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let department = await DepartmentRepository.readById(id);
+
+    if (!department) {
+      throw new NotFound(`Department not found`);
     }
 
-    async readAll() {
-        return await DepartmentRepository.readAll()
+    return department;
+  }
+
+  async update(id, department) {
+
+    let nDepartment = await DepartmentRepository.readById(id);
+    
+    if (!nDepartment) {
+      throw new NotFound(`Department not found`);
     }
 
-    async readById(id) {
+    return await DepartmentRepository.update(id, department);
+  }
 
-        let department = await DepartmentRepository.readById(id)
+  async destroy(id) {
 
-        if (!department) {
-            throw new NotFound(`Department not found`)
-        }
-
-        return department
+    let department = await DepartmentRepository.readById(id);
+    
+    if (!department) {
+      throw new NotFound(`Department not found`);
     }
-
-    async update(id, department) {
-
-        let nDepartment = await DepartmentRepository.readById(id)
-        
-        if (!nDepartment) {
-            throw new NotFound(`Department not found`)
-        }
-
-        return await DepartmentRepository.update(id, department)
-    }
-
-    async destroy(id) {
-
-        let department = await DepartmentRepository.readById(id)
-        
-        if (!department) {
-            throw new NotFound(`Department not found`)
-        }
-        
-        return await DepartmentRepository.destroy(id)
-    }
+    
+    return await DepartmentRepository.destroy(id);
+  }
 }
 
-export default new DepartmentService()
+module.exports = new DepartmentService();

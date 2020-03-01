@@ -1,48 +1,48 @@
-import OrganizationRepository from '../repositories/OrganizationRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const OrganizationRepository = require('../repositories/OrganizationRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class OrganizationService {
 
-    async create(organization) {
-        return await OrganizationRepository.create(organization)
+  async create(organization) {
+    return await OrganizationRepository.create(organization);
+  }
+
+  async readAll() {
+    return await OrganizationRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let organization = await OrganizationRepository.readById(id);
+
+    if (!organization) {
+      throw new NotFound('Organization not found');
     }
 
-    async readAll() {
-        return await OrganizationRepository.readAll()
+    return organization;
+  }
+
+  async update(id, organization) {
+
+    let oldOrganization = await OrganizationRepository.readById(id);
+    
+    if (!oldOrganization) {
+      throw new NotFound('Organization not found');
     }
 
-    async readById(id) {
+    return await OrganizationRepository.update(id, organization);
+  }
 
-        let organization = await OrganizationRepository.readById(id)
+  async destroy(id) {
 
-        if (!organization) {
-            throw new NotFound('Organization not found')
-        }
-
-        return organization
+    let organization = await OrganizationRepository.readById(id);
+    
+    if (!organization) {
+      throw new NotFound('Organization not found');
     }
-
-    async update(id, organization) {
-
-        let oldOrganization = await OrganizationRepository.readById(id)
-        
-        if (!oldOrganization) {
-            throw new NotFound('Organization not found')
-        }
-
-        return await OrganizationRepository.update(id, organization)
-    }
-
-    async destroy(id) {
-
-        let organization = await OrganizationRepository.readById(id)
-        
-        if (!organization) {
-            throw new NotFound('Organization not found')
-        }
-        
-        return await OrganizationRepository.destroy(id)
-    }
+    
+    return await OrganizationRepository.destroy(id);
+  }
 }
 
-export default new OrganizationService()
+module.exports = new OrganizationService();

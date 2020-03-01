@@ -1,86 +1,94 @@
-import StatusService from '../services/StatusService'
-import helpers from '../../../helpers'
+const StatusService = require('../services/StatusService');
+const { responseFormat } = require('../../../helpers');
 
-class statusController {
+class StatusController {
 
-    async create(req, res, next) {
-        try {
-            let status = await StatusService.create({
-                name:   req.body.name,
-            })
-            
-            return res.status(201).json(helpers.ResponseFormat.build(
-                status,
-                "Status created successfully",
-                201,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async create(req, res, next) {
+      
+    let status = await StatusService.create({
+      name: req.body.name,
+    });
+    
+    res
+      .status(201)
+      .json(
+        responseFormat.build(
+          status,
+          "Status created successfully",
+          201,
+          "success"
+        )
+      );
+  }
 
-    async readAll(req, res, next) {
-        try {
-            let statuses = await StatusService.readAll()
-            
-            return res.status(200).json(helpers.ResponseFormat.build(
-                statuses,
-                "Statuses read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async readAll(req, res, next) {
+      
+    let statuses = await StatusService.readAll();
+    
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          statuses,
+          "Statuses read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async readById(req, res, next) {
-        try {
-            let status = await StatusService.readById(req.params.id)
+  async readById(req, res, next) {
+      
+    let status = await StatusService.readById(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                status,
-                "Status read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          status,
+          "Status read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async update(req, res, next) {
-        try {
-            let status = await StatusService.update(req.params.id, {
-                name:   req.body.name,
-            })
+  async update(req, res, next) {
+      
+    let status = await StatusService.update(
+      req.params.id,
+      {
+        name: req.body.name,
+      }
+    );
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                status,
-                "Status updated successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          status,
+          "Status updated successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async destroy(req, res, next) {
-        try {
-            await StatusService.destroy(req.params.id)
+  async destroy(req, res, next) {
+      
+    await StatusService.destroy(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                {},
-                "Status deleted successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          {},
+          "Status deleted successfully",
+          200,
+          "success"
+        )
+      );
+  }
 }
 
-export default new statusController()
+module.exports = new StatusController();
