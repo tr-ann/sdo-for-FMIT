@@ -1,44 +1,44 @@
-import PhoneRepository from '../repositories/PhoneRepository'
-import NotFound from '../../../classes/errors/4xx/notFound'
+const PhoneRepository = require('../repositories/PhoneRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class PhoneService {
 
-    async create(phone) {
-        return await PhoneRepository.create(phone)
-    }
+	async create(phone) {
+		return await PhoneRepository.create(phone);
+	}
 
-    async findById(id) {
+	async findById(id) {
 
-        let phone = await PhoneRepository.readById(id)
+		let phone = await PhoneRepository.readById(id);
 
-        if (!phone) {
-            throw new NotFound(`Phone not found`)
-        }
+		if (!phone) {
+			throw new NotFound(`Phone not found`);
+		}
 
-        return phone
-    }
+		return phone;
+	}
 
-    async update(id, phone) {
+	async update(id, phone) {
 
-        let oldPhone = PhoneRepository.readById(id)
+		let oldPhone = PhoneRepository.readById(id);
 
-        if(!oldPhone) {
-            throw new NotFound(`Phone not found`)
-        }
+		if(!oldPhone) {
+			throw new NotFound(`Phone not found`);
+		}
 
-        return await PhoneRepository.update(id, phone)
-    }
+		return await PhoneRepository.update(id, phone);
+	}
 
-    async destroy(id) {
+	async destroy(id) {
 
-        let oldPhone = PhoneRepository.readById(id)
+		let oldPhone = PhoneRepository.readById(id);
 
-        if(!oldPhone) {
-            throw new NotFound(`Phone not found`)
-        }
+		if(!oldPhone) {
+			throw new NotFound(`Phone not found`);
+		}
 
-        await PhoneRepository.destroy(id)
-    }
+		await PhoneRepository.destroy(id);
+	}
 }
 
-export default new PhoneService()
+module.exports = new PhoneService();

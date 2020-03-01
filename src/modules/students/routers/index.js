@@ -1,5 +1,3 @@
-import StudentRouter from './StudentRouter'
+const StudentRouter = require('./StudentRouter');
 
-export default {
-    StudentRouter
-}
+module.exports.StudentRouter = StudentRouter;

@@ -1,143 +1,127 @@
-import UserService from '../services/UserService'
-import UserInfoService from '../services/UserInfoService'
-import PhoneService from '../services/PhoneService'
-import helpers from '../../../helpers'
-import UserRoleService from '../services/UserRoleService'
+const UserService = require('../services/UserService');
+const UserInfoService = require('../services/UserInfoService');
+const PhoneService = require('../services/PhoneService');
+const { responseFormat } = require('../../../helpers');
+const UserRoleService = require('../services/UserRoleService');
 
 class UserController {
 
-    async create(req, res, next) {
-        try {
-            let user = await UserService.create({
-                login: req.body.login,
-                password: req.body.password,
-            })
+	async create(req, res, next) {
+		let user = await UserService.create({
+			login: req.body.login,
+			password: req.body.password,
+		});
 
+		await PhoneService.create({
+			user_id: user.id, 
+			phone: req.body.phone
+		});
 
-            await PhoneService.create({
-                user_id: user.id, 
-                phone: req.body.phone
-            })
+		let fullName = req.body.first_name 
+				+ ' ' + req.body.last_name 
+				+ ' ' + (req.body.middle_name || '');
 
-            let fullName = req.body.first_name 
-                    + ' ' + req.body.last_name 
-                    + ' ' + (req.body.middle_name || '')
+		await UserInfoService.create({
+			user_id: user.id,
+			full_name: fullName,
+			email: req.body.email,
+			birthday: req.body.birthday,
+			sex: req.body.sex,
+		});
 
-            await UserInfoService.create({
-                user_id: user.id,
-                full_name: fullName,
-                email: req.body.email,
-                birthday: req.body.birthday,
-                sex: req.body.sex,
-            })
+		await UserRoleService.create({user_id: user.id, role_id: 1});
 
-            await UserRoleService.create({user_id: user.id, role_id: 1})
+		res
+			.status(201)
+			.json(
+				responseFormat.build(
+					user.login, 
+					"User created successfully", 
+					201, 
+					"success"
+				)
+			);
+	}
 
-            return res.status(201)
-                .json(
-                    helpers.ResponseFormat.build(
-                        user.login, 
-                        "User created successfully", 
-                        201, 
-                        "success"
-                    )
-                )
-        } catch (error) {
-            next(error)
-        }
-    }
+	async readAll(req, res, next) {
+		let users = await UserService.readAll();
 
-    async readAll(req, res, next) {
-        try {
-            let users = await UserService.readAll()
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					users,
+					"Users read successfully",
+					200,
+					"success"
+				)
+			);
+	}
 
-            return res.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        users,
-                        "Users read successfully",
-                        200,
-                        "success"
-                    )
-                )
-        } catch(error) {
-            next(error)
-        }
-    }
+	async readById(req, res, next) {
+		let user = await UserService.readById(req.params.id);
+		
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					user,
+					"User read successfully",
+					200,
+					"success"
+				)
+			);
+	}
+	
+	async update(req, res, next) {
+		let user = await UserService.update(req.params.id, {
+			password: req.body.password,
+		});
 
-    async readById(req, res, next) {
-        try {
-            let user = await UserService.readById(req.params.id)
-            
-            return res.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        user,
-                        "User read successfully",
-                        200,
-                        "success"
-                    )
-                )
-        } catch (error) {
-            next(error)
-        }
-    }
-    
-    async update(req, res, next) {
-        try {
+		/*await PhoneService.update({
+			user_id: user.id, 
+			phone: req.body.phone
+		})
 
-            let user = await UserService.update(req.params.id, {
-                password: req.body.password,
-            })
+		let fullName = req.body.first_name 
+				+ ' ' + req.body.last_name 
+				+ ' ' + (req.body.middle_name || '')
 
-            /*await PhoneService.update({
-                user_id: user.id, 
-                phone: req.body.phone
-            })
+		await UserInfoService.update({
+			full_name: fullName,
+			email: req.body.email,
+			birthday: req.body.birthday,
+			sex: req.body.sex,
+		})
 
-            let fullName = req.body.first_name 
-                    + ' ' + req.body.last_name 
-                    + ' ' + (req.body.middle_name || '')
+		UserRoleService.create({user_id: user.id, role_id: 1})*/
 
-            await UserInfoService.update({
-                full_name: fullName,
-                email: req.body.email,
-                birthday: req.body.birthday,
-                sex: req.body.sex,
-            })
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					user,
+					"User updated successfully",
+					200,
+					"success"
+				)
+			);
+	}
+	
+	async destroy(req, res, next) {
+		await UserService.destroy(req.params.id);
 
-            UserRoleService.create({user_id: user.id, role_id: 1})*/
-
-            return res.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        user,
-                        "User updated successfully",
-                        200,
-                        "success"
-                    )
-                )
-        } catch(error) {
-            next(error)
-        }
-    }
-    
-    async destroy(req, res, next) {
-        try {
-            await UserService.destroy(req.params.id)
-            return res.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        {},
-                        "User deleted successfully",
-                        200,
-                        "success"
-                    )
-                )
-        } catch (error) { 
-            next(error)
-        }
-    }
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					{},
+					"User deleted successfully",
+					200,
+					"success"
+				)
+			);
+	}
 }
 
-export default new UserController()
+module.exports = new UserController();

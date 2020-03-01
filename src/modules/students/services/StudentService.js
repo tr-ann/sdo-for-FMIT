@@ -1,44 +1,44 @@
-import StudentRepository from '../repositories/StudentRepository'
-import NotFound from '../../../classes/errors/4xx/notFound'
+const StudentRepository = require('../repositories/StudentRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class StudentService {
 
-    async create(student) {
-        return await StudentRepository.create(student)
-    }
+	async create(student) {
+		return await StudentRepository.create(student);
+	}
 
-    async findById(id) {
+	async findById(id) {
 
-        let student = await StudentRepository.readById(id)
+		let student = await StudentRepository.readById(id);
 
-        if (!student) {
-            throw new NotFound(`Student not found`)
-        }
+		if (!student) {
+			throw new NotFound(`Student not found`);
+		}
 
-        return student
-    }
+		return student;
+	}
 
-    async update(id, student) {
+	async update(id, student) {
 
-        let oldStudent = StudentRepository.readById(id)
+		let oldStudent = StudentRepository.readById(id);
 
-        if(!oldStudent) {
-            throw new NotFound(`Student not found`)
-        }
+		if(!oldStudent) {
+			throw new NotFound(`Student not found`);
+		}
 
-        return await StudentRepository.update(id, student)
-    }
+		return await StudentRepository.update(id, student);
+	}
 
-    async destroy(id) {
+	async destroy(id) {
 
-        let oldStudent = StudentRepository.readById(id)
+		let oldStudent = StudentRepository.readById(id);
 
-        if(!oldStudent) {
-            throw new NotFound(`Student not found`)
-        }
+		if(!oldStudent) {
+			throw new NotFound(`Student not found`);
+		}
 
-        await StudentRepository.destroy(id)
-    }
+		await StudentRepository.destroy(id);
+	}
 }
 
-export default new StudentService()
+module.exports = new StudentService();

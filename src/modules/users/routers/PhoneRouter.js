@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import PhoneController from '../controllers/PhoneController'
+const { Router } = require('express');
+const PhoneController = require('../controllers/PhoneController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', [], PhoneController.readById)
-router.post('/:id', PhoneController.update)
-router.delete('/:id', PhoneController.destroy)
-router.get('/', PhoneController.readAll)
-router.post('/', PhoneController.create)
+router.get('/:id', tryCatch(PhoneController.readById));
+router.post('/:id', tryCatch(PhoneController.update));
+router.delete('/:id', tryCatch(PhoneController.destroy));
+router.get('/', tryCatch(PhoneController.readAll));
+router.post('/', tryCatch(PhoneController.create));
 
-export default router
+module.exports = router;

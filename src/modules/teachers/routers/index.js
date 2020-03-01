@@ -1,11 +1,9 @@
-import TeacherRouter from './TeacherRouter'
-import AcademicDegreeRouter from './AcademicDegreeRouter'
-import AcademicRankRouter from './AcademicRankRouter'
-import PositionRouter from './PositionRouter'
+const TeacherRouter = require('./TeacherRouter');
+const AcademicDegreeRouter = require('./AcademicDegreeRouter');
+const AcademicRankRouter = require('./AcademicRankRouter');
+const PositionRouter = require('./PositionRouter');
 
-export default {
-    TeacherRouter,
-    AcademicDegreeRouter,
-    AcademicRankRouter,
-    PositionRouter
-}
+module.exports.TeacherRouter = TeacherRouter;
+module.exports.AcademicDegreeRouter = AcademicDegreeRouter;
+module.exports.AcademicRankRouter = AcademicRankRouter;
+module.exports.PositionRouter = PositionRouter;
