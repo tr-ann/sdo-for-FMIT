@@ -1,48 +1,48 @@
-import UrlRepository from '../repositories/UrlRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const UrlRepository = require('../repositories/UrlRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class UrlService {
 
-    async create(url) {
-        return await UrlRepository.create(url)
-    }
+	async create(url) {
+		return await UrlRepository.create(url);
+	}
 
-    async readAll() {
-        return await UrlRepository.readAll()
-    }
+	async readAll() {
+		return await UrlRepository.readAll();
+	}
 
-    async readById(id) {
+	async readById(id) {
 
-        let url = await UrlRepository.readById(id)
+		let url = await UrlRepository.readById(id);
 
-        if (!url) {
-            throw new NotFound('Url not found')
-        }
+		if (!url) {
+			throw new NotFound('Url not found');
+		}
 
-        return url
-    }
+		return url;
+	}
 
-    async update(id, url) {
+	async update(id, url) {
 
-        let oldUrl = await UrlRepository.readById(id)
-        
-        if (!oldUrl) {
-            throw new NotFound('Url not found')
-        }
+		let oldUrl = await UrlRepository.readById(id);
+		
+		if (!oldUrl) {
+			throw new NotFound('Url not found');
+		}
 
-        return await UrlRepository.update(id, url)
-    }
+		return await UrlRepository.update(id, url);
+	}
 
-    async destroy(id) {
+	async destroy(id) {
 
-        let url = await UrlRepository.readById(id)
-        
-        if (!url) {
-            throw new NotFound('Url not found')
-        }
-        
-        return await UrlRepository.destroy(id)
-    }
+		let url = await UrlRepository.readById(id);
+		
+		if (!url) {
+			throw new NotFound('Url not found');
+		}
+		
+		return await UrlRepository.destroy(id);
+	}
 }
 
-export default new UrlService()
+module.exports = new UrlService();

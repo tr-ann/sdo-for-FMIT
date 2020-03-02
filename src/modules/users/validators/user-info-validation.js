@@ -11,7 +11,7 @@ export default Joi
             .string()
             .min(1)
             .max(255)
-            .optional(),
+            .required(),
         description: Joi
             .string()
             .optional(),

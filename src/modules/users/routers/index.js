@@ -1,13 +1,11 @@
-import UserRouter from './UserRouter'
-import PhoneRouter from './PhoneRouter'
-import RoleRouter from './RoleRouter'
-import UrlRouter from './UrlRouter'
-import UserInfoRouter from './UserInfoRouter'
+const UserRouter = require('./UserRouter');
+const PhoneRouter = require('./PhoneRouter');
+const RoleRouter = require('./RoleRouter');
+const UrlRouter = require('./UrlRouter');
+const UserInfoRouter = require('./UserInfoRouter');
 
-export default {
-    UserRouter,
-    PhoneRouter,
-    RoleRouter,
-    UserInfoRouter,
-    UrlRouter,
-}
+module.exports.UserRouter = UserRouter;
+module.exports.PhoneRouter = PhoneRouter;
+module.exports.RoleRouter = RoleRouter;
+module.exports.UserInfoRouter = UserInfoRouter;
+module.exports.UrlRouter = UrlRouter;

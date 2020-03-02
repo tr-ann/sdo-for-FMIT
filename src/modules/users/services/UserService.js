@@ -1,5 +1,5 @@
 const UserRepository = require('../repositories/UserRepository');
-const NotFound = require('../../../classes/errors/4xx/notFound');
+const { NotFound } = require('../../../classes/errors');
 const Hash = require('../../../classes/Hash');
 
 class UserService {

@@ -1,97 +1,87 @@
-import RoleService from '../services/RoleService'
+const RoleService = require('../services/RoleService');
 
-import helpers from '../../../helpers'
+const { responseFormat } = require('../../../helpers');
 
 class RoleController {
 
-    async create(req, res, next) {
-        try {
-            const role = await RoleService.create({
-                name: req.body.name
-            })
-            return res.status(201)
-                .json(
-                    helpers.ResponseFormat.build(
-                        role, 
-                        "Role created successfully", 
-                        201, 
-                        "success"
-                    )
-                );
-        } catch (error) {
-            return next(error);
-        }
-    }
+	async create(req, res, next) {
+		let role = await RoleService.create({
+			name: req.body.name
+		});
 
-    async readAll(req, res, next) {
-        try {
-            let roles = await RoleService.readAll()
-            return res.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        roles,
-                        "Roles read successfully",
-                        200,
-                        "success"
-                    )
-                )
-        } catch(error) {
-            return next(error)
-        }
-    }
+		res
+			.status(201)
+			.json(
+				responseFormat.build(
+					role, 
+					"Role created successfully", 
+					201, 
+					"success"
+				)
+			);
+	}
 
-    async readById(req, res, next) {
-        try {
-            let role = RoleService.findById(req.params.id)
-            return res.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        role,
-                        "Role read successfully",
-                        200,
-                        "success"
-                    )
-                )
-    } catch (error) {
-            return next(error)
-        }
-    }
-    
-    async update(req, res, next) {
-        try {
-            let role = await RoleService.update(req.params.id, {
-                name: req.body.name,
-            })
-            return res.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        role,
-                        "Role updated successfully",
-                        200,
-                        "success"
-                    )
-                )
-        } catch(error) {
-             next(error)
-        }
-    }
-    
-    async destroy (req, res, next) {
-        try {
-            await RoleService.destroy(req.params.id)
-            return res.status(200)
-                .json(
-                    helpers.ResponseFormat.build(
-                        {},
-                        "Role deleted successfully",
-                        200,
-                        "success"
-                    )
-                )
-        } catch (error) {
-            next(error)
-        }
-    }
+	async readAll(req, res, next) {
+		let roles = await RoleService.readAll();
+		
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					roles,
+					"Roles read successfully",
+					200,
+					"success"
+				)
+			);
+	}
+
+	async readById(req, res, next) {
+		let role = RoleService.findById(req.params.id);
+
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					role,
+					"Role read successfully",
+					200,
+					"success"
+				)
+			);
+	}
+	
+	async update(req, res, next) {
+		let role = await RoleService.update(req.params.id, {
+			name: req.body.name,
+		});
+
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					role,
+					"Role updated successfully",
+					200,
+					"success"
+				)
+			);
+	}
+	
+	async destroy (req, res, next) {
+		await RoleService.destroy(req.params.id);
+
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					{},
+					"Role deleted successfully",
+					200,
+					"success"
+				)
+			);
+	}
 }
 
 export default new RoleController()

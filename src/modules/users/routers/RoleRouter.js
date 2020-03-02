@@ -1,13 +1,13 @@
-import { Router } from 'express'
-import RoleController from '../controllers/RoleController'
-import RoleService from '../services/RoleService'
+const { Router } = require('express');
+const RoleController = require('../controllers/RoleController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', [], RoleController.readById)
-router.post('/:id', RoleController.update)
-router.delete('/:id', RoleController.destroy)
-router.get('/', RoleController.readAll)
-router.post('/', RoleController.create)
+router.get('/:id', tryCatch(RoleController.readById));
+router.post('/:id', tryCatch(RoleController.update));
+router.delete('/:id', tryCatch(RoleController.destroy));
+router.get('/', tryCatch(RoleController.readAll));
+router.post('/', tryCatch(RoleController.create));
 
-export default router
+module.exports = router;

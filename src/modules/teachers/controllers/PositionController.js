@@ -1,97 +1,88 @@
-import PositionService from '../services/PositionService'
+const PositionService = require('../services/PositionService');
 
-import { ResponseFormat } from '../../../helpers'
+const { responseFormat } = require('../../../helpers');
 
 class PositionController {
 
-    async create(req, res, next) {
-        try {
-            const position = await PositionService.create({
-                name: req.body.name
-            });
-            return res.status(201)
-                .json(
-                    ResponseFormat.build(
-                        position, 
-                        "Position created successfully", 
-                        201, 
-                        "success"
-                    )
-                )
-        } catch (error) {
-            next(error);
-        }
-    }
+	async create(req, res, next) {
+		let position = await PositionService.create({
+			name: req.body.name
+		});
 
-    async readAll(req, res, next) {
-        try {
-            let positions = await PositionService.readAll()
-            return res.status(200)
-                .json(
-                    ResponseFormat.build(
-                        positions,
-                        "Positions read successfully",
-                        200,
-                        "success"
-                    )
-                )
-        } catch(error) {
-            next(error)
-        }
-    }
+		res
+			.status(201)
+			.json(
+				responseFormat.build(
+					position, 
+					"Position created successfully", 
+					201, 
+					"success"
+				)
+			);
+	}
 
-    async readById(req, res, next) {
-        try {
-            let position = PositionService.findById(req.params.id)
-            return res.status(200)
-                .json(
-                    ResponseFormat.build(
-                        position,
-                        "Position read successfully",
-                        200,
-                        "success"
-                    )
-                )
-        } catch (error) {
-            next(error)
-        }
-    }
-    
-    async update(req, res, next) {
-        try {
-            let position = await PositionService.update(req.params.id, {
-                name: req.body.name
-            })
-            return res.status(200)
-                .json(
-                    ResponseFormat.build(
-                        position,
-                        "Position updated successfully",
-                        200,
-                        "success"
-                    )
-                )
-        } catch(error) {
-            next(error)
-        }
-    }
-    
-    async destroy (req, res, next) {
-        try {
-            await PositionService.delete(req.params.id)
-            return res.status(200)
-                .json(
-                    ResponseFormat.build(
-                        {},
-                        "Position deleted successfully",
-                        200,
-                        "success"
-                    )
-                )
-        } catch (error) { 
-           next(error)
-        }
-    }
+	async readAll(req, res, next) {
+		let positions = await PositionService.readAll();
+
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					positions,
+					"Positions read successfully",
+					200,
+					"success"
+				)
+			);
+	}
+
+	async readById(req, res, next) {
+		let position = PositionService.findById(req.params.id);
+
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					position,
+					"Position read successfully",
+					200,
+					"success"
+				)
+			);
+	}
+	
+	async update(req, res, next) {
+		let position = await PositionService.update(req.params.id, {
+			name: req.body.name
+		});
+
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					position,
+					"Position updated successfully",
+					200,
+					"success"
+				)
+			);
+	}
+	
+	async destroy (req, res, next) {
+		await PositionService.delete(req.params.id);
+
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					{},
+					"Position deleted successfully",
+					200,
+					"success"
+				)
+			);
+	}
+
 }
 
-export default new PositionController()
+module.exports = new PositionController();

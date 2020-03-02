@@ -1,90 +1,89 @@
-import UrlService from '../services/UrlService'
-import RoleUrlService from '../services/RoleUrlService'
-import helpers from '../../../helpers'
+const UrlService = require('../services/UrlService');
+const RoleUrlService = require('../services/RoleUrlService');
+const { responseFormat } = require('../../../helpers');
 
 class urlController {
 
-    async create(req, res, next) {
-        try {
-            let url = await UrlService.create({
-                url:     req.body.url,
-            })
-            
-            await RoleUrlService.create({url_id: url.id, role_id: req.body.role_id})
+	async create(req, res, next) {
+		let url = await UrlService.create({
+			url: req.body.url,
+		});
+		
+		await RoleUrlService.create({url_id: url.id, role_id: req.body.role_id});
 
-            return res.status(201).json(helpers.ResponseFormat.build(
-                url,
-                "Url created successfully",
-                201,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+		res
+			.status(201)
+			.json(
+				responseFormat.build(
+					url,
+					"Url created successfully",
+					201,
+					"success"
+				)
+			);
+	}
 
-    async readAll(req, res, next) {
-        try {
-            let urls = await UrlService.readAll()
-            
-            return res.status(200).json(helpers.ResponseFormat.build(
-                urls,
-                "Urls read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+	async readAll(req, res, next) {
+		let urls = await UrlService.readAll();
+		
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					urls,
+					"Urls read successfully",
+					200,
+					"success"
+				)
+			);
+	}
 
-    async readById(req, res, next) {
-        try {
-            let url = await UrlService.readById(req.params.id)
+	async readById(req, res, next) {
+		let url = await UrlService.readById(req.params.id)
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                url,
-                "Url read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            console.log(error)
-            next(error)
-        }
-    }
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					url,
+					"Url read successfully",
+					200,
+					"success"
+				)
+			);
+	}
 
-    async update(req, res, next) {
-        try {
-            let url = await UrlService.update(req.params.id, {
-                url:     req.body.url,
-            })
+	async update(req, res, next) {
+		let url = await UrlService.update(req.params.id, {
+			url:     req.body.url,
+		});
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                url,
-                "Url updated successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+				url,
+				"Url updated successfully",
+				200,
+				"success"
+				)
+			);
+	}
 
-    async destroy(req, res, next) {
-        try {
-            await UrlService.destroy(req.params.id)
+	async destroy(req, res, next) {
+		await UrlService.destroy(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                {},
-                "Url deleted successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					{},
+					"Url deleted successfully",
+					200,
+					"success"
+				)
+			);
+	}
 }
 
-export default new urlController()
+module.exports = new urlController();

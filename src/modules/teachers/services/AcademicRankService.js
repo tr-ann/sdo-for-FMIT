@@ -1,44 +1,44 @@
-import AcademicRankRepository from '../repositories/AcademicRankRepository'
-import NotFound from '../../../classes/errors/4xx/notFound'
+const AcademicRankRepository = require('../repositories/AcademicRankRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class AcademicRankService {
 
-    async create(academicRank) {
-        return await AcademicRankRepository.create(academicRank)
-    }
+	async create(academicRank) {
+		return await AcademicRankRepository.create(academicRank);
+	}
 
-    async findById(id) {
+	async findById(id) {
 
-        let academicRank = await AcademicRankRepository.readById(id)
+		let academicRank = await AcademicRankRepository.readById(id);
 
-        if (!academicRank) {
-            throw new NotFound(`Academic rank not found`)
-        }
+		if (!academicRank) {
+			throw new NotFound(`Academic rank not found`);
+		}
 
-        return academicRank
-    }
+		return academicRank;
+	}
 
-    async update(id, academicRank) {
+	async update(id, academicRank) {
 
-        let oldAcademicRank = AcademicRankRepository.readById(id)
+		let oldAcademicRank = AcademicRankRepository.readById(id);
 
-        if(!oldAcademicRank) {
-            throw new NotFound(`Academic rank not found`)
-        }
+		if(!oldAcademicRank) {
+			throw new NotFound(`Academic rank not found`);
+		}
 
-        return await AcademicRankRepository.update(id, academicRank)
-    }
+		return await AcademicRankRepository.update(id, academicRank);
+	}
 
-    async destroy(id) {
+	async destroy(id) {
 
-        let oldAcademicRank = AcademicRankRepository.readById(id)
+		let oldAcademicRank = AcademicRankRepository.readById(id);
 
-        if(!oldAcademicRank) {
-            throw new NotFound(`Academic rank not found`)
-        }
+		if(!oldAcademicRank) {
+			throw new NotFound(`Academic rank not found`);
+		}
 
-        await AcademicRankRepository.destroy(id)
-    }
+		await AcademicRankRepository.destroy(id);
+	}
 }
 
-export default new AcademicRankService()
+module.exports = new AcademicRankService();

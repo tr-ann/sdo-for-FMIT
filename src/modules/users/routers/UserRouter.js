@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import userController from '../controllers/UserController'
+const { Router } = require('express');
+const userController = require('../controllers/UserController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', userController.readById)
-router.post('/:id', userController.update)
-router.delete('/:id', userController.destroy)
-router.get('/', userController.readAll)
-router.post('/', userController.create)
+router.get('/:id', tryCatch(userController.readById));
+router.post('/:id', tryCatch(userController.update));
+router.delete('/:id', tryCatch(userController.destroy));
+router.get('/', tryCatch(userController.readAll));
+router.post('/', tryCatch(userController.create));
 
-export default router
+module.exports = router;

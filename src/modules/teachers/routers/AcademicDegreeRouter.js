@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import AcademicDegreeController from '../controllers/TeacherController'
+const { Router } = require('express');
+const AcademicDegreeController = require('../controllers/TeacherController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', AcademicDegreeController.readById)
-router.post('/:id', AcademicDegreeController.update)
-router.delete('/:id', AcademicDegreeController.destroy)
-router.get('/', AcademicDegreeController.readAll)
-router.post('/', AcademicDegreeController.create)
+router.get('/:id', tryCatch(AcademicDegreeController.readById));
+router.post('/:id', tryCatch(AcademicDegreeController.update));
+router.delete('/:id', tryCatch(AcademicDegreeController.destroy));
+router.get('/', tryCatch(AcademicDegreeController.readAll));
+router.post('/', tryCatch(AcademicDegreeController.create));
 
-export default router
+module.exports = router;
