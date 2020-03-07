@@ -2,7 +2,7 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 	
-	class AcademicDegree extends Model {}
+	class AcademicDegree extends Model {};
 
 	AcademicDegree.init({
 		name: {
@@ -16,16 +16,18 @@ module.exports = (sequelize, DataTypes) => {
 		deletedAt: 'deleted_date',
 		paranoid: true,
 		modelName: 'academic_degree',
-	})
+	});
 
-	AcademicDegree.associate = function (models) {
+	AcademicDegree.associate = (models) => {
+
 		AcademicDegree.hasMany(models.teacher, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'academic_degree_id',
+			foreignKey: 'academicDegreeId',
 			as: 'teachers',
-		})
-	}
+			onDelete: 'set null',
+			onUpdate: 'cascade'
+		});
+		
+	};
 
 	return AcademicDegree;
 }

@@ -2,16 +2,18 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 
-	class StudentSubgroup extends Model {}
+	class StudentSubgroup extends Model {};
 
 	StudentSubgroup.init({
-		student_id: {
+		studentId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
+			field: 'students_id'
 		},
-		subgroup_id: {
+		subgroupId: {
 			allowNull: false,
-			type: DataTypes.INTEGER
+			type: DataTypes.INTEGER,
+			field: 'subgroup_id'
 		}
 	}, {
 		sequelize,
@@ -21,19 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 		paranoid: true,
 		modelName: 'student_subgroup',
 		tableName: 'students_subgroups',
-	})
-	StudentSubgroup.associate = function (models) {
-		StudentSubgroup.belongsTo(models.student, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			as: 'students',
-		})
-		StudentSubgroup.belongsTo(models.subgroup, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			as: 'subgroups',
-		})
-	}
+	});
 
 	return StudentSubgroup;
 };

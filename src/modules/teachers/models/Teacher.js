@@ -1,36 +1,44 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-	class Teacher extends Model {}
+
+	class Teacher extends Model {};
 	
 	Teacher.init({
-		user_id: {
+		userId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
+			field: 'user_id'
 		},
-		full_name: {
+		fullName: {
 			allowNull: false,
 			type: DataTypes.STRING(255),
+			field: 'full_name'
 		},
-		short_name: {
+		shortName: {
 			allowNull: false,
 			type: DataTypes.STRING(255),
+			field: 'short_name'
 		},
-		department_id: {
+		departmentId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
+			field: 'department_id'
 		},
-		academic_degree_id: {
+		academicDegreeId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
+			field: 'academic_degree_id'
 		},
-		academic_rank_id: {
+		academicRankId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
+			field: 'academic_rank_id'
 		},
-		position_id: {
+		positionId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
+			field: 'position_id'
 		}
 	}, {
 		sequelize,
@@ -42,69 +50,78 @@ module.exports = (sequelize, DataTypes) => {
 	})
 
 	Teacher.associate = function (models) {
+
 		Teacher.belongsToMany(models.group, {
 			through: models.curator,
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
 			foreignKey: 'teacher_id',
-			otherKey: 'group_id',
-			as: 'group'
-		})
+			as: 'group',
+			onDelete: 'cascade',
+			onUpdate: 'cascade'
+		});
+
 		Teacher.belongsTo(models.user, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'user_id',
+			foreignKey: 'userId',
 			as: 'user',
-		})
+			onDelete: 'cascade',
+			onUpdate: 'cascade'
+		});
+
 		Teacher.belongsTo(models.department, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'department_id',
+			foreignKey: 'departmentId',
 			as: 'department',
-		})
+			onDelete: 'set null',
+			onUpdate: 'cascade'
+		});
+
 		Teacher.belongsTo(models.position, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'position_id',
+			foreignKey: 'positionId',
 			as: 'position',
-		})
+			onDelete: 'set null',
+			onUpdate: 'cascade'
+		});
+
 		Teacher.belongsTo(models.academic_rank, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'academic_rank_id',
-			as: 'academic_rank',
-		})
+			foreignKey: 'academicRankId',
+			as: 'academicRank',
+			onDelete: 'set null',
+			onUpdate: 'cascade'
+		});
+
 		Teacher.belongsTo(models.academic_degree, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'academic_degree_id',
-			as: 'academic_degree',
-		})
+			foreignKey: 'academicDegreeId',
+			as: 'academicDegree',
+			onDelete: 'set null',
+			onUpdate: 'cascade'
+		});
 
 		Teacher.hasMany(models.graduation_paper, {
+			foreignKey: 'teacherId',
+			as: 'graduationPapers',
 			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'teacher_id',
-			as: 'graduation_papers',
-		})
+			onUpdate: 'restrict'
+		});
+
 		Teacher.hasMany(models.term_paper, {
+			foreignKey: 'teacherId',
+			as: 'termPapers',
 			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'teacher_id',
-			as: 'term_papers',
-		})
+			onUpdate: 'restrict'
+		});
+
 		Teacher.hasMany(models.request, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'teacher_id',
+			foreignKey: 'teacherId',
 			as: 'requests',
-		})
-		Teacher.hasMany(models.lesson, {
 			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'teacher_id',
+			onUpdate: 'restrict'
+		});
+
+		Teacher.hasMany(models.lesson, {
+			foreignKey: 'teacherId',
 			as: 'lessons',
-		})
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
+		});
+
 	}
 
 	return Teacher;
