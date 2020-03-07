@@ -1,7 +1,8 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-	class Url extends Model {}
+
+	class Url extends Model {};
 
 	Url.init({
 		url: {
@@ -17,15 +18,16 @@ module.exports = (sequelize, DataTypes) => {
 		modelName: 'url',
 	});
 
-	Url.associate = function (models) { 
+	Url.associate = (models) => {
+
 		Url.belongsToMany(models.role, {
 			through: models.role_url,
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'url_id',
-			otherKey: 'role_id',
+			foreignKey: 'urlId',
 			as: 'roles',
-		})
+			onDelete: 'cascade',
+			onUpdate: 'cascade'
+		});
+
 	};
 	
 	return Url;

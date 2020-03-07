@@ -1,16 +1,18 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-	class Phone extends Model {}
+
+	class Phone extends Model {};
 
 	Phone.init({
-		user_id: {
+		userId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
+			field: 'user_id'
 		},
 		phone: {
 			allowNull: false,
-			type: DataTypes.STRING(30),
+			type: DataTypes.STRING(30)
 		},
 	}, {
 		sequelize,
@@ -18,15 +20,20 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'phone',
-	})
+		modelName: 'phone'
+	});
 	
-	Phone.associate = function (models) {
+	Phone.associate = (models) => {
+
 		Phone.belongsTo(models.user, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'user_id',
-		})
+			foreignKey: 'userId',
+			as: 'user',
+			onDelete: 'cascade',
+			onUpdate: 'cascade'
+		});
+
 	}
+
 	return Phone;
+
 }

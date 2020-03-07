@@ -23,48 +23,62 @@ module.exports = (sequelize, DataTypes) => {
 		modelName: 'user',
 	})
 
-	User.associate = function(models) {
+	User.associate = (models) => {
+
 		User.belongsToMany(models.role, {
 			through: models.user_role,
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'user_id',
-			otherKey: 'role_id',
-			as: 'roles'
-		})        
-		User.hasMany(models.phone, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'user_id',
-			as: 'phones',
-		})
-		User.hasOne(models.user_info, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'user_id',
-			as: 'user_info',
-		})
-		User.hasOne(models.student, { 
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'user_id',
-			as: 'student'
-		})
-		User.hasOne(models.teacher, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'user_id',
-			as: 'teacher'
-		})
-	}
+			foreignKey: 'userId',
+			as: 'roles',
+			onDelete: 'cascade',
+			onUpdate: 'cascade'
+		});
 
-	User.prototype.validPassword = async function (password) {
-		return await Hash.compare(password, this.password)
+		User.hasMany(models.phone, {
+			foreignKey: 'userId',
+			as: 'phones',
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
+		});
+
+		User.hasOne(models.user_info, {
+			foreignKey: 'userId',
+			as: 'userInfo',
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
+		});
+
+		User.hasOne(models.student, {
+			foreignKey: 'userId',
+			as: 'student',
+			onDelete: 'cascade',
+			onUpdate: 'cascade'
+		});
+
+		User.hasOne(models.teacher, {
+			foreignKey: 'userId',
+			as: 'teacher',
+			onDelete: 'cascade',
+			onUpdate: 'cascade'
+		});
+
 	}
 	
 	User.beforeCreate(
 		(user, options) => user.password = Hash.get(user.password)
-	)
+	);
 
-	return User
+	User.prototype.validPassword = async (password) => {
+    return await Hash.compare(password, this.password)
+  };
+
+  User.beforeUpdate(
+    (user) => {
+      if (user.password) {
+        user.password = Hash.get(user.password);
+      }
+    }
+  )
+
+	return User;
+
 }

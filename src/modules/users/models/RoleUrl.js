@@ -1,16 +1,19 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-	class RoleUrl extends Model {}
+
+	class RoleUrl extends Model {};
 
 	RoleUrl.init({
-		role_id: {
+		roleId: {
 			allowNull: false,
-			type: DataTypes.INTEGER
+			type: DataTypes.INTEGER,
+			field: 'role_id'
 		},
-		url_id: {
+		urlId: {
 			allowNull: false,
-			type: DataTypes.INTEGER
+			type: DataTypes.INTEGER,
+			field: 'url_id'
 		}
 	}, {
 		sequelize,
@@ -20,21 +23,8 @@ module.exports = (sequelize, DataTypes) => {
 		paranoid: true,
 		modelName: 'role_url',
 		tableName: 'roles_urls',
-	})
+	});
 
-	RoleUrl.associate = function (models) {
-		RoleUrl.belongsTo(models.url, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'url_id',
-			as: 'urls'
-		})
-		RoleUrl.belongsTo(models.role, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'role_id',
-			as: 'roles'
-		})
-	}
 	return RoleUrl;
+	
 };
