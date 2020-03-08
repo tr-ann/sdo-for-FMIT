@@ -1,5 +1,4 @@
 const PositionService = require('../services/PositionService');
-
 const { responseFormat } = require('../../../helpers');
 
 class PositionController {

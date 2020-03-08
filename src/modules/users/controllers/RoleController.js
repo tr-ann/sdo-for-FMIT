@@ -1,5 +1,4 @@
 const RoleService = require('../services/RoleService');
-
 const { responseFormat } = require('../../../helpers');
 
 class RoleController {
@@ -84,4 +83,4 @@ class RoleController {
 	}
 }
 
-export default new RoleController()
+module.exports = new RoleController();

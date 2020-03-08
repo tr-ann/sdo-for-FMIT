@@ -1,6 +1,6 @@
 {
   "dev": {
-    "username": "root",
+    "username": "postgres",
     "password": "root",
     "operatorsAliases": false,
     "database": "sdo_db",
@@ -9,7 +9,7 @@
     "timestamps": false
   },
   "test": {
-    "username": "root",
+    "username": "postgres",
     "password": "root",
     "operatorsAliases": false,
     "database": "test",
@@ -18,7 +18,7 @@
     "timestamps": false
   },
   "prod": {
-    "username": "root",
+    "username": "postgres",
     "password": "root",
     "operatorsAliases": false,
     "database": "test",

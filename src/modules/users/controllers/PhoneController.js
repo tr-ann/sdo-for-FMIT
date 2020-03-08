@@ -1,5 +1,4 @@
 const PhoneService = require('../services/PhoneService');
-
 const { responseFormat } = require('../../../helpers');
 
 class PhoneController {
@@ -12,7 +11,7 @@ class PhoneController {
 		res
 			.status(201)
 			.json(
-				ResponseFormat.build(
+				responseFormat.build(
 					phone, 
 					"Phone created successfully", 
 					201, 
@@ -27,7 +26,7 @@ class PhoneController {
 		res
 			.status(200)
 			.json(
-				ResponseFormat.build(
+				responseFormat.build(
 					phones,
 					"Phones read successfully",
 					200,
@@ -42,7 +41,7 @@ class PhoneController {
 		res
 			.status(200)
 			.json(
-				ResponseFormat.build(
+				responseFormat.build(
 					phone,
 					"Phone read successfully",
 					200,
@@ -59,7 +58,7 @@ class PhoneController {
 		res
 			.status(200)
 			.json(
-				ResponseFormat.build(
+				responseFormat.build(
 					phone,
 					"Phone updated successfully",
 					200,
@@ -74,7 +73,7 @@ class PhoneController {
 		res
 			.status(200)
 			.json(
-				ResponseFormat.build(
+				responseFormat.build(
 					{},
 					"Phone deleted successfully",
 					200,

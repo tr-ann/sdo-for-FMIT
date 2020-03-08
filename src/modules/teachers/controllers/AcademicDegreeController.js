@@ -1,5 +1,4 @@
 const AcademicDegreeService = require('../services/AcademicDegreeService');
-
 const { responseFormat } = require('../../../helpers');
 
 class AcademicDegreeController {

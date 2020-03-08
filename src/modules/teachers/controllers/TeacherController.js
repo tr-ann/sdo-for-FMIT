@@ -1,6 +1,5 @@
-import TeacherService from '../services/TeacherService'
-
-import { ResponseFormat } from '../../../helpers'
+const TeacherService = require('../services/TeacherService');
+const { ResponseFormat } = require('../../../helpers');
 
 class TeacherController {
 

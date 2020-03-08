@@ -1,8 +1,8 @@
-const request = require("supertest")
+/*const request = require("supertest")
 const assert = require("assert")
 const bcrypt = require('bcrypt')
 
-var server = require("../bin/www").server
+var server = require("../app");
 
 describe("Express Tests", function() {
 
@@ -40,4 +40,4 @@ describe("Express Tests", function() {
             })
             .end(done)
     })
-})
+})*/

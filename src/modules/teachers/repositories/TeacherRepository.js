@@ -1,4 +1,4 @@
-const db = require('../../../classes/dbModels');
+const db = require('../../../dbModels');
 
 class TeacherRepository {
 
