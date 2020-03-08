@@ -1,92 +1,100 @@
-import LectureRoomService from '../services/LectureRoomService'
-import helpers from '../../../helpers'
+const LectureRoomService = require('../services/LectureRoomService');
+const { responseFormat } = require('../../../helpers');
 
-class lectureRoomController {
+class LectureRoomController {
 
-    async create(req, res, next) {
-        try {
-            let lectureRoom = await LectureRoomService.create({
-                number:         req.body.number,
-                seats_count:    req.body.seats_count,
-                room_type_id:   req.body.room_type_id,
-                building_id:    req.body.building_id,
-            })
-            
-            return res.status(201).json(helpers.ResponseFormat.build(
-                lectureRoom,
-                "Lecture room created successfully",
-                201,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async create(req, res, next) {
+      
+    let lectureRoom = await LectureRoomService.create({
+      number: req.body.number,
+      seatsCount: req.body.seatsCount,
+      roomTypeId: req.body.roomTypeId,
+      buildingId: req.body.buildingId,
+    });
+    
+    res
+      .status(201)
+      .json(
+        responseFormat.build(
+          lectureRoom,
+          "Lecture room created successfully",
+          201,
+          "success"
+        )
+      );
+  }
 
-    async readAll(req, res, next) {
-        try {
-            let lectureRooms = await LectureRoomService.readAll()
-            
-            return res.status(200).json(helpers.ResponseFormat.build(
-                lectureRooms,
-                "Lecture rooms read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async readAll(req, res, next) {
+      
+    let lectureRooms = await LectureRoomService.readAll();
+    
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          lectureRooms,
+          "Lecture rooms read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async readById(req, res, next) {
-        try {
-            let lectureRoom = await LectureRoomService.readById(req.params.id)
+  async readById(req, res, next) {
+      
+    let lectureRoom = await LectureRoomService.readById(req.params.id)
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                lectureRoom,
-                "Lecture room read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          lectureRoom,
+          "Lecture room read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async update(req, res, next) {
-        try {
-            let lectureRoom = await LectureRoomService.update(req.params.id, {
-                number:         req.body.number,
-                seats_count:    req.body.seats_count,
-                room_type_id:   req.body.room_type_id,
-                building_id:    req.body.building_id,
-            })
+  async update(req, res, next) {
+      
+    let lectureRoom = await LectureRoomService.update(
+      req.params.id,
+      {
+        number: req.body.number,
+        seatsCount: req.body.seatsCount,
+        roomTypeId: req.body.roomTypeId,
+        buildingId: req.body.buildingId,
+      }
+    );
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                lectureRoom,
-                "Lecture room updated successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          lectureRoom,
+          "Lecture room updated successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async destroy(req, res, next) {
-        try {
-            await LectureRoomService.destroy(req.params.id)
+  async destroy(req, res, next) {
+      
+    await LectureRoomService.destroy(req.params.id)
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                {},
-                "Lecture room deleted successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          {},
+          "Lecture room deleted successfully",
+          200,
+          "success"
+        )
+      );
+  }
 }
 
-export default new lectureRoomController()
+module.exports = new LectureRoomController();

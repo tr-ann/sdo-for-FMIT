@@ -1,48 +1,48 @@
-import ResourceRepository from '../repositories/ResourceRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const ResourceRepository = require('../repositories/ResourceRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class ResourceService {
 
-    async create(resource) {
-        return await ResourceRepository.create(resource)
+  async create(resource) {
+    return await ResourceRepository.create(resource);
+  }
+
+  async readAll() {
+    return await ResourceRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let resource = await ResourceRepository.readById(id);
+
+    if (!resource) {
+      throw new NotFound('Resource not found');
     }
 
-    async readAll() {
-        return await ResourceRepository.readAll()
+    return resource;
+  }
+
+  async update(id, resource) {
+
+    let nResource = await ResourceRepository.readById(id);
+    
+    if (!nResource) {
+      throw new NotFound('Resource not found');
     }
 
-    async readById(id) {
+    return await ResourceRepository.update(id, resource);
+  }
 
-        let resource = await ResourceRepository.readById(id)
+  async destroy(id) {
 
-        if (!resource) {
-            throw new NotFound('Resource not found')
-        }
-
-        return resource
+    let resource = await ResourceRepository.readById(id);
+    
+    if (!resource) {
+      throw new NotFound('Resource not found');
     }
-
-    async update(id, resource) {
-
-        let nResource = await ResourceRepository.readById(id)
-        
-        if (!nResource) {
-            throw new NotFound('Resource not found')
-        }
-
-        return await ResourceRepository.update(id, resource)
-    }
-
-    async destroy(id) {
-
-        let resource = await ResourceRepository.readById(id)
-        
-        if (!resource) {
-            throw new NotFound('Resource not found')
-        }
-        
-        return await ResourceRepository.destroy(id)
-    }
+    
+    return await ResourceRepository.destroy(id);
+  }
 }
 
-export default new ResourceService()
+module.exports = new ResourceService();

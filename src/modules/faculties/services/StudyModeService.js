@@ -1,48 +1,48 @@
-import StudyModeRepository from '../repositories/StudyModeRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const StudyModeRepository = require('../repositories/StudyModeRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class StudyModeService {
 
-    async create(studyMode) {
-        return await StudyModeRepository.create(studyMode)
+  async create(studyMode) {
+    return await StudyModeRepository.create(studyMode);
+  }
+
+  async readAll() {
+    return await StudyModeRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let studyMode = await StudyModeRepository.readById(id);
+
+    if (!studyMode) {
+      throw new NotFound(`StudyMode not found`);
     }
 
-    async readAll() {
-        return await StudyModeRepository.readAll()
+    return studyMode;
+  }
+
+  async update(id, studyMode) {
+
+    let nStudyMode = await StudyModeRepository.readById(id);
+    
+    if (!nStudyMode) {
+      throw new NotFound(`StudyMode not found`);
     }
 
-    async readById(id) {
+    return await StudyModeRepository.update(id, studyMode);
+  }
 
-        let studyMode = await StudyModeRepository.readById(id)
+  async destroy(id) {
 
-        if (!studyMode) {
-            throw new NotFound(`StudyMode not found`)
-        }
-
-        return studyMode
+    let studyMode = await StudyModeRepository.readById(id);
+    
+    if (!studyMode) {
+      throw new NotFound(`StudyMode not found`);
     }
-
-    async update(id, studyMode) {
-
-        let nStudyMode = await StudyModeRepository.readById(id)
-        
-        if (!nStudyMode) {
-            throw new NotFound(`StudyMode not found`)
-        }
-
-        return await StudyModeRepository.update(id, studyMode)
-    }
-
-    async destroy(id) {
-
-        let studyMode = await StudyModeRepository.readById(id)
-        
-        if (!studyMode) {
-            throw new NotFound(`StudyMode not found`)
-        }
-        
-        return await StudyModeRepository.destroy(id)
-    }
+    
+    return await StudyModeRepository.destroy(id);
+  }
 }
 
-export default new StudyModeService()
+module.exports = new StudyModeService();

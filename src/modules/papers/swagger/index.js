@@ -1,5 +1,1 @@
-import resource from './resource.json'
-
-export default {
-    resource,
-}
+module.exports.resource = require('./resource.json');

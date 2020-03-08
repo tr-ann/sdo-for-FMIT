@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import DepartmentController from '../controllers/departmentController'
+const { Router } = require('express');
+const DepartmentController = require('../controllers/DepartmentController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', DepartmentController.readById)
-router.post('/:id', DepartmentController.update)
-router.delete('/:id', DepartmentController.destroy)
-router.get('/', DepartmentController.readAll)
-router.post('/', DepartmentController.create)
+router.get('/:id', tryCatch(DepartmentController.readById));
+router.post('/:id', tryCatch(DepartmentController.update));
+router.delete('/:id', tryCatch(DepartmentController.destroy));
+router.get('/', tryCatch(DepartmentController.readAll));
+router.post('/', tryCatch(DepartmentController.create));
 
-export default router
+module.exports = router;

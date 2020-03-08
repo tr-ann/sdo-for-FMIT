@@ -1,48 +1,48 @@
-import LectureRoomRepository from '../repositories/LectureRoomRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const LectureRoomRepository = require('../repositories/LectureRoomRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class LectureRoomService {
 
-    async create(lectureRoom) {
-        return await LectureRoomRepository.create(lectureRoom)
+  async create(lectureRoom) {
+    return await LectureRoomRepository.create(lectureRoom);
+  }
+
+  async readAll() {
+      return await LectureRoomRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let lectureRoom = await LectureRoomRepository.readById(id);
+
+    if (!lectureRoom) {
+      throw new NotFound('Lecture room not found');
     }
 
-    async readAll() {
-        return await LectureRoomRepository.readAll()
+    return lectureRoom;
+  }
+
+  async update(id, lectureRoom) {
+
+    let oldLectureRoom = await LectureRoomRepository.readById(id);
+    
+    if (!oldLectureRoom) {
+      throw new NotFound('Lecture room not found');
     }
 
-    async readById(id) {
+    return await LectureRoomRepository.update(id, lectureRoom);
+  }
 
-        let lectureRoom = await LectureRoomRepository.readById(id)
+  async destroy(id) {
 
-        if (!lectureRoom) {
-            throw new NotFound('Lecture room not found')
-        }
-
-        return lectureRoom
+    let lectureRoom = await LectureRoomRepository.readById(id);
+    
+    if (!lectureRoom) {
+      throw new NotFound('Lecture room not found');
     }
-
-    async update(id, lectureRoom) {
-
-        let oldLectureRoom = await LectureRoomRepository.readById(id)
-        
-        if (!oldLectureRoom) {
-            throw new NotFound('Lecture room not found')
-        }
-
-        return await LectureRoomRepository.update(id, lectureRoom)
-    }
-
-    async destroy(id) {
-
-        let lectureRoom = await LectureRoomRepository.readById(id)
-        
-        if (!lectureRoom) {
-            throw new NotFound('Lecture room not found')
-        }
-        
-        return await LectureRoomRepository.destroy(id)
-    }
+    
+    return await LectureRoomRepository.destroy(id);
+  }
 }
 
-export default new LectureRoomService()
+module.exports = new LectureRoomService();

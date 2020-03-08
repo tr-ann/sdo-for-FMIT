@@ -1,17 +1,7 @@
-import building from './building.json'
-import discipline from './discipline.json'
-import lectureRoom from './lectureRoom.json'
-import lesson from './lesson.json'
-import lessonNumber from './lessonNumber.json'
-import lessonType from './lessonType.json'
-import roomType from './roomType.json'
-
-export default {
-    building,
-    discipline,
-    lectureRoom,
-    lesson,
-    lessonNumber,
-    lessonType,
-    roomType,
-}
+module.exports.building = require('./building.json');
+module.exports.discipline = require('./discipline.json');
+module.exports.lectureRoom = require('./lectureRoom.json');
+module.exports.lesson = require('./lesson.json');
+module.exports.lessonNumber = require('./lessonNumber.json');
+module.exports.lessonType = require('./lessonType.json');
+module.exports.roomType = require('./roomType.json');

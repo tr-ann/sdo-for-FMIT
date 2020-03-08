@@ -1,48 +1,48 @@
-import StatusRepository from '../repositories/StatusRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const StatusRepository = require('../repositories/StatusRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class StatusService {
 
-    async create(status) {
-        return await StatusRepository.create(status)
+  async create(status) {
+    return await StatusRepository.create(status);
+  }
+
+  async readAll() {
+    return await StatusRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let status = await StatusRepository.readById(id);
+
+    if (!status) {
+      throw new NotFound('Status not found');
     }
 
-    async readAll() {
-        return await StatusRepository.readAll()
+    return status;
+  }
+
+  async update(id, status) {
+
+    let oldStatus = await StatusRepository.readById(id);
+    
+    if (!oldStatus) {
+      throw new NotFound('Status not found');
     }
 
-    async readById(id) {
+    return await StatusRepository.update(id, status);
+  }
 
-        let status = await StatusRepository.readById(id)
+  async destroy(id) {
 
-        if (!status) {
-            throw new NotFound('Status not found')
-        }
-
-        return status
+    let status = await StatusRepository.readById(id);
+    
+    if (!status) {
+      throw new NotFound('Status not found');
     }
-
-    async update(id, status) {
-
-        let oldStatus = await StatusRepository.readById(id)
-        
-        if (!oldStatus) {
-            throw new NotFound('Status not found')
-        }
-
-        return await StatusRepository.update(id, status)
-    }
-
-    async destroy(id) {
-
-        let status = await StatusRepository.readById(id)
-        
-        if (!status) {
-            throw new NotFound('Status not found')
-        }
-        
-        return await StatusRepository.destroy(id)
-    }
+    
+    return await StatusRepository.destroy(id);
+  }
 }
 
-export default new StatusService()
+module.exports = new StatusService();

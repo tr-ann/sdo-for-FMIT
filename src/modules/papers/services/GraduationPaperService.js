@@ -1,48 +1,48 @@
-import GraduationPaperRepository from '../repositories/GraduationPaperRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const GraduationPaperRepository = require('../repositories/GraduationPaperRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class GraduationPaperService {
 
-    async create(graduationPaper) {
-        return await GraduationPaperRepository.create(graduationPaper)
+  async create(graduationPaper) {
+    return await GraduationPaperRepository.create(graduationPaper);
+  }
+
+  async readAll() {
+    return await GraduationPaperRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let graduationPaper = await GraduationPaperRepository.readById(id);
+
+    if (!graduationPaper) {
+      throw new NotFound('Graduation paper not found');
     }
 
-    async readAll() {
-        return await GraduationPaperRepository.readAll()
+    return graduationPaper;
+  }
+
+  async update(id, graduationPaper) {
+
+    let oldGraduationPaper = await GraduationPaperRepository.readById(id);
+    
+    if (!oldGraduationPaper) {
+      throw new NotFound('Graduation paper not found');
     }
 
-    async readById(id) {
+    return await GraduationPaperRepository.update(id, graduationPaper);
+  }
 
-        let graduationPaper = await GraduationPaperRepository.readById(id)
+  async destroy(id) {
 
-        if (!graduationPaper) {
-            throw new NotFound('Graduation paper not found')
-        }
-
-        return graduationPaper
+    let graduationPaper = await GraduationPaperRepository.readById(id);
+    
+    if (!graduationPaper) {
+      throw new NotFound('Graduation paper not found');
     }
-
-    async update(id, graduationPaper) {
-
-        let oldGraduationPaper = await GraduationPaperRepository.readById(id)
-        
-        if (!oldGraduationPaper) {
-            throw new NotFound('Graduation paper not found')
-        }
-
-        return await GraduationPaperRepository.update(id, graduationPaper)
-    }
-
-    async destroy(id) {
-
-        let graduationPaper = await GraduationPaperRepository.readById(id)
-        
-        if (!graduationPaper) {
-            throw new NotFound('Graduation paper not found')
-        }
-        
-        return await GraduationPaperRepository.destroy(id)
-    }
+    
+    return await GraduationPaperRepository.destroy(id);
+  }
 }
 
-export default new GraduationPaperService()
+module.exports = new GraduationPaperService();

@@ -1,48 +1,48 @@
-import TermPaperRepository from '../repositories/TermPaperRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const TermPaperRepository = require('../repositories/TermPaperRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class TermPaperService {
 
-    async create(termPaper) {
-        return await TermPaperRepository.create(termPaper)
+  async create(termPaper) {
+    return await TermPaperRepository.create(termPaper);
+  }
+
+  async readAll() {
+    return await TermPaperRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let termPaper = await TermPaperRepository.readById(id);
+
+    if (!termPaper) {
+      throw new NotFound('Term paper not found');
     }
 
-    async readAll() {
-        return await TermPaperRepository.readAll()
+    return termPaper;
+  }
+
+  async update(id, termPaper) {
+
+    let oldTermPaper = await TermPaperRepository.readById(id);
+    
+    if (!oldTermPaper) {
+      throw new NotFound('Term paper not found');
     }
 
-    async readById(id) {
+    return await TermPaperRepository.update(id, termPaper);
+  }
 
-        let termPaper = await TermPaperRepository.readById(id)
+  async destroy(id) {
 
-        if (!termPaper) {
-            throw new NotFound('Term paper not found')
-        }
-
-        return termPaper
+    let termPaper = await TermPaperRepository.readById(id);
+    
+    if (!termPaper) {
+      throw new NotFound('Term paper not found');
     }
-
-    async update(id, termPaper) {
-
-        let oldTermPaper = await TermPaperRepository.readById(id)
-        
-        if (!oldTermPaper) {
-            throw new NotFound('Term paper not found')
-        }
-
-        return await TermPaperRepository.update(id, termPaper)
-    }
-
-    async destroy(id) {
-
-        let termPaper = await TermPaperRepository.readById(id)
-        
-        if (!termPaper) {
-            throw new NotFound('Term paper not found')
-        }
-        
-        return await TermPaperRepository.destroy(id)
-    }
+    
+    return await TermPaperRepository.destroy(id);
+  }
 }
 
-export default new TermPaperService()
+module.exports = new TermPaperService();

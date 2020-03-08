@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import InfoFacultyController from '../controllers/infoFacultyController'
+const { Router } = require('express');
+const InfoFacultyController = require('../controllers/InfoFacultyController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', InfoFacultyController.readById)
-router.post('/:id', InfoFacultyController.update)
-router.delete('/:id', InfoFacultyController.destroy)
-router.get('/', InfoFacultyController.readAll)
-router.post('/', InfoFacultyController.create)
+router.get('/:id', tryCatch(InfoFacultyController.readById));
+router.post('/:id', tryCatch(InfoFacultyController.update));
+router.delete('/:id', tryCatch(InfoFacultyController.destroy));
+router.get('/', tryCatch(InfoFacultyController.readAll));
+router.post('/', tryCatch(InfoFacultyController.create));
 
-export default router
+module.exports = router;

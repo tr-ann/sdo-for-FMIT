@@ -1,48 +1,48 @@
-import BuildingRepository from '../repositories/BuildingRepository';
-import NotFound from '../../../classes/errors/4xx/notFound'
+const BuildingRepository = require('../repositories/BuildingRepository');
+const { NotFound } = require('../../../classes/errors');
 
 class BuildingService {
 
-    async create(building) {
-        return await BuildingRepository.create(building)
+  async create(building) {
+    return await BuildingRepository.create(building);
+  }
+
+  async readAll() {
+    return await BuildingRepository.readAll();
+  }
+
+  async readById(id) {
+
+    let building = await BuildingRepository.readById(id);
+
+    if (!building) {
+      throw new NotFound('Building not found');
     }
 
-    async readAll() {
-        return await BuildingRepository.readAll()
+    return building;
+  }
+
+  async update(id, building) {
+
+    let oldBuilding = await BuildingRepository.readById(id);
+    
+    if (!oldBuilding) {
+      throw new NotFound('Building not found');
     }
 
-    async readById(id) {
+    return await BuildingRepository.update(id, building);
+  }
 
-        let building = await BuildingRepository.readById(id)
+  async destroy(id) {
 
-        if (!building) {
-            throw new NotFound('Building not found')
-        }
-
-        return building
+    let building = await BuildingRepository.readById(id);
+    
+    if (!building) {
+      throw new NotFound('Building not found');
     }
-
-    async update(id, building) {
-
-        let oldBuilding = await BuildingRepository.readById(id)
-        
-        if (!oldBuilding) {
-            throw new NotFound('Building not found')
-        }
-
-        return await BuildingRepository.update(id, building)
-    }
-
-    async destroy(id) {
-
-        let building = await BuildingRepository.readById(id)
-        
-        if (!building) {
-            throw new NotFound('Building not found')
-        }
-        
-        return await BuildingRepository.destroy(id)
-    }
+    
+    return await BuildingRepository.destroy(id);
+  }
 }
 
-export default new BuildingService()
+module.exports = new BuildingService();

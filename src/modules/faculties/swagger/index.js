@@ -1,17 +1,7 @@
-import department from './department.json'
-import faculty from './faculty.json'
-import group from './group.json'
-import infoFaculty from './infoFaculty.json'
-import specialty from './specialty.json'
-import studyMode from './studyMode.json'
-import subgroup from './subgroup.json'
-
-export default {
-    department,
-    faculty,
-    group,
-    infoFaculty,
-    specialty,
-    studyMode,
-    subgroup,
-}
+module.exports.department = require('./department.json');
+module.exports.faculty = require('./faculty.json');
+module.exports.group = require('./group.json');
+module.exports.infoFaculty = require('./infoFaculty.json');
+module.exports.specialty = require('./specialty.json');
+module.exports.studyMode = require('./studyMode.json');
+module.exports.subgroup = require('./subgroup.json');

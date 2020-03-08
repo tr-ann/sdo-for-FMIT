@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import LessonTypeController from '../controllers/lessonTypeController'
+const { Router } = require('express');
+const LessonTypeController = require('../controllers/LessonTypeController');
+const { tryCatch } = require('../../../helpers');
 
-const router = Router()
+const router = Router();
 
-router.get('/:id', LessonTypeController.readById)
-router.post('/:id', LessonTypeController.update)
-router.delete('/:id', LessonTypeController.destroy)
-router.get('/', LessonTypeController.readAll)
-router.post('/', LessonTypeController.create)
+router.get('/:id', tryCatch(LessonTypeController.readById));
+router.post('/:id', tryCatch(LessonTypeController.update));
+router.delete('/:id', tryCatch(LessonTypeController.destroy));
+router.get('/', tryCatch(LessonTypeController.readAll));
+router.post('/', tryCatch(LessonTypeController.create));
 
-export default router
+module.exports = router;

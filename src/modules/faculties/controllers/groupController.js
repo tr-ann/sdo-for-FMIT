@@ -1,94 +1,100 @@
-import GroupService from '../services/GroupService'
-import helpers from '../../../helpers'
+const GroupService = require('../services/GroupService');
+const helpers = require('../../../helpers');
 
-class groupController {
+class GroupController {
 
-    async create(req, res, next) {
-        try {
-            let group = await GroupService.create({
-                number: req.body.number,
-                faculty_id: req.body.faculty_id,
-                specialty_id: req.body.specialty_id,
-                study_mode_id:req.body.study_mode_id,
-            })
-            
-            return res.status(201).json(helpers.ResponseFormat.build(
-                group,
-                "Group created successfully",
-                201,
-                "success"
-            ))
-        } catch (error) {
-            console.log(error)
-             next(error)
-        }
-    }
+  async create(req, res, next) {
+      
+    let group = await GroupService.create({
+      number: req.body.number,
+      facultyId: req.body.facultyId,
+      specialtyId: req.body.specialtyId,
+      studyModeId:req.body.studyModeId,
+    });
+    
+    res
+      .status(201)
+      .json(
+        helpers.ResponseFormat.build(
+          group,
+          "Group created successfully",
+          201,
+          "success"
+        )
+      );
+  }
 
-    async readAll(req, res, next) {
-        try {
-            let groups = await GroupService.readAll()
-            
-            return res.status(200).json(helpers.ResponseFormat.build(
-                groups,
-                "Groups read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            console.log(error)
-             next(error)
-        }
-    }
+  async readAll(req, res, next) {
+      
+    let groups = await GroupService.readAll();
+    
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          groups,
+          "Groups read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async readById(req, res, next) {
-        try {
-            let group = await GroupService.readById(req.params.id)
+  async readById(req, res, next) {
+      
+    let group = await GroupService.readById(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                group,
-                "Group read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          group,
+          "Group read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async update(req, res, next) {
-        try {
-            let group = await GroupService.update(req.params.id, {
-                number: req.body.number,
-                faculty_id: req.body.faculty_id,
-                specialty_id: req.body.specialty_id,
-                study_mode_id:req.body.study_mode_id,
-            })
+  async update(req, res, next) {
+    
+    let group = await GroupService.update(
+      req.params.id,
+      {
+        number: req.body.number,
+        facultyId: req.body.facultyId,
+        specialtyId: req.body.specialtyId,
+        studyModeId:req.body.studyModeId,
+      }
+    );
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                group,
-                "Group updated successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          group,
+          "Group updated successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async destroy(req, res, next) {
-        try {
-            await GroupService.destroy(req.params.id)
+  async destroy(req, res, next) {
+    
+    await GroupService.destroy(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                {},
-                "Group deleted successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-             next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        helpers.ResponseFormat.build(
+          {},
+          "Group deleted successfully",
+          200,
+          "success"
+        )
+      );
+  }
 }
 
-export default new groupController()
+module.exports = new GroupController();

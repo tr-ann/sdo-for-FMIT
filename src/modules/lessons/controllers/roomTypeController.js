@@ -1,86 +1,94 @@
-import RoomTypeService from '../services/RoomTypeService'
-import helpers from '../../../helpers'
+const RoomTypeService = require('../services/RoomTypeService');
+const { responseFormat } = require('../../../helpers');
 
-class roomTypeController {
+class RoomTypeController {
 
-    async create(req, res, next) {
-        try {
-            let roomType = await RoomTypeService.create({
-                name: req.body.name,
-            })
-            
-            return res.status(201).json(helpers.ResponseFormat.build(
-                roomType,
-                "Room type created successfully",
-                201,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async create(req, res, next) {
+      
+    let roomType = await RoomTypeService.create({
+      name: req.body.name,
+    });
+    
+    res
+      .status(201)
+      .json(
+        responseFormat.build(
+          roomType,
+          "Room type created successfully",
+          201,
+          "success"
+        )
+      );
+  }
 
-    async readAll(req, res, next) {
-        try {
-            let roomTypes = await RoomTypeService.readAll()
-            
-            return res.status(200).json(helpers.ResponseFormat.build(
-                roomTypes,
-                "Room types read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+  async readAll(req, res, next) {
+    
+    let roomTypes = await RoomTypeService.readAll();
+    
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          roomTypes,
+          "Room types read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async readById(req, res, next) {
-        try {
-            let roomType = await RoomTypeService.readById(req.params.id)
+  async readById(req, res, next) {
+      
+    let roomType = await RoomTypeService.readById(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                roomType,
-                "Room type read successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          roomType,
+          "Room type read successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async update(req, res, next) {
-        try {
-            let roomType = await RoomTypeService.update(req.params.id, {
-                name:   req.body.name,
-            })
+  async update(req, res, next) {
+      
+    let roomType = await RoomTypeService.update(
+      req.params.id,
+      {
+        name: req.body.name,
+      }
+    );
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                roomType,
-                "Room type updated successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          roomType,
+          "Room type updated successfully",
+          200,
+          "success"
+        )
+      );
+  }
 
-    async destroy(req, res, next) {
-        try {
-            await RoomTypeService.destroy(req.params.id)
+  async destroy(req, res, next) {
+      
+    await RoomTypeService.destroy(req.params.id);
 
-            return res.status(200).json(helpers.ResponseFormat.build(
-                {},
-                "Room type deleted successfully",
-                200,
-                "success"
-            ))
-        } catch (error) {
-            next(error)
-        }
-    }
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          {},
+          "Room type deleted successfully",
+          200,
+          "success"
+        )
+      );
+  }
 }
 
-export default new roomTypeController()
+module.exports = new RoomTypeController();

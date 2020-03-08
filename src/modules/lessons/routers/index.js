@@ -1,17 +1,7 @@
-import buildingRouter from './buildingRouter'
-import disciplineRouter from './disciplineRouter'
-import lectureRoomRouter from './lectureRoomRouter'
-import lessonNumberRouter from './lessonNumberRouter'
-import lessonTypeRouter from './lessonTypeRouter'
-import lessonRouter from './lessonRouter'
-import roomTypeRouter from './roomTypeRouter'
-
-export default {
-    buildingRouter,
-    disciplineRouter,
-    lectureRoomRouter,
-    lessonNumberRouter,
-    lessonTypeRouter,
-    lessonRouter,
-    roomTypeRouter,
-}
+module.exports.buildingRouter = require('./buildingRouter');
+module.exports.disciplineRouter = require('./disciplineRouter');
+module.exports.lectureRoomRouter = require('./lectureRoomRouter');
+module.exports.lessonNumberRouter = require('./lessonNumberRouter');
+module.exports.lessonTypeRouter = require('./lessonTypeRouter');
+module.exports.lessonRouter = require('./lessonRouter');
+module.exports.roomTypeRouter = require('./roomTypeRouter');
