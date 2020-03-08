@@ -17,20 +17,25 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'position',
+		modelName: 'Position',
+		tableName: 'positions',
+		name: {
+		  singular: 'Position',
+		  plural: 'Positions',
+		},
 	});
 	
 	Position.associate = (models) => {
 
-		Position.hasMany(models.teacher, {
+		Position.hasMany(models.Teacher, {
 			foreignKey: 'positionId',
 			as: 'teachers',
 			onDelete: 'set null',
 			onUpdate: 'cascade'
 		});
 
-	}
+	};
 
 	return Position;
 
-}
+};

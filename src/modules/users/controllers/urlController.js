@@ -9,7 +9,7 @@ class urlController {
 			url: req.body.url,
 		});
 		
-		await RoleUrlService.create({url_id: url.id, role_id: req.body.role_id});
+		await RoleUrlService.create({urlId: url.id, roleId: req.body.roleId});
 
 		res
 			.status(201)

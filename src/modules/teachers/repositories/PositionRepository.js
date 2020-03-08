@@ -9,7 +9,7 @@ class PositionRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async create(position) {
-		return await db.position.create(position);
+		return await db.Position.create(position);
 	}
 
 	/**
@@ -19,7 +19,7 @@ class PositionRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async readById(id) {        
-		return await db.position.findByPk(id, {
+		return await db.Position.findByPk(id, {
 			attributes: [ 'id', 'name' ],
 		});
 	}
@@ -30,7 +30,7 @@ class PositionRepository {
 	 * @return {Promise} promise with result of read
 	 */
 	async readAll() {
-		return await db.position.findAll({
+		return await db.Position.findAll({
 			attributes: [ 'id', 'name' ],
 		});
 	}
@@ -43,7 +43,7 @@ class PositionRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, position) {
-		return await db.position.update(position, {where: { id: id }});
+		return await db.Position.update(position, {where: { id: id }});
 	}
 
 	/**
@@ -53,7 +53,7 @@ class PositionRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.position.destroy({where: { id: id }});
+		return await db.Position.destroy({where: { id: id }});
 	}
 
 	/**
@@ -63,7 +63,7 @@ class PositionRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async getAll(options) {
-		return await db.position.findAll(options);
+		return await db.Position.findAll(options);
 	}
 
 	/**
@@ -73,7 +73,7 @@ class PositionRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async get(options) {        
-		return await db.position.findOne(options);
+		return await db.Position.findOne(options);
 	}
 }
 

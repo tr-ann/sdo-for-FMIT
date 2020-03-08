@@ -17,21 +17,26 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'role',
-	})
+		modelName: 'Role',
+		tableName: 'roles',
+		name: {
+		  singular: 'Role',
+		  plural: 'Roles',
+		},
+	});
 
 	Role.associate = (models) => {
 
-		Role.belongsToMany(models.url, {
-			through: models.role_url,
+		Role.belongsToMany(models.Url, {
+			through: models.RoleUrl,
 			foreignKey: 'roleId',
 			as: 'urls',
 			onDelete: 'restrict',
 			onUpdate: 'restrict'
 		});
 
-		Role.belongsToMany(models.user, {
-			through: models.user_role,
+		Role.belongsToMany(models.User, {
+			through: models.UserRole,
 			foreignKey: 'roleId',
 			as: 'users',
 			onDelete: 'set default',
@@ -41,4 +46,4 @@ module.exports = (sequelize, DataTypes) => {
 	};
 	
 	return Role;
-}
+};

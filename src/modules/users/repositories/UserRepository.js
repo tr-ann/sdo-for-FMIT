@@ -9,7 +9,7 @@ class UserRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async create(user) {
-		return await db.user.create(user);
+		return await db.User.create(user);
 	}
 
 	/**
@@ -19,21 +19,21 @@ class UserRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async readById(id) {        
-		return await db.user.findByPk(id, {
+		return await db.User.findByPk(id, {
 			attributes: ['id', 'login'],
 			include: [
 				{ 
-					model: db.user_info,
-					attributes: [ 'id', 'full_name'],
-					as: 'user_info'
+					model: db.UserInfo,
+					attributes: [ 'id', 'fullName'],
+					as: 'userInfo'
 				},
 				{
-					model: db.role,
+					model: db.Role,
 					attributes: [ 'id', 'name' ],
 					as: 'roles'
 				},
 				{
-					model: db.phone,
+					model: db.Phone,
 					attributes: [ 'id', 'phone' ],
 					as: 'phones'
 				}
@@ -47,21 +47,21 @@ class UserRepository {
 	 * @return {Promise} promise with result of read
 	 */
 	async readAll() {
-		return await db.user.findAll({
+		return await db.User.findAll({
 			attributes: ['id', 'login'],
 			include: [
 				{ 
-					model: db.user_info,
-					attributes: [ 'id', 'full_name'],
-					as: 'user_info'
+					model: db.UserInfo,
+					attributes: [ 'id', 'fullName'],
+					as: 'userInfo'
 				},
 				{
-					model: db.role,
+					model: db.Role,
 					attributes: [ 'id', 'name' ],
 					as: 'roles'
 				},
 				{
-					model: db.phone,
+					model: db.Phone,
 					attributes: [ 'id', 'phone' ],
 					as: 'phones'
 				}
@@ -77,7 +77,7 @@ class UserRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, user) {
-		return await db.user.update(user, {where: { id: id }});
+		return await db.User.Update(user, {where: { id: id }});
 	}
 
 	/**
@@ -87,7 +87,7 @@ class UserRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.user.destroy({where: { id: id }});
+		return await db.User.destroy({where: { id: id }});
 	}
 
 	/**
@@ -97,7 +97,7 @@ class UserRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async getAll(options) {        
-		return await db.user.findAll(options);
+		return await db.User.findAll(options);
 	}
 
 	/**
@@ -107,7 +107,7 @@ class UserRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async get(options) {        
-		return await db.user.findOne(options);
+		return await db.User.findOne(options);
 	}
 }
 

@@ -17,13 +17,18 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'url',
+		modelName: 'Url',
+		tableName: 'urls',
+		name: {
+		  singular: 'Url',
+		  plural: 'Urls',
+		},
 	});
 
 	Url.associate = (models) => {
 
-		Url.belongsToMany(models.role, {
-			through: models.role_url,
+		Url.belongsToMany(models.Role, {
+			through: models.RoleUrl,
 			foreignKey: 'urlId',
 			as: 'roles',
 			onDelete: 'cascade',

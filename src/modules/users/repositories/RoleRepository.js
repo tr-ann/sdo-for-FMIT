@@ -9,7 +9,7 @@ class RoleRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async create(role) {
-		return await db.role.create(role);
+		return await db.Role.create(role);
 	}
 
 	/**
@@ -19,7 +19,7 @@ class RoleRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async readById(id) {        
-		return await db.role.findByPk(id, {
+		return await db.Role.findByPk(id, {
 			attributes: [ 'id', 'name' ],
 		});
 	}
@@ -30,7 +30,7 @@ class RoleRepository {
 	 * @return {Promise} promise with result of read
 	 */
 	async readAll() {
-		return await db.role.findAll({
+		return await db.Role.findAll({
 			attributes: [ 'id', 'name' ],
 		});
 	}
@@ -43,7 +43,7 @@ class RoleRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, role) {
-		return await db.role.update(role, {where: { id: id }});
+		return await db.Role.update(role, {where: { id: id }});
 	}
 
 	/**
@@ -53,7 +53,7 @@ class RoleRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.role.destroy({where: { id: id }});
+		return await db.Role.destroy({where: { id: id }});
 	}
 
 	/**
@@ -63,7 +63,7 @@ class RoleRepository {
 	 * @return {Promise} promise with array of objects
 	 */
 	async get(options) {        
-		return await db.role.findAll(options);
+		return await db.Role.findAll(options);
 	}
 }
 

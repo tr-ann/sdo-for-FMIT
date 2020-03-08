@@ -13,23 +13,23 @@ class UserController {
 		});
 
 		await PhoneService.create({
-			user_id: user.id, 
+			userId: user.id, 
 			phone: req.body.phone
 		});
 
-		let fullName = req.body.first_name 
-				+ ' ' + req.body.last_name 
-				+ ' ' + (req.body.middle_name || '');
+		let fullName = req.body.firstName 
+				+ ' ' + req.body.lastName 
+				+ ' ' + (req.body.middleName || '');
 
 		await UserInfoService.create({
-			user_id: user.id,
-			full_name: fullName,
+			userId: user.id,
+			fullName: fullName,
 			email: req.body.email,
 			birthday: req.body.birthday,
 			sex: req.body.sex,
 		});
 
-		await UserRoleService.create({user_id: user.id, role_id: 1});
+		await UserRoleService.create({userId: user.id, roleId: 1});
 
 		res
 			.status(201)
@@ -79,22 +79,22 @@ class UserController {
 		});
 
 		/*await PhoneService.update({
-			user_id: user.id, 
+			userId: user.id, 
 			phone: req.body.phone
 		})
 
-		let fullName = req.body.first_name 
-				+ ' ' + req.body.last_name 
-				+ ' ' + (req.body.middle_name || '')
+		let fullName = req.body.firstName 
+				+ ' ' + req.body.lastName 
+				+ ' ' + (req.body.middleName || '')
 
 		await UserInfoService.update({
-			full_name: fullName,
+			fullName: fullName,
 			email: req.body.email,
 			birthday: req.body.birthday,
 			sex: req.body.sex,
 		})
 
-		UserRoleService.create({user_id: user.id, role_id: 1})*/
+		UserRoleService.create({userId: user.id, roleId: 1})*/
 
 		res
 			.status(200)

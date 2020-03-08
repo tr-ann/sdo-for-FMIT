@@ -1,5 +1,5 @@
 const { Model } = require('sequelize');
-const Hash = require('../../../classes/hash');
+const Hash = require('../../../classes/Hash');
 
 module.exports = (sequelize, DataTypes) => {
 	
@@ -22,48 +22,53 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'user',
-	})
+		modelName: 'User',
+		tableName: 'users',
+		name: {
+		  singular: 'User',
+		  plural: 'Users',
+		},
+	});
 
 	User.associate = (models) => {
 
-		User.belongsToMany(models.role, {
-			through: models.user_role,
+		User.belongsToMany(models.Role, {
+			through: models.UserRole,
 			foreignKey: 'userId',
 			as: 'roles',
 			onDelete: 'cascade',
 			onUpdate: 'cascade'
 		});
 
-		User.hasMany(models.phone, {
+		User.hasMany(models.Phone, {
 			foreignKey: 'userId',
 			as: 'phones',
 			onDelete: 'restrict',
 			onUpdate: 'restrict'
 		});
 
-		User.hasOne(models.user_info, {
+		User.hasOne(models.UserInfo, {
 			foreignKey: 'userId',
 			as: 'userInfo',
 			onDelete: 'restrict',
 			onUpdate: 'restrict'
 		});
 
-		User.hasOne(models.student, {
+		User.hasOne(models.Student, {
 			foreignKey: 'userId',
 			as: 'student',
 			onDelete: 'cascade',
 			onUpdate: 'cascade'
 		});
 
-		User.hasOne(models.teacher, {
+		User.hasOne(models.Teacher, {
 			foreignKey: 'userId',
 			as: 'teacher',
 			onDelete: 'cascade',
 			onUpdate: 'cascade'
 		});
 
-	}
+	};
 	
 	User.beforeCreate(
 		(user, options) => user.password = Hash.get(user.password)
@@ -79,8 +84,8 @@ module.exports = (sequelize, DataTypes) => {
         user.password = Hash.get(user.password);
       }
     }
-  )
+  );
 
 	return User;
 
-}
+};

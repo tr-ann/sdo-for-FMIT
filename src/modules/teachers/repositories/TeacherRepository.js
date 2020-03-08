@@ -9,7 +9,7 @@ class TeacherRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async create(teacher) {
-		return await db.teacher.create(teacher);
+		return await db.Teacher.create(teacher);
 	}
 
 	/**
@@ -19,8 +19,8 @@ class TeacherRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async readById(id) {        
-		return await db.teacher.findByPk(id, {
-			attributes: [ 'id', 'full_name' ],
+		return await db.Teacher.findByPk(id, {
+			attributes: [ 'id', 'fullName' ],
 		});
 	}
 
@@ -30,8 +30,8 @@ class TeacherRepository {
 	 * @return {Promise} promise with result of read
 	 */
 	async readAll() {
-		return await db.teacher.findAll({
-			attributes: [ 'id', 'full_name' ],
+		return await db.Teacher.findAll({
+			attributes: [ 'id', 'fullName' ],
 		});
 	}
 
@@ -43,7 +43,7 @@ class TeacherRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, teacher) {
-		return await db.teacher.update(teacher, {where: { id: id }});
+		return await db.Teacher.update(teacher, {where: { id: id }});
 	}
 
 	/**
@@ -53,7 +53,7 @@ class TeacherRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.teacher.destroy({where: { id: id }});
+		return await db.Teacher.destroy({where: { id: id }});
 	}
 
 	/**
@@ -63,7 +63,7 @@ class TeacherRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async getAll(options) {
-		return await db.teacher.findAll(options);
+		return await db.Teacher.findAll(options);
 	}
 
 	/**
@@ -73,7 +73,7 @@ class TeacherRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async get(options) {        
-		return await db.teacher.findOne(options);
+		return await db.Teacher.findOne(options);
 	}
 }
 

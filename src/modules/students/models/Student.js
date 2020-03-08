@@ -38,62 +38,67 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'student',
-	})
+		modelName: 'Student',
+		tableName: 'students',
+		name: {
+		  singular: 'Student',
+		  plural: 'Students',
+		},
+	});
 
-	Student.associate = function (models) {
+	Student.associate = (models) => {
 
-		Student.belongsToMany(models.subgroup, {
-			through: models.student_subgroup,
+		Student.belongsToMany(models.Subgroup, {
+			through: models.StudentSubgroup,
 			foreignKey: 'studentId',
 			as: 'subgroups',
 			onDelete: 'cascade',
 			onUpdate: 'cascade'
 		});
 
-		Student.belongsTo(models.user, {
+		Student.belongsTo(models.User, {
 			foreignKey: 'userId',
 			as: 'user',
 			onDelete: 'cascade',
 			onUpdate: 'cascade'
 		});
 
-		Student.belongsTo(models.group, {
+		Student.belongsTo(models.Group, {
 			foreignKey: 'groupId',
 			as: 'group',
 			onDelete: 'set null',
 			onUpdate: 'cascade'
 		});
 
-		Student.hasMany(models.graduation_paper, {
+		Student.hasMany(models.GraduationPaper, {
 			foreignKey: 'studentId',
 			as: 'graduationPapers',
 			onDelete: 'restrict',
 			onUpdate: 'restrict'
 		});
 
-		Student.hasMany(models.term_paper, {
+		Student.hasMany(models.TermPaper, {
 			foreignKey: 'studentId',
 			as: 'termPapers',
 			onDelete: 'restrict',
 			onUpdate: 'restrict'
 		});
 
-		Student.hasMany(models.request, {
+		Student.hasMany(models.Request, {
 			foreignKey: 'studentId',
 			as: 'requests',
 			onDelete: 'restrict',
 			onUpdate: 'restrict'
 		});
 
-		Student.hasMany(models.practice, {
+		Student.hasMany(models.Practice, {
 			foreignKey: 'studentId',
 			as: 'practices',
 			onDelete: 'restrict',
 			onUpdate: 'restrict'
 		});
 
-	}
+	};
 
 	return Student;
-}
+};

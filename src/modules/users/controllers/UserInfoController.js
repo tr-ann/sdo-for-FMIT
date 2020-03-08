@@ -6,7 +6,7 @@ class UserInfoController {
 
 	async create(req, res, next) {
 		let userInfo = await UserInfoService.create({
-			full_name: req.body.full_name,
+			fullName: req.body.fullName,
 			description: req.body.description,
 			birthday: req.body.birthday,
 			city: req.body.city,
@@ -57,7 +57,7 @@ class UserInfoController {
 	
 	async update(req, res, next) {
 		let userInfo = await UserInfoService.update(req.params.id, {
-			full_name: req.body.full_name,
+			fullName: req.body.fullName,
 			description: req.body.description,
 			birthday: req.body.birthday,
 			city: req.body.city,

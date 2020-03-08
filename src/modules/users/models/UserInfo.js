@@ -60,28 +60,32 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'user_info',
+		modelName: 'UserInfo',
 		tableName: 'users_info',
+		name: {
+		  singular: 'UserInfo',
+		  plural: 'UsersInfo',
+		},
 	});
 
 	UserInfo.associate = (models) => {
 
-		UserInfo.belongsTo(models.user, {
+		UserInfo.belongsTo(models.User, {
 			foreignKey: 'userId',
 			as: 'user',
 			onDelete: 'cascade',
 			onUpdate: 'cascade'
 		});
 
-		UserInfo.belongsTo(models.resource, {
+		UserInfo.belongsTo(models.Resource, {
 			foreignKey: 'resourceId',
 			as: 'resource',
 			onDelete: 'set null',
 			onUpdate: 'cascade'
 		});
 
-	}
+	};
 
 	return UserInfo;
 
-}
+};

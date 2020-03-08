@@ -9,7 +9,7 @@ class PhoneRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async create(phone) {
-		return await db.phone.create(phone);
+		return await db.Phone.create(phone);
 	}
 
 	/**
@@ -19,7 +19,7 @@ class PhoneRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async readById(id) {        
-		return await db.phone.findByPk(id, {
+		return await db.Phone.findByPk(id, {
 			attributes: [ 'id', 'phone' ],
 		});
 	}
@@ -30,7 +30,7 @@ class PhoneRepository {
 	 * @return {Promise} promise with result of read
 	 */
 	async readAll() {
-		return await db.phone.findAll({
+		return await db.Phone.findAll({
 			attributes: [ 'id', 'phone' ],
 		});
 	}
@@ -43,7 +43,7 @@ class PhoneRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, phone) {
-		return await db.phone.update(phone, {where: { id: id }});
+		return await db.Phone.update(phone, {where: { id: id }});
 	}
 
 	/**
@@ -53,7 +53,7 @@ class PhoneRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.phone.destroy({where: { id: id }});
+		return await db.Phone.destroy({where: { id: id }});
 	}
 
 	/**
@@ -63,7 +63,7 @@ class PhoneRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async get(options) {        
-		return await db.phone.findAll(options);
+		return await db.Phone.findAll(options);
 	}
 }
 

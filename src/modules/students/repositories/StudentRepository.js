@@ -9,7 +9,7 @@ class StudentRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async create(student) {
-		return await db.student.create(student)
+		return await dbStudent.create(student)
 	}
 
 	/**
@@ -19,8 +19,8 @@ class StudentRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async readById(id) {        
-		return await db.student.findByPk(id, {
-			attributes: [ 'id', 'full_name' ],
+		return await dbStudent.findByPk(id, {
+			attributes: [ 'id', 'fullName' ],
 		})
 	}
 
@@ -30,8 +30,8 @@ class StudentRepository {
 	 * @return {Promise} promise with result of read
 	 */
 	async readAll() {
-		return await db.student.findAll({
-			attributes: [ 'id', 'full_name' ],
+		return await dbStudent.findAll({
+			attributes: [ 'id', 'fullName' ],
 		})
 	}
 
@@ -43,7 +43,7 @@ class StudentRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, student) {
-		return await db.student.update(student, {where: { id: id }})
+		return await dbStudent.update(student, {where: { id: id }})
 	}
 
 	/**
@@ -53,7 +53,7 @@ class StudentRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.student.destroy({where: { id: id }})
+		return await dbStudent.destroy({where: { id: id }})
 	}
 
 	/**
@@ -63,7 +63,7 @@ class StudentRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async getAll(options) {
-		return await db.student.findAll(options)
+		return await dbStudent.findAll(options)
 	}
 
 	/**
@@ -73,7 +73,7 @@ class StudentRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async get(options) {        
-		return await db.student.findOne(options)
+		return await dbStudent.findOne(options)
 	}
 }
 

@@ -9,7 +9,7 @@ class UrlRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async create(url) {
-		return await db.url.create(url);
+		return await db.Url.create(url);
 	}
 
 	/**
@@ -18,11 +18,11 @@ class UrlRepository {
 	 * @return {Promise} promise with result of read
 	 */
 	async readAll() {
-		return await db.url.findAll({
+		return await db.Url.findAll({
 			attributes: [ 'id', 'url'], 
 			include: [
 				{
-					model: db.role,
+					model: db.Role,
 					attributes: [ 'id', 'name' ],
 					as: 'roles'
 				}
@@ -37,14 +37,14 @@ class UrlRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async readById(id) {
-		return await db.url.findByPk(id, {
+		return await db.Url.findByPk(id, {
 			attributes: [
 				'id',
 				'url',
 			], 
 			include: [
 				{
-					model: db.role,
+					model: db.Role,
 					attributes: [ 'id', 'name' ],
 					as: 'roles'
 				}
@@ -60,7 +60,7 @@ class UrlRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, url) {
-		return await db.url.update(url, {where: {id: id}});
+		return await db.Url.Update(url, {where: {id: id}});
 	}
 
 	 /**
@@ -70,7 +70,7 @@ class UrlRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.url.destroy({where: {id: id}});
+		return await db.Url.destroy({where: {id: id}});
 	}
 
 	/**
@@ -80,7 +80,7 @@ class UrlRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async get(options) {        
-		return await db.url.findAll(options);
+		return await db.Url.findAll(options);
 	}
 }
 

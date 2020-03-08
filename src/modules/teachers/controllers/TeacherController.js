@@ -6,11 +6,11 @@ class TeacherController {
 
 	async create(req, res, next) {
 		let teacher = await TeacherService.create({
-			user_id:            req.body.user_id,
-			department_id:      req.body.department_id,
-			position_id:        req.body.position_id,
-			academic_degree_id: req.body.academic_degree_id,
-			academic_rank_id:   req.body.academic_rank_id,
+			userId:            req.body.userId,
+			departmentId:      req.body.departmentId,
+			positionId:        req.body.positionId,
+			academicDegreeId: req.body.academicDegreeId,
+			academicRankId:   req.body.academicRankId,
 		});
 		
 		res
@@ -57,12 +57,12 @@ class TeacherController {
 	
 	async update(req, res, next) {
 		let teacher = await TeacherService.update(req.params.id, {
-			full_name:          req.body.full_name,
-			short_name:         req.body.short_name,
-			department_id:      req.body.department_id,
-			position_id:        req.body.position_id,
-			academic_degree_id: req.body.academic_degree_id,
-			academic_rank_id:   req.body.academic_rank_id,
+			fullName:          req.body.fullName,
+			shortName:         req.body.shortName,
+			departmentId:      req.body.departmentId,
+			positionId:        req.body.positionId,
+			academicDegreeId: req.body.academicDegreeId,
+			academicRankId:   req.body.academicRankId,
 		});
 
 		res

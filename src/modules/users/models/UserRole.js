@@ -23,10 +23,14 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'user_role',
-		tableName: 'users_roles',        
+		modelName: 'UserRole',
+		tableName: 'users_roles',
+		name: {
+		  singular: 'UserRole',
+		  plural: 'UsersRoles',
+		},
 	});
 	
 	return UserRole;
 	
-}
+};

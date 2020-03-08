@@ -9,26 +9,26 @@ class UserInfoRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async create(userInfo) {
-		return await db.user_info.create(userInfo);
+		return await db.UserInfo.create(userInfo);
 	}
 
 	/**
 	 * Read an entity from a database
 	 * 
-	 * @param {Number} user_id - id of user whos info will be read
+	 * @param {Number} userId - id of user whos info will be read
 	 * @return {Promise} promise with result of create
 	 */
-	async readById(user_id) {        
-		return await db.user_info.findOne({
-			attributes: [ 'id', 'full_name', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+	async readById(userId) {        
+		return await db.UserInfo.findOne({
+			attributes: [ 'id', 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
 			include: [
 				{
-					model: db.resource,
+					model: db.Resource,
 					attributes: [ 'id', 'description' ],
 				},
 			],
 
-			where: { user_id: user_id }
+			where: { userId: userId }
 		});
 	}
 
@@ -40,7 +40,7 @@ class UserInfoRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, userInfo) {
-		return await db.user_info.update(userInfo, {where: { id: id }});
+		return await db.UserInfo.update(userInfo, {where: { id: id }});
 	}
 
 	/**
@@ -50,7 +50,7 @@ class UserInfoRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.user_info.destroy({where: { id: id }});
+		return await db.UserInfo.destroy({where: { id: id }});
 	}
 
 	/**
@@ -60,7 +60,7 @@ class UserInfoRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async get(options) {        
-		return await db.user_info.findAll(options);
+		return await db.UserInfo.findAll(options);
 	}
 }
 

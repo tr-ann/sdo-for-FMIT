@@ -23,9 +23,14 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'curator',
+		modelName: 'Curator',
+		tableName: 'curators',
+		name: {
+		  singular: 'Curator',
+		  plural: 'Curators',
+		},
 	});
 	
 	return Curator;
 	
-}
+};

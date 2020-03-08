@@ -3,27 +3,27 @@ const db = require('../../../dbModels');
 class RoleUrlRepository {
 
 	async create(role_url) {
-		return await db.role_url.create(role_url);
+		return await db.RoleUrl.create(role_url);
 	}
 
 	async readAll() {
-		return await db.role_url.findAll();
+		return await db.RoleUrl.findAll();
 	}
 
 	async readById(id) {
-		return await db.role_url.findByPk(id);
+		return await db.RoleUrl.findByPk(id);
 	}
 
 	async update(id, role_url) {
-		return await db.role_url.update(role_url, {where: {id: id}});
+		return await db.RoleUrl.update(role_url, {where: {id: id}});
 	}
 
 	async get(options) {
-		return await db.role_url.findAll(options);
+		return await db.RoleUrl.findAll(options);
 	}
 
 	async destroy(id) {
-		return await db.role_url.destroy({where: {id: id}});
+		return await db.RoleUrl.destroy({where: {id: id}});
 	}
 }
 

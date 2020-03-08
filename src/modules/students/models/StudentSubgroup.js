@@ -23,8 +23,12 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'student_subgroup',
+		modelName: 'StudentSubgroup',
 		tableName: 'students_subgroups',
+		name: {
+		  singular: 'StudentSubgroup',
+		  plural: 'StudentsSubgroups',
+		},
 	});
 
 	return StudentSubgroup;

@@ -17,12 +17,17 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'academic_degree',
+		modelName: 'AcademicDegree',
+		tableName: 'academic_degrees',
+		name: {
+		  singular: 'AcademicDegree',
+		  plural: 'AcademicDegrees',
+		},
 	});
 
 	AcademicDegree.associate = (models) => {
 
-		AcademicDegree.hasMany(models.teacher, {
+		AcademicDegree.hasMany(models.Teacher, {
 			foreignKey: 'academicDegreeId',
 			as: 'teachers',
 			onDelete: 'set null',
@@ -32,4 +37,4 @@ module.exports = (sequelize, DataTypes) => {
 	};
 
 	return AcademicDegree;
-}
+};

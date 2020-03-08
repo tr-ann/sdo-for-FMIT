@@ -9,7 +9,7 @@ class AcademicDegreeRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async create(academicDegree) {
-		return await db.academic_degree.create(academicDegree);
+		return await db.AcademicDegree.create(academicDegree);
 	}
 
 	/**
@@ -19,7 +19,7 @@ class AcademicDegreeRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async readById(id) {        
-		return await db.academic_degree.findByPk(id, {
+		return await db.AcademicDegree.findByPk(id, {
 			attributes: [ 'id', 'name' ],
 		});
 	}
@@ -30,7 +30,7 @@ class AcademicDegreeRepository {
 	 * @return {Promise} promise with result of read
 	 */
 	async readAll() {
-		return await db.academic_degree.findAll({
+		return await db.AcademicDegree.findAll({
 			attributes: [ 'id', 'name' ],
 		});
 	}
@@ -43,7 +43,7 @@ class AcademicDegreeRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, academicDegree) {
-		return await db.academic_degree.update(academicDegree, {where: { id: id }});
+		return await db.AcademicDegree.update(academicDegree, {where: { id: id }});
 	}
 
 	/**
@@ -53,7 +53,7 @@ class AcademicDegreeRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.academic_degree.destroy({where: { id: id }});
+		return await db.AcademicDegree.destroy({where: { id: id }});
 	}
 
 	/**
@@ -63,7 +63,7 @@ class AcademicDegreeRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async getAll(options) {
-		return await db.academic_degree.findAll(options);
+		return await db.AcademicDegree.findAll(options);
 	}
 
 	/**
@@ -73,7 +73,7 @@ class AcademicDegreeRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async get(options) {        
-		return await db.academic_degree.findOne(options);
+		return await db.AcademicDegree.findOne(options);
 	}
 }
 

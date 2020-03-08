@@ -22,12 +22,17 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'phone'
+		modelName: 'Phone',
+		tableName: 'phones',
+		name: {
+		  singular: 'Phone',
+		  plural: 'Phones',
+		},
 	});
 	
 	Phone.associate = (models) => {
 
-		Phone.belongsTo(models.user, {
+		Phone.belongsTo(models.User, {
 			foreignKey: 'userId',
 			as: 'user',
 			onDelete: 'cascade',

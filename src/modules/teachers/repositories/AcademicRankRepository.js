@@ -9,7 +9,7 @@ class AcademicRankRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async create(academicRank) {
-		return await db.academic_rank.create(academicRank);
+		return await db.AcademicRank.create(academicRank);
 	}
 
 	/**
@@ -19,7 +19,7 @@ class AcademicRankRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async readById(id) {        
-		return await db.academic_rank.findByPk(id, {
+		return await db.AcademicRank.findByPk(id, {
 			attributes: [ 'id', 'name' ],
 		});
 	}
@@ -30,7 +30,7 @@ class AcademicRankRepository {
 	 * @return {Promise} promise with result of read
 	 */
 	async readAll() {
-		return await db.academic_rank.findAll({
+		return await db.AcademicRank.findAll({
 			attributes: [ 'id', 'name' ],
 		});
 	}
@@ -43,7 +43,7 @@ class AcademicRankRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, academicRank) {
-		return await db.academic_rank.update(academicRank, {where: { id: id }});
+		return await db.AcademicRank.update(academicRank, {where: { id: id }});
 	}
 
 	/**
@@ -53,7 +53,7 @@ class AcademicRankRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.academic_rank.destroy({where: { id: id }});
+		return await db.AcademicRank.destroy({where: { id: id }});
 	}
 
 	/**
@@ -63,7 +63,7 @@ class AcademicRankRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async getAll(options) {
-		return await db.academic_rank.findAll(options);
+		return await db.AcademicRank.findAll(options);
 	}
 
 	/**
@@ -73,7 +73,7 @@ class AcademicRankRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async get(options) {        
-		return await db.academic_rank.findOne(options);
+		return await db.AcademicRank.findOne(options);
 	}
 }
 

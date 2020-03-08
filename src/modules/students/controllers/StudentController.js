@@ -5,10 +5,10 @@ class StudentController {
 
 	async create(req, res, next) {
 		const student = await StudentService.create({
-			full_name:          req.body.full_name,
-			short_name:         req.body.short_name,
-			group_id:           req.body.group_id,
-			record_book:        req.body.record_book,
+			fullName:          req.body.fullName,
+			shortName:         req.body.shortName,
+			groupId:           req.body.groupId,
+			recordBook:        req.body.recordBook,
 		});
 
 		res
@@ -56,10 +56,10 @@ class StudentController {
 	async update(req, res, next) {
 		let student = await StudentService.update(
 			req.params.id, {
-				full_name:          req.body.full_name,
-				short_name:         req.body.short_name,
-				group_id:           req.body.group_id,
-				record_book:        req.body.record_book,
+				fullName:          req.body.fullName,
+				shortName:         req.body.shortName,
+				groupId:           req.body.groupId,
+				recordBook:        req.body.recordBook,
 			}
 		);
 
