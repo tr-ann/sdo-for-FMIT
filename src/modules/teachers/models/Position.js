@@ -2,7 +2,7 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 	
-	class Position extends Model {}
+	class Position extends Model {};
 	
 	Position.init({
 		name: {
@@ -11,21 +11,26 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	}, {
 		sequelize,
+		charset: 'UTF8',
+		engine: 'INNODB',
 		createdAt: false,
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
 		modelName: 'position',
-	})
+	});
 	
-	Position.associate = function (models) {
+	Position.associate = (models) => {
+
 		Position.hasMany(models.teacher, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'position_id',
+			foreignKey: 'positionId',
 			as: 'teachers',
-		})
+			onDelete: 'set null',
+			onUpdate: 'cascade'
+		});
+
 	}
 
-	return Position
+	return Position;
+
 }

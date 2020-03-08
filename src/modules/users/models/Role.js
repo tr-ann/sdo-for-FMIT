@@ -2,7 +2,7 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 	
-	class Role extends Model {}
+	class Role extends Model {};
 
 	Role.init({
 		name: {
@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	}, {
 		sequelize,
+		charset: 'UTF8',
+		engine: 'INNODB',
 		createdAt: false,
 		updatedAt: false,
 		deletedAt: 'deleted_date',
@@ -18,23 +20,24 @@ module.exports = (sequelize, DataTypes) => {
 		modelName: 'role',
 	})
 
-	Role.associate = function (models) {
+	Role.associate = (models) => {
+
 		Role.belongsToMany(models.url, {
 			through: models.role_url,
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'role_id',
-			otherKey: 'url_id',
+			foreignKey: 'roleId',
 			as: 'urls',
-		})
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
+		});
+
 		Role.belongsToMany(models.user, {
 			through: models.user_role,
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'role_id',
-			otherKey: 'user_id',
-			as: 'roles',
-		})
+			foreignKey: 'roleId',
+			as: 'users',
+			onDelete: 'set default',
+			onUpdate: 'cascade'
+		});
+
 	};
 	
 	return Role;

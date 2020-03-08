@@ -1,7 +1,8 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-	class UserInfo extends Model {}
+
+	class UserInfo extends Model {};
 
 	UserInfo.init({
 		id: {
@@ -9,13 +10,15 @@ module.exports = (sequelize, DataTypes) => {
 			autoIncrement: true,
 			primaryKey: true,
 		},
-		user_id: {
+		userId: {
 			allowNull: true,
 			type: DataTypes.INTEGER,
+			field: 'user_id'
 		},
-		full_name: {
+		fullName: {
 			allowNull: false,
 			type: DataTypes.STRING(255),
+			field: 'full_name'
 		},
 		email: {
 			allowNull: false,
@@ -44,34 +47,41 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: true,
 			type: DataTypes.STRING(255),
 		},
-		resource_id: {
+		resourceId: {
 			allowNull: true,
 			type: DataTypes.INTEGER,
+			field: 'resource_id'
 		}
 	}, {
 		sequelize,
+		charset: 'UTF8',
+		engine: 'INNODB',
 		createdAt: false,
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
 		modelName: 'user_info',
 		tableName: 'users_info',
-	})
+	});
 
-	UserInfo.associate = function (models) {
+	UserInfo.associate = (models) => {
+
 		UserInfo.belongsTo(models.user, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'user_id',
-			as: 'user'
-		})
+			foreignKey: 'userId',
+			as: 'user',
+			onDelete: 'cascade',
+			onUpdate: 'cascade'
+		});
+
 		UserInfo.belongsTo(models.resource, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'resource_id',
-			as: 'resource'
-		})
+			foreignKey: 'resourceId',
+			as: 'resource',
+			onDelete: 'set null',
+			onUpdate: 'cascade'
+		});
+
 	}
 
-	return UserInfo
+	return UserInfo;
+
 }

@@ -1,31 +1,39 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-	class Student extends Model {}
+	
+	class Student extends Model {};
 
 	Student.init({
-		user_id: {
+		userId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
+			field: 'user_id'
 		},
-		group_id: {
+		groupId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
+			field: 'group_id'
 		},
-		full_name: {
+		fullName: {
 			allowNull: false,
 			type: DataTypes.STRING(100),
+			field: 'full_name'
 		},
-		short_name: {
+		shortName: {
 			allowNull: false,
 			type: DataTypes.STRING(100),
+			field: 'short_name'
 		},
-		record_book: {
+		recordBook: {
 			allowNull: false,
 			type: DataTypes.STRING(30),
+			field: 'record_book'
 		}
 	}, {
 		sequelize,
+		charset: 'UTF8',
+		engine: 'INNODB',
 		createdAt: false,
 		updatedAt: false,
 		deletedAt: 'deleted_date',
@@ -34,52 +42,58 @@ module.exports = (sequelize, DataTypes) => {
 	})
 
 	Student.associate = function (models) {
+
 		Student.belongsToMany(models.subgroup, {
 			through: models.student_subgroup,
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			otherKey: 'student_id',
+			foreignKey: 'studentId',
 			as: 'subgroups',
-		})
+			onDelete: 'cascade',
+			onUpdate: 'cascade'
+		});
 
 		Student.belongsTo(models.user, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'user_id',
+			foreignKey: 'userId',
 			as: 'user',
-		})
+			onDelete: 'cascade',
+			onUpdate: 'cascade'
+		});
+
 		Student.belongsTo(models.group, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'group_id',
+			foreignKey: 'groupId',
 			as: 'group',
-		})
+			onDelete: 'set null',
+			onUpdate: 'cascade'
+		});
 
 		Student.hasMany(models.graduation_paper, {
+			foreignKey: 'studentId',
+			as: 'graduationPapers',
 			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'student_id',
-			as: 'graduation_papers',
-		})
+			onUpdate: 'restrict'
+		});
+
 		Student.hasMany(models.term_paper, {
+			foreignKey: 'studentId',
+			as: 'termPapers',
 			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'student_id',
-			as: 'term_papers',
-		})
+			onUpdate: 'restrict'
+		});
+
 		Student.hasMany(models.request, {
-			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'student_id',
+			foreignKey: 'studentId',
 			as: 'requests',
-		})
-		Student.hasMany(models.practice, {
 			onDelete: 'restrict',
-			onUpdate: 'restrict',
-			foreignKey: 'student_id',
+			onUpdate: 'restrict'
+		});
+
+		Student.hasMany(models.practice, {
+			foreignKey: 'studentId',
 			as: 'practices',
-		})
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
+		});
+
 	}
 
-	return Student
+	return Student;
 }
