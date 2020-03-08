@@ -1,81 +1,94 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
-    class Group extends Model {}
+module.exports = (sequelize, DataTypes) => {
 
-    Group.init({
-        number: {
-            allowNull: false,
-            type: DataTypes.STRING(4),
-        },
-        faculty_id: {
-            allowNull: true,
-            type: DataTypes.SMALLINT,
-        },
-        specialty_id: {
-            allowNull: true,
-            type: DataTypes.SMALLINT,
-        },
-        study_mode_id: {
-            allowNull: true,
-            type: DataTypes.SMALLINT,
-        },
-    }, {
-        sequelize,
-        underscope: true,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: 'deleted_date',
-        paranoid: true,
-        modelName: 'group',
+  class Group extends Model {};
 
-        name: {
-            singular: 'group',
-            plural: 'groups',
-        },
+  Group.init({
+    number: {
+      allowNull: false,
+      type: DataTypes.STRING(4),
+    },
+    facultyId: {
+      type: DataTypes.INTEGER,
+      field: 'faculty_id',
+    },
+    specialtyId: {
+      type: DataTypes.INTEGER,
+      field: 'specialty_id',
+    },
+    studyModeId: {
+      type: DataTypes.INTEGER,
+      field: 'study_mode_id',
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'Group',
+    tableName: 'groups',
+    name: {
+      singular: 'Group',
+      plural: 'Groups',
+    },
+  });
+
+  Group.associate = (models) => {
+
+    Group.belongsTo(models.Specialty, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'specialtyId',
+      as: 'specialty',
     });
-    Group.associate = function(models) {
-        Group.belongsTo(models.specialty, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'specialty_id',
-            as: 'specialty'
-        })
-        Group.belongsTo(models.study_mode, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'study_mode_id',
-            as: 'study_mode'
-        })
-        Group.belongsTo(models.faculty, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'faculty_id',
-            as: 'faculty'
-        })
-        Group.belongsToMany(models.teacher, {
-            through: models.curator,
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'group_id',
-            otherKey: 'teacher_id',
-            as: 'teachers'
-        })
-        Group.hasMany(models.student, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'group_id'
-        })
-        Group.hasMany(models.subgroup, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'group_id'
-        })
-        Group.hasMany(models.lesson, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'group_id'
-        })
-    };
-    return Group;
+
+    Group.belongsTo(models.StudyMode, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'studyModeId',
+      as: 'studyMode',
+    });
+
+    Group.belongsTo(models.Faculty, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'facultyId',
+      as: 'faculty',
+    });
+
+    Group.belongsToMany(models.Teacher, {
+      through: models.Curator,
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'groupId',
+      as: 'teachers',
+    });
+
+    Group.hasMany(models.Student, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'groupId',
+      as: 'students',
+    });
+
+    Group.hasMany(models.Subgroup, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'groupId',
+      as: 'subgroups',
+    });
+
+    Group.hasMany(models.Lesson, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'groupId',
+      as: 'lessons',
+    });
+  };
+
+  return Group;
 };

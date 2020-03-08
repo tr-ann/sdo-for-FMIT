@@ -1,18 +1,18 @@
-import { sequelize } from '../../../sequelize'
+const { sequelize } = require('../../../sequelize');
 
-import fs from 'fs'
-import path from 'path'
-const basename  = path.basename(__filename)
-const db        = {}
+const fs = require('fs');
+const path = require('path');
+const basename  = path.basename(__filename);
+const db = {};
 
 fs
-.readdirSync(__dirname)
-.filter(file => {
+  .readdirSync(__dirname)
+  .filter(file => {
     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-})
-.forEach(file => {
-    let model = sequelize.import(path.join(__dirname, file));
+  })
+  .forEach(file => {
+    let model = sequelize.const(path.join(__dirname, file));
     db[model.name] = model;
-})
+  });
 
-export default db
+module.exports = db;

@@ -1,5 +1,5 @@
 const GroupService = require('../services/GroupService');
-const helpers = require('../../../helpers');
+const { responseFormat } = require('../../../helpers');
 
 class GroupController {
 
@@ -15,7 +15,7 @@ class GroupController {
     res
       .status(201)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           group,
           "Group created successfully",
           201,
@@ -31,7 +31,7 @@ class GroupController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           groups,
           "Groups read successfully",
           200,
@@ -47,7 +47,7 @@ class GroupController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           group,
           "Group read successfully",
           200,
@@ -71,7 +71,7 @@ class GroupController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           group,
           "Group updated successfully",
           200,
@@ -87,7 +87,7 @@ class GroupController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           {},
           "Group deleted successfully",
           200,

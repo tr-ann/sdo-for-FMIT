@@ -1,51 +1,61 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 
-    class Status extends Model {}
+  class Status extends Model {};
 
-    Status.init({
-        name: {
-            allowNull: false,
-            unique: true,
-            type: DataTypes.STRING(30),
-        },
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: "deleted_date",
-        paranoid: true,
-        modelName: 'status',
-        tableName: 'statuses',
-    })
+  Status.init({
+    name: {
+      allowNull: false,
+      unique: true,
+      type: DataTypes.STRING(30),
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'Status',
+    tableName: 'statuses',
+    name: {
+      singular: 'Status',
+      plural: 'Statuses',
+    },
+  });
 
-    Status.associate = function(models) {
-        Status.hasMany(models.request, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'status_id',
-            as: 'requests',
-        })
-        Status.hasMany(models.term_paper, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'status_id',
-            as: 'term_papers',
-        })
-        Status.hasMany(models.graduation_paper, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'status_id',
-            as: 'graduation_papers',
-        })
-        Status.hasMany(models.practice, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'status_id',
-            as: 'practices',
-        })
-    }
+  Status.associate = (models) => {
 
-    return Status
-}
+    Status.hasMany(models.Request, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'statusId',
+      as: 'requests',
+    });
+
+    Status.hasMany(models.TermPaper, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'statusId',
+      as: 'termPapers',
+    });
+
+    Status.hasMany(models.GraduationPaper, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'statusId',
+      as: 'graduationPapers',
+    });
+    
+    Status.hasMany(models.Practice, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'statusId',
+      as: 'practices',
+    });
+  };
+
+  return Status;
+};

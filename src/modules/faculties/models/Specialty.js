@@ -1,37 +1,47 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
-    class Specialty extends Model {}
+module.exports = (sequelize, DataTypes) => {
 
-    Specialty.init({
-        code: {
-            allowNull: false,
-            type: DataTypes.STRING(20),
-        },
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING(100),
-        },
-        short_name: {
-            allowNull: false,
-            type: DataTypes.STRING(60),
-        },
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: 'deleted_date',
-        paranoid: true,
-        modelName: 'specialty',
-        tableName: 'specialties',
+  class Specialty extends Model {};
 
+  Specialty.init({
+    code: {
+      allowNull: false,
+      type: DataTypes.STRING(20),
+    },
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING(100),
+    },
+    shortName: {
+      allowNull: false,
+      type: DataTypes.STRING(60),
+      field: 'short_name',
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'Specialty',
+    tableName: 'specialties',
+    name: {
+      singular: 'Specialty',
+      plural: 'Specialties',
+    },
+  });
+
+  Specialty.associate = (models) => {
+    Specialty.hasMany(models.Group, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'specialtyId',
+      as: 'groups',
     });
-    Specialty.associate = function(models) {
-        Specialty.hasMany(models.group, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'specialty_id'
-        })
-    };
-    return Specialty;
+  };
+
+  return Specialty;
 };

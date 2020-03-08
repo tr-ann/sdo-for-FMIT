@@ -1,39 +1,51 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
-    class Faculty extends Model {}
+module.exports = (sequelize, DataTypes) => {
 
-    Faculty.init({
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING(100),
-        },
-        short_name: {
-            allowNull: false,
-            type: DataTypes.STRING(50),
-        },
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: 'deleted_date',
-        paranoid: true,
-        modelName: 'faculty',
-        tableName: 'faculties'
+  class Faculty extends Model {};
+
+  Faculty.init({
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING(100),
+    },
+    shortName: {
+      allowNull: false,
+      type: DataTypes.STRING(50),
+      field: 'short_name',
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'Faculty',
+    tableName: 'faculties',
+    name: {
+      singular: 'Faculty',
+      plural: 'Faculties',
+    },
+  });
+
+  Faculty.associate = (models) => {
+
+    Faculty.hasMany(models.Group, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'facultyId',
+      as: 'groups',
     });
 
-    Faculty.associate = function(models) {
-        Faculty.hasMany(models.group, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'faculty_id'
-        })
-        Faculty.hasOne(models.info_faculty, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'faculty_id',
-            as: 'info_faculty'
-        })
-    };
-    return Faculty;
+    Faculty.hasOne(models.InfoFaculty, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'facultyId',
+      as: 'infoFaculty',
+    });
+  };
+
+  return Faculty;
 };

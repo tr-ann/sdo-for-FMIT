@@ -1,31 +1,38 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 
-    class LessonType extends Model {}
+  class LessonType extends Model {};
 
-    LessonType.init({
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING(100),
-        },
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: "deleted_date",
-        paranoid: true,
-        modelName: 'lesson_type',
-    })
+  LessonType.init({
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING(100),
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'LessonType',
+    tableName: 'lesson_types',
+    name: {
+      singular: 'LessonType',
+      plural: 'LessonTypes',
+    },
+  });
 
-    LessonType.associate = function(models) {
-        LessonType.hasMany(models.lesson, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'lesson_type_id',
-            as: 'lessons',
-        })
-    }
+  LessonType.associate = (models) => {
+    LessonType.hasMany(models.Lesson, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'lessonTypeId',
+      as: 'lessons',
+    });
+  };
 
-    return LessonType
-}
+  return LessonType;
+};

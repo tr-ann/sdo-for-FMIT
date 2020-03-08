@@ -1,31 +1,38 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 
-    class Building extends Model {}
+  class Building extends Model {};
 
-    Building.init({
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING(200),
-        },
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: "deleted_date",
-        paranoid: true,
-        modelName: 'building',
-    })
-    
-    Building.associate = function(models) {
-        Building.hasMany(models.lecture_room, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'building_id',
-            as: 'lecture_rooms',
-        })
-    }
+  Building.init({
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING(200),
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'Building',
+    tableName: 'buildings',
+    name: {
+      singular: 'Building',
+      plural: 'Buildings',
+    },
+  });
+  
+  Building.associate = (models) => {
+    Building.hasMany(models.LectureRoom, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'buildingId',
+      as: 'lectureRooms',
+    });
+  };
 
-    return Building
-}
+  return Building;
+};

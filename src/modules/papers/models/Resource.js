@@ -1,48 +1,60 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
-    class Resource extends Model {}
+module.exports = (sequelize, DataTypes) => {
 
-    Resource.init({
-        description: {
-            allowNull: false,
-            type: DataTypes.STRING(100),
-        },
-    }, {
-        sequelize,
-        underscope: true,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: 'deleted_date',
-        paranoid: true,
-        modelName: 'resource',
+  class Resource extends Model {}
 
-        name: {
-            singular: 'resource',
-            plural: 'resources',
-        },
+  Resource.init({
+    description: {
+      allowNull: false,
+      type: DataTypes.STRING(100),
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'Resource',
+    tableName: 'resources',
+    name: {
+      singular: 'Resource',
+      plural: 'Resources',
+    },
+  });
+
+  Resource.associate = (models) => {
+
+    Resource.hasMany(models.UserInfo, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'resourceId',
+      as: 'userInfos',
     });
-    Resource.associate = function(models) {
-        Resource.hasMany(models.user_info, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'resource_id'
-        })
-        Resource.hasMany(models.term_paper, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'resource_id'
-        })
-        Resource.hasMany(models.graduation_paper, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'resource_id'
-        })
-        Resource.hasMany(models.practice, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'resource_id'
-        })
-    };
-    return Resource;
+
+    Resource.hasMany(models.TermPaper, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'resourceId',
+      as: 'termPapers',
+    });
+
+    Resource.hasMany(models.GraduationPaper, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'resourceId',
+      as: 'graduationPapers',
+    });
+
+    Resource.hasMany(models.Practice, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'resourceId',
+      as: 'practices',
+    });
+  };
+
+  return Resource;
 };

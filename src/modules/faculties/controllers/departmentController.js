@@ -1,5 +1,5 @@
 const DepartmentService = require('../services/DepartmentService');
-const helpers = require('../../../helpers');
+const { responseFormat } = require('../../../helpers');
 
 class DepartmentController {
 
@@ -17,7 +17,7 @@ class DepartmentController {
     res
       .status(201)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           department,
           "Department created successfully",
           201,
@@ -33,7 +33,7 @@ class DepartmentController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           departments,
           "Departments read successfully",
           200,
@@ -49,7 +49,7 @@ class DepartmentController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           department,
           "Department read successfully",
           200,
@@ -74,7 +74,7 @@ class DepartmentController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           department,
           "Department updated successfully",
           200,
@@ -90,7 +90,7 @@ class DepartmentController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           {},
           "Department deleted successfully",
           200,

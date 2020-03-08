@@ -1,6 +1,3 @@
-USE `sdo_db`;
-
-
 /* таблица аудитории */
 ALTER TABLE lecture_rooms
 
@@ -117,7 +114,7 @@ ALTER TABLE info_faculties
 
 						
 /* таблица группа */
-ALTER TABLE `groups`
+ALTER TABLE "groups"
 
 	ADD CONSTRAINT FK_groups_to_faculties FOREIGN KEY(faculty_id)
 		REFERENCES faculties(id)
@@ -140,7 +137,7 @@ ALTER TABLE `groups`
 ALTER TABLE subgroups
 
 	ADD CONSTRAINT FK_subgroups_to_groups FOREIGN KEY(group_id)
-		REFERENCES `groups`(id)
+		REFERENCES "groups"(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;
@@ -165,7 +162,7 @@ ALTER TABLE students_subgroups
 ALTER TABLE curators
 
 	ADD CONSTRAINT FK_curators_to_groups FOREIGN KEY(group_id)
-		REFERENCES `groups`(id)
+		REFERENCES "groups"(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
@@ -180,7 +177,7 @@ ALTER TABLE curators
 ALTER TABLE lessons
 
 	ADD CONSTRAINT FK_lessons_to_groups FOREIGN KEY(group_id)
-		REFERENCES `groups`(id)
+		REFERENCES "groups"(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 	
@@ -225,7 +222,7 @@ ALTER TABLE students
 		ON UPDATE RESTRICT,
 
 	ADD CONSTRAINT FK_students_to_groups FOREIGN KEY(group_id)
-		REFERENCES `groups`(id)
+		REFERENCES "groups"(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;

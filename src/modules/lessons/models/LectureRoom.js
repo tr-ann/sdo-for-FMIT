@@ -1,49 +1,66 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 
-    class LectureRoom extends Model {}
+  class LectureRoom extends Model {};
 
-    LectureRoom.init({
-        number: {
-            allowNull: false,
-            type: DataTypes.STRING(10),
-        },
-        seats_count: {
-            allowNull: false,
-            type: DataTypes.INTEGER,
-        },
-        room_type_id: DataTypes.INTEGER,
-        building_id: DataTypes.INTEGER,
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: "deleted_date",
-        paranoid: true,
-        modelName: 'lecture_room',
-    })
+  LectureRoom.init({
+    number: {
+      allowNull: false,
+      type: DataTypes.STRING(10),
+    },
+    seatsCount: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      field: 'seats_count',
+    },
+    roomTypeId: {
+      type: DataTypes.INTEGER,
+      field: 'room_type_id',
+    },
+    buildingId: {
+      type: DataTypes.INTEGER,
+      field: 'building_id',
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'LectureRoom',
+    tableName: 'lecture_rooms',
+    name: {
+      singular: 'LectureRoom',
+      plural: 'LectureRooms',
+    },
+  });
 
-    LectureRoom.associate = function(models) {
-        LectureRoom.belongsTo(models.room_type, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'room_type_id',
-            as: 'room_type',
-        })
-        LectureRoom.belongsTo(models.building, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'building_id',
-            as: 'building',
-        })
-        LectureRoom.hasMany(models.lesson, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'lecture_room_id',
-            as: 'lessons',
-        })
-    }
+  LectureRoom.associate = (models) => {
 
-    return LectureRoom
-}
+    LectureRoom.belongsTo(models.RoomType, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'roomTypeId',
+      as: 'roomType',
+    });
+
+    LectureRoom.belongsTo(models.Building, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'buildingId',
+      as: 'building',
+    });
+
+    LectureRoom.hasMany(models.Lesson, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'lectureRoomId',
+      as: 'lessons',
+    });
+  };
+
+  return LectureRoom;
+};

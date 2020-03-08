@@ -1,57 +1,81 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 
-    class Request extends Model {}
+  class Request extends Model {};
 
-    Request.init({
-        topic: {
-            allowNull: false,
-            type: DataTypes.STRING(50),
-        },
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING(90),
-        },
-        create_date: {
-            type: DataTypes.DATEONLY,
-            allowNull: false,
-            defaultValue: new Date(),
-        },
-        update_date: DataTypes.DATEONLY,
-        description: DataTypes.TEXT,
-        student_id: DataTypes.INTEGER,
-        teacher_id: DataTypes.INTEGER,
-        status_id: DataTypes.INTEGER,
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: "deleted_date",
-        paranoid: true,
-        modelName: 'request',
-    })
+  Request.init({
+    topic: {
+      allowNull: false,
+      type: DataTypes.STRING(50),
+    },
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING(90),
+    },
+    createDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      field: 'create_date',
+    },
+    updateDate: {
+      type: DataTypes.DATEONLY,
+      field: 'update_date',
+    },
+    description: {
+      type: DataTypes.TEXT,
+    },
+    studentId: {
+      type: DataTypes.INTEGER,
+      field: 'student_id',
+    },
+    teacherId: {
+      type: DataTypes.INTEGER,
+      field: 'teacher_id',
+    },
+    statusId: {
+      type: DataTypes.INTEGER,
+      field: 'status_id',
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'Request',
+    tableName: 'requests',
+    name: {
+      singular: 'Request',
+      plural: 'Requests',
+    },
+  });
+  
+  Request.associate = (models) => {
     
-    Request.associate = function(models) {
-        Request.belongsTo(models.student, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'student_id',
-            as: 'student',
-        })
-        Request.belongsTo(models.teacher, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'teacher_id',
-            as: 'teacher',
-        })
-        Request.belongsTo(models.status, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'status_id',
-            as: 'status',
-        })
-    }
+    Request.belongsTo(models.Student, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'studentId',
+      as: 'student',
+    });
 
-    return Request
-}
+    Request.belongsTo(models.Teacher, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'teacherId',
+      as: 'teacher',
+    });
+
+    Request.belongsTo(models.Status, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'statusId',
+      as: 'status',
+    });
+  };
+
+  return Request;
+};

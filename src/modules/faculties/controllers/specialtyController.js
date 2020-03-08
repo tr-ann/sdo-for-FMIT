@@ -1,5 +1,5 @@
 const SpecialtyService = require('../services/SpecialtyService');
-const helpers = require('../../../helpers');
+const { responseFormat } = require('../../../helpers');
 
 class SpecialtyController {
 
@@ -14,7 +14,7 @@ class SpecialtyController {
     res
       .status(201)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           specialty,
           "Specialty created successfully",
           201,
@@ -30,7 +30,7 @@ class SpecialtyController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           specialtys,
           "Specialtys read successfully",
           200,
@@ -46,7 +46,7 @@ class SpecialtyController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           specialty,
           "Specialty read successfully",
           200,
@@ -69,7 +69,7 @@ class SpecialtyController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           specialty,
           "Specialty updated successfully",
           200,
@@ -85,7 +85,7 @@ class SpecialtyController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           {},
           "Specialty deleted successfully",
           200,

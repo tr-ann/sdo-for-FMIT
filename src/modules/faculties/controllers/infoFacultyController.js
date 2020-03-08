@@ -1,5 +1,5 @@
 const InfoFacultyService = require('../services/InfoFacultyService');
-const helpers = require('../../../helpers');
+const { responseFormat } = require('../../../helpers');
 
 class InfoFacultyController {
 
@@ -14,7 +14,7 @@ class InfoFacultyController {
     res
       .status(201)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           infoFaculty,
           "InfoFaculty created successfully",
           201,
@@ -30,7 +30,7 @@ class InfoFacultyController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           infoFacultys,
           "InfoFacultys read successfully",
           200,
@@ -46,7 +46,7 @@ class InfoFacultyController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           infoFaculty,
           "InfoFaculty read successfully",
           200,
@@ -68,7 +68,7 @@ class InfoFacultyController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           infoFaculty,
           "InfoFaculty updated successfully",
           200,
@@ -84,7 +84,7 @@ class InfoFacultyController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           {},
           "InfoFaculty deleted successfully",
           200,

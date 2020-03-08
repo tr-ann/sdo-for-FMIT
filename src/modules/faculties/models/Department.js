@@ -1,66 +1,76 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
-    class Department extends Model {}
+module.exports = (sequelize, DataTypes) => {
 
-    Department.init({
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING(100),
-        },
-        faculty_id: {
-            allowNull: false,
-            type: DataTypes.INTEGER,
-        },
-        owner_id: {
-            allowNull: true,
-            type: DataTypes.INTEGER,
-        },
-        phone: {
-            allowNull: true,
-            type: DataTypes.STRING(30),
-        },
-        lecture_room_id: {
-            allowNull: true,
-            type: DataTypes.INTEGER,
-        },
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: 'deleted_date',
-        paranoid: true,
-        modelName: 'department',
-    })
-    
-    Department.associate = function(models) {
-        Department.belongsTo(models.user, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'owner_id',
-            as: "user"
-        })
-        Department.belongsTo(models.faculty, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'faculty_id',
-            as: "faculty"
-        })
-        Department.belongsTo(models.lecture_room, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'lecture_room_id',
-            as: "lecture_room"
-        })
+  class Department extends Model {};
 
-        Department.hasMany(models.teacher, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'department_id',
-            as: "teachers"
-        })
-    }
+  Department.init({
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING(100),
+    },
+    phone: {
+      type: DataTypes.STRING(30),
+    },
+    facultyId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      field: 'faculty_id',
+    },
+    ownerId: {
+      type: DataTypes.INTEGER,
+      field: 'owner_id',
+    },
+    lectureRoomId: {
+      type: DataTypes.INTEGER,
+      field: 'lecture_room_id',
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'Department',
+    tableName: 'departments',
+    name: {
+      singular: 'Department',
+      plural: 'Departments',
+    },
+  });
+  
+  Department.associate = (models) => {
 
-    return Department;
-};
-    
+    Department.belongsTo(models.User, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'ownerId',
+      as: "user",
+    });
+
+    Department.belongsTo(models.Faculty, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'facultyId',
+      as: "faculty",
+    });
+
+    Department.belongsTo(models.LectureRoom, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'lectureRoomId',
+      as: "lectureRoom",
+    });
+
+    Department.hasMany(models.Teacher, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'departmentId',
+      as: "teachers",
+    });
+  }
+
+  return Department;
+};  

@@ -1,58 +1,83 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 
-    class GraduationPaper extends Model {}
+  class GraduationPaper extends Model {};
 
-    GraduationPaper.init({
-        topic: {
-            allowNull: false,
-            type: DataTypes.STRING(50),
-        },
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING(90),
-        },
-        description: DataTypes.TEXT,
-        student_id: DataTypes.INTEGER,
-        teacher_id: DataTypes.INTEGER,
-        status_id: DataTypes.INTEGER,
-        resource_id: DataTypes.INTEGER,
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: "deleted_date",
-        paranoid: true,
-        modelName: 'graduation_paper',
-    })
-    
-    GraduationPaper.associate = function(models) {
-        GraduationPaper.belongsTo(models.student, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'student_id',
-            as: 'student',
-        })
-        GraduationPaper.belongsTo(models.teacher, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'teacher_id',
-            as: 'teacher',
-        })
-        GraduationPaper.belongsTo(models.status, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'status_id',
-            as: 'status',
-        })
-        GraduationPaper.belongsTo(models.resource, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'resource_id',
-            as: 'resource',
-        })
-    }
+  GraduationPaper.init({
+    topic: {
+      allowNull: false,
+      type: DataTypes.STRING(50),
+    },
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING(90),
+    },
+    description: {
+      type: DataTypes.TEXT,
+    },
+    studentId: {
+      type: DataTypes.INTEGER,
+      field: 'student_id',
+    },
+    teacherId: {
+      type: DataTypes.INTEGER,
+      field: 'teacher_id',
+    },
+    statusId: {
+      type: DataTypes.INTEGER,
+      field: 'status_id',
+    },
+    resourceId: {
+      type: DataTypes.INTEGER,
+      field: 'resource_id',
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'GraduationPaper',
+    tableName: 'graduation_papers',
+    name: {
+      singular: 'GraduationPaper',
+      plural: 'GraduationPapers',
+    },
+  });
+  
+  GraduationPaper.associate = (models) => {
 
-    return GraduationPaper
-}
+    GraduationPaper.belongsTo(models.Student, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'studentId',
+      as: 'student',
+    });
+
+    GraduationPaper.belongsTo(models.Teacher, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'teacherId',
+      as: 'teacher',
+    });
+
+    GraduationPaper.belongsTo(models.Status, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'statusId',
+      as: 'status',
+    });
+
+    GraduationPaper.belongsTo(models.Resource, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'resourceId',
+      as: 'resource',
+    });
+  };
+
+  return GraduationPaper;
+};

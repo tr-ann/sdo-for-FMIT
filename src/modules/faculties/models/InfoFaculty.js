@@ -1,33 +1,42 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
-    class InfoFaculty extends Model {}
+module.exports = (sequelize, DataTypes) => {
 
-    InfoFaculty.init({
-        description: {
-            allowNull: true,
-            type: DataTypes.TEXT,
-        },
-        phone_number: {
-            allowNull: false,
-            type: DataTypes.STRING(20),
-        },
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: 'deleted_date',
-        paranoid: true,
-        modelName: 'info_faculty',
-        tableName: 'info_faculties'
+  class InfoFaculty extends Model {}
+
+  InfoFaculty.init({
+    description: {
+      type: DataTypes.TEXT,
+    },
+    phoneNumber: {
+      allowNull: false,
+      type: DataTypes.STRING(20),
+      field: 'phone_number',
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'InfoFaculty',
+    tableName: 'info_faculties',
+    name: {
+      singular: 'InfoFaculty',
+      plural: 'InfoFaculties',
+    },
+  });
+
+  InfoFaculty.associate = (models) => {
+    InfoFaculty.belongsTo(models.Faculty, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'facultyId',
+      as: 'faculty',
     });
-    InfoFaculty.associate = function(models) {
-        InfoFaculty.belongsTo(models.faculty, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'faculty_id',
-            as: 'faculty'
-        })
-    };
-    return InfoFaculty;
+  };
+
+  return InfoFaculty;
 };

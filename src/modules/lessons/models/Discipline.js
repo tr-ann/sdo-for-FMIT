@@ -1,35 +1,43 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 
-    class Discipline extends Model {}
+  class Discipline extends Model {};
 
-    Discipline.init({
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING(100),
-        },
-        short_name: {
-            allowNull: false,
-            type: DataTypes.STRING(20),
-        },
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: "deleted_date",
-        paranoid: true,
-        modelName: 'discipline',
-    })
+  Discipline.init({
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING(100),
+    },
+    shortName: {
+      allowNull: false,
+      type: DataTypes.STRING(20),
+      field: 'short_name',
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'Discipline',
+    tableName: 'disciplines',
+    name: {
+      singular: 'Discipline',
+      plural: 'Disciplines',
+    },
+  });
 
-    Discipline.associate = function(models) {
-        Discipline.hasMany(models.lesson, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'discipline_id',
-            as: 'lessons',
-        })
-    }
+  Discipline.associate = (models) => {
+    Discipline.hasMany(models.Lesson, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'disciplineId',
+      as: 'lessons',
+    });
+  };
 
-    return Discipline
-}
+  return Discipline;
+};

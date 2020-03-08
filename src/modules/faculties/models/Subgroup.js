@@ -1,42 +1,50 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
-    class Subgroup extends Model {}
+module.exports = (sequelize, DataTypes) => {
 
-    Subgroup.init({
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING(20),
-        },
-        group_id: {
-            allowNull: true,
-            type: DataTypes.INTEGER,
-        },
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: 'deleted_date',
-        paranoid: true,
-        modelName: 'subgroup',
+  class Subgroup extends Model {};
 
-        name: {
-            singular: 'subgroup',
-            plural: 'subgroups',
-        },
+  Subgroup.init({
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING(20),
+    },
+    groupId: {
+      type: DataTypes.INTEGER,
+      field: 'group_id',
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'Subgroup',
+    tableName: 'subgroups',
+    name: {
+      singular: 'Subgroup',
+      plural: 'Subgroups',
+    },
+  });
+
+  Subgroup.associate = (models) => {
+
+    Subgroup.belongsTo(models.Group, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'groupId',
+      as: 'group',
     });
-    Subgroup.associate = function(models) {
-        Subgroup.belongsTo(models.group, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'group_id',
-            as: 'group',
-        })
-        Subgroup.hasMany(models.lesson, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'subgroup_id'
-        })
-    };
-    return Subgroup;
+
+    Subgroup.hasMany(models.Lesson, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'subgroupId',
+      as: 'lessons',
+    });
+  };
+
+  return Subgroup;
 };

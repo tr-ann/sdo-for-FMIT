@@ -1,5 +1,5 @@
 const StudyModeService = require('../services/StudyModeService');
-const helpers = require('../../../helpers');
+const { responseFormat } = require('../../../helpers');
 
 class StudyModeController {
 
@@ -12,7 +12,7 @@ class StudyModeController {
     res
       .status(201)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           studyMode,
           "StudyMode created successfully",
           201,
@@ -28,7 +28,7 @@ class StudyModeController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           studyModes,
           "StudyModes read successfully",
           200,
@@ -44,7 +44,7 @@ class StudyModeController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           studyMode,
           "StudyMode read successfully",
           200,
@@ -65,7 +65,7 @@ class StudyModeController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           studyMode,
           "StudyMode updated successfully",
           200,
@@ -81,7 +81,7 @@ class StudyModeController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           {},
           "StudyMode deleted successfully",
           200,

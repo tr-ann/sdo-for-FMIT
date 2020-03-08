@@ -1,5 +1,5 @@
 const SubgroupService = require('../services/SubgroupService');
-const helpers = require('../../../helpers');
+const { responseFormat } = require('../../../helpers');
 
 class SubgroupController {
 
@@ -13,7 +13,7 @@ class SubgroupController {
     res
       .status(201)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           subgroup,
           "Subgroup created successfully",
           201,
@@ -29,7 +29,7 @@ class SubgroupController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           subgroups,
           "Subgroups read successfully",
           200,
@@ -45,7 +45,7 @@ class SubgroupController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           subgroup,
           "Subgroup read successfully",
           200,
@@ -67,7 +67,7 @@ class SubgroupController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           subgroup,
           "Subgroup updated successfully",
           200,
@@ -83,7 +83,7 @@ class SubgroupController {
     res
       .status(200)
       .json(
-        helpers.ResponseFormat.build(
+        responseFormat.build(
           {},
           "Subgroup deleted successfully",
           200,

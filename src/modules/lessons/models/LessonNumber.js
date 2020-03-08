@@ -1,47 +1,58 @@
-import { Model } from 'sequelize'
+const { Model } = require('sequelize');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 
-    class LessonNumber extends Model {}
+  class LessonNumber extends Model {};
 
-    LessonNumber.init({
-        number: {
-            allowNull: false,
-            type: DataTypes.INTEGER,
-        },
-        start_time_1: {
-            allowNull: false,
-            type: DataTypes.TIME,
-        },
-        end_time_1: {
-            allowNull: false,
-            type: DataTypes.TIME,
-        },
-        start_time_2: {
-            allowNull: false,
-            type: DataTypes.TIME,
-        },
-        end_time_2: {
-            allowNull: false,
-            type: DataTypes.TIME,
-        },
-    }, {
-        sequelize,
-        createdAt: false,
-        updatedAt: false,
-        deletedAt: "deleted_date",
-        paranoid: true,
-        modelName: 'lesson_number',
-    })
+  LessonNumber.init({
+    number: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+    },
+    startTime1: {
+        allowNull: false,
+        type: DataTypes.TIME,
+        field: 'start_time_1',
+    },
+    endTime1: {
+        allowNull: false,
+        type: DataTypes.TIME,
+        field: 'end_time_1',
+    },
+    startTime2: {
+        allowNull: false,
+        type: DataTypes.TIME,
+        field: 'start_time_2',
+    },
+    endTime2: {
+        allowNull: false,
+        type: DataTypes.TIME,
+        field: 'end_time_2',
+    },
+  }, {
+    sequelize,
+    charset: 'UTF8',
+    engine: 'INNODB',
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_date',
+    modelName: 'LessonNumber',
+    tableName: 'lesson_numbers',
+    name: {
+      singular: 'LessonNumber',
+      plural: 'LessonNumbers',
+    },
+  });
 
-    LessonNumber.associate = function(models) {
-        LessonNumber.hasMany(models.lesson, {
-            onUpdate: 'restrict',
-            onDelete: 'restrict',
-            foreignKey: 'lesson_number_id',
-            as: 'lessons',
-        })
-    }
+  LessonNumber.associate = (models) => {
+    LessonNumber.hasMany(models.Lesson, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'lessonNumberId',
+      as: 'lessons',
+    });
+  };
 
-    return LessonNumber
-}
+  return LessonNumber;
+};
