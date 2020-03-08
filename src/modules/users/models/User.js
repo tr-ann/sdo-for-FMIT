@@ -16,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	}, {
 		sequelize,
+		charset: 'UTF8',
+		engine: 'INNODB',
 		createdAt: false,
 		updatedAt: false,
 		deletedAt: 'deleted_date',
