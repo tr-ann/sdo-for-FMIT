@@ -16,17 +16,19 @@ class AuthController {
 
           if (err) next(err);
 
-          res.status(200).json(
-            responseFormat.build(
-              {
-                id: user.id,
-                login: user.login,
-              },
-              info.message,
-              200,
-              "success"
-            )
-          );
+          res
+            .status(200)
+            .json(
+              responseFormat.build(
+                {
+                  id: user.id,
+                  login: user.login,
+                },
+                info.message,
+                200,
+                "success"
+              )
+            );
         });
       }
     )(req, res, next);
@@ -36,14 +38,16 @@ class AuthController {
 
     req.logout();
 
-    res.status(200).json(
-      responseFormat.build(
-        {},
-        'User logout successfully',
-        200,
-        'success'
-      )
-    );
+    res
+      .status(200)
+      .json(
+        responseFormat.build(
+          {},
+          'User logout successfully',
+          200,
+          'success'
+        )
+      );
   }
 }
 
