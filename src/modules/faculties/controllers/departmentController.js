@@ -13,7 +13,6 @@ class DepartmentController {
       lectureRoomId: req.body.lectureRoomId,
     });
     
-    
     res
       .status(201)
       .json(
