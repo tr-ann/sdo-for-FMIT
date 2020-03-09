@@ -27,10 +27,10 @@ module.exports = (sequelize, DataTypes) => {
 
 	Role.associate = (models) => {
 
-		Role.belongsToMany(models.Url, {
-			through: models.RoleUrl,
+		Role.belongsToMany(models.ControlPoint, {
+			through: models.RoleControlPoint,
 			foreignKey: 'roleId',
-			as: 'urls',
+			as: 'controlPoints',
 			onDelete: 'restrict',
 			onUpdate: 'restrict'
 		});

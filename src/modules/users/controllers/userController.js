@@ -2,11 +2,11 @@ const UserService = require('../services/UserService');
 const UserInfoService = require('../services/UserInfoService');
 const PhoneService = require('../services/PhoneService');
 const { responseFormat } = require('../../../helpers');
-const UserRoleService = require('../services/UserRoleService');
 
 class UserController {
 
 	async create(req, res, next) {
+
 		let user = await UserService.create({
 			login: req.body.login,
 			password: req.body.password,
@@ -29,7 +29,7 @@ class UserController {
 			sex: req.body.sex,
 		});
 
-		await UserRoleService.create({userId: user.id, roleId: 1});
+		await user.setRoles(req.body.roleIds);
 
 		res
 			.status(201)

@@ -7,12 +7,15 @@ const facultiesRouters = require('../modules/faculties/routers');
 const AuthController = require('../modules/auth/AuthController');
 const { tryCatch } = require('../helpers');
 const { isAuthenticated } = require('../passport');
+const hasAccess = require('../middleware/hasAccess');
 
 module.exports = (app) => {
 
   app.post('/login', tryCatch(AuthController.login));
   app.use(tryCatch(isAuthenticated));
   app.get('/logout', tryCatch(AuthController.logout));
+  
+  app.use(tryCatch(hasAccess));
 
   app.use('/users', usersRouters.UserRouter);
   app.use('/phones', usersRouters.PhoneRouter);

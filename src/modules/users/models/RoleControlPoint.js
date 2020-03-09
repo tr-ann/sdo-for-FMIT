@@ -2,18 +2,18 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 
-	class RoleUrl extends Model {};
+	class RoleControlPoint extends Model {};
 
-	RoleUrl.init({
+	RoleControlPoint.init({
 		roleId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
 			field: 'role_id'
 		},
-		urlId: {
+		controlPointId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
-			field: 'url_id'
+			field: 'control_point_id'
 		}
 	}, {
 		sequelize,
@@ -23,14 +23,13 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'RoleUrl',
-		tableName: 'roles_urls',
+		modelName: 'RoleControlPoint',
+		tableName: 'roles_control_points',
 		name: {
-		  singular: 'RoleUrl',
-		  plural: 'RolesUrls',
+		  singular: 'RoleControlPoint',
+		  plural: 'RolesControlPoints',
 		},
 	});
 
-	return RoleUrl;
-	
+	return RoleControlPoint;
 };

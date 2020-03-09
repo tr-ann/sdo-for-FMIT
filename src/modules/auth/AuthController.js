@@ -1,5 +1,5 @@
-const NotFound = require('../../classes/errors/4xx/NotFound');
-const responseFormat = require('../../helpers/responseFormat');
+const { NotFound } = require('../../classes/errors');
+const { responseFormat } = require('../../helpers');
 const { passport } = require('../../passport');
 
 class AuthController {

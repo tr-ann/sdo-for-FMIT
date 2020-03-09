@@ -1,15 +1,15 @@
 const db = require('../../../dbModels');
 
-class UrlRepository {
+class ControlPointRepository {
 
 	/**
 	 * This is a standard method to create an entity in a database
 	 * 
-	 * @param {Object} url - body of url that will be created
+	 * @param {Object} controlPoint - body of control point that will be created
 	 * @return {Promise} promise with result of create
 	 */
-	async create(url) {
-		return await db.Url.create(url);
+	async create(controlPoint) {
+		return await db.ControlPoint.create(controlPoint);
 	}
 
 	/**
@@ -18,8 +18,8 @@ class UrlRepository {
 	 * @return {Promise} promise with result of read
 	 */
 	async readAll() {
-		return await db.Url.findAll({
-			attributes: [ 'id', 'url'], 
+		return await db.ControlPoint.findAll({
+			attributes: [ 'id', 'url', 'method' ], 
 			include: [
 				{
 					model: db.Role,
@@ -33,15 +33,12 @@ class UrlRepository {
 	/**
 	 * This is a standard method to read an entity from a database
 	 * 
-	 * @param {Number} id - id of url that will be read
+	 * @param {Number} id - id of control point that will be read
 	 * @return {Promise} promise with result of create
 	 */
 	async readById(id) {
-		return await db.Url.findByPk(id, {
-			attributes: [
-				'id',
-				'url',
-			], 
+		return await db.ControlPoint.findByPk(id, {
+			attributes: [ 'id', 'url', 'method' ], 
 			include: [
 				{
 					model: db.Role,
@@ -55,12 +52,12 @@ class UrlRepository {
 	/**
 	 * This is a standard method to update an entity from a database
 	 * 
-	 * @param {Number} id - id of url that will be updated
-	 * @param {Object} url - body of url that will be updated
+	 * @param {Number} id - id of control point that will be updated
+	 * @param {Object} controlPoint - body of control point that will be updated
 	 * @return {Promise} promise with result of update
 	 */
-	async update(id, url) {
-		return await db.Url.Update(url, {where: {id: id}});
+	async update(id, controlPoint) {
+		return await db.ControlPoint.Update(controlPoint, {where: {id: id}});
 	}
 
 	 /**
@@ -70,7 +67,7 @@ class UrlRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.Url.destroy({where: {id: id}});
+		return await db.ControlPoint.destroy({where: {id: id}});
 	}
 
 	/**
@@ -80,8 +77,8 @@ class UrlRepository {
 	 * @return {Promise} promise with result of create
 	 */
 	async get(options) {        
-		return await db.Url.findAll(options);
+		return await db.ControlPoint.findAll(options);
 	}
 }
 
-module.exports = new UrlRepository();
+module.exports = new ControlPointRepository();
