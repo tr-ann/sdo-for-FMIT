@@ -4,6 +4,9 @@ module.exports.ERR_400_MESSAGE = "The request contains a syntax error";
 module.exports.ERR_401_NAME = "Unauthorized";
 module.exports.ERR_401_MESSAGE = "To access the requested resource requires authentication";
 
+module.exports.ERR_403_NAME = "Forbidden";
+module.exports.ERR_403_MESSAGE = "Client access to the requested URL is denied for some reason";
+
 module.exports.ERR_404_NAME = "NotFound";
 module.exports.ERR_404_MESSAGE = "The resource is not found";
 

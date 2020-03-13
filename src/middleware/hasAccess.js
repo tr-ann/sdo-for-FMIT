@@ -1,5 +1,5 @@
 const UserService = require('../modules/users/services/UserService');
-const { BadRequest } = require('../classes/errors');
+const { Forbidden } = require('../classes/errors');
 
 const hasAccess = async (req, res, next) => {
 
@@ -26,6 +26,6 @@ module.exports = async (req, res, next) => {
     next();
   }
   else {
-    next(new BadRequest("Access denied"));
+    next(new Forbidden("Access denied"));
   }
 };

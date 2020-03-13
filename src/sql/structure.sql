@@ -125,8 +125,8 @@ CREATE TABLE "phones" (
 /* Таблица "ресурс" */
 DROP TABLE IF EXISTS "resources";
 CREATE TABLE "resources" (
-    "id"                    SERIAL      PRIMARY KEY,
-    "description"           TEXT        NOT NULL,
+    "id"                    SERIAL          PRIMARY KEY,
+    "description"           TEXT            ,
     "deleted_date"          TIMESTAMP
 );
 
@@ -260,34 +260,6 @@ CREATE TABLE "students" (
     "deleted_date"          TIMESTAMP
 );
 
--- /* Таблица "результат экзамена" */
--- DROP TABLE IF EXISTS "exam_result";
--- CREATE TABLE "exam_result" (
---     "student_id"            INTEGER         REFERENCES "student",
---     "discipline_id"         INTEGER    REFERENCES "discipline",
---     "semester"              INTEGER    NOT NULL CHECK ("semester" > 0 AND "semester" < 11),
---     "exam_score"            INTEGER    NOT NULL CHECK ("exam_score" > 0 AND "exam_score" < 11),
---     UNIQUE("student_id", "discipline_id", "semester")
--- );
-
--- /* Таблица "зачет" */
--- DROP TABLE IF EXISTS "credit";
--- CREATE TABLE "credit" (
---     "student_id"            INTEGER    REFERENCES "student",
---     "discipline_id"         INTEGER    REFERENCES "discipline",
---     "semester"              INTEGER    NOT NULL CHECK ("semester" > 0 AND "semester" < 11),
---     "credit"                BOOL        NOT NULL,
---     UNIQUE("student_id", "discipline_id", "semester")
--- );
-
-/******************************************************************************\
-|****** Далее идет часть БД связанная с курсовыми и дипломными работами, ******|
-|****** а также практикой студентов. Т.к. я не разбираюсь, какая может   ******|
-|****** понадобиться в этих таблицах информация, то просто возьму за ос- ******|
-|****** нову те таблицы, что у нас уже есть и совмещу это таблицами, что ******|
-|****** найдены в интернете в рамках других курсовых работ.              ******|
-\******************************************************************************/
-
 /* Таблица "статус" */
 DROP TABLE IF EXISTS "statuses";
 CREATE TABLE "statuses" (
@@ -365,22 +337,24 @@ CREATE TABLE "practices" (
     "topic"                 VARCHAR(50) NOT NULL,
     "name"                  VARCHAR(90) NOT NULL,
     "description"           TEXT        ,
-    "start_date"            TIMESTAMP    NOT NULL,
-    "end_date"              TIMESTAMP    NOT NULL,
-    "resource_id"           INTEGER     ,
+    "start_date"            TIMESTAMP   NOT NULL,
+    "end_date"              TIMESTAMP   NOT NULL,
     "practice_type_id"      INTEGER     ,
     "deleted_date"          TIMESTAMP
 );
 
-DROP TABLE IF EXISTS "urls";
-CREATE TABLE "urls" (
+DROP TABLE IF EXISTS "control_points";
+CREATE TABLE "control_points" (
     "id"             SERIAL         PRIMARY KEY,
-    "url"            VARCHAR(248)   
+    "url"            VARCHAR(2048)  NOT NULL,
+    "method"         VARCHAR(20)    NOT NULL,
+    "deleted_date"   TIMESTAMP
 );
 
-DROP TABLE IF EXISTS "roles_urls";
-CREATE TABLE "roles_urls" (
-    "id"            SERIAL  PRIMARY KEY,
-    "role_id"       INTEGER ,
-    "url_id"        INTEGER                      
+DROP TABLE IF EXISTS "roles_control_points";
+CREATE TABLE "roles_control_points" (
+    "id"                SERIAL      PRIMARY KEY,
+    "role_id"           INTEGER     ,
+    "control_point_id"  INTEGER     ,
+    "deleted_date"      TIMESTAMP               
 );

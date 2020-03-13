@@ -1,5 +1,6 @@
 module.exports.BadRequest = require('./4xx/BadRequest');
 module.exports.Conflict = require('./4xx/Conflict');
+module.exports.Forbidden = require('./4xx/Forbidden');
 module.exports.Gone = require('./4xx/Gone');
 module.exports.NotFound = require('./4xx/NotFound');
 module.exports.RetryWith = require('./4xx/RetryWith');
