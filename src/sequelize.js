@@ -7,6 +7,12 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
   host: config.host,
   dialect: config.dialect,
   logging: false,
+  pool: {
+    max: 100,
+    min: 0,
+    idle: 10000,
+    acquire: 30000,
+  },
 });
 
 const connect = async () => {
