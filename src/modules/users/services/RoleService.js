@@ -1,9 +1,15 @@
 const RoleRepository = require('../repositories/RoleRepository');
-const { NotFound } = require('../../../classes/errors');
+const { NotFound, BadRequest } = require('../../../classes/errors');
 
 class RoleService {
 
 	async create(role) {
+		let existingRole = await RoleRepository.get({ where: { name: role.name }});
+
+		if (existingRole[0]) {
+			throw new BadRequest('Such role already exists');
+		}
+
 		return await RoleRepository.create(role);
 	}
 
@@ -19,7 +25,7 @@ class RoleService {
 			throw new NotFound('Role not found');
 		}
 
-		return role
+		return role;
 	}
 
 	async update(id, role) {
@@ -30,7 +36,13 @@ class RoleService {
 			throw new NotFound('Role not found');
 		}
 
-		return await RoleRepository.update(id, role);
+		let updatedRole = await RoleRepository.get({ where: { name: role.name }});
+
+		if (updatedRole[0]) {
+			throw new BadRequest('Such role already exists');
+		}
+
+		return await oldRole.update(role);
 	}
 
 	async destroy(id) {

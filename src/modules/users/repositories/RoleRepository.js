@@ -32,6 +32,7 @@ class RoleRepository {
 	async readAll() {
 		return await db.Role.findAll({
 			attributes: [ 'id', 'name' ],
+			order: [ [ 'id' ] ]
 		});
 	}
 

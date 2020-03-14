@@ -4,7 +4,8 @@ const { responseFormat } = require('../../../helpers');
 class AcademicDegreeController {
 
 	async create(req, res, next) {
-		const academicDegree = await AcademicDegreeService.create({
+
+		let academicDegree = await AcademicDegreeService.create({
 			name: req.body.name
 		});
 		
@@ -12,7 +13,7 @@ class AcademicDegreeController {
 			.status(201)
 			.json(
 				responseFormat.build(
-					academicDegree, 
+					{ id: academicDegree.id }, 
 					"Academic degree created successfully", 
 					201, 
 					"success"
@@ -21,6 +22,7 @@ class AcademicDegreeController {
 	}
 
 	async readAll(req, res, next) {
+
 		let academicDegrees = await AcademicDegreeService.readAll();
 
 		res
@@ -36,7 +38,8 @@ class AcademicDegreeController {
 	}
 
 	async readById(req, res, next) {
-		let academicDegree = AcademicDegreeService.findById(req.params.id);
+
+		let academicDegree = await AcademicDegreeService.findById(req.params.id);
 		
 		res
 			.status(200)
@@ -51,6 +54,7 @@ class AcademicDegreeController {
 	}
 	
 	async update(req, res, next) {
+
 		let academicDegree = await AcademicDegreeService.update(req.params.id, {
 			name: req.body.name
 		});
@@ -68,7 +72,7 @@ class AcademicDegreeController {
 	}
 	
 	async destroy (req, res, next) {
-		await AcademicDegreeService.delete(req.params.id);
+		await AcademicDegreeService.destroy(req.params.id);
 
 		res
 			.status(200)

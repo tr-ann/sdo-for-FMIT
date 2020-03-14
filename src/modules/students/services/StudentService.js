@@ -4,7 +4,13 @@ const { NotFound } = require('../../../classes/errors');
 class StudentService {
 
 	async create(student) {
+
 		return await StudentRepository.create(student);
+	}
+
+	async readAll(pagination = { limit: process.env.limit, offset: 1 }) {
+
+		return await StudentRepository.readAll(pagination);
 	}
 
 	async findById(id) {
@@ -37,7 +43,12 @@ class StudentService {
 			throw new NotFound(`Student not found`);
 		}
 
-		await StudentRepository.destroy(id);
+		return await StudentRepository.destroy(id);
+	}
+
+	async get(options) {
+		
+		return await StudentRepository.get(options);
 	}
 }
 

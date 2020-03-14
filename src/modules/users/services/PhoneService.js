@@ -3,8 +3,8 @@ const { NotFound } = require('../../../classes/errors');
 
 class PhoneService {
 
-	async create(phone) {
-		return await PhoneRepository.create(phone);
+	async create(phone, options) {
+		return await PhoneRepository.create(phone, options);
 	}
 
 	async findById(id) {

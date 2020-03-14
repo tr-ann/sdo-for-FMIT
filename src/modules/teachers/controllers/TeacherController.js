@@ -4,19 +4,20 @@ const { ResponseFormat } = require('../../../helpers');
 class TeacherController {
 
 	async create(req, res, next) {
+
 		let teacher = await TeacherService.create({
-			userId:            req.body.userId,
-			departmentId:      req.body.departmentId,
-			positionId:        req.body.positionId,
+			userId: req.body.userId,
+			departmentId: req.body.departmentId,
+			positionId: req.body.positionId,
 			academicDegreeId: req.body.academicDegreeId,
-			academicRankId:   req.body.academicRankId,
+			academicRankId: req.body.academicRankId,
 		});
 		
 		res
 			.status(201)
 			.json(
 				ResponseFormat.build(
-					teacher,
+					{ id: teacher.id },
 					"Teacher created successfully",
 					201,
 					"success"
@@ -40,7 +41,8 @@ class TeacherController {
 	}
 
 	async readById(req, res, next) {
-		let teacher = TeacherService.findById(req.params.id);
+
+		let teacher = await TeacherService.findById(req.params.id);
 
 		res
 			.status(200)
@@ -56,12 +58,12 @@ class TeacherController {
 	
 	async update(req, res, next) {
 		let teacher = await TeacherService.update(req.params.id, {
-			fullName:          req.body.fullName,
-			shortName:         req.body.shortName,
-			departmentId:      req.body.departmentId,
-			positionId:        req.body.positionId,
+			fullName: req.body.fullName,
+			shortName: req.body.shortName,
+			departmentId: req.body.departmentId,
+			positionId: req.body.positionId,
 			academicDegreeId: req.body.academicDegreeId,
-			academicRankId:   req.body.academicRankId,
+			academicRankId: req.body.academicRankId,
 		});
 
 		res
@@ -77,7 +79,7 @@ class TeacherController {
 	}
 	
 	async destroy (req, res, next) {
-		await TeacherService.delete(req.params.id);
+		await TeacherService.destroy(req.params.id);
 
 		res
 			.status(200)

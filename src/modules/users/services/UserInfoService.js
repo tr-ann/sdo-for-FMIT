@@ -3,11 +3,13 @@ const { NotFound } = require('../../../classes/errors');
 
 class UserInfoService {
 
-	async create(userInfo) {
-		return await UserInfoRepository.create(userInfo);
+	async create(userInfo, options) {
+
+		return await UserInfoRepository.create(userInfo, options);
 	}
 
 	async readAll() {
+		
 		return await UserInfoRepository.readAll();
 	}
 
@@ -22,15 +24,15 @@ class UserInfoService {
 		return userInfo;
 	}
 
-	async update(id, userInfo) {
+	async update(userId, userInfo) {
 
-		let oldUserInfo = await UserInfoRepository.readById(id);
+		let oldUserInfo = await UserInfoRepository.readById({ where: { userId: userId }});
 		
 		if (!oldUserInfo) {
 			throw new NotFound('User info not found');
 		}
 
-		return await UserInfoRepository.update(id, userInfo);
+		return await UserInfoRepository.update(oldUserInfo.id, userInfo);
 	}
 
 	async destroy(id) {

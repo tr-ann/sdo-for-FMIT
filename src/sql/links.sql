@@ -43,7 +43,7 @@ ALTER TABLE users_roles
 	
 	ADD CONSTRAINT FK_users_roles_to_users FOREIGN KEY(user_id)
 		REFERENCES users(id)
-		ON DELETE RESTRICT
+		ON DELETE CASCADE
 		ON UPDATE RESTRICT
 ;
 
@@ -86,11 +86,6 @@ ALTER TABLE teachers
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
-	ADD CONSTRAINT FK_teachers_to_positions FOREIGN KEY(position_id)
-		REFERENCES positions(id)
-		ON DELETE RESTRICT
-		ON UPDATE RESTRICT,
-
     ADD CONSTRAINT FK_teachers_to_academic_degrees FOREIGN KEY(academic_degree_id)
 		REFERENCES academic_degrees(id)
 		ON DELETE RESTRICT
@@ -98,6 +93,21 @@ ALTER TABLE teachers
 
 	ADD CONSTRAINT FK_teachers_to_academic_ranks FOREIGN KEY(academic_rank_id)
 		REFERENCES academic_ranks(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT
+;
+
+
+/* таблица должности преподавателей */
+ALTER TABLE teachers_positions
+
+	ADD CONSTRAINT FK_teachers_positions_to_teachers FOREIGN KEY(teacher_id)
+		REFERENCES teachers(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+
+	ADD CONSTRAINT FK_teachers_positions_to_positions FOREIGN KEY(position_id)
+		REFERENCES positions(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;
@@ -114,7 +124,7 @@ ALTER TABLE info_faculties
 
 						
 /* таблица группа */
-ALTER TABLE "groups"
+ALTER TABLE groups
 
 	ADD CONSTRAINT FK_groups_to_faculties FOREIGN KEY(faculty_id)
 		REFERENCES faculties(id)

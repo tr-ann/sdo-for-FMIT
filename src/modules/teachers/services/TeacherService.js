@@ -4,7 +4,13 @@ const { NotFound } = require('../../../classes/errors');
 class TeacherService {
 
 	async create(teacher) {
+		
 		return await TeacherRepository.create(teacher);
+	}
+
+	async readAll(pagination = { limit: process.env.limit, offset: 1 }) {
+		
+		return await TeacherRepository.readAll(pagination);
 	}
 
 	async findById(id) {

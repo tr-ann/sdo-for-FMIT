@@ -20,7 +20,40 @@ class TeacherRepository {
 	 */
 	async readById(id) {        
 		return await db.Teacher.findByPk(id, {
-			attributes: [ 'id', 'fullName' ],
+			attributes: [ 'id', 'fullName', 'shortName', 'userId' ],
+			include: [
+				{
+					model: db.User,
+					attributes: [ 'login' ],
+					include: [{
+						model: db.UserInfo,
+						attributes: [ 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+						as: 'userInfo'
+						/*resourceId*/
+					}],
+					as: 'user'
+				},
+				{
+					model: db.Department,
+					attributes: [ 'name', 'phone' ],
+					as: 'phones'
+				},
+				{
+					model: db.AcademicDegree,
+					attributes: [ 'name' ],
+					as: 'academicDegree'
+				},
+				{
+					model: db.AcademicRank,
+					attributes: [ 'name' ],
+					as: 'academicRank'
+				},
+				{
+					model: db.Position,
+					attributes: [ 'name' ],
+					as: 'positions'
+				}
+			]
 		});
 	}
 
@@ -31,7 +64,42 @@ class TeacherRepository {
 	 */
 	async readAll() {
 		return await db.Teacher.findAll({
-			attributes: [ 'id', 'fullName' ],
+			attributes: [ 'id', 'fullName', 'shortName', 'userId' ],
+			include: [
+				{
+					model: db.User,
+					attributes: [ 'login' ],
+					include: [{
+						model: db.UserInfo,
+						attributes: [ 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+						as: 'userInfo'
+						/*resourceId*/
+					}],
+					as: 'user'
+				},
+				{
+					model: db.Department,
+					attributes: [ 'name', 'phone' ],
+					as: 'phones'
+				},
+				{
+					model: db.AcademicDegree,
+					attributes: [ 'name' ],
+					as: 'academicDegree'
+				},
+				{
+					model: db.AcademicRank,
+					attributes: [ 'name' ],
+					as: 'academicRank'
+				},
+				{
+					model: db.Position,
+					attributes: [ 'name' ],
+					as: 'positions'
+				}
+			],
+			limit: pagination.limit,
+			offset: pagination.offset
 		});
 	}
 
@@ -62,18 +130,8 @@ class TeacherRepository {
 	 * @param {Object} options - description to read entities
 	 * @return {Promise} promise with result of create
 	 */
-	async getAll(options) {
+	async get(options) {
 		return await db.Teacher.findAll(options);
-	}
-
-	/**
-	 * Reads entity by description from a database
-	 * 
-	 * @param {Object} options - description to read entity
-	 * @return {Promise} promise with result of create
-	 */
-	async get(options) {        
-		return await db.Teacher.findOne(options);
 	}
 }
 

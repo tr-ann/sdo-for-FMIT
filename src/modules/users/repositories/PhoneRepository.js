@@ -8,8 +8,8 @@ class PhoneRepository {
 	 * @param {Object} phone - body of phone that will be created
 	 * @return {Promise} promise with result of create
 	 */
-	async create(phone) {
-		return await db.Phone.create(phone);
+	async create(phone, options) {
+		return await db.Phone.create(phone, options);
 	}
 
 	/**

@@ -2,19 +2,18 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 
-	class UserRole extends Model {};
-
-	UserRole.init({
-		userId: {
+	class TeacherPosition extends Model {};
+	
+	TeacherPosition.init({
+		teacherId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
-			field: 'user_id'
+			field: 'teacher_id'
 		},
-		roleId: {
+		positionId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
-			field: 'role_id',
-			defaultValue: 2
+			field: 'position_id'
 		}
 	}, {
 		sequelize,
@@ -24,14 +23,14 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: false,
 		deletedAt: 'deleted_date',
 		paranoid: true,
-		modelName: 'UserRole',
-		tableName: 'users_roles',
+		modelName: 'TeacherPosition',
+		tableName: 'teachers_positions',
 		name: {
-		  singular: 'UserRole',
-		  plural: 'UsersRoles',
+		  singular: 'TeacherPosition',
+		  plural: 'TeacherPositions',
 		},
 	});
 	
-	return UserRole;
+	return TeacherPosition;
 	
 };

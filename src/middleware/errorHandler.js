@@ -13,6 +13,7 @@ module.exports = (err, req, res, next) => {
     case errorsInfo.ERR_449_NAME:
     case errorsInfo.ERR_500_NAME:
     case errorsInfo.ERR_501_NAME:
+      console.log(err.name,  err.message, err.stack);
       res.status(err.status).json(
         responseFormat.error(
           {

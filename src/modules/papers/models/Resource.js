@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     Resource.hasMany(models.UserInfo, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
-      foreignKey: 'resourceId',
+      foreignKey: 'photoId',
       as: 'userInfos',
     });
 

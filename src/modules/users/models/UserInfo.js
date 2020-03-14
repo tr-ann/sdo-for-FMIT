@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 			primaryKey: true,
 		},
 		userId: {
-			allowNull: true,
+			allowNull: false,
 			type: DataTypes.INTEGER,
 			field: 'user_id'
 		},
@@ -23,9 +23,6 @@ module.exports = (sequelize, DataTypes) => {
 		email: {
 			allowNull: false,
 			type: DataTypes.STRING(255),
-			validate: {
-				isEmail: true,
-			}
 		},
 		sex: {
 			allowNull: false,
@@ -47,10 +44,10 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: true,
 			type: DataTypes.STRING(255),
 		},
-		resourceId: {
+		photoId: {
 			allowNull: true,
 			type: DataTypes.INTEGER,
-			field: 'resource_id'
+			field: 'photo_id'
 		}
 	}, {
 		sequelize,
@@ -78,8 +75,8 @@ module.exports = (sequelize, DataTypes) => {
 		});
 
 		UserInfo.belongsTo(models.Resource, {
-			foreignKey: 'resourceId',
-			as: 'resource',
+			foreignKey: 'photoId',
+			as: 'photo',
 			onDelete: 'set null',
 			onUpdate: 'cascade'
 		});

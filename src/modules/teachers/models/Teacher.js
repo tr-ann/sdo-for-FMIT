@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
 		userId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
-			field: 'user_id'
+			field: 'user_id',
+			defaultValue: 0
 		},
 		fullName: {
 			allowNull: false,
@@ -34,11 +35,6 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 			type: DataTypes.INTEGER,
 			field: 'academic_rank_id'
-		},
-		positionId: {
-			allowNull: false,
-			type: DataTypes.INTEGER,
-			field: 'position_id'
 		}
 	}, {
 		sequelize,
@@ -60,44 +56,45 @@ module.exports = (sequelize, DataTypes) => {
 
 		Teacher.belongsToMany(models.Group, {
 			through: models.Curator,
-			foreignKey: 'teacher_id',
+			foreignKey: 'teacherId',
 			as: 'group',
-			onDelete: 'cascade',
+			onDelete: 'restrict',
 			onUpdate: 'cascade'
 		});
 
 		Teacher.belongsTo(models.User, {
 			foreignKey: 'userId',
 			as: 'user',
-			onDelete: 'cascade',
+			onDelete: 'set default',
 			onUpdate: 'cascade'
 		});
 
 		Teacher.belongsTo(models.Department, {
 			foreignKey: 'departmentId',
 			as: 'department',
-			onDelete: 'set null',
+			onDelete: 'restrict',
 			onUpdate: 'cascade'
 		});
 
-		Teacher.belongsTo(models.Position, {
-			foreignKey: 'positionId',
-			as: 'position',
-			onDelete: 'set null',
-			onUpdate: 'cascade'
+		Teacher.belongsToMany(models.Position, {
+			through: models.TeacherPosition,
+			foreignKey: 'teacherId',
+			as: 'positions',
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
 		});
 
 		Teacher.belongsTo(models.AcademicRank, {
 			foreignKey: 'academicRankId',
 			as: 'academicRank',
-			onDelete: 'set null',
+			onDelete: 'restrict',
 			onUpdate: 'cascade'
 		});
 
 		Teacher.belongsTo(models.AcademicDegree, {
 			foreignKey: 'academicDegreeId',
 			as: 'academicDegree',
-			onDelete: 'set null',
+			onDelete: 'restrict',
 			onUpdate: 'cascade'
 		});
 

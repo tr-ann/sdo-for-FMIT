@@ -36,7 +36,7 @@ class RoleController {
 	}
 
 	async readById(req, res, next) {
-		let role = RoleService.findById(req.params.id);
+		let role = await RoleService.readById(req.params.id);
 
 		res
 			.status(200)

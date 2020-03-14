@@ -8,14 +8,14 @@ class UserInfoRepository {
 	 * @param {Object} userInfo - body of userInfo that will be created
 	 * @return {Promise} promise with result of create
 	 */
-	async create(userInfo) {
-		return await db.UserInfo.create(userInfo);
+	async create(userInfo, options) {
+		return await db.UserInfo.create(userInfo, options);
 	}
 
 	/**
 	 * Read an entity from a database
 	 * 
-	 * @param {Number} userId - id of user whos info will be read
+	 * @param {Number} userId - id of user who's info will be read
 	 * @return {Promise} promise with result of create
 	 */
 	async readById(userId) {        
