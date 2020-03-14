@@ -99,7 +99,7 @@ ALTER TABLE teachers
 
 
 /* таблица должности преподавателей */
-ALTER TABLE teachers_positions
+ALTER TABLE "teachers_positions"
 
 	ADD CONSTRAINT FK_teachers_positions_to_teachers FOREIGN KEY(teacher_id)
 		REFERENCES teachers(id)
@@ -339,15 +339,15 @@ ALTER TABLE practices
 
 
 /* таблица roles_urls */
-ALTER TABLE roles_urls
+ALTER TABLE roles_control_points
 
-	ADD CONSTRAINT FK_roles_urls_to_roles FOREIGN KEY(role_id)
+	ADD CONSTRAINT FK_roles_control_points_to_roles FOREIGN KEY(role_id)
 		REFERENCES roles(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
-	ADD CONSTRAINT FK_roles_urls_to_urls FOREIGN KEY(url_id)
-		REFERENCES urls(id)
+	ADD CONSTRAINT FK_roles_control_points_to_control_points FOREIGN KEY(control_point_id)
+		REFERENCES control_points(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;

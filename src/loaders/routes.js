@@ -18,7 +18,6 @@ module.exports = (app) => {
   //app.use(tryCatch(hasAccess));
 
   app.use('/users', usersRouters.UserRouter);
-  app.use('/phones', usersRouters.PhoneRouter);
   app.use('/roles', usersRouters.RoleRouter);
   app.use('/urls', usersRouters.UrlRouter);
   

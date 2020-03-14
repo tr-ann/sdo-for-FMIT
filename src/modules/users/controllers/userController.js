@@ -23,7 +23,7 @@ class UserController {
 					as: 'phones'
 				}]
 			});
-			
+
 			let userInfo = await UserInfoService.create({
 				userId: user.id,
 				fullName: req.body.fullName,
@@ -114,32 +114,7 @@ class UserController {
 				]
 			}
 		);
-
-		/*await PhoneService.update({
-			userId: user.id, 
-			phone: req.body.phone
-		})*/
-
-		/*await user.setUserInfo({
-			fullName: req.body.fullName,
-			email: req.body.email,
-			birthday: req.body.birthday,
-			sex: req.body.sex,
-			description: req.body.description,
-			city: req.body.city,
-			address: req.body.address
-		})*/
-
-		/*await UserInfoService.update(user.id, {
-			fullName: req.body.fullName,
-			email: req.body.email,
-			birthday: req.body.birthday,
-			sex: req.body.sex,
-			description: req.body.description,
-			city: req.body.city,
-			address: req.body.address
-		});*/
-
+		
 		res
 			.status(200)
 			.json(

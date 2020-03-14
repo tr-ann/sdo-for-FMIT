@@ -159,10 +159,18 @@ CREATE TABLE "teachers" (
     "full_name"             VARCHAR(150)    NOT NULL,
     "short_name"            VARCHAR(50)     NOT NULL,
     "department_id"         INTEGER         ,
-    "position_id"           INTEGER         ,
     "academic_degree_id"    INTEGER         ,
     "academic_rank_id"      INTEGER         ,
     "deleted_date"          TIMESTAMP    
+);
+
+/* Таблица "должности преподавателей" */
+DROP TABLE IF EXISTS "teachers_positions";
+CREATE TABLE "teachers_positions" (
+    "id"                    SERIAL          PRIMARY KEY,
+    "teacher_id"            INTEGER         NOT NULL,
+    "position_id"           INTEGER         NOT NULL,
+    "deleted_date"          TIMESTAMP
 );
 
 /* Таблица "факультет" */

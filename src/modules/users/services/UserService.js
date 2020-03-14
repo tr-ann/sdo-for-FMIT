@@ -1,7 +1,6 @@
 const UserRepository = require('../repositories/UserRepository');
 const { NotFound, BadRequest } = require('../../../classes/errors');
-
-const UserInfoRepository = require('../repositories/UserInfoRepository');
+const { sequelize } = require('../../../sequelize');
 const Hash = require('../../../classes/Hash');
 
 class UserService {
@@ -68,15 +67,20 @@ class UserService {
       throw new NotFound('User not found');
     }
 
-    let phones = await user.getPhones();
-    for (let phone of phones) {
-      phone.destroy();
-    }
+    return await sequelize.transaction( async (transaction) => {
+
+      let phones = await user.getPhones();
+
+      for (let phone of phones) {
+        phone.destroy({ transaction: transaction });
+      }
+      
+      let userInfo = await user.getUserInfo();
+      await userInfo.destroy({ transaction: transaction });
+      
+      return await user.destroy({ transaction: transaction });
+    });
     
-    let userInfo = await user.getUserInfo();
-    await userInfo.destroy();
-    
-    return await user.destroy();
   }
 
   async get(options) {        

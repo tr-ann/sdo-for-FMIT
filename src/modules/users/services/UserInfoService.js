@@ -8,11 +8,6 @@ class UserInfoService {
 		return await UserInfoRepository.create(userInfo, options);
 	}
 
-	async readAll() {
-		
-		return await UserInfoRepository.readAll();
-	}
-
 	async readById(id) {
 
 		let userInfo = await UserInfoRepository.readById(id);
