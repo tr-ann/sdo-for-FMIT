@@ -264,12 +264,12 @@ ALTER TABLE term_papers
 	ADD CONSTRAINT FK_term_papers_to_statuses FOREIGN KEY(status_id)
 		REFERENCES statuses(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT,
+		ON UPDATE RESTRICT/*,
 
 	ADD CONSTRAINT FK_term_papers_to_resources FOREIGN KEY(resource_id)
 		REFERENCES resources(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT
+		ON UPDATE RESTRICT*/
 ;
 
 			
@@ -289,12 +289,12 @@ ALTER TABLE graduation_papers
 	ADD CONSTRAINT FK_graduation_papers_to_statuses FOREIGN KEY(status_id)
 		REFERENCES statuses(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT,
+		ON UPDATE RESTRICT/*,
 
 	ADD CONSTRAINT FK_graduation_papers_to_resources FOREIGN KEY(resource_id)
 		REFERENCES resources(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT
+		ON UPDATE RESTRICT*/
 ;
 
 			
@@ -316,10 +316,10 @@ ALTER TABLE practices
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
-	ADD CONSTRAINT FK_practices_to_resources FOREIGN KEY(resource_id)
+	/*ADD CONSTRAINT FK_practices_to_resources FOREIGN KEY(resource_id)
 		REFERENCES resources(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT,
+		ON UPDATE RESTRICT,*/
 
 	ADD CONSTRAINT FK_practices_to_practice_types FOREIGN KEY(practice_type_id)
 		REFERENCES practice_types(id)
@@ -328,16 +328,16 @@ ALTER TABLE practices
 ;
 
 
-/* таблица roles_urls */
-ALTER TABLE roles_urls
+/* таблица roles_control_points */
+ALTER TABLE roles_control_points
 
-	ADD CONSTRAINT FK_roles_urls_to_roles FOREIGN KEY(role_id)
+	ADD CONSTRAINT FK_roles_control_points_to_roles FOREIGN KEY(role_id)
 		REFERENCES roles(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
-	ADD CONSTRAINT FK_roles_urls_to_urls FOREIGN KEY(url_id)
-		REFERENCES urls(id)
+	ADD CONSTRAINT FK_roles_control_points_to_urls FOREIGN KEY(control_point_id)
+		REFERENCES control_points(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;

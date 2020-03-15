@@ -10,7 +10,7 @@ CREATE TABLE "disciplines" (
 DROP TABLE IF EXISTS "lesson_numbers";
 CREATE TABLE "lesson_numbers" (
     "id"                    SERIAL      PRIMARY KEY,
-    "number"                INTEGER     NOT NULL UNIQUE,
+    "number"                INTEGER     NOT NULL /* UNIQUE */,
     "start_time_1"          TIME        NOT NULL,
     "end_time_1"            TIME        NOT NULL,
     "start_time_2"          TIME        NOT NULL,
@@ -22,14 +22,15 @@ CREATE TABLE "lesson_numbers" (
 DROP TABLE IF EXISTS "room_types";
 CREATE TABLE "room_types" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(50) NOT NULL UNIQUE,
+    "name"                  VARCHAR(50) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
 DROP TABLE IF EXISTS "buildings";
 CREATE TABLE "buildings" (
     "id"                    SERIAL          PRIMARY KEY,
-    "name"                  VARCHAR(200)    NOT NULL UNIQUE,
+    "name"                  VARCHAR(200)    NOT NULL /* UNIQUE */,
+    "address"               TEXT            NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -48,7 +49,7 @@ CREATE TABLE "lecture_rooms" (
 DROP TABLE IF EXISTS "lesson_types";
 CREATE TABLE "lesson_types" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(30) NOT NULL UNIQUE,
+    "name"                  VARCHAR(30) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -56,7 +57,7 @@ CREATE TABLE "lesson_types" (
 DROP TABLE IF EXISTS "positions";
 CREATE TABLE "positions" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(40) NOT NULL UNIQUE,
+    "name"                  VARCHAR(40) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -64,7 +65,7 @@ CREATE TABLE "positions" (
 DROP TABLE IF EXISTS "academic_degrees" ;
 CREATE TABLE "academic_degrees" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(40) NOT NULL UNIQUE,
+    "name"                  VARCHAR(40) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -72,7 +73,7 @@ CREATE TABLE "academic_degrees" (
 DROP TABLE IF EXISTS "academic_ranks" ;
 CREATE TABLE "academic_ranks" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(40) NOT NULL UNIQUE,
+    "name"                  VARCHAR(40) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -80,7 +81,7 @@ CREATE TABLE "academic_ranks" (
 DROP TABLE IF EXISTS "roles" ;
 CREATE TABLE "roles" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(25) NOT NULL UNIQUE,
+    "name"                  VARCHAR(25) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -88,8 +89,33 @@ CREATE TABLE "roles" (
 DROP TABLE IF EXISTS "users";
 CREATE TABLE "users" (
     "id"                    SERIAL          PRIMARY KEY,
-    "login"                 VARCHAR(50)     NOT NULL UNIQUE,
+    "login"                 VARCHAR(50)     NOT NULL /* UNIQUE */,
     "password"              VARCHAR(100)    NOT NULL,
+    "deleted_date"          TIMESTAMP
+);
+
+/* Таблица "информация о пользователе" */
+DROP TABLE IF EXISTS "users_info";
+CREATE TABLE "users_info" (
+    "id"                    SERIAL          PRIMARY KEY,
+    "user_id"               INTEGER         UNIQUE,
+    "full_name"             VARCHAR(255)    NOT NULL,
+    "sex"                   VARCHAR(2)      NOT NULL,
+    "email"                 VARCHAR(255)    NOT NULL,
+    "description"           TEXT            ,
+    "birthday"              TIMESTAMP       NOT NULL,
+    "city"                  VARCHAR(30)     ,
+    "address"               TEXT            ,
+    "photo_id"              INTEGER         ,
+    "deleted_date"          TIMESTAMP         
+);
+
+/* Таблица "телефон" */
+DROP TABLE IF EXISTS "phones";
+CREATE TABLE "phones" (
+    "id"                    SERIAL      PRIMARY KEY,
+    "user_id"               INTEGER     ,
+    "phone"                 VARCHAR(30) ,
     "deleted_date"          TIMESTAMP
 );
 
@@ -105,21 +131,12 @@ CREATE TABLE "users_roles" (
 DROP TABLE IF EXISTS "departments";
 CREATE TABLE "departments" (
     "id"                    SERIAL          PRIMARY KEY,
-    "name"                  VARCHAR(100)    NOT NULL UNIQUE,
+    "name"                  VARCHAR(100)    NOT NULL /* UNIQUE */,
     "faculty_id"            INTEGER         NOT NULL,
     "owner_id"              INTEGER         ,
     "phone"                 VARCHAR(30)     ,
     "lecture_room_id"       INTEGER         ,
     "deleted_date"          TIMESTAMP      
-);
-
-/* Таблица "телефон" */
-DROP TABLE IF EXISTS "phones";
-CREATE TABLE "phones" (
-    "id"                    SERIAL      PRIMARY KEY,
-    "user_id"               INTEGER     ,
-    "phone"                 VARCHAR(30) ,
-    "deleted_date"          TIMESTAMP
 );
 
 /* Таблица "ресурс" */
@@ -130,26 +147,11 @@ CREATE TABLE "resources" (
     "deleted_date"          TIMESTAMP
 );
 
-/* Таблица "информация о пользователе" */
-DROP TABLE IF EXISTS "users_info";
-CREATE TABLE "users_info" (
-    "id"                    SERIAL          PRIMARY KEY,
-    "user_id"               INTEGER         UNIQUE,
-    "full_name"             VARCHAR(255)    NOT NULL,
-    "sex"                   VARCHAR(2)      NOT NULL,
-    "email"                 VARCHAR(255)    NOT NULL,
-    "description"           TEXT            ,
-    "birthday"              TIMESTAMP        NOT NULL,
-    "city"                  VARCHAR(30)     ,
-    "address"               TEXT            ,
-    "photo_id"              INTEGER         ,
-    "deleted_date"          TIMESTAMP         
-);
-
 /* Таблица "преподаватель" */
 DROP TABLE IF EXISTS "teachers";
 CREATE TABLE "teachers" (
-    "id"                    INTEGER         PRIMARY KEY,
+    "id"                    SERIAL          PRIMARY KEY,
+    "user_id"               INTEGER         ,
     "full_name"             VARCHAR(150)    NOT NULL,
     "short_name"            VARCHAR(50)     NOT NULL,
     "department_id"         INTEGER         ,
@@ -163,8 +165,8 @@ CREATE TABLE "teachers" (
 DROP TABLE IF EXISTS "faculties";
 CREATE TABLE "faculties" (
     "id"                    SERIAL          PRIMARY KEY,
-    "name"                  VARCHAR(100)    NOT NULL UNIQUE,
-    "short_name"            VARCHAR(50)     NOT NULL UNIQUE,
+    "name"                  VARCHAR(100)    NOT NULL /* UNIQUE */,
+    "short_name"            VARCHAR(50)     NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -172,9 +174,9 @@ CREATE TABLE "faculties" (
 DROP TABLE IF EXISTS "info_faculties";
 CREATE TABLE "info_faculties" (
     "id"                    SERIAL      PRIMARY KEY,
-    "faculty_id"            INTEGER     ,
+    "faculty_id"            INTEGER     UNIQUE,
     "description"           TEXT        ,
-    "phone_number"          VARCHAR(20) NOT NULL UNIQUE,
+    "phone_number"          VARCHAR(20) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -182,9 +184,9 @@ CREATE TABLE "info_faculties" (
 DROP TABLE IF EXISTS "specialties" ;
 CREATE TABLE "specialties" (
     "id"                    SERIAL          PRIMARY KEY,
-    "code"                  VARCHAR(20)     NOT NULL UNIQUE,
-    "name"                  VARCHAR(100)    NOT NULL UNIQUE,
-    "short_name"            VARCHAR(60)     NOT NULL UNIQUE,
+    "code"                  VARCHAR(20)     NOT NULL /* UNIQUE */,
+    "name"                  VARCHAR(100)    NOT NULL /* UNIQUE */,
+    "short_name"            VARCHAR(60)     NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -192,7 +194,7 @@ CREATE TABLE "specialties" (
 DROP TABLE IF EXISTS "study_modes" ;
 CREATE TABLE "study_modes" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(45) NOT NULL UNIQUE,
+    "name"                  VARCHAR(45) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -251,8 +253,9 @@ CREATE TABLE "lessons" (
 
 /* Таблица "студент" */
 DROP TABLE IF EXISTS "students";
-CREATE TABLE "students" ( 
-    "id"                    INTEGER         PRIMARY KEY,
+CREATE TABLE "students" (
+    "id"                    SERIAL          PRIMARY KEY,
+    "user_id"               INTEGER         ,
     "full_name"             VARCHAR(300)    NOT NULL,
     "short_name"            VARCHAR(100)    NOT NULL,
     "group_id"              INTEGER         ,
@@ -264,7 +267,7 @@ CREATE TABLE "students" (
 DROP TABLE IF EXISTS "statuses";
 CREATE TABLE "statuses" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(12) NOT NULL UNIQUE,
+    "name"                  VARCHAR(12) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -277,8 +280,8 @@ CREATE TABLE "requests" (
     "status_id"             INTEGER     ,
     "topic"                 VARCHAR(50) NOT NULL,
     "name"                  VARCHAR(90) NOT NULL,
-    "create_date"           TIMESTAMP    DEFAULT (CURRENT_DATE),
-    "update_date"           TIMESTAMP    ,
+    "create_date"           TIMESTAMP   DEFAULT (CURRENT_DATE),
+    "update_date"           TIMESTAMP   ,
     "description"           TEXT        ,
     "deleted_date"          TIMESTAMP
 );
@@ -315,7 +318,7 @@ CREATE TABLE "graduation_papers" (
 DROP TABLE IF EXISTS "organizations";
 CREATE TABLE "organizations" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(90) NOT NULL UNIQUE,
+    "name"                  VARCHAR(90) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -323,7 +326,7 @@ CREATE TABLE "organizations" (
 DROP TABLE IF EXISTS "practice_types";
 CREATE TABLE "practice_types" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(50) NOT NULL UNIQUE,
+    "name"                  VARCHAR(50) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
