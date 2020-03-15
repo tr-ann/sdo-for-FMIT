@@ -46,17 +46,23 @@ class UserService {
         throw new NotFound('User not found');
       }
 
-      if (user.newPassword) {
-        if (!this._isConfirmedPass(user.oldPassword, user.newPassword)) {
-          throw new BadRequest('Password is not confirmed');
-        }
-      }
-      
-      if (user.newPassword) {
-        user.password = Hash.get(user.newPassword);
-      }
-
       return await oldUser.update(user);
+  }
+
+  async changePassword(userId, oldPassword, newPassword) {
+    let user = await UserRepository.readById(userId);
+
+    if (!user) {
+      throw new NotFound('User not found');
+    }
+
+    if (!user.validPassword(oldPassword)) {
+      throw new BadRequest('Password is not confirmed');
+    }
+    
+    user.update({ password: newPassword });
+
+    return 1;
   }
 
   async destroy(id) {

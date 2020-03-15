@@ -89,8 +89,6 @@ class UserController {
 	
 	async update(req, res, next) {
 		let user = await UserService.update(/*req.user.id*/1, {
-			oldPassword: req.body.oldPassword,
-			newPassword: req.body.newPassword,
 			phones: req.body.phones,
 			userInfo: {
 				fullName: req.body.fullName,
@@ -114,6 +112,10 @@ class UserController {
 				]
 			}
 		);
+
+		if(req.body.newPassword) {
+			await UserService.changePassword(req.user.id, req.body.oldPassword, req.body.newPassword);
+		}
 		
 		res
 			.status(200)
@@ -121,6 +123,20 @@ class UserController {
 				responseFormat.build(
 					user,
 					"User updated successfully",
+					200,
+					"success"
+				)
+			);
+	}
+
+	async restorePassword(req, res, next) {
+
+		res
+			.status(200)
+			.json(
+				responseFormat.build(
+					{},
+					"Password successfully restored",
 					200,
 					"success"
 				)
