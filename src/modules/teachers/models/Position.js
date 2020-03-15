@@ -27,11 +27,12 @@ module.exports = (sequelize, DataTypes) => {
 	
 	Position.associate = (models) => {
 
-		Position.hasMany(models.Teacher, {
+		Position.belongsToMany(models.Teacher, {
+			through: models.TeacherPosition,
 			foreignKey: 'positionId',
 			as: 'teachers',
-			onDelete: 'set null',
-			onUpdate: 'cascade'
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
 		});
 
 	};

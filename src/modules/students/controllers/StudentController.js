@@ -4,11 +4,12 @@ const { responseFormat } = require('../../../helpers');
 class StudentController {
 
 	async create(req, res, next) {
+
 		const student = await StudentService.create({
-			fullName:          req.body.fullName,
-			shortName:         req.body.shortName,
-			groupId:           req.body.groupId,
-			recordBook:        req.body.recordBook,
+			fullName: req.body.fullName,
+			shortName: req.body.shortName,
+			groupId: req.body.groupId,
+			recordBook: req.body.recordBook,
 		});
 
 		res
@@ -55,11 +56,12 @@ class StudentController {
 	
 	async update(req, res, next) {
 		let student = await StudentService.update(
-			req.params.id, {
-				fullName:          req.body.fullName,
-				shortName:         req.body.shortName,
-				groupId:           req.body.groupId,
-				recordBook:        req.body.recordBook,
+			req.params.id,
+			{
+				fullName: req.body.fullName,
+				shortName: req.body.shortName,
+				groupId: req.body.groupId,
+				recordBook: req.body.recordBook,
 			}
 		);
 

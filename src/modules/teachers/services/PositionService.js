@@ -4,7 +4,13 @@ const { NotFound } = require('../../../classes/errors');
 class PositionService {
 
 	async create(position) {
+		
 		return await PositionRepository.create(position);
+	}
+
+	async readAll(pagination = { limit: process.env.limit, offset: 1 }) {
+		
+		return await PositionRepository.readAll(pagination);
 	}
 
 	async findById(id) {

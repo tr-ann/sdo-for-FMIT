@@ -1,19 +1,30 @@
 const UserRepository = require('../repositories/UserRepository');
-const { NotFound } = require('../../../classes/errors');
+const { NotFound, BadRequest } = require('../../../classes/errors');
+const { sequelize } = require('../../../sequelize');
 const Hash = require('../../../classes/Hash');
 
 class UserService {
 
-  async create(user) {
-    
-    let nUser = await UserRepository.create(user);
-    delete nUser.password;
+  async create(user, options) {
 
-    return nUser;
+    let existingUser = await UserRepository.get({where: { login: user.login }})
+    
+    if(existingUser[0]) {
+      throw new BadRequest("Such login is already in use");
+    }
+
+    if(!this._isConfirmedPass(user.password, user.confirmedPassword)) {
+      throw new BadRequest("Password is not confirmed");
+    }
+
+    let newUser = await UserRepository.create(user, options);
+
+    return newUser;
   }
 
-  async readAll() {
-    return await UserRepository.readAll();
+  async readAll(pagination = { limit: process.env.limit, offset: 0 }) {
+
+    return await UserRepository.readAll(pagination);
   }
 
   async readById(id) {
@@ -34,12 +45,18 @@ class UserService {
       if (!oldUser) {
         throw new NotFound('User not found');
       }
+
+      if (user.newPassword) {
+        if (!this._isConfirmedPass(user.oldPassword, user.newPassword)) {
+          throw new BadRequest('Password is not confirmed');
+        }
+      }
       
-      if (user.password) {
-        user.password = Hash.get(user.password);
+      if (user.newPassword) {
+        user.password = Hash.get(user.newPassword);
       }
 
-      return await UserRepository.update(id, user);
+      return await oldUser.update(user);
   }
 
   async destroy(id) {
@@ -49,16 +66,29 @@ class UserService {
     if (!user) {
       throw new NotFound('User not found');
     }
+
+    return await sequelize.transaction( async (transaction) => {
+
+      let phones = await user.getPhones();
+
+      for (let phone of phones) {
+        phone.destroy({ transaction: transaction });
+      }
+      
+      let userInfo = await user.getUserInfo();
+      await userInfo.destroy({ transaction: transaction });
+      
+      return await user.destroy({ transaction: transaction });
+    });
     
-    return await UserRepository.destroy(id);
   }
 
   async get(options) {        
     return await UserRepository.get(options);
   }
 
-  async getAll(options) {        
-    return await UserRepository.getAll(options);
+  async _isConfirmedPass(password, confirmedPassword) {
+    return password === confirmedPassword;
   }
 }
 

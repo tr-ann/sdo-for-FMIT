@@ -4,6 +4,7 @@ const { responseFormat } = require('../../../helpers');
 class AcademicRankController {
 
 	async create(req, res, next) {
+
 		let academicRank = await AcademicRankService.create({
 			name: req.body.name
 		});
@@ -12,7 +13,7 @@ class AcademicRankController {
 			.status(201)
 			.json(
 				responseFormat.build(
-					academicRank, 
+					{ id: academicRank.id }, 
 					"Academic rank created successfully", 
 					201, 
 					"success"
@@ -21,6 +22,7 @@ class AcademicRankController {
 	}
 
 	async readAll(req, res, next) {
+
 		let academicRanks = await AcademicRankService.readAll();
 
 		res
@@ -36,7 +38,8 @@ class AcademicRankController {
 	}
 
 	async readById(req, res, next) {
-		let academicRank = AcademicRankService.findById(req.params.id);
+
+		let academicRank = await AcademicRankService.findById(req.params.id);
 
 		res
 			.status(200)
@@ -68,7 +71,7 @@ class AcademicRankController {
 	}
 	
 	async destroy(req, res, next) {
-		await AcademicRankService.delete(req.params.id);
+		await AcademicRankService.destroy(req.params.id);
 
 		res
 			.status(200)

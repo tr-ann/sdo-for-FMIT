@@ -2,78 +2,89 @@ const db = require('../../../dbModels')
 
 class StudentRepository {
 
-	/**
-	 * Create an entity in a database
-	 * 
-	 * @param {Object} student - body of student that will be created
-	 * @return {Promise} promise with result of create
-	 */
 	async create(student) {
-		return await dbStudent.create(student)
+		return await db.Student.create(student)
 	}
 
-	/**
-	 * Read an entity from a database
-	 * 
-	 * @param {Number} id - id of student that will be read
-	 * @return {Promise} promise with result of create
-	 */
-	async readById(id) {        
-		return await dbStudent.findByPk(id, {
-			attributes: [ 'id', 'fullName' ],
+	async readById(id, pagination) {        
+		return await db.Student.findByPk(id, {
+			attributes: [ 'id', 'fullName', 'shortName', 'recordBook', 'userId' ],
+			include: [
+				{
+					model: db.User,
+					attributes: [ 'login' ],
+					include: [{
+						model: db.UserInfo,
+						attributes: [ 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+						as: 'userInfo'
+						/*resourceId*/
+					}],
+					as: 'user'
+				},
+				{
+					model: db.Group,
+					attributes: [ 'number' ],
+					as: 'group'
+				},
+				{
+					model: db.Subgroup,
+					attributes: [ 'name' ],
+					include: [{
+						model: db.Group,
+						attributes: [ 'number' ],
+						as: 'group'
+					}],
+					as: 'subgroups'
+				}
+			]
 		})
 	}
 
-	/**
-	 * Read all the entities from a database
-	 * 
-	 * @return {Promise} promise with result of read
-	 */
-	async readAll() {
-		return await dbStudent.findAll({
-			attributes: [ 'id', 'fullName' ],
+	async readAll(pagination) {
+		return await db.Student.findAll({
+			attributes: [ 'id', 'fullName', 'shortName', 'recordBook', 'userId' ],
+			include: [
+				{
+					model: db.User,
+					attributes: [ 'login' ],
+					include: [{
+						model: db.UserInfo,
+						attributes: [ 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+						as: 'userInfo'
+						/*resourceId*/
+					}],
+					as: 'user'
+				},
+				{
+					model: db.Group,
+					attributes: [ 'number' ]
+				},
+				{
+					model: db.Subgroup,
+					attributes: [ 'name' ],
+					include: [{
+						model: db.Group,
+						attributes: [ 'number' ],
+						as: 'group'
+					}],
+					as: 'subgroups'
+				}
+			],
+			limit: pagination.limit,
+      offset: pagination.offset
 		})
 	}
 
-	/**
-	 * Update an entity from a database
-	 * 
-	 * @param {Number} id - id of student that will be updated
-	 * @param {Object} student - body of student that will be updated
-	 * @return {Promise} promise with result of update
-	 */
 	async update(id, student) {
-		return await dbStudent.update(student, {where: { id: id }})
+		return await db.Student.update(student, {where: { id: id }})
 	}
 
-	/**
-	 * Destroy an entity from a database
-	 * 
-	 * @param {Number} id - id of student that will be destroyed
-	 * @return {Promise} promise with result of destroy
-	 */
 	async destroy(id) {
-		return await dbStudent.destroy({where: { id: id }})
+		return await db.Student.destroy({where: { id: id }})
 	}
 
-	/**
-	 * Reads entities by description from a database
-	 * 
-	 * @param {Object} options - description to read entities
-	 * @return {Promise} promise with result of create
-	 */
-	async getAll(options) {
-		return await dbStudent.findAll(options)
-	}
-
-	/**
-	 * Reads entity by description from a database
-	 * 
-	 * @param {Object} options - description to read entity
-	 * @return {Promise} promise with result of create
-	 */
-	async get(options) {        
-		return await dbStudent.findOne(options)
+	async get(options) {
+		return await db.Student.findAll(options)
 	}
 }
 

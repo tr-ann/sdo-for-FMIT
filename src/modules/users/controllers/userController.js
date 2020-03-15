@@ -2,40 +2,54 @@ const UserService = require('../services/UserService');
 const UserInfoService = require('../services/UserInfoService');
 const PhoneService = require('../services/PhoneService');
 const { responseFormat } = require('../../../helpers');
+const { sequelize } = require('../../../sequelize');
+const db = require('../../../dbModels');
 
 class UserController {
 
 	async create(req, res, next) {
 
-		let user = await UserService.create({
-			login: req.body.login,
-			password: req.body.password,
+		let createdUser = await sequelize.transaction( async (transaction) => {
+
+			let user = await UserService.create({
+				login: req.body.login,
+				password: req.body.password,
+				confirmedPassword: req.body.confirmedPassword,
+				phones: req.body.phones
+			}, {
+				transaction: transaction,
+				include: [{
+					model: db.Phone,
+					as: 'phones'
+				}]
+			});
+
+			let userInfo = await UserInfoService.create({
+				userId: user.id,
+				fullName: req.body.fullName,
+				email: req.body.email,
+				birthday: req.body.birthday,
+				sex: req.body.sex,
+				description: req.body.description,
+				city: req.body.city,
+				address: req.body.address
+			}, {
+				transaction: transaction
+			});
+	
+			await user.setUserInfo(userInfo, { transaction: transaction	});
+
+			//надо добавить какую-нибудь константу для определения роли по умолчанию
+			await user.setRoles(2, { transaction: transaction	});
+
+			return user;
 		});
-
-		await PhoneService.create({
-			userId: user.id, 
-			phone: req.body.phone
-		});
-
-		let fullName = req.body.firstName 
-				+ ' ' + req.body.lastName 
-				+ ' ' + (req.body.middleName || '');
-
-		await UserInfoService.create({
-			userId: user.id,
-			fullName: fullName,
-			email: req.body.email,
-			birthday: req.body.birthday,
-			sex: req.body.sex,
-		});
-
-		await user.setRoles(req.body.roleIds);
 
 		res
 			.status(201)
 			.json(
 				responseFormat.build(
-					user.login, 
+					{ id: createdUser.id },
 					"User created successfully", 
 					201, 
 					"success"
@@ -74,28 +88,33 @@ class UserController {
 	}
 	
 	async update(req, res, next) {
-		let user = await UserService.update(req.params.id, {
-			password: req.body.password,
-		});
-
-		/*await PhoneService.update({
-			userId: user.id, 
-			phone: req.body.phone
-		})
-
-		let fullName = req.body.firstName 
-				+ ' ' + req.body.lastName 
-				+ ' ' + (req.body.middleName || '')
-
-		await UserInfoService.update({
-			fullName: fullName,
-			email: req.body.email,
-			birthday: req.body.birthday,
-			sex: req.body.sex,
-		})
-
-		UserRoleService.create({userId: user.id, roleId: 1})*/
-
+		let user = await UserService.update(/*req.user.id*/1, {
+			oldPassword: req.body.oldPassword,
+			newPassword: req.body.newPassword,
+			phones: req.body.phones,
+			userInfo: {
+				fullName: req.body.fullName,
+				email: req.body.email,
+				birthday: req.body.birthday,
+				sex: req.body.sex,
+				description: req.body.description,
+				city: req.body.city,
+				address: req.body.address
+				}
+			}, {
+				include: [
+					{
+						model: db.Phone,
+						as: "phones",
+					},
+					{
+						model: db.UserInfo,
+						as: 'userInfo'
+					}
+				]
+			}
+		);
+		
 		res
 			.status(200)
 			.json(

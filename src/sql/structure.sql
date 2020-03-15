@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS "buildings";
 CREATE TABLE "buildings" (
     "id"                    SERIAL          PRIMARY KEY,
     "name"                  VARCHAR(200)    NOT NULL /* UNIQUE */,
-    "address"               TEXT            NOT NULL /* UNIQUE */,
+    "address"               TEXT            NOT NULL,
     "deleted_date"          TIMESTAMP
 );
 
@@ -143,7 +143,13 @@ CREATE TABLE "departments" (
 DROP TABLE IF EXISTS "resources";
 CREATE TABLE "resources" (
     "id"                    SERIAL          PRIMARY KEY,
-    "description"           TEXT            ,
+    "path"                  VARCHAR(255)    NOT NULL,
+    "original_name"         VARCHAR(100)    NOT NULL,
+    "current_name"          VARCHAR(100)    NOT NULL,
+    "size"                  INTEGER         NOT NULL,     
+    "mime_type"             VARCHAR(50)     NOT NULL,
+    "description"           VARCHAR(500)    ,
+    "attributes"            JSON            ,
     "deleted_date"          TIMESTAMP
 );
 
@@ -155,10 +161,18 @@ CREATE TABLE "teachers" (
     "full_name"             VARCHAR(150)    NOT NULL,
     "short_name"            VARCHAR(50)     NOT NULL,
     "department_id"         INTEGER         ,
-    "position_id"           INTEGER         ,
     "academic_degree_id"    INTEGER         ,
     "academic_rank_id"      INTEGER         ,
     "deleted_date"          TIMESTAMP    
+);
+
+/* Таблица "должности преподавателей" */
+DROP TABLE IF EXISTS "teachers_positions";
+CREATE TABLE "teachers_positions" (
+    "id"                    SERIAL          PRIMARY KEY,
+    "teacher_id"            INTEGER         NOT NULL,
+    "position_id"           INTEGER         NOT NULL,
+    "deleted_date"          TIMESTAMP
 );
 
 /* Таблица "факультет" */
@@ -343,6 +357,7 @@ CREATE TABLE "practices" (
     "start_date"            TIMESTAMP   NOT NULL,
     "end_date"              TIMESTAMP   NOT NULL,
     "practice_type_id"      INTEGER     ,
+    "resource_id"           INTEGER     ,
     "deleted_date"          TIMESTAMP
 );
 

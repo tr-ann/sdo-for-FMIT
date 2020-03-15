@@ -4,6 +4,7 @@ const { responseFormat } = require('../../../helpers');
 class PositionController {
 
 	async create(req, res, next) {
+		
 		let position = await PositionService.create({
 			name: req.body.name
 		});
@@ -21,6 +22,7 @@ class PositionController {
 	}
 
 	async readAll(req, res, next) {
+
 		let positions = await PositionService.readAll();
 
 		res
@@ -68,7 +70,7 @@ class PositionController {
 	}
 	
 	async destroy (req, res, next) {
-		await PositionService.delete(req.params.id);
+		await PositionService.destroy(req.params.id);
 
 		res
 			.status(200)

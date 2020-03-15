@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
 		userId: {
 			allowNull: false,
 			type: DataTypes.INTEGER,
-			field: 'user_id'
+			field: 'user_id',
+			defaultValue: 0
 		},
 		groupId: {
 			allowNull: false,
@@ -52,14 +53,14 @@ module.exports = (sequelize, DataTypes) => {
 			through: models.StudentSubgroup,
 			foreignKey: 'studentId',
 			as: 'subgroups',
-			onDelete: 'cascade',
+			onDelete: 'restrict',
 			onUpdate: 'cascade'
 		});
 
 		Student.belongsTo(models.User, {
 			foreignKey: 'userId',
 			as: 'user',
-			onDelete: 'cascade',
+			onDelete: 'set default',
 			onUpdate: 'cascade'
 		});
 

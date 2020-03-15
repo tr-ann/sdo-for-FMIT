@@ -29,9 +29,11 @@ class AcademicDegreeRepository {
 	 * 
 	 * @return {Promise} promise with result of read
 	 */
-	async readAll() {
+	async readAll(pagination) {
 		return await db.AcademicDegree.findAll({
 			attributes: [ 'id', 'name' ],
+			limit: pagination.limit,
+			offset: pagination.offset
 		});
 	}
 
@@ -62,18 +64,8 @@ class AcademicDegreeRepository {
 	 * @param {Object} options - description to read entities
 	 * @return {Promise} promise with result of create
 	 */
-	async getAll(options) {
+	async get(options) {
 		return await db.AcademicDegree.findAll(options);
-	}
-
-	/**
-	 * Reads entity by description from a database
-	 * 
-	 * @param {Object} options - description to read entity
-	 * @return {Promise} promise with result of create
-	 */
-	async get(options) {        
-		return await db.AcademicDegree.findOne(options);
 	}
 }
 

@@ -8,8 +8,8 @@ class UserRepository {
 	 * @param {Object} user - body of user that will be created
 	 * @return {Promise} promise with result of create
 	 */
-	async create(user) {
-		return await db.User.create(user);
+	async create(user, options) {
+		return await db.User.create(user, options);
 	}
 
 	/**
@@ -20,11 +20,11 @@ class UserRepository {
 	 */
 	async readById(id) {        
 		return await db.User.findByPk(id, {
-			attributes: ['id', 'login'],
+			attributes: [ 'id', 'login' ],
 			include: [
 				{ 
 					model: db.UserInfo,
-					attributes: [ 'id', 'fullName'],
+					attributes: [ 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
 					as: 'userInfo'
 				},
 				{
@@ -46,13 +46,13 @@ class UserRepository {
 	 * 
 	 * @return {Promise} promise with result of read
 	 */
-	async readAll() {
+	async readAll(pagination) {
 		return await db.User.findAll({
-			attributes: ['id', 'login'],
+			attributes: [ 'id', 'login' ],
 			include: [
 				{ 
 					model: db.UserInfo,
-					attributes: [ 'id', 'fullName'],
+					attributes: [ 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
 					as: 'userInfo'
 				},
 				{
@@ -65,7 +65,9 @@ class UserRepository {
 					attributes: [ 'id', 'phone' ],
 					as: 'phones'
 				}
-			]
+			],
+			limit: pagination.limit,
+			offset: pagination.offset
 		});
 	}
 
@@ -77,7 +79,7 @@ class UserRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, user) {
-		return await db.User.Update(user, {where: { id: id }});
+		return await db.User.update(user, {where: { id: id }});
 	}
 
 	/**
@@ -96,18 +98,8 @@ class UserRepository {
 	 * @param {Object} options - description to read entities
 	 * @return {Promise} promise with result of create
 	 */
-	async getAll(options) {        
-		return await db.User.findAll(options);
-	}
-
-	/**
-	 * Read entity by description from a database
-	 * 
-	 * @param {Object} options - description to read entity
-	 * @return {Promise} promise with result of create
-	 */
 	async get(options) {        
-		return await db.User.findOne(options);
+		return await db.User.findAll(options);
 	}
 }
 

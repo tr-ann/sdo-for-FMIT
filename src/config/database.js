@@ -3,7 +3,7 @@ module.exports = {
   dev: {
     username: process.env.DEV_DB_USERNAME || 'postgres',
     password: process.env.DEV_DB_PASSWORD || 'root',
-    database: process.env.DEV_DB_NAME || 'myuniversity',
+    database: process.env.DEV_DB_NAME || 'myuniversitydev',
     host: process.env.DEV_DB_HOST || '127.0.0.1',
     dialect: process.env.DEV_DB_DIALECT || 'postgres',
   },
@@ -11,7 +11,7 @@ module.exports = {
   test: {
     username: process.env.PROD_DB_USERNAME || 'postgres',
     password: process.env.PROD_DB_PASSWORD || 'root',
-    database: process.env.PROD_DB_NAME || 'myuniversity',
+    database: process.env.PROD_DB_NAME || 'myuniversitytest',
     host: process.env.PROD_DB_HOST || '127.0.0.1',
     dialect: process.env.PROD_DB_DIALECT || 'postgres',
   },

@@ -5,7 +5,7 @@ const { tryCatch } = require('../../../helpers');
 const router = Router();
 
 router.get('/:id', tryCatch(RoleController.readById));
-router.post('/:id', tryCatch(RoleController.update));
+router.put('/:id', tryCatch(RoleController.update));
 router.delete('/:id', tryCatch(RoleController.destroy));
 router.get('/', tryCatch(RoleController.readAll));
 router.post('/', tryCatch(RoleController.create));
