@@ -49,7 +49,7 @@ CREATE TABLE "lecture_rooms" (
 DROP TABLE IF EXISTS "lesson_types";
 CREATE TABLE "lesson_types" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(30) NOT NULL /* UNIQUE */,
+    "name"                  VARCHAR(100) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE "lesson_types" (
 DROP TABLE IF EXISTS "positions";
 CREATE TABLE "positions" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(40) NOT NULL /* UNIQUE */,
+    "name"                  VARCHAR(100) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -65,7 +65,7 @@ CREATE TABLE "positions" (
 DROP TABLE IF EXISTS "academic_degrees" ;
 CREATE TABLE "academic_degrees" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(40) NOT NULL /* UNIQUE */,
+    "name"                  VARCHAR(70) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -190,7 +190,7 @@ CREATE TABLE "info_faculties" (
     "id"                    SERIAL      PRIMARY KEY,
     "faculty_id"            INTEGER     UNIQUE,
     "description"           TEXT        ,
-    "phone_number"          VARCHAR(20) NOT NULL /* UNIQUE */,
+    "phone_number"          VARCHAR(50) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
