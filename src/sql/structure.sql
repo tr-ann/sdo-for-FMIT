@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS "buildings";
 CREATE TABLE "buildings" (
     "id"                    SERIAL          PRIMARY KEY,
     "name"                  VARCHAR(200)    NOT NULL /* UNIQUE */,
+    "address"               TEXT            NOT NULL,
     "deleted_date"          TIMESTAMP
 );
 
@@ -93,6 +94,31 @@ CREATE TABLE "users" (
     "deleted_date"          TIMESTAMP
 );
 
+/* Таблица "информация о пользователе" */
+DROP TABLE IF EXISTS "users_info";
+CREATE TABLE "users_info" (
+    "id"                    SERIAL          PRIMARY KEY,
+    "user_id"               INTEGER         UNIQUE,
+    "full_name"             VARCHAR(255)    NOT NULL,
+    "sex"                   VARCHAR(2)      NOT NULL,
+    "email"                 VARCHAR(255)    NOT NULL,
+    "description"           TEXT            ,
+    "birthday"              TIMESTAMP       NOT NULL,
+    "city"                  VARCHAR(30)     ,
+    "address"               TEXT            ,
+    "photo_id"              INTEGER         ,
+    "deleted_date"          TIMESTAMP         
+);
+
+/* Таблица "телефон" */
+DROP TABLE IF EXISTS "phones";
+CREATE TABLE "phones" (
+    "id"                    SERIAL      PRIMARY KEY,
+    "user_id"               INTEGER     ,
+    "phone"                 VARCHAR(30) ,
+    "deleted_date"          TIMESTAMP
+);
+
 DROP TABLE IF EXISTS "users_roles" ;
 CREATE TABLE "users_roles" (
     "id"                    SERIAL      PRIMARY KEY,
@@ -113,15 +139,6 @@ CREATE TABLE "departments" (
     "deleted_date"          TIMESTAMP      
 );
 
-/* Таблица "телефон" */
-DROP TABLE IF EXISTS "phones";
-CREATE TABLE "phones" (
-    "id"                    SERIAL      PRIMARY KEY,
-    "user_id"               INTEGER     ,
-    "phone"                 VARCHAR(30) ,
-    "deleted_date"          TIMESTAMP
-);
-
 /* Таблица "ресурс" */
 DROP TABLE IF EXISTS "resources";
 CREATE TABLE "resources" (
@@ -136,26 +153,11 @@ CREATE TABLE "resources" (
     "deleted_date"          TIMESTAMP
 );
 
-/* Таблица "информация о пользователе" */
-DROP TABLE IF EXISTS "users_info";
-CREATE TABLE "users_info" (
-    "id"                    SERIAL          PRIMARY KEY,
-    "user_id"               INTEGER         UNIQUE,
-    "full_name"             VARCHAR(255)    NOT NULL,
-    "sex"                   VARCHAR(2)      NOT NULL,
-    "email"                 VARCHAR(255)    NOT NULL,
-    "description"           TEXT            ,
-    "birthday"              TIMESTAMP       NOT NULL,
-    "city"                  VARCHAR(30)     ,
-    "address"               TEXT            ,
-    "photo_id"              INTEGER         ,
-    "deleted_date"          TIMESTAMP         
-);
-
 /* Таблица "преподаватель" */
 DROP TABLE IF EXISTS "teachers";
 CREATE TABLE "teachers" (
-    "id"                    INTEGER         PRIMARY KEY,
+    "id"                    SERIAL          PRIMARY KEY,
+    "user_id"               INTEGER         ,
     "full_name"             VARCHAR(150)    NOT NULL,
     "short_name"            VARCHAR(50)     NOT NULL,
     "department_id"         INTEGER         ,
@@ -186,7 +188,7 @@ CREATE TABLE "faculties" (
 DROP TABLE IF EXISTS "info_faculties";
 CREATE TABLE "info_faculties" (
     "id"                    SERIAL      PRIMARY KEY,
-    "faculty_id"            INTEGER     ,
+    "faculty_id"            INTEGER     UNIQUE,
     "description"           TEXT        ,
     "phone_number"          VARCHAR(20) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
@@ -265,8 +267,9 @@ CREATE TABLE "lessons" (
 
 /* Таблица "студент" */
 DROP TABLE IF EXISTS "students";
-CREATE TABLE "students" ( 
-    "id"                    INTEGER         PRIMARY KEY,
+CREATE TABLE "students" (
+    "id"                    SERIAL          PRIMARY KEY,
+    "user_id"               INTEGER         ,
     "full_name"             VARCHAR(300)    NOT NULL,
     "short_name"            VARCHAR(100)    NOT NULL,
     "group_id"              INTEGER         ,
@@ -291,7 +294,7 @@ CREATE TABLE "requests" (
     "status_id"             INTEGER     ,
     "topic"                 VARCHAR(50) NOT NULL,
     "name"                  VARCHAR(90) NOT NULL,
-    "create_date"           TIMESTAMP    DEFAULT (CURRENT_DATE),
+    "create_date"           TIMESTAMP   DEFAULT (CURRENT_DATE),
     "update_date"           TIMESTAMP   ,
     "description"           TEXT        ,
     "deleted_date"          TIMESTAMP

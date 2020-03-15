@@ -27,32 +27,32 @@ module.exports = (sequelize, DataTypes) => {
 
   Resource.associate = (models) => {
 
-    Resource.hasMany(models.UserInfo, {
+    Resource.hasOne(models.UserInfo, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'photoId',
-      as: 'userInfos',
+      as: 'userInfo',
     });
 
-    Resource.hasMany(models.TermPaper, {
+    Resource.hasOne(models.TermPaper, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'resourceId',
-      as: 'termPapers',
+      as: 'termPaper',
     });
 
-    Resource.hasMany(models.GraduationPaper, {
+    Resource.hasOne(models.GraduationPaper, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'resourceId',
-      as: 'graduationPapers',
+      as: 'graduationPaper',
     });
 
-    Resource.hasMany(models.Practice, {
+    Resource.hasOne(models.Practice, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'resourceId',
-      as: 'practices',
+      as: 'practice',
     });
   };
 
