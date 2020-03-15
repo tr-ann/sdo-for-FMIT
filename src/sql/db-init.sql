@@ -1,6 +1,6 @@
 /* Таблица "дисциплина" */
-DROP DATABASE IF EXISTS "myuniversity";
-CREATE DATABASE "myuniversity" 
+DROP DATABASE IF EXISTS "myuniversity_test";
+CREATE DATABASE "myuniversity_test" 
 	WITH 
     OWNER = postgres
     ENCODING = 'UTF8'

@@ -222,7 +222,7 @@ INSERT INTO "departments" (id, name, faculty_id, owner_id, phone, lecture_room_i
 (3, 'Кафедра геометрии и математического анализа'       , 1, 12, '+375298634518', 9  ),
 (4, 'Кафедра информатики и информационных технологий'   , 1, 13, '+375336153425', 11 );
 
-INSERT INTO "teachers" (id, user_id, full_name, short_name, department_id, position_id, academic_degree_id, academic_rank_id) VALUES
+INSERT INTO "teachers" (id, user_id, full_name, short_name, department_id, academic_degree_id, academic_rank_id) VALUES
 (1, 10, 'Преподаватель № 1', 'Препод №1', 1, 26, 2 ),
 (2, 11, 'Преподаватель № 2', 'Препод №2', 2, 27, 2 ),
 (3, 12, 'Преподаватель № 3', 'Препод №3', 3, 27, 2 ),
@@ -249,7 +249,7 @@ INSERT INTO "study_modes" (id, name) VALUES
 (2, 'заочная форма (полный срок)'),
 (3, 'заочная форма (сокращенный срок)');
 
-iNSERT INTO "groups" (id, number, faculty_id, speciality_id, study_mode_id) VALUES
+iNSERT INTO "groups" (id, number, faculty_id, specialty_id, study_mode_id) VALUES
 (1, '34', 1, 1, 1),
 (2, '31', 1, 2, 1);
 
@@ -274,7 +274,7 @@ INSERT INTO "students" (id, user_id, full_name, short_name, group_id, record_boo
 (8, 8, 'Пеленов Никита Дмитриевич'        , 'Пеленов Н.Д.'  , 2, 1604337176),
 (9, 9, 'Бровко Вероника Семеновна'        , 'Бровко В.С.'   , 2, 1604436176);
 
-INSERT INTO "subgroups_students" (student_id, subgroup_id) VALUES
+INSERT INTO "students_subgroups" (student_id, subgroup_id) VALUES
 (1, 1),
 (2, 1),
 (3, 2), 
