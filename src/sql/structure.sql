@@ -65,7 +65,7 @@ CREATE TABLE "positions" (
 DROP TABLE IF EXISTS "academic_degrees" ;
 CREATE TABLE "academic_degrees" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(70) NOT NULL /* UNIQUE */,
+    "name"                  VARCHAR(100) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -73,7 +73,7 @@ CREATE TABLE "academic_degrees" (
 DROP TABLE IF EXISTS "academic_ranks" ;
 CREATE TABLE "academic_ranks" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(40) NOT NULL /* UNIQUE */,
+    "name"                  VARCHAR(100) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -81,7 +81,7 @@ CREATE TABLE "academic_ranks" (
 DROP TABLE IF EXISTS "roles" ;
 CREATE TABLE "roles" (
     "id"                    SERIAL      PRIMARY KEY,
-    "name"                  VARCHAR(25) NOT NULL /* UNIQUE */,
+    "name"                  VARCHAR(50) NOT NULL /* UNIQUE */,
     "deleted_date"          TIMESTAMP
 );
 
@@ -104,7 +104,7 @@ CREATE TABLE "users_info" (
     "email"                 VARCHAR(255)    NOT NULL,
     "description"           TEXT            ,
     "birthday"              TIMESTAMP       NOT NULL,
-    "city"                  VARCHAR(30)     ,
+    "city"                  VARCHAR(255)     ,
     "address"               TEXT            ,
     "photo_id"              INTEGER         ,
     "deleted_date"          TIMESTAMP         
@@ -270,8 +270,8 @@ DROP TABLE IF EXISTS "students";
 CREATE TABLE "students" (
     "id"                    SERIAL          PRIMARY KEY,
     "user_id"               INTEGER         ,
-    "full_name"             VARCHAR(300)    NOT NULL,
-    "short_name"            VARCHAR(100)    NOT NULL,
+    "full_name"             VARCHAR(150)    NOT NULL,
+    "short_name"            VARCHAR(50)     NOT NULL,
     "group_id"              INTEGER         ,
     "record_book"           VARCHAR(30)     NOT NULL,
     "deleted_date"          TIMESTAMP

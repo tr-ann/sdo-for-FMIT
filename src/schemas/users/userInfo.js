@@ -21,12 +21,10 @@ module.exports = {
     .required(),
   city: Joi
     .string()
-    .min(1)
     .max(255)
     .optional(),
   address: Joi
     .string()
-    .min(1)
     .max(255)
     .optional(),
 };
