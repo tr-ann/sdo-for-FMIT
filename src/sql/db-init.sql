@@ -1,4 +1,3 @@
-/* Таблица "дисциплина" */
 DROP DATABASE IF EXISTS "myuniversity";
 CREATE DATABASE "myuniversity" 
 	WITH 

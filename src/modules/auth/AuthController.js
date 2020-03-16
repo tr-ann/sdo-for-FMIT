@@ -4,34 +4,38 @@ const { passport } = require('../../passport');
 
 class AuthController {
 
-  login(req, res, next) {
+  async login(req, res, next) {
     
-    passport.authenticate('local', (err, user, info) => {
+    let result = await (new Promise((resolve, reject) => {
 
-        if (err) next(err);
+      passport.authenticate('local', (err, user, info) => {
+
+        if (err) reject(err);
         
-        if (!user) next(new NotFound(info.message));
+        if (!user) reject(new NotFound(info.message));
 
         req.logIn(user, (err) => {
 
-          if (err) next(err);
+          if (err) reject(err);
 
-          res
-            .status(200)
-            .json(
-              responseFormat.build(
-                {
-                  id: user.id,
-                  login: user.login,
-                },
-                info.message,
-                200,
-                "success"
-              )
-            );
+          resolve(
+            responseFormat.build(
+              {
+                id: user.id,
+                login: user.login,
+              },
+              info.message,
+              200,
+              "success"
+            )
+          );
         });
-      }
-    )(req, res, next);
+      })(req, res, next);
+    }));
+
+    res
+      .status(200)
+      .json(result);
   }
   
   logout(req, res) {

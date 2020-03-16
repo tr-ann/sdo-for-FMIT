@@ -4,8 +4,8 @@ const { tryCatch } = require('../../../helpers');
 
 const router = Router();
 
-router.get('/profile', tryCatch(userController.readById)); // собственный профиль
-router.put('/profile', tryCatch(UserController.update));
+//router.get('/profile', tryCatch(userController.readById)); // собственный профиль
+//router.put('/profile', tryCatch(UserController.update));
 
 router.put('/me', tryCatch(UserController.restorePassword))
 
