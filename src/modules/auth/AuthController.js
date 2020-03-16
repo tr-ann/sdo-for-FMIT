@@ -4,27 +4,21 @@ const { passport } = require('../../passport');
 
 class AuthController {
 
-  login(req, res, next) {
+  async login(req, res, next) {
     
-    passport.authenticate('local', (err, user, info) => {
+    let result = await (new Promise((resolve, reject) => {
 
-      if (err) {
-        next(err);
-        return;
-      }
-      
-      if (!user) {
-        next(new NotFound(info.message));
-        return;
-      }
+      passport.authenticate('local', (err, user, info) => {
 
-      req.logIn(user, (err) => {
+        if (err) reject(err);
+        
+        if (!user) reject(new NotFound(info.message));
 
-        if (err) next(err);
+        req.logIn(user, (err) => {
 
-        res
-          .status(200)
-          .json(
+          if (err) reject(err);
+
+          resolve(
             responseFormat.build(
               {
                 id: user.id,
@@ -35,8 +29,13 @@ class AuthController {
               "success"
             )
           );
-      });
-    })(req, res, next);
+        });
+      })(req, res, next);
+    }));
+
+    res
+      .status(200)
+      .json(result);
   }
   
   logout(req, res) {

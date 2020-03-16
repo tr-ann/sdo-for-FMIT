@@ -9,7 +9,7 @@ module.exports = new LocalStrategy(
   async (login, password, done) => {
     
     const user = (await UserRepository.get({ 
-      where: { login: login },
+      where: { login },
       attributes: [ 'id', 'login', 'password' ],
     }))[0];
     

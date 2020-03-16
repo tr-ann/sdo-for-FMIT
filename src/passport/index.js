@@ -14,7 +14,7 @@ passport.deserializeUser(async (id, done) => {
 	done(null, await UserService.readById(id));
 });
 
-const isAuthenticated = async (req, res, next) => {
+const isAuthenticated = (req, res, next) => {
   
 	req.isAuthenticated()
     ? next()

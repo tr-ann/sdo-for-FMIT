@@ -7,11 +7,13 @@ module.exports = {
     .max(255)
     .required(),
   email: Joi
+    .string()
     .email()
-    .string(255)
+    .max(255)
     .required(),
   sex: Joi
-    .string(2)
+    .string()
+    .max(2)
     .required(),
   description: Joi
     .string()

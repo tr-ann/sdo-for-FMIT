@@ -230,7 +230,7 @@ INSERT INTO "teachers" (id, user_id, full_name, short_name, department_id, acade
 (5, 14, 'Преподаватель № 5', 'Препод №5', 1, 33, 1 ),
 (6, 15, 'Преподаватель № 6', 'Препод №6', 4, 33, 1 );
 
-INSERT INTO "teachers_positions" ("teacher_id", "position_id") VALUES
+INSERT INTO "teachers_positions" (teacher_id, position_id) VALUES
 (    1,   3   ), 
 (    2,   3   ), 
 (    3,   3   ), 
