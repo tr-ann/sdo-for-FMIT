@@ -12,7 +12,7 @@ const hasAccess = async (req, res, next) => {
 
     for (let controlPoint of controlPoints) {
 
-      if (RegExp(controlPoint.url).test(req.originalControlPoint) && req.method == controlPoint.method) {
+      if (RegExp(controlPoint.url).test(req.originalUrl) && req.method == controlPoint.method) {
         return true;
       }
     }

@@ -13,6 +13,7 @@ module.exports = (app) => {
 
   app.post('/login', tryCatch(AuthController.login));
   app.use(tryCatch(isAuthenticated));
+  
   app.get('/logout', tryCatch(AuthController.logout));
   
   app.use(tryCatch(hasAccess));

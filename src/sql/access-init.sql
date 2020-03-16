@@ -140,7 +140,7 @@ INSERT INTO "control_points"(id, url, method) VALUES
 (   116   ,   '/users/options', 'GET'),
 (   117   ,   '/users/options', 'PUT'),
 
-(   118   ,   '/roles' ,   'GET'),
+(   118   ,  '/roles' ,   'GET'),
 (   119  ,   '/roles' ,   'POST'),
 (   120  ,   '/roles/\\d' ,  'GET'),
 (   121  ,   '/roles/\\d' ,  'POST'),

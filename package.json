@@ -1,5 +1,5 @@
 {
-  "name": "sdo-for-fmit",
+  "name": "myuniversity",
   "version": "1.0.0",
   "private": true,
   "author": "",
@@ -33,10 +33,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tr-ann/sdo-for-FMIT.git"
+    "url": "git+https://github.com/tr-ann/myuniversity.git"
   },
   "bugs": {
-    "url": "https://github.com/tr-ann/sdo-for-FMIT/issues"
+    "url": "https://github.com/tr-ann/myuniversity/issues"
   },
-  "homepage": "https://github.com/tr-ann/sdo-for-FMIT#readme"
+  "homepage": "https://github.com/tr-ann/myuniversity#readme"
 }

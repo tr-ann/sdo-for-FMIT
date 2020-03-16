@@ -8,30 +8,35 @@ class AuthController {
     
     passport.authenticate('local', (err, user, info) => {
 
-        if (err) next(err);
-        
-        if (!user) next(new NotFound(info.message));
-
-        req.logIn(user, (err) => {
-
-          if (err) next(err);
-
-          res
-            .status(200)
-            .json(
-              responseFormat.build(
-                {
-                  id: user.id,
-                  login: user.login,
-                },
-                info.message,
-                200,
-                "success"
-              )
-            );
-        });
+      if (err) {
+        next(err);
+        return;
       }
-    )(req, res, next);
+      
+      if (!user) {
+        next(new NotFound(info.message));
+        return;
+      }
+
+      req.logIn(user, (err) => {
+
+        if (err) next(err);
+
+        res
+          .status(200)
+          .json(
+            responseFormat.build(
+              {
+                id: user.id,
+                login: user.login,
+              },
+              info.message,
+              200,
+              "success"
+            )
+          );
+      });
+    })(req, res, next);
   }
   
   logout(req, res) {

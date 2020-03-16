@@ -8,17 +8,17 @@ module.exports = new LocalStrategy(
   },
   async (login, password, done) => {
     
-    const user = await UserRepository.get({ 
-      where: { login },
+    const user = (await UserRepository.get({ 
+      where: { login: login },
       attributes: [ 'id', 'login', 'password' ],
-    });
+    }))[0];
     
     if (!user) {
       return done(null, false, { message: 'Incorrect login or password' });
     }
 
     if (await user.validPassword(password)) {
-      return done(null, user, { message: 'User authorized successfully' });
+      return done(null, user, { message: 'User authenticated successfully' });
     }
 
     return done(null, false, { message: 'Incorrect login or password' });

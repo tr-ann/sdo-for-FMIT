@@ -1,5 +1,5 @@
 const { Model } = require('sequelize');
-const Hash = require('../../../classes/Hash');
+const { Hash } = require('../../../classes');
 
 module.exports = (sequelize, DataTypes) => {
 	
@@ -74,8 +74,8 @@ module.exports = (sequelize, DataTypes) => {
 		(user, options) => user.password = Hash.get(user.password)
 	);
 
-	User.prototype.validPassword = async (password) => {
-    return await Hash.compare(password, this.password)
+	User.prototype.validPassword = async function(password) {
+    return await Hash.compare(password, this.password);
   };
 
   User.beforeUpdate(
