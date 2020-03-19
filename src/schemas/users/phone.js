@@ -1,8 +1,15 @@
 const Joi = require('@hapi/joi');
 
 module.exports = {
-  phone: Joi
-    .string()
-    .max(30)
+  phones: Joi
+    .array()
+    .items( Joi
+      .object()
+      .keys({
+        phone: Joi
+          .string()
+          .max(30)
+      })
+    )
     .optional()
 }

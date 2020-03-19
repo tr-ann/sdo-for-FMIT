@@ -62,7 +62,7 @@ class UserService {
     
     user.update({ password: newPassword });
 
-    return 1;
+    return true;
   }
 
   async destroy(id) {
