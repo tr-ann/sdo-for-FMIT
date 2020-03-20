@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
   Building.init({
     name: {
       allowNull: false,
+      type: DataTypes.STRING(100),
+    },
+    address: {
+      allowNull: false,
       type: DataTypes.STRING(200),
     },
   }, {

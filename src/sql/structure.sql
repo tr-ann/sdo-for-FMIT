@@ -29,7 +29,7 @@ CREATE TABLE "room_types" (
 DROP TABLE IF EXISTS "buildings";
 CREATE TABLE "buildings" (
     "id"                    SERIAL          PRIMARY KEY,
-    "name"                  VARCHAR(200)    NOT NULL /* UNIQUE */,
+    "name"                  VARCHAR(100)    NOT NULL /* UNIQUE */,
     "address"               TEXT            NOT NULL,
     "deleted_date"          TIMESTAMP
 );

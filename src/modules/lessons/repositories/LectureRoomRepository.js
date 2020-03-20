@@ -41,7 +41,7 @@ class LectureRoomRepository {
         {
           model: db.Building,
           as: 'building',
-          attributes: [ 'name' ],
+          attributes: [ 'name', 'address' ],
         },
       ]
     });

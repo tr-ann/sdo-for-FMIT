@@ -65,7 +65,7 @@ class LessonRepository {
         },
         {
           model: db.LectureRoom,
-          as: 'room',
+          as: 'lectureRoom',
           attributes: [ 'number' ],
         },
         {

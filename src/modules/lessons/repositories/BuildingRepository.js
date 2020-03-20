@@ -20,7 +20,7 @@ class BuildingRepository {
    */
   async readById(id) {        
     return await db.Building.findByPk(id, {
-      attributes: [ 'id', 'name' ],
+      attributes: [ 'id', 'name', 'address' ],
     });
   }
 
@@ -31,7 +31,7 @@ class BuildingRepository {
    */
   async readAll() {
     return await db.Building.findAll({
-      attributes: [ 'id', 'name' ],
+      attributes: [ 'id', 'name', 'address' ],
     });
   }
 

@@ -7,6 +7,7 @@ class BuildingController {
     
     let building = await BuildingService.create({
       name: req.body.name,
+      address: req.body.address,
     });
     
     res
@@ -59,6 +60,7 @@ class BuildingController {
       req.params.id,
       {
         name: req.body.name,
+        address: req.body.address,
       }
     );
 

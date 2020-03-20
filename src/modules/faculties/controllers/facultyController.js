@@ -74,7 +74,6 @@ class FacultyController {
     await InfoFacultyService.update(
       req.params.id,
       {
-        facultyId: req.params.id,
         description: req.body.description,
         phoneNumber: req.body.phoneNumber 
       }
@@ -91,6 +90,8 @@ class FacultyController {
         )
       );
   }
+
+  // НУЖНО ЛИ СЛЕДОМ УДАЛЯТЬ И InfoFaculty???
 
   async destroy(req, res, next) {
       
