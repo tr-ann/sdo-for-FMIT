@@ -1,6 +1,6 @@
 const passport = require('passport');
 const UserService = require('../modules/users/services/UserService');
-const Unauthorized = require('../classes/errors/4xx/Unauthorized');
+const { Unauthorized } = require('../classes/errors');
  
 const LocalStrategy = require('./strategies/LocalStrategy');
 

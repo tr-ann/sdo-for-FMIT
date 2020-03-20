@@ -140,17 +140,17 @@ INSERT INTO "control_points"(id, url, method) VALUES
 (   116   ,   '/users/options', 'GET'),
 (   117   ,   '/users/options', 'PUT'),
 
-(   118   ,   '/roles' ,   'GET'),
+(   118   ,  '/roles' ,   'GET'),
 (   119  ,   '/roles' ,   'POST'),
 (   120  ,   '/roles/\\d' ,  'GET'),
 (   121  ,   '/roles/\\d' ,  'POST'),
 (   122  ,   '/roles/\\d' ,  'DELETE'),
 
-(   123  ,   '/urls'    ,   'GET'),
-(   124  ,   '/urls'    ,   'POST'),
-(   125  ,   '/urls/\\d' ,  'GET'),
-(   126  ,   '/urls/\\d' ,  'POST'),
-(   127  ,   '/urls/\\d' ,  'DELETE'),
+(   123  ,   '/controlPoints'    ,   'GET'),
+(   124  ,   '/controlPoints'    ,   'POST'),
+(   125  ,   '/controlPoints/\\d' ,  'GET'),
+(   126  ,   '/controlPoints/\\d' ,  'POST'),
+(   127  ,   '/controlPoints/\\d' ,  'DELETE'),
 
 (   128  ,   '/teachers'    ,   'GET'),
 (   129  ,   '/teachers'    ,   'POST'),

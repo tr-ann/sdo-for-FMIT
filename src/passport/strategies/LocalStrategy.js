@@ -18,7 +18,7 @@ module.exports = new LocalStrategy(
     }
 
     if (await user.validPassword(password)) {
-      return done(null, user, { message: 'User authorized successfully' });
+      return done(null, user, { message: 'User authenticated successfully' });
     }
 
     return done(null, false, { message: 'Incorrect login or password' });

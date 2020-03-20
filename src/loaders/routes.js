@@ -13,13 +13,14 @@ module.exports = (app) => {
 
   app.post('/login', tryCatch(AuthController.login));
   app.use(tryCatch(isAuthenticated));
+  
   app.get('/logout', tryCatch(AuthController.logout));
   
   app.use(tryCatch(hasAccess));
 
   app.use('/users', usersRouters.UserRouter);
   app.use('/roles', usersRouters.RoleRouter);
-  app.use('/urls', usersRouters.UrlRouter);
+  app.use('/controlPoints', usersRouters.ControlPointRouter);
   
   app.use('/teachers', teachersRouters.TeacherRouter);
   app.use('/academicDegrees', teachersRouters.AcademicDegreeRouter);

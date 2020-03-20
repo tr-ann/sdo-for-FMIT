@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 	AcademicRank.init({
 		name: {
 			allowNull: false,
-			type: DataTypes.STRING(150),
+			type: DataTypes.STRING(100),
 		},
 	}, {
 		sequelize,

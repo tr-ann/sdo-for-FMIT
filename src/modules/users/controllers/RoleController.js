@@ -5,7 +5,7 @@ class RoleController {
 
 	async create(req, res, next) {
 		let role = await RoleService.create({
-			name: req.body.name
+			name: req.body.role
 		});
 
 		res
@@ -52,7 +52,7 @@ class RoleController {
 	
 	async update(req, res, next) {
 		let role = await RoleService.update(req.params.id, {
-			name: req.body.name,
+			name: req.body.role,
 		});
 
 		res

@@ -1,7 +1,7 @@
 const UserRouter = require('./UserRouter');
 const RoleRouter = require('./RoleRouter');
-const UrlRouter = require('./UrlRouter');
+const ControlPointRouter = require('./ControlPointRouter');
 
 module.exports.UserRouter = UserRouter;
 module.exports.RoleRouter = RoleRouter;
-module.exports.UrlRouter = UrlRouter;
+module.exports.ControlPointRouter = ControlPointRouter;
