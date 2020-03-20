@@ -2,7 +2,7 @@ const { Router } = require('express');
 const InfoFacultyController = require('../controllers/InfoFacultyController');
 const { tryCatch } = require('../../../helpers');
 const schemas = require('../../../schemas');
-const validate = require('../../../classes/Validator').validate;
+const Validate = require('../../../classes/Validator');
 
 /* НУЖНЕН ЛИ ОТДЕЛЬНЫЙ КОНТРОЛЛЕР ДЛЯ INFO_FACULTY??? */
 
