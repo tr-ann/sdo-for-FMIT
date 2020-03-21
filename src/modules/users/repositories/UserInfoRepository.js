@@ -39,8 +39,8 @@ class UserInfoRepository {
 	 * @param {Object} userInfo - body of userInfo that will be updated
 	 * @return {Promise} promise with result of update
 	 */
-	async update(id, userInfo) {
-		return await db.UserInfo.update(userInfo, {where: { id: id }});
+	async update(id, userInfo, options) {
+		return await db.UserInfo.update(userInfo, {where: { id: id }}, options);
 	}
 
 	/**
@@ -50,7 +50,7 @@ class UserInfoRepository {
 	 * @return {Promise} promise with result of destroy
 	 */
 	async destroy(id) {
-		return await db.UserInfo.destroy({where: { id: id }});
+		return await db.UserInfo.destroy({ where: { id: id }});
 	}
 
 	/**

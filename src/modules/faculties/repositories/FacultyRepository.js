@@ -33,8 +33,25 @@ class FacultyRepository {
         {
           model: db.InfoFaculty,
           as: 'infoFaculty',
-          attributes: [ 'id', 'description' ],
+          attributes: [ 'id', 'description', 'phone' ],
         },
+        {
+          model: db.Group,
+          attributes: [ 'id', 'number' ],
+          as: 'groups',
+          include: [
+            {
+              model: db.Specialty,
+              attributes: [ 'id', 'code', 'shortName' ],
+              as: 'specialty'
+            },
+            {
+              model: db.StudyMode,
+              attributes: [ 'id', 'name' ],
+              as: 'studyMode'
+            }
+          ]
+        }
       ],
     });
   }
@@ -45,8 +62,8 @@ class FacultyRepository {
    * @param {Object} faculty - body of faculty that will be created
    * @return {Promise} promise with result of create
    */
-  async create(faculty) {
-    return await db.Faculty.create(faculty);
+  async create(faculty, options) {
+    return await db.Faculty.create(faculty, options);
   }
 
   /**
@@ -56,8 +73,8 @@ class FacultyRepository {
    * @param {Object} faculty - body of faculty that will be updated
    * @return {Promise} promise with result of update
    */
-  async update(id, faculty) {
-    return await db.Faculty.update(faculty, { where: { id } });
+  async update(id, faculty, options) {
+    return await db.Faculty.update(faculty, { where: { id } }, options);
   }
   
   /**

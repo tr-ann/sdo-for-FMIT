@@ -2,6 +2,7 @@ const UserRepository = require('../repositories/UserRepository');
 const { NotFound, BadRequest } = require('../../../classes/errors');
 const { sequelize } = require('../../../sequelize');
 const Hash = require('../../../classes/Hash');
+const db = require('../../../dbModels');
 
 class UserService {
 
@@ -46,7 +47,7 @@ class UserService {
         throw new NotFound('User not found');
       }
 
-      return await oldUser.update(user);
+      return await (await oldUser.update(user)).save({ include: [ db.UserInfo, db.Phone ]});
   }
 
   async changePassword(userId, oldPassword, newPassword) {

@@ -16,7 +16,7 @@ module.exports = (app) => {
   
   app.get('/logout', tryCatch(AuthController.logout));
   
-  app.use(tryCatch(hasAccess));
+  //app.use(tryCatch(hasAccess));
 
   app.use('/users', usersRouters.UserRouter);
   app.use('/roles', usersRouters.RoleRouter);

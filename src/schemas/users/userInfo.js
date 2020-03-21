@@ -19,7 +19,8 @@ module.exports = {
     .string()
     .optional(),
   birthday: Joi
-    .date()
+    .string()
+    .min(10)
     .required(),
   city: Joi
     .string()

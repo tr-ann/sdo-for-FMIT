@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
 		UserInfo.belongsTo(models.User, {
 			foreignKey: 'userId',
 			as: 'user',
-			onDelete: 'cascade',
+			onDelete: 'restrict',
 			onUpdate: 'cascade'
 		});
 

@@ -1,27 +1,37 @@
 const FacultyService = require('../services/FacultyService');
-const InfoFacultyService = require('../services/InfoFacultyService');
 const { responseFormat } = require('../../../helpers');
+const { sequelize } = require('../../../sequelize');
+const db = require('../../../dbModels');
 
 class FacultyController {
 
   async create(req, res, next) {
       
-    let faculty = await FacultyService.create({
-      name: req.body.name,
-      shortName: req.body.shortName,
-    });
-    
-    await InfoFacultyService.create({
-      facultyId: faculty.id,
-      description: req.body.description,
-      phoneNumber: req.body.phoneNumber,
+    let facultyId = await sequelize.transaction( async (transaction) => {
+
+      let faculty = await FacultyService.create({
+        name: req.body.name,
+        shortName: req.body.shortName,
+        infoFaculty: {
+          description: req.body.description,
+          phone: req.body.phone,
+        }
+      }, {
+        include: [{
+          model: db.InfoFaculty,
+          as: 'infoFaculty'
+        }],
+        transaction: transaction
+      });
+
+      return faculty.id;
     });
 
     res
       .status(201)
       .json(
         responseFormat.build(
-          faculty,
+          facultyId,
           "Faculty created successfully",
           201,
           "success"
@@ -62,22 +72,25 @@ class FacultyController {
   }
 
   async update(req, res, next) {
-      
-    let faculty = await FacultyService.update(
-      req.params.id,
-      {
-        name: req.body.name,
-        shortName: req.body.shortName,
-      }
-    );
     
-    await InfoFacultyService.update(
-      req.params.id,
-      {
-        description: req.body.description,
-        phoneNumber: req.body.phoneNumber 
-      }
-    );
+    let faculty = await sequelize.transaction( async (transaction) => {
+
+      return await FacultyService.update(
+        req.params.id,
+        {
+          name: req.body.name,
+          shortName: req.body.shortName,
+          infoFaculty: {
+            description: req.body.description,
+            phone: req.body.phone 
+          }
+        }, {
+          include: [ db.InfoFaculty ],
+          transaction: transaction
+        }
+      );
+
+    });
 
     res
       .status(200)
@@ -90,8 +103,6 @@ class FacultyController {
         )
       );
   }
-
-  // НУЖНО ЛИ СЛЕДОМ УДАЛЯТЬ И InfoFaculty???
 
   async destroy(req, res, next) {
       

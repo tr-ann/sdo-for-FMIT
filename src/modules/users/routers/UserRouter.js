@@ -6,13 +6,13 @@ const schemes = require('../../../schemas');
 
 const router = Router();
 
-//router.get('/profile', tryCatch(userController.readById)); // собственный профиль
-
 router.put(
   '/profile/password',
   Validator.validate({ body: schemes.users.restorePassword }),
   tryCatch(UserController.restorePassword)
 );
+
+router.get('/profile', tryCatch(UserController.readById)); // собственный профиль
 
 router.put(
   '/profile',
@@ -23,8 +23,6 @@ router.put(
   ]}),
   tryCatch(UserController.update)
 );
-
-router.put('/me', tryCatch(UserController.restorePassword))
 
 router.get(
   '/:id',

@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
 
 	Phone.init({
 		userId: {
-			allowNull: false,
 			type: DataTypes.INTEGER,
 			field: 'user_id'
 		},
@@ -35,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 		Phone.belongsTo(models.User, {
 			foreignKey: 'userId',
 			as: 'user',
-			onDelete: 'cascade',
+			onDelete: 'restrict',
 			onUpdate: 'cascade'
 		});
 

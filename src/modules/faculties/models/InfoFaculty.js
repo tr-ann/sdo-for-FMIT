@@ -5,10 +5,15 @@ module.exports = (sequelize, DataTypes) => {
   class InfoFaculty extends Model {}
 
   InfoFaculty.init({
+    facultyId: {
+			allowNull: false,
+			type: DataTypes.INTEGER,
+			field: 'faculty_id'
+    },
     description: {
       type: DataTypes.TEXT,
     },
-    phoneNumber: {
+    phone: {
       allowNull: false,
       type: DataTypes.STRING(20),
       field: 'phone_number',
@@ -31,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
 
   InfoFaculty.associate = (models) => {
     InfoFaculty.belongsTo(models.Faculty, {
-      onUpdate: 'restrict',
+      onUpdate: 'cascade',
       onDelete: 'restrict',
       foreignKey: 'facultyId',
       as: 'faculty',

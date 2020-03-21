@@ -54,7 +54,7 @@ ALTER TABLE phones
 	ADD CONSTRAINT FK_phones_to_users FOREIGN KEY(user_id)
 		REFERENCES users(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT
+		ON UPDATE CASCADE
 ;
 
 	
@@ -64,7 +64,7 @@ ALTER TABLE users_info
     ADD CONSTRAINT FK_users_info_to_users FOREIGN KEY(user_id)
 		REFERENCES users(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT,
+		ON UPDATE CASCADE,
 
     ADD CONSTRAINT FK_users_info_to_resources FOREIGN KEY(photo_id)
 		REFERENCES resources(id)
@@ -119,7 +119,7 @@ ALTER TABLE info_faculties
 	ADD CONSTRAINT FK_info_faculties_to_faculties FOREIGN KEY(faculty_id)
 		REFERENCES faculties(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT
+		ON UPDATE CASCADE
 ;
 
 						

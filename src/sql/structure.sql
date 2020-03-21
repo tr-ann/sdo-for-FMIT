@@ -89,7 +89,7 @@ CREATE TABLE "roles" (
 DROP TABLE IF EXISTS "users";
 CREATE TABLE "users" (
     "id"                    SERIAL          PRIMARY KEY,
-    "login"                 VARCHAR(100)     NOT NULL /* UNIQUE */,
+    "login"                 VARCHAR(100)    NOT NULL /* UNIQUE */,
     "password"              VARCHAR(100)    NOT NULL,
     "deleted_date"          TIMESTAMP
 );
@@ -103,8 +103,8 @@ CREATE TABLE "users_info" (
     "sex"                   VARCHAR(2)      NOT NULL,
     "email"                 VARCHAR(255)    NOT NULL,
     "description"           TEXT            ,
-    "birthday"              TIMESTAMP       NOT NULL,
-    "city"                  VARCHAR(255)     ,
+    "birthday"              DATE            NOT NULL,
+    "city"                  VARCHAR(255)    ,
     "address"               TEXT            ,
     "photo_id"              INTEGER         ,
     "deleted_date"          TIMESTAMP         

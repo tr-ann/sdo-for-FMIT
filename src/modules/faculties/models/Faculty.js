@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Faculty.hasOne(models.InfoFaculty, {
-      onUpdate: 'restrict',
+      onUpdate: 'cascade',
       onDelete: 'restrict',
       foreignKey: 'facultyId',
       as: 'infoFaculty',

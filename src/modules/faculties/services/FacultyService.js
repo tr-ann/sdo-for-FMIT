@@ -1,10 +1,17 @@
 const FacultyRepository = require('../repositories/FacultyRepository');
-const { NotFound } = require('../../../classes/errors');
+const { NotFound, BadRequest } = require('../../../classes/errors');
+const { sequelize } = require('../../../sequelize');
 
 class FacultyService {
 
-  async create(faculty) {
-    return await FacultyRepository.create(faculty);
+  async create(faculty, options) {
+    let existingFaculty = await FacultyRepository.get({ where: { name: faculty.name } });
+
+    if(existingFaculty[0]) {
+      throw new BadRequest('Such faculty already exists');
+    }
+
+    return await FacultyRepository.create(faculty, options);
   }
 
   async readAll() {
@@ -22,26 +29,35 @@ class FacultyService {
     return faculty;
   }
 
-  async update(id, faculty) {
+  async update(id, faculty, options) {
 
-    let nFaculty = await FacultyRepository.readById(id);
+    let existingFaculty = await FacultyRepository.readById(id);
     
-    if (!nFaculty) {
+    if (!existingFaculty) {
       throw new NotFound(`Faculty not found`);
     }
 
-    return await FacultyRepository.update(id, faculty);
+    return await existingFaculty.update(faculty, options);
   }
 
   async destroy(id) {
 
-    let faculty = await FacultyRepository.readById(id);
+    await sequelize.transaction( async (transaction) => {
+
+      let faculty = await FacultyRepository.readById(id);
+      
+      if (!faculty) {
+        throw new NotFound(`Faculty not found`)
+      };
+
+      let infoFaculty = await faculty.getInfoFaculty();
+      await infoFaculty.destroy({ transaction: transaction });
+
+      await faculty.destroy({ transaction: transaction });
+
+    })
     
-    if (!faculty) {
-      throw new NotFound(`Faculty not found`)
-    };
-    
-    return await FacultyRepository.destroy(id);
+    return;
   }
 }
 

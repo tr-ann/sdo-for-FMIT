@@ -7,6 +7,28 @@ class PhoneService {
 		return await PhoneRepository.create(phone, options);
 	}
 
+	async createPhonesForUser(userId, phones, options) {
+
+		return await phones.map( (phone) => {
+
+			PhoneRepository.create({ userId: userId, phone: phone }, options)
+				.then((phone) => {
+					return phone;
+				});
+
+		});
+	}
+
+	async destroyUserPhones(userId, options) {
+		let phones = await PhoneRepository.get({ where: { userId: userId }});
+
+		for (let phone of phones) {
+			await phone.destroy(options);
+		}
+
+		return;
+	}
+
 	async findById(id) {
 
 		let phone = await PhoneRepository.readById(id);

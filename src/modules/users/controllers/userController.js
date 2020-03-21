@@ -1,8 +1,8 @@
 const UserService = require('../services/UserService');
 const UserInfoService = require('../services/UserInfoService');
-const PhoneService = require('../services/PhoneService');
 const { responseFormat } = require('../../../helpers');
 const { sequelize } = require('../../../sequelize');
+const roles = require('../../../constants/usersInfo');
 const db = require('../../../dbModels');
 
 class UserController {
@@ -39,8 +39,7 @@ class UserController {
 	
 			await user.setUserInfo(userInfo, { transaction: transaction	});
 
-			//надо добавить какую-нибудь константу для определения роли по умолчанию
-			await user.setRoles(2, { transaction: transaction	});
+			await user.setRoles(roles.DEFAULT_ROLE_ID, { transaction: transaction	});
 
 			return user;
 		});
@@ -88,7 +87,8 @@ class UserController {
 	}
 	
 	async update(req, res, next) {
-		let user = await UserService.update(/*req.user.id*/1, {
+		
+		let user = await UserService.update(req.user.id, {
 			phones: req.body.phones,
 			userInfo: {
 				fullName: req.body.fullName,
@@ -109,7 +109,8 @@ class UserController {
 						model: db.UserInfo,
 						as: 'userInfo'
 					}
-				]
+				],
+				isNewRecord: false
 			}
 		);
 
