@@ -50,8 +50,8 @@ class FacultyService {
         transaction: transaction
       });
 
-      throw new BadRequest()
-
+      // СОСТАВИТЬ КРАСИВЫЙ ОТВЕТ
+      
       return {
         id: id
       } 

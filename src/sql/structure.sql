@@ -103,11 +103,7 @@ CREATE TABLE "users_info" (
     "sex"                   VARCHAR(2)      NOT NULL,
     "email"                 VARCHAR(255)    NOT NULL,
     "description"           TEXT            ,
-<<<<<<< HEAD
     "birthday"              DATE            NOT NULL,
-=======
-    "birthday"              TIMESTAMP       NOT NULL,
->>>>>>> 19a135e037fbce3552d04d6997f8260f089d703c
     "city"                  VARCHAR(255)    ,
     "address"               TEXT            ,
     "photo_id"              INTEGER         ,

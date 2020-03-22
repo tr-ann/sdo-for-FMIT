@@ -1,27 +1,40 @@
 const UserService = require('../modules/users/services/UserService');
 const { Forbidden } = require('../classes/errors');
+const methods = require('../constants/methodInfo');
+const Cache = require('../classes/Cache');
+
+const cache = new Cache( async (role) => {
+
+  let controlPoints = await role.getControlPoints();
+
+  return controlPoints.map( (controlPoint) => {
+
+    return {
+      url: controlPoint.url,
+      permissionMask : controlPoint.RoleControlPoint.permissionMask
+    }
+  });
+});
 
 const hasAccess = async (req, res, next) => {
 
   let user = await UserService.readById(req.user.id);
   let roles = await user.getRoles();
-  
-  console.log(req.method)
 
   for (let role of roles) {
-
-    /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-    
-    let controlPoints = await role.getControlPoints();
+    let controlPoints = await cache.process(role);
 
     for (let controlPoint of controlPoints) {
-      if (RegExp(controlPoint.url).test(req.originalUrl) && req.method.localeCompare(controlPoint.method) == 0) {
-        return true;
+
+      if (RegExp(controlPoint.url).test(req.originalUrl) 
+        && (controlPoint.permissionMask & methods[req.method])){
+
+          return true;
       }
     }
   }
 
-  return false;  
+  return false;
 }
 
 module.exports = async (req, res, next) => {

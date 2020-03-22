@@ -10,85 +10,85 @@
 INSERT INTO "control_points"(id, url) VALUES
 
 (   1   ,   '/buildings'        	),
-(   2   ,   '/buildings/\\d'    	),
+(   2   ,   '/buildings/\d'    	),
 
 (   3   ,   '/disciplines'      	),
-(   4   ,   '/disciplines/\\d'  	),
+(   4   ,   '/disciplines/\d'  	),
 
 (   5  	,   '/lectureRooms'     	),
-(   6  	,   '/lectureRooms/\\d' 	),
+(   6  	,   '/lectureRooms/\d' 	),
 
 (   7  	,   '/lessonNumbers'    	),
-(   8  	,   '/lessonNumbers/\\d'	),
+(   8  	,   '/lessonNumbers/\d'	),
 
 (   9  	,   '/lessonTypes'      	),
-(   10 	,   '/lessonTypes/\\d'  	),
+(   10 	,   '/lessonTypes/\d'  	),
 
 (   11  ,   '/lessons'      		),
-(   12  ,   '/lessons/\\d'  		),
+(   12  ,   '/lessons/\d'  		),
 
 (   13  ,   '/roomTypes'    		),
-(   14  ,   '/roomTypes/\\d'		),
+(   14  ,   '/roomTypes/\d'		),
 
 (   15  ,   '/departments'      	),
-(   16  ,   '/departments/\\d'  	),
+(   16  ,   '/departments/\d'  	),
 
 (   17  ,   '/faculties'    		),
-(   18  ,   '/faculties/\\d'		),
+(   18  ,   '/faculties/\d'		),
 
 (   19  ,   '/groups'       		),
-(   20  ,   '/groups/\\d'   		),
+(   20  ,   '/groups/\d'   		),
 
 (   21  ,   '/specialties'      	),
-(   22  ,   '/specialties/\\d'  	),
+(   22  ,   '/specialties/\d'  	),
 
 (   23  ,   '/departments'      	),
-(   24  ,   '/departments/\\d'  	),
+(   24  ,   '/departments/\d'  	),
 
 (   25  ,   '/studyModes'       	),
-(   26  ,   '/studyModes/\\d'   	),
+(   26  ,   '/studyModes/\d'   	),
 
 (   27  ,   '/subgroups'    		),
-(   28  ,   '/subgroups/\\d'		),
+(   28  ,   '/subgroups/\d'		),
 
 (   29  ,   '/graduationPapers'     ),
-(   30  ,   '/graduationPapers/\\d' ),
+(   30  ,   '/graduationPapers/\d' ),
 
 (   31  ,   '/organizations'    	),
-(   32  ,   '/organizations/\\d'	),
+(   32  ,   '/organizations/\d'	),
 
 (   33  ,   '/practices'    		),
-(   34  ,   '/practices/\\d'		),
+(   34  ,   '/practices/\d'		),
 
 (   35  ,   '/practiceTypes'    	),
-(   36  ,   '/practiceTypes/\\d'	),
+(   36  ,   '/practiceTypes/\d'	),
 
 (   37  ,   '/requests'     		),
-(   38  ,   '/requests/\\d' 		),
+(   38  ,   '/requests/\d' 		),
 
 (   39  ,   '/resources'    		),
-(   40  ,   '/resources/\\d'		),
+(   40  ,   '/resources/\d'		),
 
 (   41  ,   '/statuses'     		),
-(   42  ,   '/statuses/\\d' 		),
+(   42  ,   '/statuses/\d' 		),
 
 (   43  ,   '/termPapers'       	),
-(   44  ,   '/termPapers/\\d'   	),
+(   44  ,   '/termPapers/\d'   	),
 
 (   45	,  	'/roles' 				),
-(   46	,   '/roles/\\d' 			),
+(   46	,   '/roles/\d' 			),
 
 (   47	,   '/controlPoints'    	),
-(   48	,   '/controlPoints/\\d'	),
+(   48	,   '/controlPoints/\d'	),
 
 (   49  ,   '/teachers'    			),
-(   50  ,   '/teachers/\\d'			),
+(   50  ,   '/teachers/\d'			),
 
 (   51  ,   '/students'				),
-(   52  ,   '/students/\\d'			),
+(   52  ,   '/students/\d'			),
 
 (   53	,   '/users'          		),
-(   54	,   '/users/\\d'      		),
+(   54	,   '/users/\d'      		),
 (   55	,   '/users/options'  		);
 
 INSERT INTO "roles_control_points"(role_id, control_point_id, permission_mask) VALUES

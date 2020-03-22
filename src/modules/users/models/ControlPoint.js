@@ -8,11 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 		url: {
 			allowNull: false,
 			type: DataTypes.STRING,
-		},
-		method: {
-			allowNull: false,
-			type: DataTypes.STRING,
-		},
+		}
 	}, {
 		sequelize,
 		charset: 'UTF8',

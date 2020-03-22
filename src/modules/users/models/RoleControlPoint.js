@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 			type: DataTypes.INTEGER,
 			field: 'control_point_id'
+		},
+		permissionMask: {
+			allowNull: false,
+			type: DataTypes.INTEGER,
+			field: 'permission_mask'
 		}
 	}, {
 		sequelize,
@@ -30,6 +35,24 @@ module.exports = (sequelize, DataTypes) => {
 		  plural: 'RolesControlPoints',
 		},
 	});
+
+	RoleControlPoint.associate = (models) => {
+
+		RoleControlPoint.belongsTo(models.Role, {
+			foreignKey: 'roleId',
+			as: 'roles',
+			onDelete: 'restrict',
+			onUpdate: 'restrict',
+		});
+
+		RoleControlPoint.belongsTo(models.ControlPoint, {
+			foreignKey: 'controlPointId',
+			as: 'controlPoints',
+			onDelete: 'restrict',
+			onUpdate: 'restrict',
+		});
+		
+	};
 
 	return RoleControlPoint;
 };
