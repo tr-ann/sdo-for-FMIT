@@ -6,13 +6,16 @@ const hasAccess = async (req, res, next) => {
   let user = await UserService.readById(req.user.id);
   let roles = await user.getRoles();
   
+  console.log(req.method)
+
   for (let role of roles) {
+
+    /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
     
     let controlPoints = await role.getControlPoints();
 
     for (let controlPoint of controlPoints) {
-
-      if (RegExp(controlPoint.url).test(req.originalUrl) && req.method == controlPoint.method) {
+      if (RegExp(controlPoint.url).test(req.originalUrl) && req.method.localeCompare(controlPoint.method) == 0) {
         return true;
       }
     }
