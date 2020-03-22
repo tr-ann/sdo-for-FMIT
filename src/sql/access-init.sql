@@ -145,7 +145,7 @@ INSERT INTO "roles_control_points"(role_id, control_point_id, permission_mask) V
 (	1	,	34  ,   1 + 4 + 8),
 
 (	1	,	35  ,   1 + 2),
-(	1	,	36  ,   1 
+(	1	,	36  ,   1 + 4 + 8),
 
 (	1	,	37  ,   1 + 2),
 (	1	,	38  ,   1 + 4 + 8),
