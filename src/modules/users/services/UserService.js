@@ -47,7 +47,7 @@ class UserService {
         throw new NotFound('User not found');
       }
 
-      return await (await oldUser.update(user)).save({ include: [ db.UserInfo, db.Phone ]});
+      return await oldUser.update(user);
   }
 
   async changePassword(userId, oldPassword, newPassword) {

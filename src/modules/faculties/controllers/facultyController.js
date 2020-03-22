@@ -72,25 +72,20 @@ class FacultyController {
   }
 
   async update(req, res, next) {
-    
-    let faculty = await sequelize.transaction( async (transaction) => {
 
-      return await FacultyService.update(
-        req.params.id,
-        {
+    let faculty = await FacultyService.update(
+      req.params.id,
+      {
+        faculty: {
           name: req.body.name,
-          shortName: req.body.shortName,
-          infoFaculty: {
-            description: req.body.description,
-            phone: req.body.phone 
-          }
-        }, {
-          include: [ db.InfoFaculty ],
-          transaction: transaction
+          shortName: req.body.shortName
+        },
+        infoFaculty: {
+          description: req.body.description,
+          phone: req.body.phone 
         }
-      );
-
-    });
+      }
+    );
 
     res
       .status(200)

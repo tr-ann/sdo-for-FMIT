@@ -40,6 +40,12 @@ module.exports = (sequelize, DataTypes) => {
 
 	}
 
+	Phone.afterUpdate( async (phone) => {
+		console.log(phone)
+
+		phone.userId || phone.destroy();
+	})
+
 	return Phone;
 
 }

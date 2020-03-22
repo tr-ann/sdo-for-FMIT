@@ -1,5 +1,7 @@
 const PhoneRepository = require('../repositories/PhoneRepository');
+const UserService = require('../services/UserService');
 const { NotFound } = require('../../../classes/errors');
+const db = require('../../../dbModels');
 
 class PhoneService {
 
@@ -17,6 +19,28 @@ class PhoneService {
 				});
 
 		});
+	}
+
+	async addToUser(userId, phones, options) {
+		let user = await UserService.readById(userId);
+
+		let newPhones = [];
+
+		if (phones) {
+			for (let phoneNumber of phones) {
+				let phone = await db.Phone.findOrCreate({
+					where: { phone: phoneNumber }, 
+					default: { phone: phoneNumber },
+					transaction: options.transaction
+				});
+
+				newPhones.push(phone[0].id);
+			}
+		}
+
+		await user.setPhones(newPhones, options);
+
+		return;
 	}
 
 	async destroyUserPhones(userId, options) {

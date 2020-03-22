@@ -1,5 +1,6 @@
 const UserService = require('../services/UserService');
 const UserInfoService = require('../services/UserInfoService');
+const PhoneService = require('../services/PhoneService');
 const { responseFormat } = require('../../../helpers');
 const { sequelize } = require('../../../sequelize');
 const roles = require('../../../constants/usersInfo');
@@ -88,9 +89,11 @@ class UserController {
 	
 	async update(req, res, next) {
 		
-		let user = await UserService.update(req.user.id, {
-			phones: req.body.phones,
-			userInfo: {
+		let updatedUser = await sequelize.transaction( async (transaction) => {
+		
+			await PhoneService.addToUser(req.user.id, req.body.phones, { transaction: transaction });	
+
+			await db.UserInfo.update({
 				fullName: req.body.fullName,
 				email: req.body.email,
 				birthday: req.body.birthday,
@@ -98,21 +101,14 @@ class UserController {
 				description: req.body.description,
 				city: req.body.city,
 				address: req.body.address
-				}
 			}, {
-				include: [
-					{
-						model: db.Phone,
-						as: "phones",
-					},
-					{
-						model: db.UserInfo,
-						as: 'userInfo'
-					}
-				],
-				isNewRecord: false
-			}
-		);
+				where: { userId: req.user.id },
+				transaction: transaction
+			});
+
+			
+
+		});
 
 		if(req.body.newPassword) {
 			await UserService.changePassword(req.user.id, req.body.oldPassword, req.body.newPassword);
@@ -122,7 +118,7 @@ class UserController {
 			.status(200)
 			.json(
 				responseFormat.build(
-					user,
+					updatedUser,
 					"User updated successfully",
 					200,
 					"success"

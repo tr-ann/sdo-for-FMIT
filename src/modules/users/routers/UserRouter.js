@@ -16,11 +16,11 @@ router.get('/profile', tryCatch(UserController.readById)); // собственн
 
 router.put(
   '/profile',
-  Validator.validate({ body: [
+  /*Validator.validate({ body: [
     schemes.users.updatePassword,
     schemes.users.userInfo,
     schemes.users.phone
-  ]}),
+  ]}),*/
   tryCatch(UserController.update)
 );
 

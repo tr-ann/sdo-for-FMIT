@@ -1,6 +1,7 @@
 const FacultyRepository = require('../repositories/FacultyRepository');
 const { NotFound, BadRequest } = require('../../../classes/errors');
 const { sequelize } = require('../../../sequelize');
+const db = require('../../../dbModels');
 
 class FacultyService {
 
@@ -29,15 +30,36 @@ class FacultyService {
     return faculty;
   }
 
-  async update(id, faculty, options) {
+  async update(id, data, options) {
 
-    let existingFaculty = await FacultyRepository.readById(id);
-    
-    if (!existingFaculty) {
-      throw new NotFound(`Faculty not found`);
-    }
+    let facultyId = await sequelize.transaction( async (transaction) => {
 
-    return await existingFaculty.update(faculty, options);
+      let existingFaculty = await FacultyRepository.readById(id);
+      
+      if (!existingFaculty) {
+        throw new NotFound(`Faculty not found`);
+      }
+
+      await db.Faculty.update(data.faculty, { 
+        where: { id: id },
+        transaction: transaction
+      });
+
+      await db.InfoFaculty.update(data.infoFaculty, {
+        where: { id: existingFaculty.infoFaculty.id },
+        transaction: transaction
+      });
+
+      throw new BadRequest()
+
+      return {
+        id: id
+      } 
+
+    });
+
+    //return await existingFaculty.update(faculty, options);
+    return facultyId;
   }
 
   async destroy(id) {
