@@ -104,7 +104,7 @@ CREATE TABLE "users_info" (
     "email"                 VARCHAR(255)    NOT NULL,
     "description"           TEXT            ,
     "birthday"              TIMESTAMP       NOT NULL,
-    "city"                  VARCHAR(255)     ,
+    "city"                  VARCHAR(255)    ,
     "address"               TEXT            ,
     "photo_id"              INTEGER         ,
     "deleted_date"          TIMESTAMP         
@@ -365,7 +365,6 @@ DROP TABLE IF EXISTS "control_points";
 CREATE TABLE "control_points" (
     "id"             SERIAL         PRIMARY KEY,
     "url"            VARCHAR(2048)  NOT NULL,
-    "method"         VARCHAR(20)    NOT NULL,
     "deleted_date"   TIMESTAMP
 );
 
@@ -374,5 +373,6 @@ CREATE TABLE "roles_control_points" (
     "id"                SERIAL      PRIMARY KEY,
     "role_id"           INTEGER     ,
     "control_point_id"  INTEGER     ,
+    "permission_mask"   INTEGER 	NOT NULL,
     "deleted_date"      TIMESTAMP               
 );
