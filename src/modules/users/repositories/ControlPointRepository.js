@@ -19,7 +19,7 @@ class ControlPointRepository {
 	 */
 	async readAll() {
 		return await db.ControlPoint.findAll({
-			attributes: [ 'id', 'url', 'method' ], 
+			attributes: [ 'id', 'url' ], 
 			include: [
 				{
 					model: db.Role,
@@ -38,7 +38,7 @@ class ControlPointRepository {
 	 */
 	async readById(id) {
 		return await db.ControlPoint.findByPk(id, {
-			attributes: [ 'id', 'url', 'method' ], 
+			attributes: [ 'id', 'url' ], 
 			include: [
 				{
 					model: db.Role,
