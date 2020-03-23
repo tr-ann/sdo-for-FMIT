@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const OrganizationController = require('../controllers/TermPaperController');
+const OrganizationController = require('../controllers/OrganizationController');
 const { tryCatch } = require('../../../helpers');
 const schemas = require('../../../schemas');
 const Validate = require('../../../classes/Validator');
@@ -12,7 +12,7 @@ router.get(
   tryCatch(OrganizationController.readById)
 );
 
-router.post(
+router.put(
   '/:id',
   Validate.validate({
     params: schemas.id,

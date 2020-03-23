@@ -9,7 +9,7 @@ const Validate = require('../../../classes/Validator');
 const router = Router();
 
 router.get('/:id', tryCatch(InfoFacultyController.readById));
-router.post('/:id', tryCatch(InfoFacultyController.update));
+router.put('/:id', tryCatch(InfoFacultyController.update));
 router.delete('/:id', tryCatch(InfoFacultyController.destroy));
 router.get('/', tryCatch(InfoFacultyController.readAll));
 router.post('/', tryCatch(InfoFacultyController.create));

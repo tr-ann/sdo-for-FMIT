@@ -12,7 +12,7 @@ router.get(
   tryCatch(GroupController.readById)
 );
 
-router.post(
+router.put(
   '/:id',
   Validate.validate({
     params: schemas.id,

@@ -12,6 +12,7 @@ class RequestController {
       topic: req.body.topic,
       name: req.body.name,
       description: req.body.description,
+      createDate: req.body.createDate,
     });
     
     res
@@ -59,7 +60,7 @@ class RequestController {
   }
 
   async update(req, res, next) {
-      
+    
     let request = await RequestService.update(
       req.params.id,
       {
