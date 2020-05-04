@@ -35,12 +35,21 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Specialty.associate = (models) => {
+    
     Specialty.hasMany(models.Group, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'specialtyId',
       as: 'groups',
     });
+
+    Specialty.hasMany(models.Discipline, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'specialtyId',
+      as: 'disciplines',
+    });
+    
   };
 
   return Specialty;

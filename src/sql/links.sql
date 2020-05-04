@@ -351,3 +351,32 @@ ALTER TABLE roles_control_points
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;
+
+ALTER TABLE disciplines
+
+	ADD CONSTRAINT FK_disciplines_to_specialties FOREIGN KEY(specialty_id)
+		REFERENCES specialties(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT
+;
+
+ALTER TABLE staffs
+
+	ADD CONSTRAINT FK_staffs_to_teachers FOREIGN KEY(teacher_id)
+		REFERENCES teachers(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT
+;
+
+ALTER TABLE time_sheets
+
+	ADD CONSTRAINT FK_time_sheets_to_disciplines FOREIGN KEY(discipline_id)
+		REFERENCES disciplines(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+	
+	ADD CONSTRAINT FK_time_sheets_to_staffs FOREIGN KEY(staff_id)
+		REFERENCES staffs(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT
+;

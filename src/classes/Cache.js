@@ -17,10 +17,12 @@ class Cache {
       return result;
     }
 
+    console.log(this.cache)
+
     return this.cache.get(key);
   }
 
-  processSync() {
+  processSync(...obj) {
     let key = JSON.stringify(obj);
 
     if (!this.cache.has(key)) {

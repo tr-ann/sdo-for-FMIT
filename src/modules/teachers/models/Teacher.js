@@ -126,6 +126,13 @@ module.exports = (sequelize, DataTypes) => {
 			onUpdate: 'restrict'
 		});
 
+		Teacher.hasMany(models.Staff, {
+			foreignKey: 'teacherId',
+			as: 'staffs',
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
+		});
+
 	};
 
 	return Teacher;

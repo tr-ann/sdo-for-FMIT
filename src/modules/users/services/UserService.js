@@ -41,13 +41,13 @@ class UserService {
 
   async update(id, user) {
 
-      let oldUser = await UserRepository.readById(id);
+    let oldUser = await UserRepository.readById(id);
 
-      if (!oldUser) {
-        throw new NotFound('User not found');
-      }
+    if (!oldUser) {
+      throw new NotFound('User not found');
+    }
 
-      return await oldUser.update(user);
+    return await oldUser.update(user);
   }
 
   async changePassword(userId, oldPassword, newPassword) {

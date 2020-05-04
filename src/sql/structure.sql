@@ -376,3 +376,57 @@ CREATE TABLE "roles_control_points" (
     "permission_mask"   INTEGER 	NOT NULL,
     "deleted_date"      TIMESTAMP               
 );
+
+
+
+DROP TABLE IF EXISTS "disciplines";
+CREATE TABLE "disciplines" (
+    "id"            SERIAL          PRIMARY KEY,
+    "specialty_id"  INTEGER         NOT NULL,
+    "subject"       VARCHAR(100)    NOT NULL,
+    "course"        INTEGER         NOT NULL,
+    "semester"      INTEGER         NOT NULL,
+    "form"          VARCHAR(10)     NOT NULL,
+    "time_sheet"    REAL            NOT NULL,
+    "eng"           BOOLEAN         NOT NULL     
+);
+
+DROP TABLE IF EXISTS "staffs";
+CREATE TABLE "staffs" (
+    "id"            SERIAL          PRIMARY KEY,
+    "teacher_id"    INTEGER         NOT NULL,
+    "rate"          INTEGER         NOT NULL,
+    "min"           REAL            NOT NULL,
+    "max"           REAL            NOT NULL,
+    "note"          VARCHAR(255)    
+);
+
+DROP TABLE IF EXISTS "time_sheets";
+CREATE TABLE "time_sheets" (
+    "id"                        SERIAL          PRIMARY KEY,
+    "discipline_id"             INTEGER         NOT NULL,
+    "staff_id"                  INTEGER         NOT NULL,
+    "kind"                      VARCHAR(20)     NOT NULL,
+    "time_sheet"                REAL            NOT NULL,
+    "lectures_number"           INTEGER         NOT NULL,
+    "practicals_number"         INTEGER         ,
+    "laboratory_works_number"   INTEGER         ,
+    "review_works_number"       INTEGER         ,
+    "control_independent_work"  INTEGER         ,
+    "review_works"              REAL            ,
+    "current_consultations"     INTEGER         ,
+    "individual_consultations"  INTEGER         ,
+    "examination_consultations" INTEGER         ,
+    "exam"                      REAL            ,
+    "credit"                    REAL            ,
+    "training_practice"         REAL            ,
+    "production_practice"       REAL            ,
+    "course_work"               REAL            ,
+    "graduate_work"             REAL            ,
+    "masters"                   INTEGER         ,
+    "state_examination_board"   REAL            ,
+    "students_number"           INTEGER         ,
+    "thread"                    INTEGER         NOT NULL,
+    "groups_number"             INTEGER         NOT NULL,
+    "subgroups_number"          INTEGER         
+);
