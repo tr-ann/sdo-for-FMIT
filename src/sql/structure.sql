@@ -354,8 +354,8 @@ CREATE TABLE "practices" (
     "topic"                 VARCHAR(50) NOT NULL,
     "name"                  VARCHAR(90) NOT NULL,
     "description"           TEXT        ,
-    "start_date"            TIMESTAMP   NOT NULL,
-    "end_date"              TIMESTAMP   NOT NULL,
+    "start_date"            DATE        NOT NULL,
+    "end_date"              DATE        NOT NULL,
     "practice_type_id"      INTEGER     ,
     "resource_id"           INTEGER     ,
     "deleted_date"          TIMESTAMP

@@ -20,7 +20,7 @@ class PracticeRepository {
    */
   async readById(id) {
     return await db.Practice.findByPk(id, {
-      attributes: [ 'id', 'topic', 'name', 'createDate', 'updateDate', 'description' ],
+      attributes: [ 'id', 'topic', 'name', 'startDate', 'endDate', 'description' ],
       include: [
         {
           model: db.Student,
@@ -58,7 +58,7 @@ class PracticeRepository {
    */
   async readAll() {
     return await db.Practice.findAll({
-      attributes: [ 'id', 'topic', 'name', 'createDate', 'updateDate', 'description' ],
+      attributes: [ 'id', 'topic', 'name', 'startDate', 'endDate', 'description' ],
       include: [
         {
           model: db.Student,

@@ -13,14 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING(90),
     },
-    createDate: {
+    startDate: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      field: 'create_date',
+      field: 'start_date',
     },
-    updateDate: {
+    endDate: {
       type: DataTypes.DATEONLY,
-      field: 'update_date',
+      field: 'end_date',
     },
     description: {
       type: DataTypes.TEXT,

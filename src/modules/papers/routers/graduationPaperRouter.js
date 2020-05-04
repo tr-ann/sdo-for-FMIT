@@ -5,7 +5,7 @@ const { tryCatch } = require('../../../helpers');
 const router = Router();
 
 router.get('/:id', tryCatch(GraduationPaperController.readById));
-router.post('/:id', tryCatch(GraduationPaperController.update));
+router.put('/:id', tryCatch(GraduationPaperController.update));
 router.delete('/:id', tryCatch(GraduationPaperController.destroy));
 router.get('/', tryCatch(GraduationPaperController.readAll));
 router.post('/', tryCatch(GraduationPaperController.create));

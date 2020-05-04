@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     createDate: {
       type: DataTypes.DATEONLY,
       allowNull: false,
+      defaultValue: new Date(),
       field: 'create_date',
     },
     updateDate: {

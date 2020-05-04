@@ -5,7 +5,7 @@ const { tryCatch } = require('../../../helpers');
 const router = Router();
 
 router.get('/:id', tryCatch(ResourceController.readById));
-router.post('/:id', tryCatch(ResourceController.update));
+router.put('/:id', tryCatch(ResourceController.update));
 router.delete('/:id', tryCatch(ResourceController.destroy));
 router.get('/', tryCatch(ResourceController.readAll));
 router.post('/', tryCatch(ResourceController.create));

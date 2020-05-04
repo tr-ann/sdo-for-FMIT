@@ -7,7 +7,7 @@ class DisciplineController {
     
     let discipline = await DisciplineService.create({
       name: req.body.name,
-      shotrName: req.body.shotrName,
+      shortName: req.body.shortName,
     });
     
     res
@@ -60,7 +60,7 @@ class DisciplineController {
       req.params.id,
       {
         name: req.body.name,
-        shotrName: req.body.shotrName,
+        shortName: req.body.shortName,
       }
     );
 
