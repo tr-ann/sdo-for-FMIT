@@ -91,7 +91,7 @@ class UserController {
 		
 		let updatedUser = await sequelize.transaction( async (transaction) => {
 		
-			await PhoneService.addToUser(req.user.id, req.body.phones, { transaction: transaction });	
+			await PhoneService.addToUser(req.user.id, req.body.phones, { transaction: transaction });
 
 			await db.UserInfo.update({
 				fullName: req.body.fullName,
@@ -105,8 +105,6 @@ class UserController {
 				where: { userId: req.user.id },
 				transaction: transaction
 			});
-
-			
 
 		});
 

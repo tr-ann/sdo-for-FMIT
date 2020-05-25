@@ -5,10 +5,9 @@ const port = parseInt(process.env.PORT || '3000', 10);
 
 (async () => {
   
-  try {
+  try {    
     
     await databaseConnect();
-
     app.listen(port);
 
     console.log(`Server started and listening on port ${port}`);

@@ -9,7 +9,7 @@ class GroupController {
       number: req.body.number,
       facultyId: req.body.facultyId,
       specialtyId: req.body.specialtyId,
-      studyModeId:req.body.studyModeId,
+      studyModeId: req.body.studyModeId,
     });
     
     res

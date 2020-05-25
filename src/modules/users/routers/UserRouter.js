@@ -12,7 +12,7 @@ router.put(
   tryCatch(UserController.restorePassword)
 );
 
-router.get('/profile', tryCatch(UserController.readById)); // собственный профиль
+//router.get('/profile', tryCatch(UserController.readById)); // собственный профиль
 
 router.put(
   '/profile',
@@ -26,7 +26,7 @@ router.put(
 
 router.get(
   '/:id',
-  Validator.validate({ params: schemes.id }),
+  //Validator.validate({ params: schemes.id }),
   tryCatch(UserController.readById)
 );
 

@@ -65,6 +65,11 @@ class GroupRepository {
           as: 'teachers',
           attributes: [ 'id', 'fullName' ],
         },
+        {
+          model: db.Student,
+          as: 'students',
+          attributes: [ 'id', 'fullName', 'recordBook' ]
+        }
       ],
     })
   }
