@@ -1,15 +1,12 @@
 const Sequelize = require('sequelize');
-const configs   = require('./config/database');
-const env       = process.env.NODE_ENV || 'dev';
-const config    = configs[env];
 
 const sequelize = new Sequelize(
-  "myuniversity",
-  "postgres",
-  "postgres",
+  process.env.DEV_DB_NAME,
+  process.env.DEV_DB_USERNAME,
+  process.env.DEV_DB_PASSWORD,
   {
-    host: "127.0.0.1",
-    dialect: "postgres",
+    host: process.env.DEV_DB_HOST,
+    dialect: process.env.DEV_DB_DIALECT,
     logging: false,
     pool: {
       max: 100,
