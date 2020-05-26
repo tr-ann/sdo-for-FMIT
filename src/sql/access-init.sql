@@ -1,10 +1,10 @@
 /*
-    'method': {
-        'GET': 1,
-        'POST': 2,
-        'PUT': 4,
-        'DELETE': 8
-    }
+  'method': {
+    'GET': 1,
+    'POST': 2,
+    'PUT': 4,
+    'DELETE': 8
+  }
 */
 
 INSERT INTO "control_points"(id, url) VALUES

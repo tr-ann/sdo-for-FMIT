@@ -6,7 +6,13 @@ class ResourceController {
   async create(req, res, next) {
       
     let resource = await ResourceService.create({
-      description: req.body.description,
+      path: req.file.path,
+      originalName: req.file.originalname,
+      currentName: req.file.filename,
+      size: req.file.size,
+      mimeType: req.file.mimetype,
+      description: req.description,
+      attributes: req.attributes,
     });
     
     res
@@ -58,7 +64,13 @@ class ResourceController {
     let resource = await ResourceService.update(
       req.params.id,
       {
-        description: req.body.description,
+        path: req.file.path,
+        originalName: req.file.originalname,
+        currentName: req.file.filename,
+        size: req.file.size,
+        mimeType: req.file.mimetype,
+        description: req.description,
+        attributes: req.attributes,
       }
     );
 

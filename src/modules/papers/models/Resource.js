@@ -5,9 +5,34 @@ module.exports = (sequelize, DataTypes) => {
   class Resource extends Model {}
 
   Resource.init({
-    description: {
+    path: {
       allowNull: false,
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(2048),
+    },
+    originalName: {
+      allowNull: false,
+      type: DataTypes.STRING(2048),
+      field: 'original_name',
+    },
+    currentName: {
+      allowNull: false,
+      type: DataTypes.STRING(2048),
+      field: 'current_name',
+    },
+    size: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    mimeType: {
+      allowNull: false,
+      type: DataTypes.STRING(50),
+      field: 'mime_type',
+    },
+    description: {
+      type: DataTypes.TEXT,
+    },
+    attributes: {
+      type: DataTypes.JSON,
     },
   }, {
     sequelize,
@@ -34,25 +59,25 @@ module.exports = (sequelize, DataTypes) => {
       as: 'userInfo',
     });
 
-    Resource.hasOne(models.TermPaper, {
+    Resource.hasMany(models.TermPaper, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'resourceId',
-      as: 'termPaper',
+      as: 'termPapers',
     });
 
-    Resource.hasOne(models.GraduationPaper, {
+    Resource.hasMany(models.GraduationPaper, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'resourceId',
-      as: 'graduationPaper',
+      as: 'graduationPapers',
     });
 
-    Resource.hasOne(models.Practice, {
+    Resource.hasMany(models.Practice, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'resourceId',
-      as: 'practice',
+      as: 'practices',
     });
   };
 
