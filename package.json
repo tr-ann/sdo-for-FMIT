@@ -1,5 +1,5 @@
 {
-  "name": "myuniversity",
+  "name": "myunivercity",
   "version": "1.0.0",
   "private": true,
   "author": "",
@@ -37,10 +37,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tr-ann/myuniversity.git"
+    "url": "git+https://github.com/tr-ann/myunivercity.git"
   },
   "bugs": {
-    "url": "https://github.com/tr-ann/myuniversity/issues"
+    "url": "https://github.com/tr-ann/myunivercity/issues"
   },
-  "homepage": "https://github.com/tr-ann/myuniversity#readme"
+  "homepage": "https://github.com/tr-ann/myunivercity#readme"
 }
