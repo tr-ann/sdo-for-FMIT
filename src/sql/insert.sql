@@ -60,14 +60,14 @@ INSERT INTO "lesson_types" (id, name) VALUES
 (2, 'практическое занятие'),
 (3, 'лабораторная работа');
 
-INSERT INTO "positions" (id, name) VALUES
-(1, 'декан'),
-(2, 'доцент'),
-(3, 'заведующий кафедрой'),
-(4, 'заместитель декана'),
-(5, 'преподаватель'),
-(6, 'профессор'),
-(7, 'старший преподаватель');
+INSERT INTO "positions" (id, name, min_rate, max_rate) VALUES
+(1, 'декан', 300, 450),
+(2, 'доцент', 700, 875),
+(3, 'заведующий кафедрой', 750, 900),
+(4, 'заместитель декана', 750, 900),
+(5, 'преподаватель', 750, 900),
+(6, 'профессор', 600, 750),
+(7, 'старший преподаватель', 750, 900);
 
 INSERT INTO "academic_degrees" (id, name) VALUES
 (1  , 'Кандидат биологических наук'),
@@ -230,13 +230,14 @@ INSERT INTO "teachers" (id, user_id, full_name, short_name, department_id, acade
 (5, 14, 'Преподаватель № 5', 'Препод №5', 1, 33, 1 ),
 (6, 15, 'Преподаватель № 6', 'Препод №6', 4, 33, 1 );
 
-INSERT INTO "teachers_positions" (teacher_id, position_id) VALUES
-(    1,   3   ), 
-(    2,   3   ), 
-(    3,   3   ), 
-(    4,   3   ), 
-(    5,   7   ), 
-(    6,   7   ); 
+INSERT INTO "teachers_positions" (teacher_id, position_id, department_id, rate) VALUES
+(    1,   3,  1   ,   1   ), 
+(    2,   3,  3   ,   0.5   ), 
+(    3,   3,  2   ,   0.75   ), 
+(    4,   3,  1   ,   1   ), 
+(    5,   7,  4   ,   1   ),  
+(    2,   7,  4   ,   0.75   ),
+(    6,   7,  2   ,   1   ); 
 
 INSERT INTO "specialties" (id, code, name, short_name) VALUES
 (1, '1-40 01 01 03', 'Программное обеспечение информационных технологий', 'ПОИТ'),

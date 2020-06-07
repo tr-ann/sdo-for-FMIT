@@ -1,23 +1,36 @@
 const TeacherService = require('../services/TeacherService');
-const { ResponseFormat } = require('../../../helpers');
+const { responseFormat } = require('../../../helpers');
+const { sequelize } = require('../../../sequelize');
 
 class TeacherController {
 
 	async create(req, res, next) {
 
-		let teacher = await TeacherService.create({
-			userId: req.body.userId,
-			departmentId: req.body.departmentId,
-			positionId: req.body.positionId,
-			academicDegreeId: req.body.academicDegreeId,
-			academicRankId: req.body.academicRankId,
+		let createdTeacher = await sequelize.transaction( async (transaction) => {
+			let teacher = await TeacherService.create({
+				userId: req.body.user,
+				fullName: req.body.fullName,
+				shortName: req.body.shortName,
+				departmentId: req.body.department,
+				academicDegreeId: req.body.academicDegree,
+				academicRankId: req.body.academicRank,
+			}, { transaction: transaction });
+
+			await teacher.createPosition({
+				teacherId: teacher.id,
+				departmentId: teacher.departmentId,
+				positionId: req.body.position,
+				rate: req.body.rate
+			}, { transaction: transaction })
+
+			return teacher;
 		});
 		
 		res
 			.status(201)
 			.json(
-				ResponseFormat.build(
-					{ id: teacher.id },
+				responseFormat.build(
+					{ id: createdTeacher.id },
 					"Teacher created successfully",
 					201,
 					"success"
@@ -28,10 +41,12 @@ class TeacherController {
 	async readAll(req, res, next) {
 			let teachers = await TeacherService.readAll();
 
+			//console.log(`HELLO FROM TEACHERS`)
+
 			res
 				.status(200)
 				.json(
-					ResponseFormat.build(
+					responseFormat.build(
 						teachers,
 						"Teachers read successfully",
 						200,
@@ -47,7 +62,7 @@ class TeacherController {
 		res
 			.status(200)
 			.json(
-				ResponseFormat.build(
+				responseFormat.build(
 					teacher,
 					"Teacher read successfully",
 					200,
@@ -60,16 +75,15 @@ class TeacherController {
 		let teacher = await TeacherService.update(req.params.id, {
 			fullName: req.body.fullName,
 			shortName: req.body.shortName,
-			departmentId: req.body.departmentId,
-			positionId: req.body.positionId,
-			academicDegreeId: req.body.academicDegreeId,
-			academicRankId: req.body.academicRankId,
+			departmentId: req.body.department,
+			academicDegreeId: req.body.academicDegree,
+			academicRankId: req.body.academicRank,
 		});
 
 		res
 			.status(200)
 			.json(
-				ResponseFormat.build(
+				responseFormat.build(
 					teacher,
 					"Teacher updated successfully",
 					200,
@@ -84,7 +98,7 @@ class TeacherController {
 		res
 			.status(200)
 			.json(
-				ResponseFormat.build(
+				responseFormat.build(
 					{},
 					"Teacher deleted successfully",
 					200,

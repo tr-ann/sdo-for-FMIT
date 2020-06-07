@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const ControlPointController = require('../controllers/ControlPointController');
 const { tryCatch } = require('../../../helpers');
-const Validator = require('../../../classes/Validator');
+const Validator = require('../../../classes/validator');
 const schemes = require('../../../schemas');
 
 const router = Router();

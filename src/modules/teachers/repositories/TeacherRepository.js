@@ -20,37 +20,49 @@ class TeacherRepository {
 	 */
 	async readById(id) {        
 		return await db.Teacher.findByPk(id, {
-			attributes: [ 'id', 'fullName', 'shortName', 'userId' ],
+			attributes: [ 'id', 'fullName', 'shortName', 'userId', 'academicDegreeId', 'academicRankId', 'departmentId' ],
 			include: [
 				{
 					model: db.User,
-					attributes: [ 'login' ],
+					attributes: [ 'id', 'login' ],
 					include: [{
 						model: db.UserInfo,
-						attributes: [ 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+						attributes: [ 'id', 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
 						as: 'userInfo'
-						/*resourceId*/
+						//resourceId
 					}],
 					as: 'user'
 				},
 				{
 					model: db.Department,
-					attributes: [ 'name', 'phone' ],
-					as: 'phones'
+					attributes: [ 'id', 'name', 'phone' ],
+					as: 'department'
 				},
 				{
 					model: db.AcademicDegree,
-					attributes: [ 'name' ],
+					attributes: [ 'id', 'name' ],
 					as: 'academicDegree'
 				},
 				{
 					model: db.AcademicRank,
-					attributes: [ 'name' ],
+					attributes: [ 'id', 'name' ],
 					as: 'academicRank'
 				},
 				{
-					model: db.Position,
-					attributes: [ 'name' ],
+					model: db.TeacherPosition,
+					attributes: [ 'id', 'rate' ],
+					include: [
+						{
+							model: db.Department,
+							attributes: [ 'id', 'name' ],
+							as: 'department'
+						},
+						{
+							model: db.Position,
+							attributes: [ 'id', 'name', 'minRate', 'maxRate', 'note' ],
+							as: 'position'
+						}
+					],
 					as: 'positions'
 				}
 			]
@@ -62,39 +74,51 @@ class TeacherRepository {
 	 * 
 	 * @return {Promise} promise with result of read
 	 */
-	async readAll() {
+	async readAll(pagination) {
 		return await db.Teacher.findAll({
-			attributes: [ 'id', 'fullName', 'shortName', 'userId' ],
+			attributes: [ 'id', 'fullName', 'shortName', 'userId', 'academicDegreeId', 'academicRankId', 'departmentId' ],
 			include: [
 				{
 					model: db.User,
-					attributes: [ 'login' ],
+					attributes: [ 'id', 'login' ],
 					include: [{
 						model: db.UserInfo,
-						attributes: [ 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+						attributes: [ 'id', 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
 						as: 'userInfo'
-						/*resourceId*/
+						//resourceId
 					}],
 					as: 'user'
 				},
 				{
 					model: db.Department,
-					attributes: [ 'name', 'phone' ],
-					as: 'phones'
+					attributes: [ 'id', 'name', 'phone' ],
+					as: 'department'
 				},
 				{
 					model: db.AcademicDegree,
-					attributes: [ 'name' ],
+					attributes: [ 'id', 'name' ],
 					as: 'academicDegree'
 				},
 				{
 					model: db.AcademicRank,
-					attributes: [ 'name' ],
+					attributes: [ 'id', 'name' ],
 					as: 'academicRank'
 				},
 				{
-					model: db.Position,
-					attributes: [ 'name' ],
+					model: db.TeacherPosition,
+					attributes: [ 'id', 'rate' ],
+					include: [
+						{
+							model: db.Department,
+							attributes: [ 'id', 'name' ],
+							as: 'department'
+						},
+						{
+							model: db.Position,
+							attributes: [ 'id', 'name', 'minRate', 'maxRate', 'note' ],
+							as: 'position'
+						}
+					],
 					as: 'positions'
 				}
 			],

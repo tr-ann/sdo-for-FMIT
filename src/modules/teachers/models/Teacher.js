@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 	Teacher.init({
 		userId: {
 			allowNull: false,
+			unique: true,
 			type: DataTypes.INTEGER,
 			field: 'user_id',
 			defaultValue: 0
@@ -59,25 +60,24 @@ module.exports = (sequelize, DataTypes) => {
 			foreignKey: 'teacherId',
 			as: 'group',
 			onDelete: 'restrict',
-			onUpdate: 'cascade'
+			onUpdate: 'restrict'
 		});
 
 		Teacher.belongsTo(models.User, {
 			foreignKey: 'userId',
 			as: 'user',
-			onDelete: 'set default',
-			onUpdate: 'cascade'
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
 		});
 
 		Teacher.belongsTo(models.Department, {
 			foreignKey: 'departmentId',
 			as: 'department',
 			onDelete: 'restrict',
-			onUpdate: 'cascade'
+			onUpdate: 'restrict'
 		});
 
-		Teacher.belongsToMany(models.Position, {
-			through: models.TeacherPosition,
+		Teacher.hasMany(models.TeacherPosition, {
 			foreignKey: 'teacherId',
 			as: 'positions',
 			onDelete: 'restrict',
@@ -125,6 +125,13 @@ module.exports = (sequelize, DataTypes) => {
 			onDelete: 'restrict',
 			onUpdate: 'restrict'
 		});
+
+		/*Teacher.hasMany(models.Plan, {
+			foreignKey: 'teacherId',
+			as: 'plans',
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
+		})*/
 
 	};
 

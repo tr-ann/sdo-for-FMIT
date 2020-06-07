@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS "myuniversity";
-CREATE DATABASE "myuniversity" 
+DROP DATABASE IF EXISTS "myuniversitydev";
+CREATE DATABASE "myuniversitydev" 
 	WITH 
     OWNER = postgres
     ENCODING = 'UTF8'

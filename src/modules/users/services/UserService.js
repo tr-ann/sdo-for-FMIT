@@ -1,8 +1,6 @@
 const UserRepository = require('../repositories/UserRepository');
 const { NotFound, BadRequest } = require('../../../classes/errors');
 const { sequelize } = require('../../../sequelize');
-const Hash = require('../../../classes/Hash');
-const db = require('../../../dbModels');
 
 class UserService {
 

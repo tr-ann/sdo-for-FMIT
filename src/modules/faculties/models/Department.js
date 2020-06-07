@@ -50,6 +50,13 @@ module.exports = (sequelize, DataTypes) => {
       as: "user",
     });
 
+    Department.hasMany(models.Teacher, {
+      onUpdate: 'restrict',
+      onDelete: 'restrict',
+      foreignKey: 'departmentId',
+      as: 'teachers',
+    });
+
     Department.belongsTo(models.Faculty, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
@@ -64,11 +71,11 @@ module.exports = (sequelize, DataTypes) => {
       as: "lectureRoom",
     });
 
-    Department.hasMany(models.Teacher, {
-      onUpdate: 'restrict',
-      onDelete: 'restrict',
-      foreignKey: 'departmentId',
-      as: "teachers",
+    Department.hasMany(models.TeacherPosition, {
+			foreignKey: 'departmentId',
+			as: 'employees',
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
     });
   }
 

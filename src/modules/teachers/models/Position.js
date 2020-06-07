@@ -9,6 +9,20 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 			type: DataTypes.STRING(100),
 		},
+		minRate: {
+			allowNull: false,
+			type: DataTypes.DOUBLE,
+			field: 'min_rate'
+		},
+		maxRate: {
+			allowNull: false,
+			type: DataTypes.DOUBLE,
+			field: 'max_rate'
+		},
+		note: {
+			allowNull: true,
+			type: DataTypes.STRING(2048),
+		},
 	}, {
 		sequelize,
 		charset: 'UTF8',
@@ -27,8 +41,7 @@ module.exports = (sequelize, DataTypes) => {
 	
 	Position.associate = (models) => {
 
-		Position.belongsToMany(models.Teacher, {
-			through: models.TeacherPosition,
+		Position.hasMany(models.TeacherPosition, {
 			foreignKey: 'positionId',
 			as: 'teachers',
 			onDelete: 'restrict',

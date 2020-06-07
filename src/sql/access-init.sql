@@ -89,7 +89,22 @@ INSERT INTO "control_points"(id, url) VALUES
 
 (   53	,   '/users'          		),
 (   54	,   '/users/\d'      		),
-(   55	,   '/users/options'  		);
+(   55	,   '/users/options'  		),
+
+(   56	,   '/subjects'          		),
+(   57	,   '/subjects/\d'      		),
+
+(   58	,   '/studyYears'          		),
+(   59	,   '/studyYears/\d'      		),
+
+(   60	,   '/timeSheet'          		),
+(   61	,   '/timeSheet/\d'      		),
+
+(   62	,   '/plan'          		),
+(   63	,   '/plan/\d'      		),
+
+(   64	,   '/replacements'          		),
+(   65	,   '/replacements/\d'      		);
 
 INSERT INTO "roles_control_points"(role_id, control_point_id, permission_mask) VALUES
 
@@ -163,7 +178,7 @@ INSERT INTO "roles_control_points"(role_id, control_point_id, permission_mask) V
 (	1	,	46	,  	1 + 4 + 8),
 
 (	1	,	47	,   1 + 2),
-(	1	,	48	,	1 + 4 + 8),
+(	1	,	48	,	  1 + 4 + 8),
 
 (	1	,	49  ,   1 + 2),
 (	1	,	50  ,  	1 + 4 + 8),
@@ -173,4 +188,19 @@ INSERT INTO "roles_control_points"(role_id, control_point_id, permission_mask) V
 
 (	1	,	53	,   1 + 2),
 (	1	,	54	,   1 + 4 + 8),
-(	1	,	55	,   1 + 4);
+(	1	,	55	,   1 + 4),
+
+(	1	,	56  ,   1 + 2),
+(	1	,	57  ,  	1 + 4 + 8),
+
+( 1 , 58  ,   1 + 2),
+( 1 , 59  ,   1 + 4 + 8),
+
+( 1 , 60  ,   1 + 2),
+( 1 , 61  ,   1 + 4 + 8),
+
+( 1 , 62  ,   1 + 2),
+( 1 , 63  ,   1 + 4 + 8),
+
+( 1 , 64  ,   1 + 2),
+( 1 , 65  ,   1 + 4 + 8);

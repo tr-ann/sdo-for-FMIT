@@ -145,8 +145,8 @@ DROP TABLE IF EXISTS "positions";
 CREATE TABLE "positions" (
     "id"                    SERIAL          PRIMARY KEY,
     "name"                  VARCHAR(100)    NOT NULL /* UNIQUE */,
-    "min_rate"              DOUBLE          NOT NULL,
-    "max_rate"              DOUBLE          NOT NULL,
+    "min_rate"              REAL	        NOT NULL,
+    "max_rate"              REAL	        NOT NULL,
     "note"                  TEXT            ,
     "deleted_date"          TIMESTAMP
 );
@@ -167,7 +167,7 @@ CREATE TABLE "academic_ranks" (
     "deleted_date"          TIMESTAMP
 );
 
-/* Таблица "преподавательи" */
+/* Таблица "преподаватели" */
 DROP TABLE IF EXISTS "teachers";
 CREATE TABLE "teachers" (
     "id"                    SERIAL          PRIMARY KEY,
@@ -182,12 +182,12 @@ CREATE TABLE "teachers" (
 
 /* Таблица "преподаватели и должности" */
 DROP TABLE IF EXISTS "teachers_positions";
-CREATE TABLE "teachers" (
+CREATE TABLE "teachers_positions" (
     "id"                    SERIAL          PRIMARY KEY,
     "position_id"           INTEGER         ,
     "teacher_id"            INTEGER         ,
     "department_id"         INTEGER         ,
-    "rate"                  DOUBLE          ,
+    "rate"                  REAL            ,
     "deleted_date"          TIMESTAMP
 );
 
@@ -383,7 +383,7 @@ CREATE TABLE "lesson_types" (
     "id"                    SERIAL      PRIMARY KEY,
     "name"                  VARCHAR(30) NOT NULL,
     "short_name"            VARCHAR(10) NOT NULL,
-    "rate"                  DOUBLE      NOT NULL,
+    "rate"                  REAL        NOT NULL,
     "is_static"             BOOLEAN     NOT NULL,
     "note"                  TEXT        NOT NULL,
     "time_sheet_number"     INTEGER     NOT NULL,

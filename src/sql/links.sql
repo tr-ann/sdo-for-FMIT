@@ -11,12 +11,12 @@ ALTER TABLE lecture_rooms
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;
-			
-            
+
+
 /* таблица кафедра */
 ALTER TABLE departments
 
-    ADD CONSTRAINT FK_departments_to_users FOREIGN KEY(owner_id)
+	ADD CONSTRAINT FK_departments_to_users FOREIGN KEY(owner_id)
 		REFERENCES users(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
@@ -76,7 +76,7 @@ ALTER TABLE users_info
 /* таблица преподаватель */
 ALTER TABLE teachers
 
-    ADD CONSTRAINT FK_teachers_to_users FOREIGN KEY(id)
+    ADD CONSTRAINT FK_teachers_to_users FOREIGN KEY(user_id)
 		REFERENCES users(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
@@ -108,6 +108,11 @@ ALTER TABLE "teachers_positions"
 
 	ADD CONSTRAINT FK_teachers_positions_to_positions FOREIGN KEY(position_id)
 		REFERENCES positions(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+
+	ADD CONSTRAINT FK_teachers_positions_to_departments FOREIGN KEY(department_id)
+		REFERENCES departments(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;
@@ -147,7 +152,7 @@ ALTER TABLE groups
 ALTER TABLE subgroups
 
 	ADD CONSTRAINT FK_subgroups_to_groups FOREIGN KEY(group_id)
-		REFERENCES "groups"(id)
+		REFERENCES groups(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;
@@ -172,7 +177,7 @@ ALTER TABLE students_subgroups
 ALTER TABLE curators
 
 	ADD CONSTRAINT FK_curators_to_groups FOREIGN KEY(group_id)
-		REFERENCES "groups"(id)
+		REFERENCES groups(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
@@ -183,26 +188,16 @@ ALTER TABLE curators
 ;
 
 
-/* таблица занятие */
+/* таблица lessons */
 ALTER TABLE lessons
-
-	ADD CONSTRAINT FK_lessons_to_groups FOREIGN KEY(group_id)
-		REFERENCES "groups"(id)
-		ON DELETE RESTRICT
-		ON UPDATE RESTRICT,
-	
-	ADD CONSTRAINT FK_lessons_to_subgroups FOREIGN KEY(subgroup_id)
-		REFERENCES subgroups(id)
-		ON DELETE RESTRICT
-		ON UPDATE RESTRICT,
-	
-	ADD CONSTRAINT FK_lessons_to_teachers FOREIGN KEY(teacher_id)
-		REFERENCES teachers(id)
-		ON DELETE RESTRICT
-		ON UPDATE RESTRICT,
 
 	ADD CONSTRAINT FK_lessons_to_lesson_types FOREIGN KEY(lesson_type_id)
 		REFERENCES lesson_types(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+		
+	ADD CONSTRAINT FK_lessons_to_plan FOREIGN KEY(plan_id)
+		REFERENCES plan(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
                     
@@ -210,14 +205,14 @@ ALTER TABLE lessons
 		REFERENCES lecture_rooms(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
-
-	ADD CONSTRAINT FK_lessons_to_disciplines FOREIGN KEY(discipline_id)
-		REFERENCES disciplines(id)
-		ON DELETE RESTRICT
-		ON UPDATE RESTRICT,
 		
 	ADD CONSTRAINT FK_lessons_to_lesson_numbers FOREIGN KEY(lesson_number_id)
 		REFERENCES lesson_numbers(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+		
+	ADD CONSTRAINT FK_lessons_to_replacements FOREIGN KEY(replacement_id)
+		REFERENCES replacements(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;
@@ -226,13 +221,13 @@ ALTER TABLE lessons
 /* таблица студент */
 ALTER TABLE students
 
-    ADD CONSTRAINT FK_students_to_users FOREIGN KEY(id)
+  ADD CONSTRAINT FK_students_to_users FOREIGN KEY(user_id)
 		REFERENCES users(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
 	ADD CONSTRAINT FK_students_to_groups FOREIGN KEY(group_id)
-		REFERENCES "groups"(id)
+		REFERENCES groups(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;
@@ -274,12 +269,12 @@ ALTER TABLE term_papers
 	ADD CONSTRAINT FK_term_papers_to_statuses FOREIGN KEY(status_id)
 		REFERENCES statuses(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT/*,
+		ON UPDATE RESTRICT,
 
 	ADD CONSTRAINT FK_term_papers_to_resources FOREIGN KEY(resource_id)
 		REFERENCES resources(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT*/
+		ON UPDATE RESTRICT
 ;
 
 			
@@ -299,12 +294,12 @@ ALTER TABLE graduation_papers
 	ADD CONSTRAINT FK_graduation_papers_to_statuses FOREIGN KEY(status_id)
 		REFERENCES statuses(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT/*,
+		ON UPDATE RESTRICT,
 
 	ADD CONSTRAINT FK_graduation_papers_to_resources FOREIGN KEY(resource_id)
 		REFERENCES resources(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT*/
+		ON UPDATE RESTRICT
 ;
 
 			
@@ -326,10 +321,10 @@ ALTER TABLE practices
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT,
 
-	/*ADD CONSTRAINT FK_practices_to_resources FOREIGN KEY(resource_id)
+	ADD CONSTRAINT FK_practices_to_resources FOREIGN KEY(resource_id)
 		REFERENCES resources(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT,*/
+		ON UPDATE RESTRICT,
 
 	ADD CONSTRAINT FK_practices_to_practice_types FOREIGN KEY(practice_type_id)
 		REFERENCES practice_types(id)
@@ -348,6 +343,101 @@ ALTER TABLE roles_control_points
 
 	ADD CONSTRAINT FK_roles_control_points_to_control_points FOREIGN KEY(control_point_id)
 		REFERENCES control_points(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT
+;
+
+
+/* таблица disciplines */
+ALTER TABLE disciplines
+
+	ADD CONSTRAINT FK_disciplines_to_study_modes FOREIGN KEY(study_mode_id)
+		REFERENCES study_modes(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT
+;
+
+
+/* таблица plan */
+ALTER TABLE plan
+
+	ADD CONSTRAINT FK_plan_to_groups FOREIGN KEY(group_id)
+		REFERENCES groups(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+
+	ADD CONSTRAINT FK_plan_to_subgroups FOREIGN KEY(subgroup_id)
+		REFERENCES subgroups(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+	
+	ADD CONSTRAINT FK_plan_to_teachers FOREIGN KEY(teacher_id)
+		REFERENCES teachers(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+
+	ADD CONSTRAINT FK_plan_to_disciplines FOREIGN KEY(discipline_id)
+		REFERENCES disciplines(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+
+	ADD CONSTRAINT FK_plan_to_lesson_types FOREIGN KEY(lesson_type_id)
+		REFERENCES lesson_types(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT
+;
+
+
+/* таблица subjects */
+ALTER TABLE subjects
+
+	ADD CONSTRAINT FK_subjects_to_groups FOREIGN KEY(group_id)
+		REFERENCES groups(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+
+	ADD CONSTRAINT FK_subjects_to_subgroups FOREIGN KEY(subgroup_id)
+		REFERENCES subgroups(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+	
+	ADD CONSTRAINT FK_subjects_to_teachers FOREIGN KEY(teacher_id)
+		REFERENCES teachers(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+
+	ADD CONSTRAINT FK_subjects_to_disciplines FOREIGN KEY(discipline_id)
+		REFERENCES disciplines(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+
+	ADD CONSTRAINT FK_subjects_to_study_years FOREIGN KEY(study_year_id)
+		REFERENCES study_years(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT
+;
+
+
+/* таблица time_sheet */
+ALTER TABLE time_sheet
+
+	ADD CONSTRAINT FK_time_sheet_to_subjects FOREIGN KEY(subject_id)
+		REFERENCES subjects(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT,
+	
+	ADD CONSTRAINT FK_time_sheet_to_lesson_types FOREIGN KEY(lesson_type_id)
+		REFERENCES lesson_types(id)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT
+;
+
+
+/* таблица replacements */
+ALTER TABLE replacements
+
+	ADD CONSTRAINT FK_replacements_to_teachers FOREIGN KEY(teacher_id)
+		REFERENCES teachers(id)
 		ON DELETE RESTRICT
 		ON UPDATE RESTRICT
 ;

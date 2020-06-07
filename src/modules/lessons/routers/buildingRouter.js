@@ -2,7 +2,7 @@ const { Router } = require('express');
 const BuildingController = require('../controllers/BuildingController');
 const { tryCatch } = require('../../../helpers');
 const schemas = require('../../../schemas');
-const Validate = require('../../../classes/Validator');
+const Validate = require('../../../classes/validator');
 
 const router = Router();
 
