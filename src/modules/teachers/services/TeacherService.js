@@ -8,7 +8,7 @@ class TeacherService {
 		return await TeacherRepository.create(teacher);
 	}
 
-	async readAll(pagination = { limit: process.env.limit, offset: 1 }) {
+	async readAll(pagination = { limit: 30, offset: 1 }) {
 		
 		return await TeacherRepository.readAll(pagination);
 	}

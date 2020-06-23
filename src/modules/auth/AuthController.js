@@ -65,7 +65,7 @@ class AuthController {
           let accessToken = jwt.sign(
             payload,
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '10m' }
+            { expiresIn: '10h' }
           );
           let refreshToken = jwt.sign(
             payload,
@@ -127,6 +127,8 @@ class AuthController {
 
     if (req.body.refreshToken){
       let payload = jwt.verify(req.body.refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+      console.log(payload)
 
       let acsToken = jwt.sign(
         payload,

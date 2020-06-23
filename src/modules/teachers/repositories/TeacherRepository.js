@@ -76,14 +76,14 @@ class TeacherRepository {
 	 */
 	async readAll(pagination) {
 		return await db.Teacher.findAll({
-			attributes: [ 'id', 'fullName', 'shortName', 'userId', 'academicDegreeId', 'academicRankId', 'departmentId' ],
+			attributes: [ 'id', 'fullName', 'shortName' ],
 			include: [
 				{
 					model: db.User,
 					attributes: [ 'id', 'login' ],
 					include: [{
 						model: db.UserInfo,
-						attributes: [ 'id', 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+						attributes: [ 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
 						as: 'userInfo'
 						//resourceId
 					}],
@@ -103,23 +103,6 @@ class TeacherRepository {
 					model: db.AcademicRank,
 					attributes: [ 'id', 'name' ],
 					as: 'academicRank'
-				},
-				{
-					model: db.TeacherPosition,
-					attributes: [ 'id', 'rate' ],
-					include: [
-						{
-							model: db.Department,
-							attributes: [ 'id', 'name' ],
-							as: 'department'
-						},
-						{
-							model: db.Position,
-							attributes: [ 'id', 'name', 'minRate', 'maxRate', 'note' ],
-							as: 'position'
-						}
-					],
-					as: 'positions'
 				}
 			],
 			limit: pagination.limit,

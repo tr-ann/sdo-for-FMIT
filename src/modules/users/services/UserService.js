@@ -1,6 +1,8 @@
 const UserRepository = require('../repositories/UserRepository');
 const { NotFound, BadRequest } = require('../../../classes/errors');
 const { sequelize } = require('../../../sequelize');
+const { Hash } = require('../../../classes');
+const db = require('../../../dbModels');
 
 class UserService {
 
@@ -21,7 +23,7 @@ class UserService {
     return newUser;
   }
 
-  async readAll(pagination = { limit: process.env.limit, offset: 0 }) {
+  async readAll(pagination = { limit: 30, offset: 0 }) {
 
     return await UserRepository.readAll(pagination);
   }

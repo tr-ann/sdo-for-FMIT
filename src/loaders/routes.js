@@ -11,14 +11,16 @@ const hasAccess = require('../middleware/hasAccess');
 
 module.exports = (app) => {
 
-  app.post('/login/refresh', tryCatch(AuthController.refreshToken));
   app.post('/login', tryCatch(AuthController.loginWithJWT));
+  app.post('/login/refresh', tryCatch(AuthController.refreshToken));
+
   //app.post('/login', tryCatch(AuthController.login));
   //app.use(tryCatch(isAuthenticated));
   
   app.use(tryCatch(isValidToken));
   
   //app.get('/logout', tryCatch(AuthController.logout));
+
   app.get('/logout', tryCatch(AuthController.logoutWithJWT));
   
   app.use(tryCatch(hasAccess));
