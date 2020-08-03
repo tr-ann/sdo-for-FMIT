@@ -12,28 +12,23 @@ class UserController {
 
 		let createdUser = await sequelize.transaction( async (transaction) => {
 
+			let login = `${req.body.lastName}${req.body.firstName[0]}`;
+			if (req.body.middleName) {
+				login = login.concat(req.body.middleName[0]);
+			}
+
 			let user = await UserService.create({
-				login: req.body.login,
+				login: login,
 				password: req.body.password,
-				confirmedPassword: req.body.confirmedPassword,
-				phones: req.body.phones
 			}, {
 				transaction: transaction,
-				include: [{
-					model: db.Phone,
-					as: 'phones'
-				}]
 			});
+
+      let fullName = `${req.body.lastName} ${req.body.firstName} ${req.body.middleName || ''}`;
 
 			let userInfo = await UserInfoService.create({
 				userId: user.id,
-				fullName: req.body.fullName,
-				email: req.body.email,
-				birthday: req.body.birthday,
-				sex: req.body.sex,
-				description: req.body.description,
-				city: req.body.city,
-				address: req.body.address
+				fullName: fullName,
 			}, {
 				transaction: transaction
 			});

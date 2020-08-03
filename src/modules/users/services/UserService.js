@@ -1,7 +1,6 @@
 const UserRepository = require('../repositories/UserRepository');
 const { NotFound, BadRequest } = require('../../../classes/errors');
 const { sequelize } = require('../../../sequelize');
-const { Hash } = require('../../../classes');
 const db = require('../../../dbModels');
 
 class UserService {
@@ -11,11 +10,7 @@ class UserService {
     let existingUser = await UserRepository.get({where: { login: user.login }})
     
     if(existingUser[0]) {
-      throw new BadRequest("Such login is already in use");
-    }
-
-    if(!this._isConfirmedPass(user.password, user.confirmedPassword)) {
-      throw new BadRequest("Password is not confirmed");
+      throw new BadRequest("Such login is already used");
     }
 
     let newUser = await UserRepository.create(user, options);
@@ -94,7 +89,7 @@ class UserService {
     return await UserRepository.get(options);
   }
 
-  async _isConfirmedPass(password, confirmedPassword) {
+  async confirmedPassword(password, confirmedPassword) {
     return password === confirmedPassword;
   }
 }

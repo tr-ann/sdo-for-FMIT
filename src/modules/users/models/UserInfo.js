@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
 			field: 'full_name'
 		},
 		email: {
-			allowNull: false,
+			allowNull: true,
 			type: DataTypes.STRING(255),
 		},
 		sex: {
-			allowNull: false,
+			allowNull: true,
 			type: DataTypes.STRING(2),
 		},
 		description: {
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.TEXT,
 		},
 		birthday: {
-			allowNull: false,
+			allowNull: true,
 			type: DataTypes.DATE,
 		},
 		city: {

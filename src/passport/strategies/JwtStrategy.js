@@ -10,6 +10,7 @@ module.exports = new jwtStrategy(opts,
   async (jwt_payload, done) => {
 
     try {
+
       let user = (await UserRepository.get({ 
         where: { id: jwt_payload.id },
         attributes: [ 'id', 'login', 'password' ],

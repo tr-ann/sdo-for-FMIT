@@ -65,12 +65,12 @@ class AuthController {
           let accessToken = jwt.sign(
             payload,
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '10h' }
+            { expiresIn: '5m' }
           );
           let refreshToken = jwt.sign(
             payload,
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '1h' }
+            { expiresIn: '15m' }
           );
           
           resolve(
@@ -91,20 +91,6 @@ class AuthController {
     res
       .status(200)
       .json(result);
-  }
-
-  logoutWithJWT(req, res) {
-
-    res
-      .status(200)
-      .json(
-        responseFormat.build(
-          {},
-          'User logout successfully',
-          200,
-          'success'
-        )
-      );
   }
   
   logout(req, res) {

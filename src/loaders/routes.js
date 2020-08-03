@@ -8,22 +8,24 @@ const AuthController = require('../modules/auth/AuthController');
 const { tryCatch } = require('../helpers');
 const { isAuthenticated, isValidToken } = require('../passport');
 const hasAccess = require('../middleware/hasAccess');
+const SignupController = require('../modules/auth/SignupController');
 
 module.exports = (app) => {
 
+  app.post('/signup', tryCatch(SignupController.signup))
   app.post('/login', tryCatch(AuthController.loginWithJWT));
   app.post('/login/refresh', tryCatch(AuthController.refreshToken));
 
   //app.post('/login', tryCatch(AuthController.login));
   //app.use(tryCatch(isAuthenticated));
   
-  app.use(tryCatch(isValidToken));
+  //app.use(tryCatch(isValidToken));
   
   //app.get('/logout', tryCatch(AuthController.logout));
 
-  app.get('/logout', tryCatch(AuthController.logoutWithJWT));
+  //app.get('/logout', tryCatch(AuthController.logoutWithJWT));
   
-  app.use(tryCatch(hasAccess));
+  //app.use(tryCatch(hasAccess));
 
   app.use('/users', usersRouters.UserRouter);
   app.use('/roles', usersRouters.RoleRouter);

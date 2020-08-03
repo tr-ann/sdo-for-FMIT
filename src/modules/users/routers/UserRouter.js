@@ -44,11 +44,11 @@ router.get(
 
 router.post(
   '/',
-  Validator.validate({ body: [
+  /*Validator.validate({ body: [
     schemes.users.user,
     schemes.users.userInfo,
     schemes.users.phone
-  ]}),
+  ]}),*/
   tryCatch(UserController.create)
 );
 
