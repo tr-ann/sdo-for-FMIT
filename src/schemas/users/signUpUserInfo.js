@@ -24,5 +24,9 @@ module.exports = {
   birthday: Joi
     .string()
     .min(10)
-    .optional(),
+    .required(),
+  sex: Joi
+    .string()
+    .max(1)
+    .required(),
 };
