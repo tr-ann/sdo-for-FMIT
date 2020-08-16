@@ -1,9 +1,9 @@
-const UserService = require('../users/services/UserService');
-const UserInfoService = require('../users/services/UserInfoService');
-const { responseFormat } = require('../../helpers');
-const { sequelize } = require('../../sequelize');
-const roles = require('../../constants/usersInfo');
-const db = require('../../dbModels');
+const UserService = require('../../users/services/UserService');
+const UserInfoService = require('../../users/services/UserInfoService');
+const { responseFormat } = require('../../../helpers');
+const { sequelize } = require('../../../sequelize');
+const roles = require('../../../constants/usersInfo');
+const db = require('../../../dbModels');
 
 class SignupController {
 

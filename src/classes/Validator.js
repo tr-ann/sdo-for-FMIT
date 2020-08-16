@@ -20,7 +20,7 @@ class Validator {
     return schema;
   }
 
-  validate({ params, query, body } = {}) {
+  validate({ params, query, body, options } = {}) {
 
     let paramsSchema = this._mergeSchemas(params);
     let querySchema = this._mergeSchemas(query);
@@ -31,15 +31,15 @@ class Validator {
       try {
         
         if (params) {
-          await Joi.object(paramsSchema).validateAsync(req.params);
+          await Joi.object(paramsSchema).validateAsync(req.params, options);
         }
   
         if (query) {
-          await Joi.object(querySchema).validateAsync(req.query);
+          await Joi.object(querySchema).validateAsync(req.query, options);
         }
       
         if (body) {
-          await Joi.object(bodySchema).validateAsync(req.body);
+          await Joi.object(bodySchema).validateAsync(req.body, options);
         }
 
         next();
