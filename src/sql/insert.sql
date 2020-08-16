@@ -110,8 +110,10 @@ INSERT INTO "academic_ranks" (id, name) VALUES
 (3  , 'профессор');
 
 INSERT INTO "roles" (id, name) VALUES
-(1  , 'admin'),
-(2  , 'user');
+(1  , 'admin'   ),
+(2  , 'guest'   ),
+(3  , 'student' ),
+(4  , 'teacher' );
 
 INSERT INTO "users" (id, login, password) VALUES
 (1  , 1604386176, '$2b$10$QlBd4kNf8hX3qKHXqgcwu.jes8/cYb3Fz3LiFCTY/K6WZ8PcJE4cO'), /* student1 */

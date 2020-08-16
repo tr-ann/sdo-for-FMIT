@@ -1,14 +1,19 @@
 const StudentRepository = require('../repositories/StudentRepository');
 const { NotFound } = require('../../../classes/errors');
+const { DEFAULT_AMOUNT, DEFAULT_PAGE } = require('../../../constants/paginationInfo');
+
+const defaultPagination = { 
+	limit: DEFAULT_AMOUNT,
+	offset: DEFAULT_PAGE
+}
 
 class StudentService {
 
-	async create(student) {
-
-		return await StudentRepository.create(student);
+	async create(student, options) {
+		return await StudentRepository.create(student, options);
 	}
 
-	async readAll(pagination = { limit: process.env.limit, offset: 1 }) {
+	async readAll(pagination = defaultPagination) {
 
 		return await StudentRepository.readAll(pagination);
 	}

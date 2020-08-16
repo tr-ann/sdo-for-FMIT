@@ -1,13 +1,11 @@
 const UserRepository = require('../repositories/UserRepository');
 const { NotFound, BadRequest } = require('../../../classes/errors');
 const { sequelize } = require('../../../sequelize');
-const db = require('../../../dbModels');
 
 class UserService {
 
   async create(user, options) {
-
-    let existingUser = await UserRepository.get({where: { login: user.login }})
+    let existingUser = await UserRepository.get({ attributes: ['login'], where: { login: user.login }})
     
     if(existingUser[0]) {
       throw new BadRequest("Such login is already used");
@@ -19,30 +17,27 @@ class UserService {
   }
 
   async readAll(pagination = { limit: 30, offset: 0 }) {
-
     return await UserRepository.readAll(pagination);
   }
 
   async readById(id) {
+    let user = await UserRepository.readById(id);
 
-      let user = await UserRepository.readById(id);
-
-      if (!user) {
-        throw new NotFound('User not found');
-      }
-      
-      return user;
+    if (!user) {
+      throw new NotFound('User not found');
+    }
+    
+    return user;
   }
 
   async update(id, user) {
+    let oldUser = await UserRepository.readById(id);
 
-      let oldUser = await UserRepository.readById(id);
+    if (!oldUser) {
+      throw new NotFound('User not found');
+    }
 
-      if (!oldUser) {
-        throw new NotFound('User not found');
-      }
-
-      return await oldUser.update(user);
+    return await oldUser.update(user);
   }
 
   async changePassword(userId, oldPassword, newPassword) {
@@ -62,7 +57,6 @@ class UserService {
   }
 
   async destroy(id) {
-
     let user = await UserRepository.readById(id);
     
     if (!user) {
@@ -89,9 +83,6 @@ class UserService {
     return await UserRepository.get(options);
   }
 
-  async confirmedPassword(password, confirmedPassword) {
-    return password === confirmedPassword;
-  }
 }
 
 module.exports = new UserService();

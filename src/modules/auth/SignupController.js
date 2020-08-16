@@ -3,6 +3,7 @@ const UserInfoService = require('../users/services/UserInfoService');
 const { responseFormat } = require('../../helpers');
 const { sequelize } = require('../../sequelize');
 const roles = require('../../constants/usersInfo');
+const db = require('../users/models');
 
 class SignupController {
 
@@ -12,8 +13,12 @@ class SignupController {
       let user = await UserService.create({
         login: req.body.login,
         password: req.body.password,
-        confirmedPassword: req.body.confirmedPassword,
+        phones: req.body.phones,
       }, {
+        include: [{
+          model: db.Phone,
+          as: 'phones'
+        }],
         transaction: transaction,
       });
 

@@ -51,21 +51,21 @@ module.exports = (sequelize, DataTypes) => {
 			foreignKey: 'userId',
 			as: 'userInfo',
 			onDelete: 'restrict',
-			onUpdate: 'cascade'
+			onUpdate: 'restrict'
 		});
 
 		User.hasOne(models.Student, {
 			foreignKey: 'userId',
 			as: 'student',
 			onDelete: 'restrict',
-			onUpdate: 'cascade'
+			onUpdate: 'restrict'
 		});
 
 		User.hasOne(models.Teacher, {
 			foreignKey: 'userId',
 			as: 'teacher',
 			onDelete: 'restrict',
-			onUpdate: 'cascade'
+			onUpdate: 'restrict'
 		});
 
 	};

@@ -65,12 +65,12 @@ class AuthController {
           let accessToken = jwt.sign(
             payload,
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '5m' }
+            { expiresIn: '15m' }
           );
           let refreshToken = jwt.sign(
             payload,
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '15m' }
+            { expiresIn: req.body.stayLoggedIn ? '15d' : '2h' }
           );
           
           resolve(

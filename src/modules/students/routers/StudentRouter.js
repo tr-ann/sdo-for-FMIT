@@ -1,14 +1,14 @@
 const { Router } = require('express');
-const studentController = require('../controllers/StudentController');
+const StudentController = require('../controllers/StudentController');
 const { tryCatch } = require('../../../helpers');
 
 const router = Router();
 
-router.get('/:id', tryCatch(studentController.readById));
-router.post('/:id', tryCatch(studentController.update));
-router.delete('/:id', tryCatch(studentController.destroy));
+router.get('/:id', tryCatch(StudentController.readById));
+router.post('/:id', tryCatch(StudentController.update));
+router.delete('/:id', tryCatch(StudentController.destroy));
 
-router.get('/', tryCatch(studentController.readAll));
-router.post('/', tryCatch(studentController.create));
+router.get('/', tryCatch(StudentController.readAll));
+router.post('/', tryCatch(StudentController.create));
 
 module.exports = router;

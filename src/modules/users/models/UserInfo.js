@@ -36,9 +36,10 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: true,
 			type: DataTypes.DATE,
 		},
-		city: {
+		cityId: {
 			allowNull: true,
-			type: DataTypes.STRING(255),
+			type: DataTypes.INTEGER,
+			field: 'city_id'
 		},
 		address: {
 			allowNull: true,
@@ -71,7 +72,7 @@ module.exports = (sequelize, DataTypes) => {
 			foreignKey: 'userId',
 			as: 'user',
 			onDelete: 'restrict',
-			onUpdate: 'cascade'
+			onUpdate: 'restrict'
 		});
 
 		UserInfo.belongsTo(models.Resource, {
@@ -79,6 +80,13 @@ module.exports = (sequelize, DataTypes) => {
 			as: 'photo',
 			onDelete: 'set null',
 			onUpdate: 'cascade'
+		});
+
+		UserInfo.belongsTo(models.City, {
+			foreignKey: 'cityId',
+			as: 'city',
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
 		});
 
 	};

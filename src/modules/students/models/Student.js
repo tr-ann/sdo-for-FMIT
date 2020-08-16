@@ -21,11 +21,6 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING(100),
 			field: 'full_name'
 		},
-		shortName: {
-			allowNull: false,
-			type: DataTypes.STRING(100),
-			field: 'short_name'
-		},
 		recordBook: {
 			allowNull: false,
 			type: DataTypes.STRING(30),
@@ -95,6 +90,13 @@ module.exports = (sequelize, DataTypes) => {
 		Student.hasMany(models.Practice, {
 			foreignKey: 'studentId',
 			as: 'practices',
+			onDelete: 'restrict',
+			onUpdate: 'restrict'
+		});
+
+		Student.hasOne(models.StudentInfo, {
+			foreignKey: 'studentId',
+			as: 'studentInfo',
 			onDelete: 'restrict',
 			onUpdate: 'restrict'
 		});
