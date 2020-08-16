@@ -1,6 +1,6 @@
-const { NotFound, BadRequest } = require('../../classes/errors');
-const { responseFormat } = require('../../helpers');
-const { passport } = require('../../passport');
+const { NotFound, BadRequest } = require('../../../classes/errors');
+const { responseFormat } = require('../../../helpers');
+const { passport } = require('../../../passport');
 const jwt = require('jsonwebtoken');
 
 class AuthController {

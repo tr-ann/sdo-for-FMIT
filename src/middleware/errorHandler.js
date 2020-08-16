@@ -27,6 +27,18 @@ module.exports = (err, req, res, next) => {
           )
         );
       break;
+    case 'ValidationError':
+      res
+        .status(422)
+        .json(
+          responseFormat.error(
+            err,
+            err.name,
+            422,
+            'failed'
+          )
+        );
+      break;
     default:
       console.log(err)
       res

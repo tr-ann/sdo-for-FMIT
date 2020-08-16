@@ -4,15 +4,16 @@ const usersRouters = require('../modules/users/routers');
 const teachersRouters = require('../modules/teachers/routers');
 const studentsRouters = require('../modules/students/routers');
 const facultiesRouters = require('../modules/faculties/routers');
-const AuthController = require('../modules/auth/AuthController');
+const authRouters = require('../modules/auth/routers')
+const AuthController = require('../modules/auth/controllers/AuthController');
 const { tryCatch } = require('../helpers');
 const { isAuthenticated, isValidToken } = require('../passport');
 const hasAccess = require('../middleware/hasAccess');
-const SignupController = require('../modules/auth/SignupController');
+const SignupController = require('../modules/auth/controllers/SignupController');
 
 module.exports = (app) => {
 
-  app.post('/signup', tryCatch(SignupController.signup))
+  app.post('/signup', authRouters.SignUpRouter)
   app.post('/login', tryCatch(AuthController.loginWithJWT));
   app.post('/login/refresh', tryCatch(AuthController.refreshToken));
 
