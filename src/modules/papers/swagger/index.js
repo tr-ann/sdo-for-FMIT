@@ -1,1 +1,0 @@
-module.exports.resource = require('./resource.json');

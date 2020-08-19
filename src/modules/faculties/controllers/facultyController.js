@@ -7,7 +7,7 @@ class FacultyController {
 
   async create(req, res, next) {
       
-    let facultyId = await sequelize.transaction( async (transaction) => {
+    let faculty = await sequelize.transaction( async (transaction) => {
 
       let faculty = await FacultyService.create({
         name: req.body.name,
@@ -24,14 +24,14 @@ class FacultyController {
         transaction: transaction
       });
 
-      return faculty.id;
+      return faculty;
     });
 
     res
       .status(201)
       .json(
         responseFormat.build(
-          facultyId,
+          faculty.id,
           "Faculty created successfully",
           201,
           "success"

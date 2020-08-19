@@ -32,16 +32,6 @@ class StudentRepository {
 					attributes: [ 'number' ],
 					as: 'group'
 				},
-				{
-					model: db.Subgroup,
-					attributes: [ 'name' ],
-					include: [{
-						model: db.Group,
-						attributes: [ 'number' ],
-						as: 'group'
-					}],
-					as: 'subgroups'
-				}
 			]
 		})
 	}

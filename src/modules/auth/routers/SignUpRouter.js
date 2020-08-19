@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const SignUpController = require('../controllers/SignupController');
+const SignUpController = require('../controllers/SignUpController');
 const {tryCatch} = require('../../../helpers');
 const Validator = require('../../../classes/validator');
 const schemes = require('../../../schemas');
@@ -11,7 +11,7 @@ router.post(
   Validator.validate({
       body: [
         schemes.users.user,
-        schemes.users.signUpUserInfo,
+        schemes.auth.signUpUserInfo,
         schemes.users.phone,
       ],
       options: {abortEarly: false},

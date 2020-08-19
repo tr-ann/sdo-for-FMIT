@@ -26,11 +26,6 @@ class GroupRepository {
           as: 'studyMode',
           attributes: [ 'id', 'name' ],
         },
-        {
-          model: db.Teacher,
-          as: 'teachers',
-          attributes: [ 'id', 'fullName' ],
-        },
       ],
     })
   }
@@ -59,11 +54,6 @@ class GroupRepository {
           model: db.StudyMode,
           as: 'studyMode',
           attributes: [ 'id', 'name' ],
-        },
-        {
-          model: db.Teacher,
-          as: 'teachers',
-          attributes: [ 'id', 'fullName' ],
         },
         {
           model: db.Student,

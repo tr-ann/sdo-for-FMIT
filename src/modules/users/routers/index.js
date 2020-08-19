@@ -2,6 +2,8 @@ const userRouter = require('./UserRouter');
 const roleRouter = require('./RoleRouter');
 const controlPointRouter = require('./ControlPointRouter');
 
-module.exports.UserRouter = userRouter;
-module.exports.RoleRouter = roleRouter;
-module.exports.ControlPointRouter = controlPointRouter;
+module.exports = (app) => {
+  app.use(userRouter);
+  app.use(roleRouter);
+  app.use(controlPointRouter);
+}

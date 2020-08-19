@@ -21,11 +21,6 @@ class DepartmentRepository {
           as: 'user',
           attributes: [ 'id', 'login' ],
         },
-        {
-          model: db.LectureRoom,
-          as: 'lectureRoom',
-          attributes: [ 'id', 'number' ],
-        },
       ],
     });
   }
@@ -49,11 +44,6 @@ class DepartmentRepository {
           model: db.User,
           as: 'user',
           attributes: [ 'id', 'login' ],
-        },
-        {
-          model: db.LectureRoom,
-          as: 'lectureRoom',
-          attributes: [ 'id', 'number' ],
         },
       ],
     });

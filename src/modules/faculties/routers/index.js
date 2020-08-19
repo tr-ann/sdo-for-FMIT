@@ -1,7 +1,16 @@
-module.exports.departmentRouter = require('./departmentRouter');
-module.exports.facultyRouter = require('./facultyRouter');
-module.exports.groupRouter = require('./groupRouter');
-module.exports.infoFacultyRouter = require('./infoFacultyRouter');
-module.exports.specialtyRouter = require('./specialtyRouter');
-module.exports.studyModeRouter = require('./studyModeRouter');
-module.exports.subgroupRouter = require('./subgroupRouter');
+const departmentRouter = require('./departmentRouter');
+const facultyRouter = require('./facultyRouter');
+const groupRouter = require('./groupRouter');
+const infoFacultyRouter = require('./infoFacultyRouter');
+const specialtyRouter = require('./specialtyRouter');
+const studyModeRouter = require('./studyModeRouter');
+
+
+module.exports = (app) => {
+  app.use(departmentRouter);
+  app.use(facultyRouter);
+  app.use(groupRouter);
+  app.use(infoFacultyRouter);
+  app.use(specialtyRouter);
+  app.use(studyModeRouter);
+}

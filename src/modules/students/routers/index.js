@@ -1,3 +1,5 @@
 const StudentRouter = require('./StudentRouter');
 
-module.exports.StudentRouter = StudentRouter;
+module.exports = (app) => {
+  app.use(StudentRouter);
+}

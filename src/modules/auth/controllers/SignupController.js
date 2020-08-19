@@ -1,13 +1,14 @@
-const UserService = require('../users/services/UserService');
-const UserInfoService = require('../users/services/UserInfoService');
-const { responseFormat } = require('../../helpers');
-const { sequelize } = require('../../sequelize');
-const roles = require('../../constants/usersInfo');
-const db = require('../users/models');
+const UserService = require('../../users/services/UserService');
+const UserInfoService = require('../../users/services/UserInfoService');
+const { responseFormat } = require('../../../helpers');
+const { sequelize } = require('../../../sequelize');
+const roles = require('../../../constants/rolesInfo');
+const db = require('../../../dbModels');
 
 class SignupController {
 
   async signup(req, res) {
+    
     let createdUser = await sequelize.transaction( async (transaction) => {
 
       let user = await UserService.create({

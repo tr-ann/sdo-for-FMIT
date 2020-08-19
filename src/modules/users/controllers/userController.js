@@ -3,7 +3,7 @@ const UserInfoService = require('../services/UserInfoService');
 const PhoneService = require('../services/PhoneService');
 const { responseFormat } = require('../../../helpers');
 const { sequelize } = require('../../../sequelize');
-const roles = require('../../../constants/usersInfo');
+const roles = require('../../../constants/rolesInfo');
 const db = require('../../../dbModels');
 
 class UserController {

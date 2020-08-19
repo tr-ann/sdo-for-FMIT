@@ -75,13 +75,6 @@ module.exports = (sequelize, DataTypes) => {
 			onUpdate: 'restrict'
 		});
 
-		UserInfo.belongsTo(models.Resource, {
-			foreignKey: 'photoId',
-			as: 'photo',
-			onDelete: 'set null',
-			onUpdate: 'cascade'
-		});
-
 		UserInfo.belongsTo(models.City, {
 			foreignKey: 'cityId',
 			as: 'city',

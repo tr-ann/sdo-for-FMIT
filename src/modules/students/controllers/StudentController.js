@@ -3,7 +3,7 @@ const { responseFormat } = require('../../../helpers');
 const { sequelize } = require('../../../sequelize');
 const UserService = require('../../users/services/UserService');
 const db = require('../../../dbModels');
-const roles = require('../../../constants/usersInfo');
+const roles = require('../../../constants/rolesInfo');
 
 class StudentController {
 

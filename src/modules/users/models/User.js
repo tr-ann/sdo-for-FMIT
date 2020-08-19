@@ -61,13 +61,6 @@ module.exports = (sequelize, DataTypes) => {
 			onUpdate: 'restrict'
 		});
 
-		User.hasOne(models.Teacher, {
-			foreignKey: 'userId',
-			as: 'teacher',
-			onDelete: 'restrict',
-			onUpdate: 'restrict'
-		});
-
 	};
 	
 	User.beforeCreate(

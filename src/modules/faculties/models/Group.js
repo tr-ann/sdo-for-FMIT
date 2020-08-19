@@ -60,34 +60,13 @@ module.exports = (sequelize, DataTypes) => {
       as: 'faculty',
     });
 
-    Group.belongsToMany(models.Teacher, {
-      through: models.Curator,
-      onUpdate: 'restrict',
-      onDelete: 'restrict',
-      foreignKey: 'groupId',
-      as: 'teachers',
-    });
-
     Group.hasMany(models.Student, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'groupId',
       as: 'students',
     });
-
-    Group.hasMany(models.Subgroup, {
-      onUpdate: 'restrict',
-      onDelete: 'restrict',
-      foreignKey: 'groupId',
-      as: 'subgroups',
-    });
-
-    Group.hasMany(models.Lesson, {
-      onUpdate: 'restrict',
-      onDelete: 'restrict',
-      foreignKey: 'groupId',
-      as: 'lessons',
-    });
+    
   };
 
   return Group;

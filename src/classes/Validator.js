@@ -50,28 +50,6 @@ class Validator {
     }
   }
   
-  /*
-  validate(schemas) {
-
-    let objectSchema = this._mergeSchemas(schemas);
-
-    return async (req, res, next) => {
-
-      try {
-
-        let object = {};
-        Object.assign(object, req.query || {}, req.params || {}, req.body || {});
-
-        await Joi.object(objectSchema).validateAsync(object);
-
-        next();
-      }
-      catch (error) {
-        next(error);
-      }
-    }
-  }
-  */
 }
 
 module.exports = new Validator();

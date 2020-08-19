@@ -50,33 +50,13 @@ module.exports = (sequelize, DataTypes) => {
       as: "user",
     });
 
-    Department.hasMany(models.Teacher, {
-      onUpdate: 'restrict',
-      onDelete: 'restrict',
-      foreignKey: 'departmentId',
-      as: 'teachers',
-    });
-
     Department.belongsTo(models.Faculty, {
       onUpdate: 'restrict',
       onDelete: 'restrict',
       foreignKey: 'facultyId',
       as: "faculty",
     });
-
-    Department.belongsTo(models.LectureRoom, {
-      onUpdate: 'restrict',
-      onDelete: 'restrict',
-      foreignKey: 'lectureRoomId',
-      as: "lectureRoom",
-    });
-
-    Department.hasMany(models.TeacherPosition, {
-			foreignKey: 'departmentId',
-			as: 'employees',
-			onDelete: 'restrict',
-			onUpdate: 'restrict'
-    });
+    
   }
 
   return Department;

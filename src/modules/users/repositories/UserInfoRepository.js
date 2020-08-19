@@ -21,13 +21,6 @@ class UserInfoRepository {
 	async readById(userId) {        
 		return await db.UserInfo.findOne({
 			attributes: [ 'id', 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
-			include: [
-				{
-					model: db.Resource,
-					attributes: [ 'id', 'description' ],
-				},
-			],
-
 			where: { userId: userId }
 		});
 	}

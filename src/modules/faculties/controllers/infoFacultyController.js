@@ -25,14 +25,14 @@ class InfoFacultyController {
 
   async readAll(req, res, next) {
       
-    let infoFacultys = await InfoFacultyService.readAll();
+    let infoFaculties = await InfoFacultyService.readAll();
     
     res
       .status(200)
       .json(
         responseFormat.build(
-          infoFacultys,
-          "InfoFacultys read successfully",
+          infoFaculties,
+          "InfoFaculties read successfully",
           200,
           "success"
         )

@@ -44,14 +44,6 @@ module.exports = (sequelize, DataTypes) => {
 
 	Student.associate = (models) => {
 
-		Student.belongsToMany(models.Subgroup, {
-			through: models.StudentSubgroup,
-			foreignKey: 'studentId',
-			as: 'subgroups',
-			onDelete: 'restrict',
-			onUpdate: 'cascade'
-		});
-
 		Student.belongsTo(models.User, {
 			foreignKey: 'userId',
 			as: 'user',
@@ -64,34 +56,6 @@ module.exports = (sequelize, DataTypes) => {
 			as: 'group',
 			onDelete: 'set null',
 			onUpdate: 'cascade'
-		});
-
-		Student.hasMany(models.GraduationPaper, {
-			foreignKey: 'studentId',
-			as: 'graduationPapers',
-			onDelete: 'restrict',
-			onUpdate: 'restrict'
-		});
-
-		Student.hasMany(models.TermPaper, {
-			foreignKey: 'studentId',
-			as: 'termPapers',
-			onDelete: 'restrict',
-			onUpdate: 'restrict'
-		});
-
-		Student.hasMany(models.Request, {
-			foreignKey: 'studentId',
-			as: 'requests',
-			onDelete: 'restrict',
-			onUpdate: 'restrict'
-		});
-
-		Student.hasMany(models.Practice, {
-			foreignKey: 'studentId',
-			as: 'practices',
-			onDelete: 'restrict',
-			onUpdate: 'restrict'
 		});
 
 		Student.hasOne(models.StudentInfo, {
