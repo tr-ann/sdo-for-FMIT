@@ -4,13 +4,15 @@ module.exports = {
   fullName: Joi
     .string()
     .max(150)
-    .required(),
-  shortName: Joi
-    .string()
-    .max(50)
-    .required(),
+    .exist()
+    .optional(),
+  groupId: Joi
+    .number()
+    .exist()
+    .optional(),
   recordBook: Joi
     .string()
     .max(30)
-    .required()
+    .exist()
+    .optional(),
 }

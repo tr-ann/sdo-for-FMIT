@@ -15,7 +15,7 @@ module.exports = {
     .string()
     .min(1)
     .max(255)
-    .required(),
+    .optional(),
   email: Joi
     .string()
     .email()

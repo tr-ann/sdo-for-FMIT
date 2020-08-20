@@ -7,14 +7,16 @@ const SignInController = require('../controllers/SignInController');
 const router = Router();
 
 
-router.post('/login',
+router.post(
+  '/login',
   Validator.validate({
     body: [ schemes.auth.signInInfo ],
   }),
   tryCatch(SignInController.loginWithJWT)
 );
 
-router.post('/refresh',
+router.post(
+  '/refresh',
   Validator.validate({
     body: [ schemes.auth.refreshToken ]
   }),

@@ -20,7 +20,7 @@ class UserInfoRepository {
 	 */
 	async readById(userId) {        
 		return await db.UserInfo.findOne({
-			attributes: [ 'id', 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+			attributes: [ 'id', 'fullName', 'email', 'sex', 'description', 'birthday', 'cityId', 'address' ],
 			where: { userId: userId }
 		});
 	}

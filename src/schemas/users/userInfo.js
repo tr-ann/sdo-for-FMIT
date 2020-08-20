@@ -22,9 +22,8 @@ module.exports = {
     .string()
     .min(10)
     .required(),
-  city: Joi
-    .string()
-    .max(255)
+  cityId: Joi
+    .number()
     .optional(),
   address: Joi
     .string()

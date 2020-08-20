@@ -52,7 +52,7 @@ CREATE TABLE "users_info" (
   "email"                 VARCHAR(255)    ,
   "description"           TEXT            ,
   "birthday"              DATE            ,
-  "city"                  VARCHAR(255)    ,
+  "city_id"               INTEGER         ,
   "address"               TEXT            ,
   "photo_id"              INTEGER         ,
   "deleted_date"          TIMESTAMP         

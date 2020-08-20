@@ -64,7 +64,12 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: true,
 			type: DataTypes.TEXT,
 			field: 'individual_info',
-    },
+		},
+		isBrsm: {
+			allowNull: true,
+			type: DataTypes.BOOLEAN,
+			field: 'is_brsm',
+		},
     firstParentName: {
 			allowNull: true,
 			type: DataTypes.STRING(255),

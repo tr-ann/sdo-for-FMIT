@@ -2,8 +2,8 @@ const db = require('../../../dbModels')
 
 class StudentRepository {
 
-	async create(student, options) {
-		return await db.Student.create(student, options)
+	async create(student, options = {}) {
+		return await db.Student.create(student, options);
 	}
 
 	async readById(id) {   
@@ -11,29 +11,30 @@ class StudentRepository {
 			attributes: [ 'id', 'fullName', 'recordBook' ],
 			include: [
 				{
-					model: db.User,
-					attributes: [ 'id', 'login' ],
+					model: db.StudentInfo,
+					attributes: [ 'id', 'address', 'sex', 'passportNumber',
+						'passportProvider', 'passportDate', 'birthday', 'citizenship',
+						'diseases', 'peGroup', 'individualInfo', 'isBrsm' ],
 					include: [
 						{
-							model: db.UserInfo,
-							attributes: [ 'email' ],
-							as: 'userInfo'
+							model: db.City,
+							attributes: [ 'id', 'name' ],
+							as: 'city',
 						},
 						{
-							model: db.StudentInfo,
-							//attributes: [],
-							as: 'studentInfo'
+							model: db.FinishedEducation,
+							attributes: [ 'id', 'name' ],
+							as: 'finishedEducation',
 						}
 					],
-					as: 'user'
+					as: 'studentInfo',
 				},
 				{
 					model: db.Group,
 					attributes: [ 'number' ],
 					as: 'group'
-				},
-			]
-		})
+				}]
+		});
 	}
 
 	async readAll(pagination) {
@@ -47,21 +48,23 @@ class StudentRepository {
 			],
 			limit: pagination.limit,
       offset: pagination.offset
-		})
+		});
 	}
 
-	async update(id, student, options) {
+	async update(id, student, options = {}) {
 		Object.assign(options, { where: { id: id }});
 
 		return await db.Student.update(student, options);
 	}
 
-	async destroy(id) {
-		return await db.Student.destroy({where: { id: id }})
+	async destroy(id, options = {}) {
+		Object.assign(options, { where: { id: id }});
+
+		return await db.Student.destroy(options);
 	}
 
 	async get(options) {
-		return await db.Student.findAll(options)
+		return await db.Student.findAll(options);
 	}
 }
 

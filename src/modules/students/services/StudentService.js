@@ -1,6 +1,11 @@
 const StudentRepository = require('../repositories/StudentRepository');
-const { NotFound } = require('../../../classes/errors');
+const { NotFound, BadRequest } = require('../../../classes/errors');
 const { DEFAULT_AMOUNT, DEFAULT_PAGE } = require('../../../constants/paginationInfo');
+const { sequelize } = require('../../../sequelize');
+const UserService = require('../../users/services/UserService');
+const StudentInfoService = require('./StudentInfoService');
+const db = require('../../../dbModels');
+const roles = require('../../../constants/rolesInfo');
 
 const defaultPagination = { 
 	limit: DEFAULT_AMOUNT,
@@ -9,12 +14,42 @@ const defaultPagination = {
 
 class StudentService {
 
-	async create(student, options) {
-		return await StudentRepository.create(student, options);
+	async create(data) {
+
+		let student = await sequelize.transaction(async (transaction) => {
+
+			let user = await UserService.readById(data.userId);
+
+			const student = await StudentRepository.create({
+				userId: user.id,
+				fullName: data.fullName || user.userInfo.fullName,
+				groupId: data.groupId,
+				recordBook: data.recordBook,
+				studentInfo: {
+					sex: user.userInfo.sex,
+					birthday: user.userInfo.birthday,
+					cityId: user.userInfo.cityId,
+					address: user.userInfo.address,
+				}
+			}, {
+				include: [{
+					model: db.StudentInfo,
+					as: 'studentInfo',
+				}],
+				transaction: transaction,
+			});
+
+			await user.setStudent(student.id, { transaction: transaction });
+
+			await user.addRole(roles.STUDENT_ROLE_ID, { transaction: transaction })
+
+			return student;
+		});
+
+		return student;
 	}
 
 	async readAll(pagination = defaultPagination) {
-
 		return await StudentRepository.readAll(pagination);
 	}
 
@@ -29,30 +64,55 @@ class StudentService {
 		return student;
 	}
 
-	async update(id, student) {
+	async update(id, studentInfo) {
 
-		let oldStudent = StudentRepository.readById(id);
+		let student = await StudentRepository.readById(id);
 
-		if(!oldStudent) {
+		if(!student) {
 			throw new NotFound(`Student not found`);
 		}
 
-		return await StudentRepository.update(id, student);
+		await StudentRepository.update(id, {
+			fullName: studentInfo.fullName,
+			groupId: studentInfo.groupId,			// ???
+			recordBook: studentInfo.recordBook,	// ???
+		});
+
+		// Promise.allSettled
+
+		await StudentInfoService.update(student.studentInfo.id, studentInfo);
+
+		return 
 	}
 
 	async destroy(id) {
 
-		let oldStudent = StudentRepository.readById(id);
+		let student = await StudentRepository.readById(id);
 
-		if(!oldStudent) {
+		if(!student) {
 			throw new NotFound(`Student not found`);
 		}
 
-		return await StudentRepository.destroy(id);
+		sequelize.transaction(async (transaction) => {
+
+			let user = await student.getUser();
+
+			await StudentInfoService.destroy(student.studentInfo.id, {transaction: transaction});
+
+			await StudentRepository.destroy(id, {transaction: transaction});
+
+			let studentRole = await user.getRoles({ where: { id: roles.STUDENT_ROLE_ID }});
+
+			if (studentRole[0]) {
+				await user.removeRole(studentRole[0].id, {	transaction: transaction });
+			}
+
+		})
+
+		return id;
 	}
 
 	async get(options) {
-		
 		return await StudentRepository.get(options);
 	}
 }
