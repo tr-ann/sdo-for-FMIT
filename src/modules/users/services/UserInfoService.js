@@ -19,15 +19,15 @@ class UserInfoService {
 		return userInfo;
 	}
 
-	async update(userId, userInfo) {
+	async update(userId, data, options) {
 
-		let oldUserInfo = await UserInfoRepository.readById({ where: { userId: userId }});
-		
-		if (!oldUserInfo) {
+		let userInfo = await UserInfoRepository.readById(userId);
+
+		if (!userInfo) {
 			throw new NotFound('User info not found');
 		}
 
-		return await UserInfoRepository.update(oldUserInfo.id, userInfo);
+		return await UserInfoRepository.update(userInfo.id, data, options);
 	}
 
 	async destroy(id) {

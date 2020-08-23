@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
 		User.hasMany(models.Phone, {
 			foreignKey: 'userId',
 			as: 'phones',
-			onDelete: 'restrict',
+			onDelete: 'cascade',
 			onUpdate: 'cascade'
 		});
 

@@ -1,6 +1,9 @@
 const UserRepository = require('../repositories/UserRepository');
 const { NotFound, BadRequest } = require('../../../classes/errors');
 const { sequelize } = require('../../../sequelize');
+const PhoneService = require('./PhoneService');
+const db = require('../models');
+const UserInfoService = require('./UserInfoService');
 
 class UserService {
 
@@ -30,14 +33,30 @@ class UserService {
     return user;
   }
 
-  async update(id, user) {
-    let oldUser = await UserRepository.readById(id);
+  async update(id, data, options) {
 
-    if (!oldUser) {
-      throw new NotFound('User not found');
-    }
+    let user = await this.readById(id);
 
-    return await oldUser.update(user);
+    await sequelize.transaction( async (transaction) => {
+		
+      await PhoneService.addToUser(user, data.phones, { transaction: transaction });
+      
+      await UserInfoService.update(user.id, {
+        fullName: data.fullName,
+				email: data.email,
+				birthday: data.birthday,
+				sex: data.sex,
+				description: data.description,
+				city: data.city,
+				address: data.address
+      }, {
+        transaction: transaction
+      });
+
+			return;
+		});
+
+    return;
   }
 
   async changePassword(userId, oldPassword, newPassword) {
@@ -64,11 +83,7 @@ class UserService {
 
     return await sequelize.transaction( async (transaction) => {
 
-      let phones = await user.getPhones();
-
-      for (let phone of phones) {
-        phone.destroy({ transaction: transaction });
-      }
+      await PhoneService.destroyUserPhones(id, { transaction: transaction });
       
       let userInfo = await user.getUserInfo();
       await userInfo.destroy({ transaction: transaction });

@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 		Phone.belongsTo(models.User, {
 			foreignKey: 'userId',
 			as: 'user',
-			onDelete: 'restrict',
+			onDelete: 'cascade',
 			onUpdate: 'cascade'
 		});
 
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
 	Phone.afterUpdate( async (phone) => {
 		console.log(phone)
 
-		phone.userId || phone.destroy();
+		//phone.userId || phone.destroy();
 	})
 
 	return Phone;

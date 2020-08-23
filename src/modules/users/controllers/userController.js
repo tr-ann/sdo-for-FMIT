@@ -1,11 +1,9 @@
 const UserService = require('../services/UserService');
 const UserInfoService = require('../services/UserInfoService');
-const PhoneService = require('../services/PhoneService');
 const { responseFormat } = require('../../../helpers');
 const { sequelize } = require('../../../sequelize');
 const roles = require('../../../constants/rolesInfo');
-const db = require('../../../dbModels');
-const { BadRequest, NotFound } = require('../../../classes/errors');
+const { BadRequest } = require('../../../classes/errors');
 
 class UserController {
 
@@ -79,37 +77,8 @@ class UserController {
 			);
 	}
 	
-	async update(req, res, next) {
-
-		// TODO: перенести метод в сервис и сделать все через сервисы, а не db
-		
-		await sequelize.transaction( async (transaction) => {
-		
-			//await PhoneService.addToUser(/*req.user.id*/req.params.id, req.body.phones, { transaction: transaction });
-
-			let user = await UserService.readById(req.params.id);
-
-			if (!user) {
-				throw new NotFound('User not found');
-			}
-
-			await user.setPhones(req.body.phones);
-
-			await db.UserInfo.update({
-				fullName: req.body.fullName,
-				email: req.body.email,
-				birthday: req.body.birthday,
-				sex: req.body.sex,
-				description: req.body.description,
-				city: req.body.city,
-				address: req.body.address
-			}, {
-				where: { userId: user.id },
-				transaction: transaction
-			});
-
-			return;
-		});
+	async update(req, res, next) {		
+		await UserService.update(req.params.id, req.body);
 		
 		res
 			.status(200)
@@ -129,7 +98,7 @@ class UserController {
 			await UserService.changePassword(req.user.id, req.body.oldPassword, req.body.newPassword);
 		}
 		else {
-			throw new BadRequest("Ай-яй, не в своего пользователя лезете");
+			throw new BadRequest();
 		}
 
 		res

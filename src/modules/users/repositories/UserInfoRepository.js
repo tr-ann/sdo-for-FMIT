@@ -33,7 +33,9 @@ class UserInfoRepository {
 	 * @return {Promise} promise with result of update
 	 */
 	async update(id, userInfo, options) {
-		return await db.UserInfo.update(userInfo, {where: { id: id }}, options);
+		Object.assign(options, { where: { id: id }});
+
+		return await db.UserInfo.update(userInfo, options);
 	}
 
 	/**
