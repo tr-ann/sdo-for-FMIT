@@ -5,17 +5,15 @@ const { responseFormat } = require('../../../helpers');
 const { sequelize } = require('../../../sequelize');
 const roles = require('../../../constants/rolesInfo');
 const db = require('../../../dbModels');
+const { BadRequest, NotFound } = require('../../../classes/errors');
 
 class UserController {
 
 	async create(req, res, next) {
 
-		let createdUser = await sequelize.transaction( async (transaction) => {
+		let user = await sequelize.transaction( async (transaction) => {
 
-			let login = `${req.body.lastName}${req.body.firstName[0]}`;
-			if (req.body.middleName) {
-				login = login.concat(req.body.middleName[0]);
-			}
+			let login = `${req.body.lastName}${req.body.firstName[0]}${req.body.middleName?.[0] || ''}`;
 
 			let user = await UserService.create({
 				login: login,
@@ -34,7 +32,6 @@ class UserController {
 			});
 	
 			await user.setUserInfo(userInfo, { transaction: transaction	});
-
 			await user.setRoles(roles.DEFAULT_ROLE_ID, { transaction: transaction	});
 
 			return user;
@@ -44,7 +41,7 @@ class UserController {
 			.status(201)
 			.json(
 				responseFormat.build(
-					{ id: createdUser.id },
+					{ id: user.id },
 					"User created successfully", 
 					201, 
 					"success"
@@ -83,10 +80,20 @@ class UserController {
 	}
 	
 	async update(req, res, next) {
+
+		// TODO: перенести метод в сервис и сделать все через сервисы, а не db
 		
-		let updatedUser = await sequelize.transaction( async (transaction) => {
+		await sequelize.transaction( async (transaction) => {
 		
-			await PhoneService.addToUser(req.user.id, req.body.phones, { transaction: transaction });
+			//await PhoneService.addToUser(/*req.user.id*/req.params.id, req.body.phones, { transaction: transaction });
+
+			let user = await UserService.readById(req.params.id);
+
+			if (!user) {
+				throw new NotFound('User not found');
+			}
+
+			await user.setPhones(req.body.phones);
 
 			await db.UserInfo.update({
 				fullName: req.body.fullName,
@@ -97,21 +104,18 @@ class UserController {
 				city: req.body.city,
 				address: req.body.address
 			}, {
-				where: { userId: req.user.id },
+				where: { userId: user.id },
 				transaction: transaction
 			});
 
+			return;
 		});
-
-		if(req.body.newPassword) {
-			await UserService.changePassword(req.user.id, req.body.oldPassword, req.body.newPassword);
-		}
 		
 		res
 			.status(200)
 			.json(
 				responseFormat.build(
-					updatedUser,
+					null,
 					"User updated successfully",
 					200,
 					"success"
@@ -119,13 +123,20 @@ class UserController {
 			);
 	}
 
-	async restorePassword(req, res, next) {
+	async updatePassword(req, res, next) {
+
+		if (req.user.id === req.params.id) {
+			await UserService.changePassword(req.user.id, req.body.oldPassword, req.body.newPassword);
+		}
+		else {
+			throw new BadRequest("Ай-яй, не в своего пользователя лезете");
+		}
 
 		res
 			.status(200)
 			.json(
 				responseFormat.build(
-					{},
+					null,
 					"Password successfully restored",
 					200,
 					"success"

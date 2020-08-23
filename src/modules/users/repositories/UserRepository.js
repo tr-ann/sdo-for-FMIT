@@ -52,7 +52,7 @@ class UserRepository {
 			include: [
 				{ 
 					model: db.UserInfo,
-					attributes: [ 'fullName', 'email', 'sex', 'description', 'birthday', 'city', 'address' ],
+					attributes: [ 'fullName', 'email' ],
 					as: 'userInfo'
 				},
 				{
@@ -60,11 +60,6 @@ class UserRepository {
 					attributes: [ 'id', 'name' ],
 					as: 'roles'
 				},
-				{
-					model: db.Phone,
-					attributes: [ 'id', 'phone' ],
-					as: 'phones'
-				}
 			],
 			limit: pagination.limit,
 			offset: pagination.offset

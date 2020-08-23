@@ -46,7 +46,6 @@ class UserService {
     if (!user) {
       throw new NotFound('User not found');
     }
-
     if (!user.validPassword(oldPassword)) {
       throw new BadRequest('Password is not confirmed');
     }

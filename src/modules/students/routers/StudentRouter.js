@@ -34,7 +34,7 @@ router.delete(
 
 router.get(
   '/',
-  Validator.validate({ params: [schemas.pagination] }),
+  Validator.validate({ query: [schemas.pagination] }),
   tryCatch(StudentController.readAll)
 );
 

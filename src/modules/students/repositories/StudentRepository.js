@@ -8,7 +8,7 @@ class StudentRepository {
 
 	async readById(id) {   
 		return await db.Student.findByPk(id, {
-			attributes: [ 'id', 'fullName', 'recordBook' ],
+			attributes: [ 'id', 'userId', 'fullName', 'recordBook' ],
 			include: [
 				{
 					model: db.StudentInfo,
@@ -25,7 +25,7 @@ class StudentRepository {
 							model: db.FinishedEducation,
 							attributes: [ 'id', 'name' ],
 							as: 'finishedEducation',
-						}
+						},
 					],
 					as: 'studentInfo',
 				},
@@ -43,7 +43,8 @@ class StudentRepository {
 			include: [
 				{
 					model: db.Group,
-					attributes: [ 'id', 'number' ]
+					attributes: [ 'id', 'number' ],
+					as: 'group'
 				},
 			],
 			limit: pagination.limit,

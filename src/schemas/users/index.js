@@ -1,4 +1,5 @@
 module.exports.user = require('./user');
+module.exports.createUser = require('./createUser');
 module.exports.userInfo = require('./userInfo');
 module.exports.controlPoint = require('./controlPoint');
 module.exports.phone = require('./phone');

@@ -1,5 +1,5 @@
 const StudentRepository = require('../repositories/StudentRepository');
-const { NotFound, BadRequest } = require('../../../classes/errors');
+const { NotFound, BadRequest, InternalServerError } = require('../../../classes/errors');
 const { DEFAULT_AMOUNT, DEFAULT_PAGE } = require('../../../constants/paginationInfo');
 const { sequelize } = require('../../../sequelize');
 const UserService = require('../../users/services/UserService');
@@ -9,7 +9,7 @@ const roles = require('../../../constants/rolesInfo');
 
 const defaultPagination = { 
 	limit: DEFAULT_AMOUNT,
-	offset: DEFAULT_PAGE
+	offset: DEFAULT_PAGE - 1
 }
 
 class StudentService {
@@ -19,6 +19,11 @@ class StudentService {
 		let student = await sequelize.transaction(async (transaction) => {
 
 			let user = await UserService.readById(data.userId);
+
+			let isStudent = await user.getStudent();
+			if (isStudent) {
+				throw new BadRequest('User already has student role');
+			}
 
 			const student = await StudentRepository.create({
 				userId: user.id,
@@ -82,7 +87,7 @@ class StudentService {
 
 		await StudentInfoService.update(student.studentInfo.id, studentInfo);
 
-		return 
+		return;
 	}
 
 	async destroy(id) {
@@ -95,7 +100,7 @@ class StudentService {
 
 		sequelize.transaction(async (transaction) => {
 
-			let user = await student.getUser();
+			let user = await UserService.readById(student.userId);
 
 			await StudentInfoService.destroy(student.studentInfo.id, {transaction: transaction});
 
@@ -103,8 +108,11 @@ class StudentService {
 
 			let studentRole = await user.getRoles({ where: { id: roles.STUDENT_ROLE_ID }});
 
-			if (studentRole[0]) {
+			if (studentRole && studentRole[0]) {
 				await user.removeRole(studentRole[0].id, {	transaction: transaction });
+			}
+			else {
+				throw new InternalServerError('role not found');
 			}
 
 		})

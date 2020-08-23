@@ -53,13 +53,14 @@ class StudentController {
 	}
 	
 	async update(req, res, next) {
-		let student = await StudentService.update(req.params.id, req.body);
+
+		await StudentService.update(req.params.id, req.body);
 
 		res
 			.status(200)
 			.json(
 				responseFormat.build(
-					student,
+					null,
 					"Student updated successfully",
 					200,
 					"success"
