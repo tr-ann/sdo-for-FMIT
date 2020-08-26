@@ -6,12 +6,13 @@ const initCountriesRoutes = require('../modules/countries/routers');
 const { tryCatch } = require('../helpers');
 const { isValidToken } = require('../passport');
 const hasAccess = require('../middleware/hasAccess');
+const UserController = require('../modules/users/controllers/UserController');
 
 module.exports = (app) => {
 
   initAuthRoutes(app);
   
-  //app.use(tryCatch(isValidToken));
+  app.use(tryCatch(isValidToken));
   //app.use(tryCatch(hasAccess));
 
   initUsersRoutes(app);

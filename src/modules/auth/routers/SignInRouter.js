@@ -6,13 +6,12 @@ const SignInController = require('../controllers/SignInController');
 
 const router = Router();
 
-
 router.post(
   '/login',
   Validator.validate({
     body: [ schemes.auth.signInInfo ],
   }),
-  tryCatch(SignInController.loginWithJWT)
+  tryCatch(SignInController.login)
 );
 
 router.post(

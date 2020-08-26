@@ -8,7 +8,6 @@ opts.secretOrKey = process.env.ACCESS_TOKEN_SECRET;
 
 module.exports = new jwtStrategy(opts,
   async (jwt_payload, done) => {
-
     try {
 
       let user = (await UserRepository.get({ 
