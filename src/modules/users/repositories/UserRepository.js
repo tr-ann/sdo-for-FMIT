@@ -24,8 +24,23 @@ class UserRepository {
 			include: [
 				{ 
 					model: db.UserInfo,
-					attributes: [ 'id', 'fullName', 'email', 'sex', 'description', 'birthday', 'cityId', 'address' ],
-					as: 'userInfo'
+					attributes: [ 'id', 'fullName', 'email', 'sex', 'description', 'birthday', 'address' ],
+					as: 'userInfo',
+					include: [{
+						model: db.City,
+						attributes: [ 'id', 'name' ],
+						as: 'city',
+						/*include: [{
+							model: db.Region,
+							attributes: [ 'id', 'name' ],
+							as: 'region',
+							include: [{
+								model: db.Country,
+								attributes: [ 'id', 'name' ],
+								as: 'country',
+							}]
+						}]*/
+					}]
 				},
 				{
 					model: db.Role,

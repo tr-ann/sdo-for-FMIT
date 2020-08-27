@@ -47,7 +47,7 @@ class UserService {
 				birthday: data.birthday,
 				sex: data.sex,
 				description: data.description,
-				city: data.city,
+				cityId: data.cityId,
 				address: data.address
       }, {
         transaction: transaction
