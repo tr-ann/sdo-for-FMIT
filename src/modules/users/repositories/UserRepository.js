@@ -30,7 +30,7 @@ class UserRepository {
 						model: db.City,
 						attributes: [ 'id', 'name' ],
 						as: 'city',
-						/*include: [{
+						include: [{
 							model: db.Region,
 							attributes: [ 'id', 'name' ],
 							as: 'region',
@@ -39,7 +39,7 @@ class UserRepository {
 								attributes: [ 'id', 'name' ],
 								as: 'country',
 							}]
-						}]*/
+						}]
 					}]
 				},
 				{
@@ -73,7 +73,8 @@ class UserRepository {
 				{
 					model: db.Role,
 					attributes: [ 'id', 'name' ],
-					as: 'roles'
+					as: 'roles',
+					through: { attributes: [] }
 				},
 			],
 			limit: pagination.limit,

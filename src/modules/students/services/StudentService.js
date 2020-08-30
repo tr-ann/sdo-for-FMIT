@@ -27,7 +27,7 @@ class StudentService {
 
 			const student = await StudentRepository.create({
 				userId: user.id,
-				fullName: data.fullName || user.userInfo.fullName,
+				fullName: user.userInfo.fullName,
 				groupId: data.groupId,
 				recordBook: data.recordBook,
 				studentInfo: {

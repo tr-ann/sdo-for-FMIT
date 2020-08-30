@@ -5,10 +5,10 @@ module.exports = {
     .string()
     .min(6)
     .max(100)
-    .optional(),
+    .required(),
   newPassword: Joi
     .string()
     .min(6)
     .max(100)
-    .optional(),
+    .required(),
 };

@@ -12,6 +12,7 @@ module.exports = {
   middleName: Joi
     .string()
     .max(40)
+    .allow(null, '')
     .optional(),
   password: Joi
     .string()

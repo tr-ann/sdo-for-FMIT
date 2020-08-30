@@ -94,7 +94,7 @@ class UserController {
 
 	async updatePassword(req, res, next) {
 
-		if (req.user.id === req.params.id) {
+		if (req.user.id == req.params.id) {
 			await UserService.changePassword(req.user.id, req.body.oldPassword, req.body.newPassword);
 		}
 		else {

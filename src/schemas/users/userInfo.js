@@ -17,6 +17,7 @@ module.exports = {
     .required(),
   description: Joi
     .string()
+    .allow(null, '')
     .optional(),
   birthday: Joi
     .string()
@@ -28,5 +29,6 @@ module.exports = {
   address: Joi
     .string()
     .max(255)
+    .allow(null, '')
     .optional(),
 };

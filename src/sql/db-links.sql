@@ -44,7 +44,7 @@ ALTER TABLE users_info
   ADD CONSTRAINT FK_users_info_to_users FOREIGN KEY(user_id)
 		REFERENCES users(id)
 		ON DELETE RESTRICT
-		ON UPDATE RESTRICT
+		ON UPDATE RESTRICT,
 	
 	ADD CONSTRAINT FK_users_info_to_cities FOREIGN KEY(city_id)
 		REFERENCES cities(id)

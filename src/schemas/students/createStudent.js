@@ -5,11 +5,6 @@ module.exports = {
     .number()
     .min(1)
     .required(),
-  fullName: Joi
-    .string()
-    .max(150)
-    .exist()
-    .optional(),
   groupId: Joi
     .number()
     .optional(),
