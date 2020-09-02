@@ -12,7 +12,7 @@ module.exports = (app) => {
 
   initAuthRoutes(app);
   
-  //app.use(tryCatch(isValidToken));
+  app.use(tryCatch(isValidToken));
   //app.use(tryCatch(hasAccess));
 
   initUsersRoutes(app);

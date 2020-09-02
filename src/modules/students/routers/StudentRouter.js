@@ -42,8 +42,7 @@ router.post(
   '/',
   Validator.validate({
     body: [
-      schemas.students.createStudent,
-      schemas.students.passportInfo
+      schemas.students.createStudent
     ]
   }),
   tryCatch(StudentController.create)

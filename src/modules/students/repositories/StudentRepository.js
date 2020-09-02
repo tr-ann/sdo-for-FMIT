@@ -6,7 +6,7 @@ class StudentRepository {
 		return await db.Student.create(student, options);
 	}
 
-	async readById(id) {   
+	/*async readById(id) {   
 		return await db.Student.findByPk(id, {
 			attributes: [ 'id', 'userId', 'fullName', 'recordBook' ],
 			include: [
@@ -34,6 +34,38 @@ class StudentRepository {
 					attributes: [ 'number' ],
 					as: 'group'
 				}]
+		});
+	}*/
+
+	async readById(userId) {   
+		return await db.Student.findOne({
+			attributes: [ 'id', 'userId', 'fullName', 'recordBook' ],
+			include: [
+				{
+					model: db.StudentInfo,
+					attributes: [ 'id', 'address', 'sex', 'passportNumber',
+						'passportProvider', 'passportDate', 'birthday', 'citizenship',
+						'diseases', 'peGroup', 'individualInfo', 'isBrsm' ],
+					include: [
+						{
+							model: db.City,
+							attributes: [ 'id', 'name' ],
+							as: 'city',
+						},
+						{
+							model: db.FinishedEducation,
+							attributes: [ 'id', 'name' ],
+							as: 'finishedEducation',
+						},
+					],
+					as: 'studentInfo',
+				},
+				{
+					model: db.Group,
+					attributes: [ 'number' ],
+					as: 'group'
+				}],
+				where: { userId: userId }
 		});
 	}
 
