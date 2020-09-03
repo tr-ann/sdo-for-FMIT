@@ -4,6 +4,7 @@ module.exports = {
 
   cityId: Joi
     .number()
+    .allow(null)
     .optional(),
   address: Joi
     .string()
@@ -13,6 +14,7 @@ module.exports = {
   sex: Joi
     .string()
     .max(1)
+    .allow(null, '')
     .optional(),
   birthday: Joi
     .date()

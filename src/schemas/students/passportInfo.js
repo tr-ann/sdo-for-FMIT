@@ -8,7 +8,7 @@ module.exports = {
     .exist()
     .allow(null, '')
     .optional(),
-  passportNumberProvider: Joi
+  passportProvider: Joi
     .string()
     .max(100)
     .exist()
