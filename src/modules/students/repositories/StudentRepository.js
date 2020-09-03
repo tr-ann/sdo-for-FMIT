@@ -45,7 +45,9 @@ class StudentRepository {
 					model: db.StudentInfo,
 					attributes: [ 'id', 'address', 'sex', 'passportNumber',
 						'passportProvider', 'passportDate', 'birthday', 'citizenship',
-						'diseases', 'peGroup', 'individualInfo', 'isBrsm' ],
+						'diseases', 'peGroup', 'individualInfo', 'isBrsm',
+						'firstParentName', 'firstParentWork', 'firstParentAddress', 'firstParentPhone',
+						'secondParentName', 'secondParentWork', 'secondParentAddress', 'secondParentPhone' ],
 					include: [
 						{
 							model: db.City,
