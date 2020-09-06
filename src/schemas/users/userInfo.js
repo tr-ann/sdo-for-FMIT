@@ -25,6 +25,7 @@ module.exports = {
     .required(),
   cityId: Joi
     .number()
+    .allow(null)
     .optional(),
   address: Joi
     .string()
